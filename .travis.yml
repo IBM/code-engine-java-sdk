@@ -1,0 +1,30 @@
+language: java
+dist: trusty
+jdk:
+- oraclejdk8
+
+notifications:
+  email: true
+
+branches:
+  except:
+  - gh-pages
+
+cache:
+  directories:
+  - "$HOME/.m2"
+
+install: true
+
+script:
+- mvn clean package
+
+deploy:
+  - provider: releases
+    api_key: $GITHUB_OAUTH_TOKEN
+    file_glob: true
+    file:
+      - target/jvaa-sdk-template-*.jar
+    skip_cleanup: true
+    on:
+      tags: true
