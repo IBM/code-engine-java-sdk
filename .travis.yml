@@ -24,7 +24,7 @@ deploy:
     api_key: $GITHUB_OAUTH_TOKEN
     file_glob: true
     file:
-      - target/jvaa-sdk-template-*.jar
+      - target/java-sdk-template-*.jar
     skip_cleanup: true
     on:
       tags: true
