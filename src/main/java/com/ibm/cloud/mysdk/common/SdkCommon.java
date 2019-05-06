@@ -67,7 +67,7 @@ public class SdkCommon {
      *            the version of the service as defined in the API definition (e.g. "V1")
      * @param operationId
      *            the operationId as defined in the API definition (e.g. getContext)
-     * @return a Map which contains
+     * @return a Map which contains the set of headers to be included in the REST API request
      */
     public static Map<String, String> getSdkHeaders(String serviceName, String serviceVersion, String operationId) {
         Map<String, String> headers = new HashMap<>();
