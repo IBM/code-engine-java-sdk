@@ -14,7 +14,7 @@
 
     <!-- Modify these properties as needed to use the correct versions of dependencies -->
     <properties>
-        <sdk-core-version>4.1.0</sdk-core-version>
+        <sdk-core-version>4.4.0</sdk-core-version>
         <testng-version>6.14.3</testng-version>
         <surefire-version>3.0.0-M3</surefire-version>
         <checkstyle-plugin-version>3.0.0</checkstyle-plugin-version>
