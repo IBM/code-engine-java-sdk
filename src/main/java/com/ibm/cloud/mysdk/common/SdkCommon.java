@@ -26,7 +26,7 @@ import com.ibm.cloud.sdk.core.util.RequestUtils;
 public class SdkCommon {
 
     /**
-     * SDK-specific "user agent" value.
+     * SDK-specific "user agent" header value.
      */
     private static String userAgent;
 
