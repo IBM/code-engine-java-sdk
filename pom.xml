@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!-- Modify these elements to reflect your SDK project's maven coordinates -->
@@ -8,7 +8,7 @@
     <artifactId>mysdk</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>mysdk</name>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <description>A sample Java SDK produced by the IBM OpenAPI SDK Generator</description>
     <url>https://github.ibm.com/CloudEngineering/java-sdk-template</url>
 
@@ -26,6 +26,22 @@
         <maven-compiler-plugin-version>3.8.0</maven-compiler-plugin-version>
     </properties>
 
+    <!-- 
+	 Modify this section to reflect the set of modules for your SDK project.
+         In addition to the common module, you'll typically have one module
+         per generated service. 
+         For each generated service, create a new directory under modules for it,
+         then copy the modules/example-service/pom.xml file to it.
+         The "example-service" module below services as an example of this.
+	 After adding module(s) for your own generated service(s), remove
+	 "example-service" from your SDK project.
+    -->
+    <modules>
+        <module>modules/common</module>
+        <module>modules/example-service</module>
+    </modules>
+
+    <!-- Make sure this license is correct for your SDK project. -->
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -33,17 +49,20 @@
         </license>
     </licenses>
 
+    <!-- Update this section to reflect the correct settings for your git repository. -->
     <scm>
         <connection>scm:git:https://github.ibm.com/CloudEngineering/java-sdk-template</connection>
         <developerConnection>scm:git:https://github.ibm.com/CloudEngineering/java-sdk-template</developerConnection>
         <url>https://github.ibm.com/CloudEngineering/java-sdk-template/tree/master</url>
     </scm>
 
+    <!-- Update this section to reflect the correct settings for your git repository. -->
     <issueManagement>
         <system>Github</system>
         <url>https://github.ibm.com/CloudEngineering/java-sdk-template/issues</url>
     </issueManagement>
 
+    <!-- Update this section to reflect the correct settings for your SDK project. -->
     <ciManagement>
         <system>Travis-CI</system>
         <url>https://travis.ibm.com/CloudEngineering/java-sdk-template/</url>
@@ -62,137 +81,141 @@
         </repository>
     </repositories>
 
-    <dependencies>
-        <!-- This is the Java core dependency -->
-        <dependency>
-            <groupId>com.ibm.cloud</groupId>
-            <artifactId>sdk-core</artifactId>
-            <version>${sdk-core-version}</version>
-        </dependency>
+    <dependencyManagement>
+        <dependencies>
+            <!-- This is the Java core dependency -->
+            <dependency>
+                <groupId>com.ibm.cloud</groupId>
+                <artifactId>sdk-core</artifactId>
+                <version>${sdk-core-version}</version>
+            </dependency>
 
-        <!-- TestNG is an alternative to JUnit -->
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>${testng-version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+            <!-- TestNG is an alternative to JUnit -->
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>${testng-version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>${maven-source-plugin-version}</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven-javadoc-plugin-version}</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin-version}</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${checkstyle-plugin-version}</version>
-                <executions>
-                    <execution>
-                        <id>verify-style</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <failsOnError>true</failsOnError>
-                    <configLocation>build/checkstyle.xml</configLocation>
-                    <consoleOutput>true</consoleOutput>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>${findbugs-plugin-version}</version>
-                <configuration>
-                    <xmlOutput>true</xmlOutput>
-                    <excludeFilterFile>build/findbugs-exclude.xml</excludeFilterFile>
-                    <effort>Max</effort>
-                    <threshold>Low</threshold>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>findbugs</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco-plugin-version}</version>
-                <executions>
-                    <execution>
-                        <id>prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>post-unit-test</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                        <configuration>
-                            <append>true</append>
-                            <destFile>${sonar.jacoco.reportPath}</destFile>
-                            <!-- Sets the VM argument line used when unit 
-                                tests are run. -->
-                            <propertyName>surefireArgLine</propertyName>
-                        </configuration>
-                    </execution>
-                </executions>
-                <configuration>
-                    <systemPropertyVariables>
-                        <jacoco-agent.destfile>${project.build.directory}</jacoco-agent.destfile>
-                    </systemPropertyVariables>
-                </configuration>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven-source-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin-version}</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${checkstyle-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <id>verify-style</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <failsOnError>true</failsOnError>
+                        <configLocation>build/checkstyle.xml</configLocation>
+                        <consoleOutput>true</consoleOutput>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>findbugs-maven-plugin</artifactId>
+                    <version>${findbugs-plugin-version}</version>
+                    <configuration>
+                        <xmlOutput>true</xmlOutput>
+                        <excludeFilterFile>build/findbugs-exclude.xml</excludeFilterFile>
+                        <effort>Max</effort>
+                        <threshold>Low</threshold>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>findbugs</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <id>prepare-agent</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>report</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>post-unit-test</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                            <configuration>
+                                <append>true</append>
+                                <destFile>${sonar.jacoco.reportPath}</destFile>
+                                <!-- Sets the VM argument line used when unit 
+                                     tests are run. -->
+                                <propertyName>surefireArgLine</propertyName>
+                            </configuration>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <systemPropertyVariables>
+                            <jacoco-agent.destfile>${project.build.directory}</jacoco-agent.destfile>
+                        </systemPropertyVariables>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>
