@@ -1,5 +1,7 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
     <!-- Update this section to reflect the correct values for your SDK project -->
     <parent>
         <groupId>com.ibm.cloud</groupId>
@@ -7,14 +9,13 @@
         <version>1.0-SNAPSHOT</version>
         <relativePath>../..</relativePath>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
-    <!-- Update this section to reflect your SDK projct name, etc. -->
+    <!-- Update this section to reflect your SDK project name, etc. -->
     <artifactId>mysdk-common</artifactId>
     <packaging>jar</packaging>
     <name>mysdk-common</name>
 
-    
+
     <dependencies>
         <dependency>
             <groupId>com.ibm.cloud</groupId>
