@@ -26,10 +26,10 @@
         <maven-compiler-plugin-version>3.8.0</maven-compiler-plugin-version>
     </properties>
 
-    <!-- 
+    <!--
 	 Modify this section to reflect the set of modules for your SDK project.
          In addition to the common module, you'll typically have one module
-         per generated service. 
+         per generated service.
          For each generated service, create a new directory under modules for it,
          then copy the modules/example-service/pom.xml file to it.
          The "example-service" module below services as an example of this.
@@ -71,11 +71,11 @@
     <distributionManagement>
     </distributionManagement>
 
-    <!-- 
+    <!--
          Obtain the java core from JCenter.
     -->
     <repositories>
-        <repository> 
+        <repository>
             <id>jcenter</id>
             <url>https://jcenter.bintray.com/</url>
         </repository>
@@ -88,6 +88,13 @@
                 <groupId>com.ibm.cloud</groupId>
                 <artifactId>sdk-core</artifactId>
                 <version>${sdk-core-version}</version>
+            </dependency>
+
+            <!-- Each module (except "common") should depend on this artifact -->
+            <dependency>
+                <groupId>com.ibm.cloud</groupId>
+                <artifactId>mysdk-common</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
             <!-- TestNG is an alternative to JUnit -->
@@ -203,7 +210,7 @@
                             <configuration>
                                 <append>true</append>
                                 <destFile>${sonar.jacoco.reportPath}</destFile>
-                                <!-- Sets the VM argument line used when unit 
+                                <!-- Sets the VM argument line used when unit
                                      tests are run. -->
                                 <propertyName>surefireArgLine</propertyName>
                             </configuration>
