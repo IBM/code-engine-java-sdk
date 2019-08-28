@@ -90,6 +90,13 @@
                 <version>${sdk-core-version}</version>
             </dependency>
 
+            <!-- Each module (except "common") should depend on this artifact -->
+            <dependency>
+                <groupId>com.ibm.cloud</groupId>
+                <artifactId>mysdk-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <!-- TestNG is an alternative to JUnit -->
             <dependency>
                 <groupId>org.testng</groupId>

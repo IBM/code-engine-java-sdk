@@ -23,7 +23,6 @@
         <dependency>
             <groupId>com.ibm.cloud</groupId>
             <artifactId>mysdk-common</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
