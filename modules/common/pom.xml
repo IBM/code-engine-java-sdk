@@ -13,7 +13,7 @@
     <!-- Update this section to reflect your SDK project name, etc. -->
     <artifactId>mysdk-common</artifactId>
     <packaging>jar</packaging>
-    <name>mysdk-common</name>
+    <name>MySDK Common Library</name>
 
 
     <dependencies>

@@ -13,7 +13,7 @@
     <!-- Update this section to reflect the correct values for your generated service. -->
     <artifactId>example-service</artifactId>
     <packaging>jar</packaging>
-    <name>example-service</name>
+    <name>Example Service</name>
 
     <dependencies>
         <dependency>
