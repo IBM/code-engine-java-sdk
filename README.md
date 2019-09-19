@@ -20,8 +20,8 @@ The following files will need to be modified after copying them from this templa
   copy modules/exampl-service/pom.xml to each module directory, then update per the 
   instructions contained in the file.
 
-- modules/common/src/main/java/SdkCommon.java - Java SDKs built with the IBM OpenAPI SDK Generator 
-need to provide a class called `SDKCommon` that is invoked by the generated service methods.
+- modules/common/src/main/java/com/ibm/cloud/mysdk/common/SdkCommon.java - Java SDKs built with the IBM OpenAPI SDK Generator 
+need to provide a class called `SdkCommon` that is invoked by the generated service methods.
 The class provided in this template repository has a package name of `com.ibm.cloud.mysdk.common`. This package
 will need to be adjusted to reflect your own SDK's base package name.  For example, if you configure your 
 API definition to specify a Java base package name of `com.ibm.mygroup.mysdk`, you'll need to rename the directories
