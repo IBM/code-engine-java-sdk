@@ -177,7 +177,7 @@
                     </executions>
                     <configuration>
                         <failsOnError>true</failsOnError>
-                        <configLocation>build/checkstyle.xml</configLocation>
+                        <configLocation>checkstyle.xml</configLocation>
                         <consoleOutput>true</consoleOutput>
                     </configuration>
                 </plugin>
