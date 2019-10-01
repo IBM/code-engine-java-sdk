@@ -34,7 +34,7 @@ public class SdkCommon {
     }
 
     private static String loadSdkVersion() {
-        return "1.0.0";
+        return "0.0.1";
     }
 
     /**

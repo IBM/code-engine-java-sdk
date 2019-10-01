@@ -1,50 +1,199 @@
-# IBM Cloud Java SDK Template
-This repository serves as a template for Java SDKs that are produced with the 
-[IBM OpenAPI SDK Generator](https://github.ibm.com/CloudEngineering/openapi-sdkgen).
+ExampleService# MySDK Java SDK
 
-You can use the contents of this repository to create your own Java SDKs.
+Java client library to use the MySDK Services.
 
-## How to use this repository
+<details>
+<summary>Table of Contents</summary>
 
-### 1. Copy the repository
-Copy the files contained in this repository as a starting point when building your own Java SDK
-for one or more IBM Cloud services.
+* [Overview](#overview)
+* [Prerequisites](#prerequisites)
+* [Installation](#installation)
+* [Authentication](#authentication)
+* [Sample Code](#sample-code)
+* [License](#license)
 
-### 2. Modify the copied files to reflect your SDK project
-The following files will need to be modified after copying them from this template repository:
-- pom.xml - comments inside the file will guide you when customizing this for your SDK project.
+</details>
 
-- modules/common/pom.xml - follow the instructions in the comments within this file.
+## Overview
 
-- create the appropriate directories under "modules" (one per generated service), and
-  copy modules/exampl-service/pom.xml to each module directory, then update per the 
-  instructions contained in the file.
+The IBM Cloud MySDK Java SDK allows developers to programmatically interact with the
+MySDK IBM Cloud services.
 
-- modules/common/src/main/java/com/ibm/cloud/mysdk/common/SdkCommon.java - Java SDKs built with the IBM OpenAPI SDK Generator 
-need to provide a class called `SdkCommon` that is invoked by the generated service methods.
-The class provided in this template repository has a package name of `com.ibm.cloud.mysdk.common`. This package
-will need to be adjusted to reflect your own SDK's base package name.  For example, if you configure your 
-API definition to specify a Java base package name of `com.ibm.mygroup.mysdk`, you'll need to rename the directories
-underneath `src/main/java` and modify the SdkCommon class itself to reflect that package name.
-Inside this class, you'll find a method called `getSdkHeaders()`.  This method should be modified so that it returns
-the desired set of SDK-specific HTTP headers to be included in outgoing REST API requests.  The example class returns the
-`User-Agent` HTTP header, but you can modify this to return any set of HTTP headers that meet your SDK requirements,
-including none.
+## Prerequisites
 
-### 3. Generate the Java code with the IBM OpenAPI SDK Generator
-This is the step that you've been waiting for!
+[ibm-cloud-onboarding]: https://cloud.ibm.com/registration?target=%2Fdeveloper%2Fwatson&
 
-In this step, you'll invoke the IBM OpenAPI SDK Generator to process your API definition.
+* An [IBM Cloud][ibm-cloud-onboarding] account.
+* An IAM API key to allow the SDK to access your account. Create one [here](https://cloud.ibm.com/iam/apikeys).
+* An installation of Java on your local machine.
 
-This will generate a collection of Java classes which will be included in your SDK project.
-You'll find instructions on how to do this [here](https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki).
+## Installation
 
-The generated code for each service should be copied/moved to the modules/<service-name> directory.
-For example, if your service is called "my-cloud-service", then you should create a directory in your 
-SDK project named "modules/my-cloud-service" and copy modules/example-service/pom.xml into that directory,
-then modify it according to the instructions contained within the file.
+##### Maven
 
-**Pro tip:** When you use the OpenAPI SDK Generator to generate the client SDK code for your service,
-you can use the `-o` command-line option to specify `<your-sdk-project>/modules` directory as the output
-directory.   This will cause the generator to save the generated code directly into
-your SDK project's `modules/<service-name>` directory.
+```xml
+<dependency>
+	<groupId>com.ibm.cloud</groupId>
+	<artifactId>mysdk</artifactId>
+	<version>0.0.1</version>
+</dependency>
+```
+
+##### Gradle
+
+```gradle
+'com.ibm.cloud:mysdk:0.0.1'
+```
+
+## Authentication
+
+MySDK services use token-based Identity and Access Management (IAM) authentication[IAM](#iam).
+
+IAM authentication uses a service API key to get an access token that is passed with the call.
+Access tokens are valid for a limited amount of time and must be regenerated.
+
+To provide credentials to the SDK, you supply either an IAM service **API key** or an **access token**:
+
+- Use the API key to have the SDK manage the lifecycle of the access token. The SDK requests an access token, ensures that the access token is valid, and refreshes it if necessary.
+- Use the access token if you want to manage the lifecycle yourself. For details, see [Authenticating with IAM tokens](https://cloud.ibm.com/docs/services/watson/getting-started-iam.html).
+
+
+Supplying the IAM API key:
+
+```java
+// letting the SDK manage the IAM token
+Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+ExampleService service = new ExampleService(authenticator);
+```
+
+Supplying the access token:
+
+```java
+// assuming control of managing IAM token
+Authenticator authenticator = new BearerTokenAuthenticator("<access_token>");
+ExampleService service = new ExampleService(authenticator);
+```
+
+## Using the SDK
+
+### Parsing responses
+
+All methods of the that perform a MySDK API call will return an object of form `Response<T>`,
+where `T` is the model representing the specific response model.
+
+Here's an example of how to access that response and get additional information beyond the response model:
+
+```java
+// listing resources of the MySDK Example Service
+Response<Resources> response = service.listResources().execute();
+
+// pulling out the specific API method response, which we can manipulate as usual
+Resources resources = response.getResult();
+System.out.println("My resources: " + resources.getResources());
+
+// grabbing headers that came back with our API response
+Headers responseHeaders = response.getHeaders();
+System.out.println("Response header names: " + responseHeaders.names());
+```
+
+### Error Handling
+
+The IBM Cloud MySDK Java SDK generates an exception for any unsuccessful method invocation.
+If the method receives an error response from an API call to the service, it will generate an
+exception from the com.ibm.cloud.service.exception package. All service exceptions contain the following fields.
+
+| FIELD | DESCRIPTION |
+| ----- | ----------- |
+| statusCode | The HTTP response code that is returned. |
+| message	| A message that describes the error. |
+
+A method may also generate an `IllegalArgumentException` if it detects missing or invalid input arguments.
+
+Here's an example of how to catch and process specific exceptions that may be returned from an SDK method:
+
+```
+try {
+  // Invoke an SDK method
+} catch (NotFoundException e) {
+  // Handle Not Found (404) exception
+} catch (RequestTooLargeException e) {
+  // Handle Request Too Large (413) exception
+} catch (ServiceResponseException e) {
+  // Base class for all exceptions caused by error responses from the service
+  System.out.println("Service returned status code "
+    + e.getStatusCode() + ": " + e.getMessage());
+}
+```
+
+### Synchronous and asynchronous requests
+
+The IBM Cloud MySDK Java SDK supports both synchronous (blocking) and asynchronous (non-blocking) execution
+of service methods. All service methods implement the [`ServiceCall`][service-call] interface.
+
+[service-call]: https://ibm.github.io/java-sdk-core/docs/3.0.2/com/ibm/cloud/sdk/core/http/ServiceCall.html
+
+To call a method synchronously, use the `execute` method of the `ServiceCall` interface.
+You can call the execute method directly from an instance of the service.
+
+```java
+// make API call
+Response<Resources> response = service.listResources().execute();
+
+// continue execution
+```
+
+To call a method asynchronously, use the `enqueue` method of the `ServiceCall` interface to receive a callback when the response arrives.
+The `ServiceCallback` interface of the method's argument provides `onResponse` and `onFailure` methods that you override to handle the callback.
+
+```java
+// make API call in the background
+service.listResources().enqueue(new ServiceCallback<ListResourcesResponse>() {
+  @Override
+  public void onResponse(Response<ListResourcesResponse> response) {
+    System.out.println("We did it! " + response);
+  }
+
+  @Override
+  public void onFailure(Exception e) {
+    System.out.println("Whoops...");
+  }
+});
+
+// continue working in the meantime!
+```
+
+### Default headers
+
+Default headers can be specified at any time by using the `setDefaultHeaders(Map<String, String> headers)` method of the client instance.
+
+The example below sets the header `Custom-Header` with the value "custom_value" as the default header,
+which is then sent in every subsequent request to the service.
+
+```java
+ExampleService service = new ExampleService();
+
+Map<String, String> headers = new HashMap<String, String>();
+headers.put("Custom-Header", "custom_value");
+
+service.setDefaultHeaders(headers);
+
+// All the api calls from now on will send the default headers
+```
+
+### Sending request headers
+
+Custom headers can be passed with any request. To do so, add the header to the `ServiceCall` object before executing the request. For example, this is what it looks like to send the header `Custom-Header` along with a call to the Watson Assistant service:
+
+```java
+Response<Resources> resources = service.listResources()
+  .addHeader("Custom-Header", "custom_value")
+  .execute();
+```
+
+## Sample Code
+
+See [Samples](Samples).
+
+## License
+
+The IBM Cloud MySDK Java SDK is released under the Apache 2.0 license. The license's full text can be found in [LICENSE](LICENSE).

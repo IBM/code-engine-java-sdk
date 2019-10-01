@@ -29,3 +29,7 @@ hs_err_pid*
 .project
 .factorypath
 *-apiref.json
+
+.idea
+.openapi-generator/
+.openapi-generator-ignore
