@@ -24,7 +24,7 @@
             to generate your SDK code. See this link for details:
             https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Compatibility-Chart
         -->
-        <sdk-core-version>7.0.0-rc6</sdk-core-version>
+        <sdk-core-version>7.0.0</sdk-core-version>
 
         <testng-version>6.14.3</testng-version>
         <surefire-version>3.0.0-M3</surefire-version>
