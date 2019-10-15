@@ -8,7 +8,15 @@ Java client library to use the MySDK Services.
 * [Overview](#overview)
 * [Prerequisites](#prerequisites)
 * [Installation](#installation)
-* [Authentication](#authentication)
+* [Using the SDK](#using-the-sdk)
+  * [Constructing service clients](#constructing-service-clients)
+  * [Authentication](#authentication)
+  * [Passing operation parameters via an "options" model](#passing-operation-parameters-via-an-options-model)
+  * [Receiving operation responses](#receiving-operation-responses)
+  * [Error Handling](#error-handling)
+  * [Default headers](#default-headers)
+  * [Sending request headers](#sending-request-headers)
+  * [Synchronous and asynchronous requests](#synchronous-and-asynchronous-requests)
 * [Sample Code](#sample-code)
 * [License](#license)
 
@@ -45,67 +53,146 @@ MySDK IBM Cloud services.
 'com.ibm.cloud:mysdk:0.0.1'
 ```
 
-## Authentication
+## Using the SDK
+This section provides general information on how to use the services contained in this SDK.
 
-MySDK services use token-based Identity and Access Management (IAM) authentication[IAM](#iam).
+### Constructing service clients
+Each service is implemented in its own package (e.g. `com.ibm.cloud.mysdk.my_service`).
+The package will contain a class that defines the "service client" (a client-side representation of the service),
+as well as various other classes that represent models used by the service.  
+Here's an example of how to construct an instance of "My Service":
+```java
 
-IAM authentication uses a service API key to get an access token that is passed with the call.
-Access tokens are valid for a limited amount of time and must be regenerated.
+import com.ibm.cloud.mysdk.my_service.v1.MyService;
+
+// Create an authenticator.
+authenticator = /* create an authenticator - see examples below */
+
+// Create an instance of the "MyService" service client.
+service = new MyService(authenticator);
+
+// Service operations can now be called using the "service" variable.
+
+```
+
+### Authentication
+MySDK services use token-based Identity and Access Management (IAM) authentication [IAM](#iam).
+
+IAM authentication uses an API key to obtain an access token, which is then used to authenticate
+each API request.  Access tokens are valid for a limited amount of time and must be regenerated.
 
 To provide credentials to the SDK, you supply either an IAM service **API key** or an **access token**:
 
-- Use the API key to have the SDK manage the lifecycle of the access token. The SDK requests an access token, ensures that the access token is valid, and refreshes it if necessary.
-- Use the access token if you want to manage the lifecycle yourself. For details, see [Authenticating with IAM tokens](https://cloud.ibm.com/docs/services/watson/getting-started-iam.html).
+- Specify the IAM API key to have the SDK manage the lifecycle of the access token.
+The SDK requests an access token, ensures that the access token is valid, and refreshes it when
+necessary.
+- Specify the access token if you want to manage the lifecycle yourself.
+For details, see [Authenticating with IAM tokens](https://cloud.ibm.com/docs/services/watson/getting-started-iam.html).
 
-
-Supplying the IAM API key:
+##### Examples:
+* Supplying the IAM API key and letting the SDK manage the access token for you:
 
 ```java
-// letting the SDK manage the IAM token
-Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
-ExampleService service = new ExampleService(authenticator);
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
+import com.ibm.cloud.mysdk.my_service.v1.MyService;
+...
+// Create the IAM authenticator.
+IamAuthenticator authenticator = new IamAuthenticator("myapikey");
+
+// Construct the service instance.
+service = new MyService(authenticator);
 ```
 
-Supplying the access token:
+* Supplying the access token (a bearer token) and managing it yourself:
 
 ```java
-// assuming control of managing IAM token
-Authenticator authenticator = new BearerTokenAuthenticator("<access_token>");
-ExampleService service = new ExampleService(authenticator);
+import com.ibm.cloud.sdk.core.security.BearerTokenAuthenticator;
+import com.ibm.cloud.mysdk.my_service.v1.MyService;
+...
+// Create the Bearer Token authenticator.
+BearerTokenAuthenticator authenticator = new BearerTokenAuthenticator("initial access token");
+
+// Construct the service instance.
+service = new MyService(authenticator);
+...
+// Later when the access token expires, the application must refresh the access token,
+// then set the new access token on the authenticator.
+// Subsequent request invocations will include the new access token.
+authenticator.setBearerToken("new access token");
 ```
+For more information on authentication, including the full set of authentication schemes supported by
+the underlying Java SDK Core library, see
+[this page](https://github.com/IBM/java-sdk-core/blob/master/Authentication.md)
 
-## Using the SDK
+### Passing operation parameters via an "options" model
+For each operation belonging to a service, an "options" model (class) is defined as a container for 
+the parameters associated with the operation.
+The name of the class will be `<operation-name>Options` and it will contain a field for each 
+operation parameter.  
 
-### Parsing responses
+Suppose we have an operation named `GetResource` that has two parameters - `resourceId` and `resourceType`.
+When invoking this operation, the application first creates an instance of the `GetResourceOptions`
+model class and then sets the parameter values within it.  Along with the "options" class,
+a nested Builder class is also provided.  
 
-All methods of the that perform a MySDK API call will return an object of form `Response<T>`,
-where `T` is the model representing the specific response model.
-
-Here's an example of how to access that response and get additional information beyond the response model:
-
+Here's an example:
 ```java
-// listing resources of the MySDK Example Service
-Response<Resources> response = service.listResources().execute();
+GetResourceOptions options = new GetResourceOptions.Builder()
+    .resourceId("resource-id-1")
+    .resourceType("resource-type-1)
+    .build();
+```
+Then the operation can be called like this:
+```java
+ServiceCall<Resource> call = service.getResource(options);
+```
+The use of the "options" model pattern (instead of listing each operation parameter within the
+argument list of the service method) allows for future expansion of the API (within certain 
+guidelines) without impacting applications.
 
-// pulling out the specific API method response, which we can manipulate as usual
-Resources resources = response.getResult();
-System.out.println("My resources: " + resources.getResources());
+### Receiving operation responses
 
-// grabbing headers that came back with our API response
-Headers responseHeaders = response.getHeaders();
-System.out.println("Response header names: " + responseHeaders.names());
+Each service method (operation) will return an instance of `ServiceCall<T>` where `T` is the response
+type of the operation.  The `ServiceCall<T>` instance represents an API call that can be executed by calling
+the `execute()` method.  The `execute()` method returns an instance of `Response<T>` from which the operation
+result can be retrieved.
+
+Here is an example of a call to a service's "getResource" operation:
+```java
+...
+// Construct the options model needed to invoke the getResource() operation.
+GetResourceOptions options = new GetResourceOptions.Builder()
+    .resourceId("resource-id-1")
+    .resourceType("resource-type-1)
+    .build();
+
+// Retrieve a "resource" by calling the "getResource" operation.
+Response<Resource> response = service.getResource(options).execute();
+
+// Extract the result from the Response object.
+Resource resourceObj = response.getResult();
+System.out.println("My resource: " + resource);
+
+// Display the status code and response headers from the Response object.
+System.out.println("Response statusCode: " + response.getStatusCode() + ", response header names: "
+    + response.getHeaders().names());
+...
 ```
 
 ### Error Handling
 
-The IBM Cloud MySDK Java SDK generates an exception for any unsuccessful method invocation.
-If the method receives an error response from an API call to the service, it will generate an
-exception from the com.ibm.cloud.service.exception package. All service exceptions contain the following fields.
+The IBM Cloud MySDK Java SDK generates an exception for an unsuccessful service method (operation) invocation.
+If the service method receives an error response from the service, it will generate an
+exception from the `com.ibm.cloud.sdk.core.service.exception` package.  
+
+All service exceptions contain the following fields:
 
 | FIELD | DESCRIPTION |
 | ----- | ----------- |
 | statusCode | The HTTP response code that is returned. |
 | message	| A message that describes the error. |
+| headers | The HTTP headers that were returned in the response. |
+| debuggingInfo | a Map<String, Object> containing the deserialized response body, if available |
 
 A method may also generate an `IllegalArgumentException` if it detects missing or invalid input arguments.
 
@@ -122,34 +209,74 @@ try {
   // Base class for all exceptions caused by error responses from the service
   System.out.println("Service returned status code "
     + e.getStatusCode() + ": " + e.getMessage());
+  System.out.println("Error details: " + e.getDebuggingInfo())
 }
+```
+
+### Default headers
+Default HTTP headers can be specified by using the `setDefaultHeaders()`
+method of the service client instance.
+Once set on the service client, default headers are sent with
+every outbound request.  
+
+Here is an example:
+```java
+...
+// Create service client instance.
+service = new MyService(new NoAuthAuthenticator());
+
+// Set default header.
+Map<String, Object> customHeaders = new HashMap<>();
+customHeaders.put("Custom-Header", "custom_value");
+service.setDefaultHeaders(customHeaders);
+
+// "Custom-Header" will now be included with all subsequent requests invoked from "service".
+```
+
+### Sending request headers
+Custom HTTP headers can also be passed with any individual request.
+To do so, add the header to the `ServiceCall<T>` instance returned by the service method
+before invoking the `execute()` method on it.  
+
+Here is an example:
+```java
+Response<Resource> response = service.getResource(options)
+  .addHeader("Custom-Header", "custom_value")
+  .execute();
 ```
 
 ### Synchronous and asynchronous requests
 
-The IBM Cloud MySDK Java SDK supports both synchronous (blocking) and asynchronous (non-blocking) execution
-of service methods. All service methods implement the [`ServiceCall`][service-call] interface.
+The IBM Cloud MySDK Java SDK supports both synchronous (blocking) and asynchronous
+(non-blocking) execution of service methods.
+All service methods return an instance of the [`ServiceCall<T>`][service-call] interface.
 
 [service-call]: https://ibm.github.io/java-sdk-core/docs/3.0.2/com/ibm/cloud/sdk/core/http/ServiceCall.html
 
-To call a method synchronously, use the `execute` method of the `ServiceCall` interface.
-You can call the execute method directly from an instance of the service.
+##### Synchronous
+To call a method synchronously, use the `execute()` method of the `ServiceCall<T>`
+interface.
+You can call the `execute()` method directly from an instance of the service.
 
 ```java
-// make API call
-Response<Resources> response = service.listResources().execute();
+// make API call and receive response object.
+Response<Resource> response = service.getResource(options).execute();
+Resource result = response.getResult();
 
 // continue execution
 ```
+##### Asynchronous
+To call a method asynchronously, use the `enqueue()` method of the returned
+`ServiceCall<T>` instance to receive a callback when the response arrives.
+The `ServiceCallback<T>` interface of the `enqueue()` method's argument
+provides `onResponse` and `onFailure` methods that you override to handle the callback.
 
-To call a method asynchronously, use the `enqueue` method of the `ServiceCall` interface to receive a callback when the response arrives.
-The `ServiceCallback` interface of the method's argument provides `onResponse` and `onFailure` methods that you override to handle the callback.
-
+Here is an example:
 ```java
-// make API call in the background
-service.listResources().enqueue(new ServiceCallback<ListResourcesResponse>() {
+// make API call in the background.
+service.getResource(options).enqueue(new ServiceCallback<ListResourcesResponse>() {
   @Override
-  public void onResponse(Response<ListResourcesResponse> response) {
+  public void onResponse(Response<Resource> response) {
     System.out.println("We did it! " + response);
   }
 
@@ -160,34 +287,6 @@ service.listResources().enqueue(new ServiceCallback<ListResourcesResponse>() {
 });
 
 // continue working in the meantime!
-```
-
-### Default headers
-
-Default headers can be specified at any time by using the `setDefaultHeaders(Map<String, String> headers)` method of the client instance.
-
-The example below sets the header `Custom-Header` with the value "custom_value" as the default header,
-which is then sent in every subsequent request to the service.
-
-```java
-ExampleService service = new ExampleService();
-
-Map<String, String> headers = new HashMap<String, String>();
-headers.put("Custom-Header", "custom_value");
-
-service.setDefaultHeaders(headers);
-
-// All the api calls from now on will send the default headers
-```
-
-### Sending request headers
-
-Custom headers can be passed with any request. To do so, add the header to the `ServiceCall` object before executing the request. For example, this is what it looks like to send the header `Custom-Header` along with a call to the Watson Assistant service:
-
-```java
-Response<Resources> resources = service.listResources()
-  .addHeader("Custom-Header", "custom_value")
-  .execute();
 ```
 
 ## Sample Code

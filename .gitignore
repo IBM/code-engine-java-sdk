@@ -24,7 +24,7 @@ hs_err_pid*
 
 /**/target/
 /**/test-output/
-/.settings/
+.settings/
 .classpath
 .project
 .factorypath
