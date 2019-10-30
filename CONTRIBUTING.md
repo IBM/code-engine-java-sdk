@@ -9,18 +9,6 @@ please ask a question on [Stack Overflow](http://stackoverflow.com/questions/ask
 If you encounter an issue with the project, you are welcome to submit a [bug report](<github-repo-url>/issues).
 Before that, please search for similar issues. It's possible that someone has already reported the problem.
 
-# Coding Style
-
-This SDK follows a coding style based on the [Google Java coding style][GoogleJavaStyleGuidelines],
-with the following modifications:
-- Max line length is 120 chars
-- Only basic JavadocStyle is enforced
-- Import ordering in not enforced
-- VariableDeclarationUsageDistance is not enforced
-- OverloadMethodsDeclarationOrder is not enforced
-
-[GoogleJavaStyleGuidelines]: https://google.github.io/styleguide/javaguide.html
-
 # Pull Requests
 
 If you want to contribute to the repository, here's a quick guide:
@@ -35,10 +23,22 @@ If you want to contribute to the repository, here's a quick guide:
   5. Push to your fork and submit a pull request to the **master** branch.
   6. Be sure to sign the CLA.
 
+# Coding Style
+
+This SDK follows a coding style based on the [Google Java coding style][GoogleJavaStyleGuidelines],
+with the following modifications:
+- Max line length is 120 chars
+- Only basic JavadocStyle is enforced
+- Import ordering in not enforced
+- VariableDeclarationUsageDistance is not enforced
+- OverloadMethodsDeclarationOrder is not enforced
+
+[GoogleJavaStyleGuidelines]: https://google.github.io/styleguide/javaguide.html
+
 # Running the Tests
 
 Out of the box, `mvn test` runs unit tests and integration tests (which require credentials).
-To run only the unit tests (sufficient for most cases), use `????`.
+To run only the unit tests (sufficient for most cases), use `mvn -Dtest=unit/* test`.
 
 To run the integration tests, you need to provide credentials to the integration test framework.
 The integration test framework will skip integration tests for any service that does not have credentials,
