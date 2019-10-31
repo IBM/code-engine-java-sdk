@@ -1,4 +1,4 @@
-ExampleService# MySDK Java SDK
+# MySDK Java SDK (example service)
 
 Java client library to use the MySDK Services.
 
@@ -11,13 +11,13 @@ Java client library to use the MySDK Services.
 * [Using the SDK](#using-the-sdk)
   * [Constructing service clients](#constructing-service-clients)
   * [Authentication](#authentication)
-  * [Passing operation parameters via an "options" model](#passing-operation-parameters-via-an-options-model)
+  * [Passing operation parameters via an options model](#passing-operation-parameters-via-an-options-model)
   * [Receiving operation responses](#receiving-operation-responses)
   * [Error Handling](#error-handling)
   * [Default headers](#default-headers)
   * [Sending request headers](#sending-request-headers)
   * [Synchronous and asynchronous requests](#synchronous-and-asynchronous-requests)
-* [Sample Code](#sample-code)
+* [Example Service Integration Test](#example-service-integration-test)
 * [License](#license)
 
 </details>
@@ -37,17 +37,17 @@ MySDK IBM Cloud services.
 
 ## Installation
 
-##### Maven
+#### Maven
 
 ```xml
 <dependency>
-	<groupId>com.ibm.cloud</groupId>
-	<artifactId>mysdk</artifactId>
-	<version>0.0.1</version>
+    <groupId>com.ibm.cloud</groupId>
+    <artifactId>mysdk</artifactId>
+    <version>0.0.1</version>
 </dependency>
 ```
 
-##### Gradle
+#### Gradle
 
 ```gradle
 'com.ibm.cloud:mysdk:0.0.1'
@@ -89,7 +89,7 @@ necessary.
 - Specify the access token if you want to manage the lifecycle yourself.
 For details, see [Authenticating with IAM tokens](https://cloud.ibm.com/docs/services/watson/getting-started-iam.html).
 
-##### Examples:
+#### Examples:
 * Supplying the IAM API key and letting the SDK manage the access token for you:
 
 ```java
@@ -124,10 +124,10 @@ For more information on authentication, including the full set of authentication
 the underlying Java SDK Core library, see
 [this page](https://github.com/IBM/java-sdk-core/blob/master/Authentication.md)
 
-### Passing operation parameters via an "options" model
-For each operation belonging to a service, an "options" model (class) is defined as a container for 
+### Passing operation parameters via an options model
+For each operation belonging to a service, an "options" model (class) is defined as a container for
 the parameters associated with the operation.
-The name of the class will be `<operation-name>Options` and it will contain a field for each 
+The name of the class will be `<operation-name>Options` and it will contain a field for each
 operation parameter.  
 
 Suppose we have an operation named `GetResource` that has two parameters - `resourceId` and `resourceType`.
@@ -147,7 +147,7 @@ Then the operation can be called like this:
 ServiceCall<Resource> call = service.getResource(options);
 ```
 The use of the "options" model pattern (instead of listing each operation parameter within the
-argument list of the service method) allows for future expansion of the API (within certain 
+argument list of the service method) allows for future expansion of the API (within certain
 guidelines) without impacting applications.
 
 ### Receiving operation responses
@@ -198,7 +198,7 @@ A method may also generate an `IllegalArgumentException` if it detects missing o
 
 Here's an example of how to catch and process specific exceptions that may be returned from an SDK method:
 
-```
+```java
 try {
   // Invoke an SDK method
 } catch (NotFoundException e) {
@@ -289,9 +289,11 @@ service.getResource(options).enqueue(new ServiceCallback<ListResourcesResponse>(
 // continue working in the meantime!
 ```
 
-## Sample Code
+## Example Service Integration Test
 
-See [Samples](Samples).
+To set up and run integration test, clone and follow instruction from [Example Service](https://github.ibm.com/CloudEngineering/example-service) repo.
+
+Integration test code can be found [here](modules/example-service/src/test/java/com/ibm/cloud/mysdk/test/ExampleServiceTest.java)
 
 ## License
 
