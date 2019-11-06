@@ -33,7 +33,7 @@ MySDK IBM Cloud services.
 
 * An [IBM Cloud][ibm-cloud-onboarding] account.
 * An IAM API key to allow the SDK to access your account. Create one [here](https://cloud.ibm.com/iam/apikeys).
-* An installation of Java on your local machine.
+* An installation of Java SE 7 or newer on your local machine.
 
 ## Installation
 
