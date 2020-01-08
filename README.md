@@ -245,6 +245,10 @@ Response<Resource> response = service.getResource(options)
   .execute();
 ```
 
+### Transaction IDs
+
+Every call from the SDK will receive a response which will contain a transaction ID, accessible via the `x-global-transaction-id` header.  This transaction ID is useful for troubleshooting and accessing relevant logs from your service instance.
+
 ### Synchronous and asynchronous requests
 
 The IBM Cloud MySDK Java SDK supports both synchronous (blocking) and asynchronous
