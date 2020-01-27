@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,15 +19,15 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class CreateResourceOptions extends GenericModel {
 
-  private Long resourceId;
-  private String name;
-  private String tag;
+  protected String resourceId;
+  protected String name;
+  protected String tag;
 
   /**
    * Builder.
    */
   public static class Builder {
-    private Long resourceId;
+    private String resourceId;
     private String name;
     private String tag;
 
@@ -46,7 +46,7 @@ public class CreateResourceOptions extends GenericModel {
     /**
      * Builds a CreateResourceOptions.
      *
-     * @return the createResourceOptions
+     * @return the new CreateResourceOptions instance
      */
     public CreateResourceOptions build() {
       return new CreateResourceOptions(this);
@@ -58,7 +58,7 @@ public class CreateResourceOptions extends GenericModel {
      * @param resourceId the resourceId
      * @return the CreateResourceOptions builder
      */
-    public Builder resourceId(long resourceId) {
+    public Builder resourceId(String resourceId) {
       this.resourceId = resourceId;
       return this;
     }
@@ -99,7 +99,7 @@ public class CreateResourceOptions extends GenericModel {
     }
   }
 
-  private CreateResourceOptions(Builder builder) {
+  protected CreateResourceOptions(Builder builder) {
     resourceId = builder.resourceId;
     name = builder.name;
     tag = builder.tag;
@@ -121,7 +121,7 @@ public class CreateResourceOptions extends GenericModel {
    *
    * @return the resourceId
    */
-  public Long resourceId() {
+  public String resourceId() {
     return resourceId;
   }
 

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class GetResourceOptions extends GenericModel {
 
-  private String resourceId;
+  protected String resourceId;
 
   /**
    * Builder.
@@ -49,7 +49,7 @@ public class GetResourceOptions extends GenericModel {
     /**
      * Builds a GetResourceOptions.
      *
-     * @return the getResourceOptions
+     * @return the new GetResourceOptions instance
      */
     public GetResourceOptions build() {
       return new GetResourceOptions(this);
@@ -67,7 +67,7 @@ public class GetResourceOptions extends GenericModel {
     }
   }
 
-  private GetResourceOptions(Builder builder) {
+  protected GetResourceOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.resourceId,
       "resourceId cannot be empty");
     resourceId = builder.resourceId;

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,6 +23,7 @@ import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.ConfigBasedAuthenticatorFactory;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import java.util.Map;
@@ -35,26 +36,51 @@ import java.util.Map.Entry;
  */
 public class ExampleService extends BaseService {
 
-  private static final String SERVICE_NAME = "example_service";
-  private static final String SERVICE_URL = "http://cloud.ibm.com/mysdk/v1";
+  private static final String DEFAULT_SERVICE_NAME = "example_service";
+
+  private static final String DEFAULT_SERVICE_URL = "http://cloud.ibm.com/mysdk/v1";
+
+ /**
+   * Class method which constructs an instance of the `ExampleService` client.
+   * The default service name is used to configure the client instance.
+   *
+   * @return an instance of the `ExampleService` client using external configuration
+   */
+  public static ExampleService newInstance() {
+    return newInstance(DEFAULT_SERVICE_NAME);
+  }
 
   /**
-   * Constructs a new `ExampleService` client with the specified Authenticator.
+   * Class method which constructs an instance of the `ExampleService` client.
+   * The specified service name is used to configure the client instance.
    *
-   * @param authenticator the Authenticator instance to be configured for this service
+   * @param serviceName the service name to be used when configuring the client instance
+   * @return an instance of the `ExampleService` client using external configuration
    */
-  public ExampleService(Authenticator authenticator) {
-    super(SERVICE_NAME, authenticator);
-    if ((getServiceUrl() == null) || getServiceUrl().isEmpty()) {
-      setServiceUrl(SERVICE_URL);
-    }
+  public static ExampleService newInstance(String serviceName) {
+    Authenticator authenticator = ConfigBasedAuthenticatorFactory.getAuthenticator(serviceName);
+    ExampleService service = new ExampleService(serviceName, authenticator);
+    service.configureService(serviceName);
+    return service;
+  }
+
+  /**
+   * Constructs an instance of the `ExampleService` client.
+   * The specified service name and authenticator are used to configure the client instance.
+   *
+   * @param serviceName the service name to be used when configuring the client instance
+   * @param authenticator the {@link Authenticator} instance to be configured for this client
+   */
+  public ExampleService(String serviceName, Authenticator authenticator) {
+    super(serviceName, authenticator);
+    setServiceUrl(DEFAULT_SERVICE_URL);
   }
 
   /**
    * List all resources.
    *
    * @param listResourcesOptions the {@link ListResourcesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Resources}
+   * @return a {@link ServiceCall} with a result of type {@link Resources}
    */
   public ServiceCall<Resources> listResources(ListResourcesOptions listResourcesOptions) {
     String[] pathSegments = { "resources" };
@@ -66,7 +92,7 @@ public class ExampleService extends BaseService {
     builder.header("Accept", "application/json");
     if (listResourcesOptions != null) {
       if (listResourcesOptions.limit() != null) {
-          builder.query("limit", String.valueOf(listResourcesOptions.limit()));
+        builder.query("limit", String.valueOf(listResourcesOptions.limit()));
       }
     }
     ResponseConverter<Resources> responseConverter =
@@ -77,7 +103,7 @@ public class ExampleService extends BaseService {
   /**
    * List all resources.
    *
-   * @return a {@link ServiceCall} with a response type of {@link Resources}
+   * @return a {@link ServiceCall} with a result of type {@link Resources}
    */
   public ServiceCall<Resources> listResources() {
     return listResources(null);
@@ -87,7 +113,7 @@ public class ExampleService extends BaseService {
    * Create a resource.
    *
    * @param createResourceOptions the {@link CreateResourceOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Resource}
+   * @return a {@link ServiceCall} with a result of type {@link Resource}
    */
   public ServiceCall<Resource> createResource(CreateResourceOptions createResourceOptions) {
     String[] pathSegments = { "resources" };
@@ -100,13 +126,13 @@ public class ExampleService extends BaseService {
     if (createResourceOptions != null) {
       final JsonObject contentJson = new JsonObject();
       if (createResourceOptions.resourceId() != null) {
-          contentJson.addProperty("resource_id", createResourceOptions.resourceId());
+        contentJson.addProperty("resource_id", createResourceOptions.resourceId());
       }
       if (createResourceOptions.name() != null) {
-          contentJson.addProperty("name", createResourceOptions.name());
+        contentJson.addProperty("name", createResourceOptions.name());
       }
       if (createResourceOptions.tag() != null) {
-          contentJson.addProperty("tag", createResourceOptions.tag());
+        contentJson.addProperty("tag", createResourceOptions.tag());
       }
       builder.bodyJson(contentJson);
     }
@@ -118,7 +144,7 @@ public class ExampleService extends BaseService {
   /**
    * Create a resource.
    *
-   * @return a {@link ServiceCall} with a response type of {@link Resource}
+   * @return a {@link ServiceCall} with a result of type {@link Resource}
    */
   public ServiceCall<Resource> createResource() {
     return createResource(null);
@@ -128,15 +154,14 @@ public class ExampleService extends BaseService {
    * Info for a specific resource.
    *
    * @param getResourceOptions the {@link GetResourceOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Resource}
+   * @return a {@link ServiceCall} with a result of type {@link Resource}
    */
   public ServiceCall<Resource> getResource(GetResourceOptions getResourceOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(getResourceOptions,
       "getResourceOptions cannot be null");
     String[] pathSegments = { "resources" };
     String[] pathParameters = { getResourceOptions.resourceId() };
-    RequestBuilder builder =
-      RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("example_service", "v1", "getResource");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());

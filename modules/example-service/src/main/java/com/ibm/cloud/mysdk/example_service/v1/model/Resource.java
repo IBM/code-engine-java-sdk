@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,15 +21,17 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class Resource extends GenericModel {
 
   @SerializedName("resource_id")
-  private Long resourceId;
-  private String name;
-  private String tag;
+  protected String resourceId;
+  protected String name;
+  protected String tag;
+  @SerializedName("read_only")
+  protected String readOnly;
 
   /**
    * Builder.
    */
   public static class Builder {
-    private Long resourceId;
+    private String resourceId;
     private String name;
     private String tag;
 
@@ -51,7 +53,7 @@ public class Resource extends GenericModel {
      * @param resourceId the resourceId
      * @param name the name
      */
-    public Builder(Long resourceId, String name) {
+    public Builder(String resourceId, String name) {
       this.resourceId = resourceId;
       this.name = name;
     }
@@ -59,7 +61,7 @@ public class Resource extends GenericModel {
     /**
      * Builds a Resource.
      *
-     * @return the resource
+     * @return the new Resource instance
      */
     public Resource build() {
       return new Resource(this);
@@ -71,7 +73,7 @@ public class Resource extends GenericModel {
      * @param resourceId the resourceId
      * @return the Resource builder
      */
-    public Builder resourceId(long resourceId) {
+    public Builder resourceId(String resourceId) {
       this.resourceId = resourceId;
       return this;
     }
@@ -99,7 +101,7 @@ public class Resource extends GenericModel {
     }
   }
 
-  private Resource(Builder builder) {
+  protected Resource(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.resourceId,
       "resourceId cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
@@ -125,7 +127,7 @@ public class Resource extends GenericModel {
    *
    * @return the resourceId
    */
-  public Long resourceId() {
+  public String resourceId() {
     return resourceId;
   }
 
@@ -149,6 +151,17 @@ public class Resource extends GenericModel {
    */
   public String tag() {
     return tag;
+  }
+
+  /**
+   * Gets the readOnly.
+   *
+   * This is a read only string.
+   *
+   * @return the readOnly
+   */
+  public String readOnly() {
+    return readOnly;
   }
 }
 

@@ -18,14 +18,7 @@
         are delivered and so their version numbers should be updated here as needed.
     -->
     <properties>
-        <!--
-            This is the version associated with the Java core. The version
-            used here should be compatible with the version of the SDK generator used
-            to generate your SDK code. See this link for details:
-            https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Compatibility-Chart
-        -->
-        <sdk-core-version>7.0.0</sdk-core-version>
-
+        <sdk-core-version>8.0.0</sdk-core-version>
         <testng-version>6.14.3</testng-version>
         <surefire-version>3.0.0-M3</surefire-version>
         <jacoco-plugin-version>0.8.3</jacoco-plugin-version>
@@ -40,12 +33,10 @@
     <!--
         Modify this section to reflect the set of modules for your SDK project.
         In addition to the common module, you'll typically have one module per generated
-        service. For each generated service, create a new directory under "modules"
-        for it, then copy the modules/example-service/pom.xml file to the new directory,
-        then modify it according to the comments found within the file.
-        The "example-service" module below serves as an example of this.
-        After adding module(s) for your own generated service(s), remove
-        "modules/example-service" from your SDK project.
+        service. For each generated service, create a new directory under modules
+        for it, then copy the modules/example-service/pom.xml file to it. The "example-service"
+        module below services as an example of this. After adding module(s) for your
+        own generated service(s), remove "example-service" from your SDK project.
     -->
     <modules>
         <module>modules/common</module>

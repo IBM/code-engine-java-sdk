@@ -17,7 +17,7 @@ import static org.testng.Assert.assertEquals;
 public class ExampleServiceTest {
 
     // Example service v1 integration
-    public ExampleService service = new ExampleService(new NoAuthAuthenticator());
+    public ExampleService service = new ExampleService("Example Service", new NoAuthAuthenticator());
 
     @Test
     public void testListResources() {
@@ -26,12 +26,12 @@ public class ExampleServiceTest {
         Resources resourcesObj = service.listResources().execute().getResult();
 
         Resource firstResource = resourcesObj.getResources().get(0);
-        assertTrue(firstResource.resourceId() == 1);
+        assertTrue(firstResource.resourceId().equals("1"));
         assertEquals(firstResource.name(), "The Great Gatsby");
         assertEquals(firstResource.tag(), "Book");
 
         Resource secondResource = resourcesObj.getResources().get(1);
-        assertTrue(secondResource.resourceId() == 2);
+        assertTrue(secondResource.resourceId().equals("2"));
         assertEquals(secondResource.name(), "Pride and Prejudice");
         assertEquals(secondResource.tag(), "Book");
     }
@@ -43,7 +43,7 @@ public class ExampleServiceTest {
         GetResourceOptions options = new GetResourceOptions.Builder().resourceId("1").build();
         Resource resourceObj = service.getResource(options).execute().getResult();
 
-        assertTrue(resourceObj.resourceId() == 1);
+        assertTrue(resourceObj.resourceId().equals("1"));
         assertEquals(resourceObj.name(), "The Great Gatsby");
         assertEquals(resourceObj.tag(), "Book");
     }
@@ -63,12 +63,12 @@ public class ExampleServiceTest {
     @Test
     public void testCreateResource() {
         service.setServiceUrl("http://localhost:3000");
-        CreateResourceOptions options = new CreateResourceOptions.Builder().resourceId(3).name("To Kill a Mockingbird").tag("Book").build();
+        CreateResourceOptions options = new CreateResourceOptions.Builder().resourceId("3").name("To Kill a Mockingbird").tag("Book").build();
         Response<Resource> response = service.createResource(options).execute();
         assertEquals(response.getStatusCode(), 201);
 
         Resource resourceObj = response.getResult();
-        assertTrue(resourceObj.resourceId() == 3);
+        assertTrue(resourceObj.resourceId().equals("3"));
         assertEquals(resourceObj.name(), "To Kill a Mockingbird");
         assertEquals(resourceObj.tag(), "Book");
     }
