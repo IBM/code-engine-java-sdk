@@ -196,8 +196,6 @@ properly for your services.
 
 Integration tests are typically tests that use an actual running instance of the services.
 
-Note that we plan to add unit test generation to the Java SDK generator in the future,
-but that feature is not yet available for Java.
 
 ### 7. Build and test the project
 If you made it this far, congratulate yourself!
@@ -246,6 +244,6 @@ The config file `.travis.yml` contains all the instructions necessary to run the
 
 The `before_install` step runs the instructions to decrypt the `ibm-credentials.env.enc` file. It only does for *pushes* to a branch. This is done so that integration tests only run on *push* builds and not on *pull request* builds.
 
-The `script` section runs the command to build and run test. Note that we plan to add unit test generation to the Java SDK generator in the future, but that feature is not yet available for Java, so the java-sdk-template will skip running tests for now.
+The `script` section runs the command to build and run test.
 
 The `deploy` section is the last step of the build and triggers the automated release management. Builds will be published to the release section of the Github project.

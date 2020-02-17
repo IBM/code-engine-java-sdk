@@ -1,4 +1,4 @@
-package com.ibm.cloud.mysdk.test;
+package com.ibm.cloud.mysdk.example_service.v1;
 
 import com.ibm.cloud.mysdk.example_service.v1.ExampleService;
 import com.ibm.cloud.mysdk.example_service.v1.model.*;
@@ -14,7 +14,7 @@ import static org.testng.Assert.assertEquals;
 /**
  * This class contains integration tests for example service.
  */
-public class ExampleServiceTest {
+public class ExampleServiceIT {
 
     // Example service v1 integration
     public ExampleService service = new ExampleService("Example Service", new NoAuthAuthenticator());

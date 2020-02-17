@@ -18,8 +18,8 @@
         are delivered and so their version numbers should be updated here as needed.
     -->
     <properties>
-        <sdk-core-version>8.0.0</sdk-core-version>
-        <testng-version>6.14.3</testng-version>
+        <sdk-core-version>8.1.1</sdk-core-version>
+        <testng-version>7.1.1</testng-version>
         <surefire-version>3.0.0-M3</surefire-version>
         <jacoco-plugin-version>0.8.3</jacoco-plugin-version>
         <maven-source-plugin-version>3.1.0</maven-source-plugin-version>
@@ -28,6 +28,7 @@
         <maven-site-plugin-version>3.7.1</maven-site-plugin-version>
         <maven-checkstyle-plugin-version>3.1.0</maven-checkstyle-plugin-version>
         <maven-reports-plugin-version>3.0.0</maven-reports-plugin-version>
+        <okhttp3-version>3.12.1</okhttp3-version>
     </properties>
 
     <!--
@@ -105,6 +106,17 @@
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
                 <version>${testng-version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp3-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>mockwebserver</artifactId>
+                <version>${okhttp3-version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
