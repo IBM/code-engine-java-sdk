@@ -30,12 +30,10 @@ import static org.testng.Assert.*;
  */
 public class ResourceTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
-  final InputStream mockStream = TestUtilities.createMockStream("This is a mock file.");
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
-  final byte[] mockByteArray = TestUtilities.createMockByteArray();
 
   @Test
-  public void testResource() throws Exception {
+  public void testResource() throws Throwable {
     
     Resource resourceModel = new Resource.Builder()
       .resourceId("testString")
@@ -57,9 +55,8 @@ public class ResourceTest {
   }
   
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testResourceError() {
-    Resource resourceModel = new Resource.Builder()
-      .build();
+  public void testResourceError() throws Throwable {
+    new Resource.Builder().build();
   }
 
 }

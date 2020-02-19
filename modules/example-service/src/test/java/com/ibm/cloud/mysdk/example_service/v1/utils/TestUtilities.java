@@ -115,9 +115,8 @@ public class TestUtilities {
         return list;
     }
 
-    public static byte[] createMockByteArray() {
-        byte[] byteArray = {(byte) 0xca, (byte) 0xfe, (byte) 0xba, (byte) 0xbe};
-        return byteArray;
+    public static byte[] createMockByteArray(String bytes) {
+        return bytes.getBytes();
     }
 
     public static Date createMockDate(String date) throws Exception {

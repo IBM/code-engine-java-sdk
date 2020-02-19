@@ -30,12 +30,10 @@ import static org.testng.Assert.*;
  */
 public class CreateResourceOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
-  final InputStream mockStream = TestUtilities.createMockStream("This is a mock file.");
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
-  final byte[] mockByteArray = TestUtilities.createMockByteArray();
 
   @Test
-  public void testCreateResourceOptions() throws Exception {
+  public void testCreateResourceOptions() throws Throwable {
     
     CreateResourceOptions createResourceOptionsModel = new CreateResourceOptions.Builder()
       .resourceId("testString")

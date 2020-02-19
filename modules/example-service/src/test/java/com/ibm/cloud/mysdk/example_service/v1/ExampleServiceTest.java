@@ -24,6 +24,8 @@ import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 
+import com.ibm.cloud.sdk.core.util.EnvironmentUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -35,6 +37,11 @@ import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.testng.PowerMockTestCase;
+
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -44,21 +51,29 @@ import static org.testng.Assert.*;
 /**
  * Unit test class for the ExampleService service.
  */
-public class ExampleServiceTest {
+@PrepareForTest({ EnvironmentUtils.class })
+@PowerMockIgnore("javax.net.ssl.*")
+public class ExampleServiceTest extends PowerMockTestCase {
 
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
-  final InputStream mockStream = TestUtilities.createMockStream("This is a mock file.");
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
-  final byte[] mockByteArray = TestUtilities.createMockByteArray();
   
   protected MockWebServer server;
   protected ExampleService testService;
 
-  public void constructClientService() throws Exception {
-    final Authenticator authenticator = new NoAuthAuthenticator();
+  // Creates a mock set of environment variables that are returned by EnvironmentUtils.getenv().
+  private Map<String, String> getTestProcessEnvironment() {
+    Map<String, String> env = new HashMap<>();
+    env.put("TESTSERVICE_AUTH_TYPE", "noAuth");
+    return env;
+  }
+
+  public void constructClientService() throws Throwable {
+    PowerMockito.spy(EnvironmentUtils.class);
+    PowerMockito.when(EnvironmentUtils.getenv()).thenReturn(getTestProcessEnvironment());
     final String serviceName = "testService";
 
-    testService = new ExampleService(serviceName, authenticator);
+    testService = ExampleService.newInstance(serviceName);
     String url = server.url("/").toString();
     testService.setServiceUrl(url);
   }
@@ -67,16 +82,16 @@ public class ExampleServiceTest {
   * Negative Test - construct the service with a null authenticator.
   */
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testConstructorWithNullAuthenticator() {
+  public void testConstructorWithNullAuthenticator() throws Throwable {
     final String serviceName = "testService";
 
     new ExampleService(serviceName, null);
   }
 
   @Test
-  public void testListResourcesWOptions() throws Exception, InterruptedException {
+  public void testListResourcesWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{'offset': 6, 'limit': 5, 'resources': [{'resource_id': 'resourceId', 'name': 'name', 'tag': 'tag', 'read_only': 'readOnly'}]}";
+    String mockResponseBody = "{\"offset\": 6, \"limit\": 5, \"resources\": [{\"resource_id\": \"resourceId\", \"name\": \"name\", \"tag\": \"tag\", \"read_only\": \"readOnly\"}]}";
     String listResourcesPath = "/resources";
 
     server.enqueue(new MockResponse()
@@ -109,13 +124,13 @@ public class ExampleServiceTest {
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("26"));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, listResourcesPath); 
+    assertEquals(parsedPath, listResourcesPath);
   }
   
   @Test
-  public void testCreateResourceWOptions() throws Exception, InterruptedException {
+  public void testCreateResourceWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{'resource_id': 'resourceId', 'name': 'name', 'tag': 'tag', 'read_only': 'readOnly'}";
+    String mockResponseBody = "{\"resource_id\": \"resourceId\", \"name\": \"name\", \"tag\": \"tag\", \"read_only\": \"readOnly\"}";
     String createResourcePath = "/resources";
 
     server.enqueue(new MockResponse()
@@ -153,9 +168,9 @@ public class ExampleServiceTest {
   }
   
   @Test
-  public void testGetResourceWOptions() throws Exception, InterruptedException {
+  public void testGetResourceWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{'resource_id': 'resourceId', 'name': 'name', 'tag': 'tag', 'read_only': 'readOnly'}";
+    String mockResponseBody = "{\"resource_id\": \"resourceId\", \"name\": \"name\", \"tag\": \"tag\", \"read_only\": \"readOnly\"}";
     String getResourcePath = "/resources/testString";
 
     server.enqueue(new MockResponse()
@@ -192,14 +207,14 @@ public class ExampleServiceTest {
   
   // Test the getResource operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testGetResourceNoOptions() throws Exception, InterruptedException {
+  public void testGetResourceNoOptions() throws Throwable {
     // construct the service
     constructClientService();
 
     server.enqueue(new MockResponse());
 
     // Invoke operation with null options model (negative test)
-    Response<Resource> response = testService.getResource(null).execute();
+    testService.getResource(null).execute();
   }
 
   /** Initialize the server */
