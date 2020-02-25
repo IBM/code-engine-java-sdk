@@ -1,0 +1,283 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Modify these elements to reflect your SDK project's maven coordinates -->
+    <groupId>com.ibm.cloud</groupId>
+    <artifactId>mysdk</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>Example Java SDK Project</name>
+    <packaging>pom</packaging>
+    <description>A sample Java SDK produced by the IBM OpenAPI SDK Generator</description>
+    <url>https://github.ibm.com/CloudEngineering/java-sdk-template</url>
+
+    <!--
+        Modify these properties as needed to use the correct versions of
+        dependencies. Over time, new versions of maven plugins and other dependencies
+        are delivered and so their version numbers should be updated here as needed.
+    -->
+    <properties>
+        <sdk-core-version>8.1.2</sdk-core-version>
+        <testng-version>7.1.1</testng-version>
+        <surefire-version>3.0.0-M3</surefire-version>
+        <jacoco-plugin-version>0.8.3</jacoco-plugin-version>
+        <maven-source-plugin-version>3.1.0</maven-source-plugin-version>
+        <maven-javadoc-plugin-version>3.1.1</maven-javadoc-plugin-version>
+        <maven-compiler-plugin-version>3.8.1</maven-compiler-plugin-version>
+        <maven-site-plugin-version>3.7.1</maven-site-plugin-version>
+        <maven-checkstyle-plugin-version>3.1.0</maven-checkstyle-plugin-version>
+        <maven-reports-plugin-version>3.0.0</maven-reports-plugin-version>
+        <maven-failsafe-plugin-version>3.0.0-M4</maven-failsafe-plugin-version>
+        <okhttp3-version>3.12.1</okhttp3-version>
+        <powermock-version>2.0.5</powermock-version>
+        <mockito-version>3.2.4</mockito-version>
+        <!-- Skip integration tests by default -->
+        <skipITs>true</skipITs>
+    </properties>
+
+    <!--
+        Modify this section to reflect the set of modules for your SDK project.
+        In addition to the common module, you'll typically have one module per generated
+        service. For each generated service, create a new directory under modules
+        for it, then copy the modules/example-service/pom.xml file to it. The "example-service"
+        module below services as an example of this. After adding module(s) for your
+        own generated service(s), remove "example-service" from your SDK project.
+    -->
+    <modules>
+        $MODULES
+    </modules>
+
+    <!-- Make sure this license is correct for your SDK project. -->
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <!-- Update this section to reflect the correct settings for your git repository. -->
+    <scm>
+        <connection>scm:git:https://github.ibm.com/CloudEngineering/java-sdk-template</connection>
+        <developerConnection>scm:git:https://github.ibm.com/CloudEngineering/java-sdk-template</developerConnection>
+        <url>https://github.ibm.com/CloudEngineering/java-sdk-template/tree/master</url>
+    </scm>
+
+    <!-- Update this section to reflect the correct settings for your git repository. -->
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.ibm.com/CloudEngineering/java-sdk-template/issues</url>
+    </issueManagement>
+
+    <!-- Update this section to reflect the correct settings for your SDK project. -->
+    <ciManagement>
+        <system>Travis-CI</system>
+        <url>https://travis.ibm.com/CloudEngineering/java-sdk-template/</url>
+    </ciManagement>
+
+    <distributionManagement>
+    </distributionManagement>
+
+    <!-- Obtain the java core from JCenter. -->
+    <repositories>
+        <repository>
+            <id>jcenter</id>
+            <url>https://jcenter.bintray.com/</url>
+        </repository>
+    </repositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- This is the Java core dependency -->
+            <dependency>
+                <groupId>com.ibm.cloud</groupId>
+                <artifactId>sdk-core</artifactId>
+                <version>${sdk-core-version}</version>
+            </dependency>
+
+            <!-- Each module (except "common") should depend on this artifact -->
+            <dependency>
+                <groupId>com.ibm.cloud</groupId>
+                <artifactId>mysdk-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- TestNG is used to run unit/integration tests -->
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>${testng-version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp3-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>mockwebserver</artifactId>
+                <version>${okhttp3-version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-api-mockito2</artifactId>
+                <version>${powermock-version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-module-testng</artifactId>
+                <version>${powermock-version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven-source-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin-version}</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${maven-site-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${maven-checkstyle-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <id>verify-style</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <failsOnError>true</failsOnError>
+                        <configLocation>checkstyle.xml</configLocation>
+                        <consoleOutput>true</consoleOutput>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <id>prepare-agent</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <systemPropertyVariables>
+                            <jacoco-agent.destfile>${project.build.directory}</jacoco-agent.destfile>
+                        </systemPropertyVariables>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven-failsafe-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>integration-test</goal>
+                                <goal>verify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <skipITs>${skipITs}</skipITs>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>aggregate</id>
+                        <goals>
+                            <goal>aggregate</goal>
+                        </goals>
+                        <phase>site</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin-version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>${maven-reports-plugin-version}</version>
+                <reportSets>
+                    <reportSet></reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
+
+</project>
