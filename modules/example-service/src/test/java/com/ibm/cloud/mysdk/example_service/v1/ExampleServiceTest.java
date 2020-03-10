@@ -164,7 +164,7 @@ public class ExampleServiceTest extends PowerMockTestCase {
     
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, createResourcePath); 
+    assertEquals(parsedPath, createResourcePath);
   }
   
   @Test
@@ -202,7 +202,7 @@ public class ExampleServiceTest extends PowerMockTestCase {
     
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, getResourcePath); 
+    assertEquals(parsedPath, getResourcePath);
   }
   
   // Test the getResource operation with null options model parameter

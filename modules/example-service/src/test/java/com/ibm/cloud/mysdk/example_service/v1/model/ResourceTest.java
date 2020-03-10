@@ -34,13 +34,11 @@ public class ResourceTest {
 
   @Test
   public void testResource() throws Throwable {
-    
     Resource resourceModel = new Resource.Builder()
       .resourceId("testString")
       .name("testString")
       .tag("testString")
       .build();
-
     assertEquals(resourceModel.resourceId(), "testString");
     assertEquals(resourceModel.name(), "testString");
     assertEquals(resourceModel.tag(), "testString");

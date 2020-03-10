@@ -34,11 +34,9 @@ public class ListResourcesOptionsTest {
 
   @Test
   public void testListResourcesOptions() throws Throwable {
-    
     ListResourcesOptions listResourcesOptionsModel = new ListResourcesOptions.Builder()
       .limit(Long.valueOf("26"))
       .build();
-
     assertEquals(listResourcesOptionsModel.limit(), Long.valueOf("26"));
   }
 }

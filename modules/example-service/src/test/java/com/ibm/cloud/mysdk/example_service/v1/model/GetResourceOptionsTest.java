@@ -34,11 +34,9 @@ public class GetResourceOptionsTest {
 
   @Test
   public void testGetResourceOptions() throws Throwable {
-    
     GetResourceOptions getResourceOptionsModel = new GetResourceOptions.Builder()
       .resourceId("testString")
       .build();
-
     assertEquals(getResourceOptionsModel.resourceId(), "testString");
   }
   

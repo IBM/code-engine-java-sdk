@@ -34,13 +34,11 @@ public class CreateResourceOptionsTest {
 
   @Test
   public void testCreateResourceOptions() throws Throwable {
-    
     CreateResourceOptions createResourceOptionsModel = new CreateResourceOptions.Builder()
       .resourceId("testString")
       .name("testString")
       .tag("testString")
       .build();
-
     assertEquals(createResourceOptionsModel.resourceId(), "testString");
     assertEquals(createResourceOptionsModel.name(), "testString");
     assertEquals(createResourceOptionsModel.tag(), "testString");
