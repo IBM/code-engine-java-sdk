@@ -6,7 +6,7 @@
     <!-- Modify these elements to reflect your SDK project's maven coordinates -->
     <groupId>com.ibm.cloud</groupId>
     <artifactId>mysdk</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>99-SNAPSHOT</version>
     <name>Example Java SDK Project</name>
     <packaging>pom</packaging>
     <description>A sample Java SDK produced by the IBM OpenAPI SDK Generator</description>
@@ -18,7 +18,7 @@
         are delivered and so their version numbers should be updated here as needed.
     -->
     <properties>
-        <sdk-core-version>8.1.2</sdk-core-version>
+        <sdk-core-version>8.1.3</sdk-core-version>
         <testng-version>7.1.1</testng-version>
         <surefire-version>3.0.0-M3</surefire-version>
         <jacoco-plugin-version>0.8.3</jacoco-plugin-version>
@@ -32,6 +32,7 @@
         <okhttp3-version>3.12.1</okhttp3-version>
         <powermock-version>2.0.5</powermock-version>
         <mockito-version>3.2.4</mockito-version>
+	
         <!-- Skip integration tests by default -->
         <skipITs>true</skipITs>
     </properties>
