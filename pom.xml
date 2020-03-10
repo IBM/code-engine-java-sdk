@@ -108,7 +108,7 @@
             <!-- Each module (except "common") should depend on this artifact -->
             <dependency>
                 <groupId>com.ibm.cloud</groupId>
-                <artifactId>common</artifactId>
+                <artifactId>mysdk-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
