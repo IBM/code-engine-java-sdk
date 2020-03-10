@@ -1,16 +1,39 @@
 # Questions
-
 If you are having problems using this SDK or have a question about IBM Cloud services,
 please ask a question on [Stack Overflow](http://stackoverflow.com/questions/ask) or
 [dW Answers](https://developer.ibm.com/answers/questions/ask).
 
 # Issues
-
 If you encounter an issue with the project, you are welcome to submit a [bug report](<github-repo-url>/issues).
 Before that, please search for similar issues. It's possible that someone has already reported the problem.
 
-# Pull Requests
+# Code
+## Coding Style
+This SDK follows a coding style based on the [Google Java coding style][GoogleJavaStyleGuidelines],
+with the following modifications:
+- Max line length is 120 chars
+- Only basic JavadocStyle is enforced
+- Import ordering is not enforced
+- VariableDeclarationUsageDistance is not enforced
+- OverloadMethodsDeclarationOrder is not enforced
 
+[GoogleJavaStyleGuidelines]: https://google.github.io/styleguide/javaguide.html
+
+## Commit Messages
+Commit messages should follow the [Angular Commit Message Guidelines](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#-commit-message-guidelines).
+This is because our release tool - [semantic-release](https://github.com/semantic-release/semantic-release) -
+uses this format for determining release versions and generating changelogs.
+Tools such as [commitizen](https://github.com/commitizen/cz-cli) or [commitlint](https://github.com/conventional-changelog/commitlint)
+can be used to help contributors and enforce commit messages.
+Here are some examples of acceptable commit messages, along with the release type that would be done based on the commit message:
+
+| Commit message                                                                                                                                                              | Release type               |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------|
+| `fix(resource controller): fix integration test to use correct credentials`                                                                                                 | Patch Release              |
+| `feat(global catalog): add global-catalog service to project`                                                                                                               | ~~Minor~~ Feature Release  |
+| `feat(global search): re-gen service code with new v3 API definition`<br><br>`BREAKING CHANGE: The global-search service has been updated to reflect version 3 of the API.` | ~~Major~~ Breaking Release |
+
+# Pull Requests
 If you want to contribute to the repository, here's a quick guide:
   1. Fork the repository.
   2. Develop and test your code changes:
@@ -23,45 +46,28 @@ If you want to contribute to the repository, here's a quick guide:
   5. Push to your fork and submit a pull request to the **master** branch.
   6. Be sure to sign the CLA.
 
-# Coding Style
+# Running Tests
+By default, when you run `mvn test` only unit tests are run.   Integration tests are skipped
+because they require credentials.
 
-This SDK follows a coding style based on the [Google Java coding style][GoogleJavaStyleGuidelines],
-with the following modifications:
-- Max line length is 120 chars
-- Only basic JavadocStyle is enforced
-- Import ordering in not enforced
-- VariableDeclarationUsageDistance is not enforced
-- OverloadMethodsDeclarationOrder is not enforced
-
-[GoogleJavaStyleGuidelines]: https://google.github.io/styleguide/javaguide.html
-
-# Running the Tests
-
-Out of the box, `mvn test` runs unit tests and integration tests (which require credentials).
-To run only the unit tests (sufficient for most cases), use `mvn -Dtest=unit/* test`.
-
-To run the integration tests, you need to provide credentials to the integration test framework.
-The integration test framework will skip integration tests for any service that does not have credentials,
-
-To provide credentials for the integration tests, copy `test/resources/.config.properties` to `test/resources/auth.js`
-and fill in credentials for the service(s) you wish to test.
+To run the integration tests, you need to provide credentials to the integration test framework, then
+run `mvn test -DskipIT=false`.
 
 To run the tests in a specific test class, use the `-Dtest` flag when invoking `mvn test`, e.g.:
 
 ```
-mvn -Dtest=SdkCommonTest test
+mvn test -Dtest=SdkCommonTest
 ```
 
 You can run a specific test by adding the name of the test method, e.g.:
 
 ```
-mvn -Dtest=SdkCommonTest#testGetSdkHeaders test
+mvn test -Dtest=SdkCommonTest#testGetSdkHeaders
 ```
 
 # Code Coverage
-
 This repo uses [Jacoco][jacoco] to measure code coverage. To obtain a code coverage report, run `mvn clean verify`
-from the root of the project, and then view the coverage report in the `modules/coverage-report/target` directory:
+from the root of the project, and then view the coverage report in the `modules/coverage-reports/target` directory:
 ```
 open modules/coverage-reports/target/site/jacoco-aggregate/index.html
 ```
@@ -69,18 +75,10 @@ open modules/coverage-reports/target/site/jacoco-aggregate/index.html
 [jacoco]: https://www.eclemma.org/jacoco/
 
 # Generating Javadocs
-
 To generate the Javadocs for the project, run `mvn site` and then view the docs in the `target/site/apidocs` directory:
 ```
 open target/site/apidocs/index.html
 ```
-
-# Additional Resources
-
-+ [Maven Getting Started](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)
-+ [General GitHub documentation](https://help.github.com/)
-+ [GitHub pull request documentation](https://help.github.com/send-pull-requests/)
-
 
 # Developer's Certificate of Origin 1.1
 
@@ -107,3 +105,8 @@ By making a contribution to this project, I certify that:
    personal information I submit with it, including my sign-off) is
    maintained indefinitely and may be redistributed consistent with
    this project or the open source license(s) involved.
+
+# Additional Resources
+- [General GitHub documentation](https://help.github.com/)
+- [GitHub pull request documentation](https://help.github.com/send-pull-requests/)
+- [Maven Getting Started](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)
