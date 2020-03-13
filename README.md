@@ -144,7 +144,7 @@ Each property name is of the form: `<serviceName>_<propertyKey>`.
 Here is an example of some configuration properties for the "Example Service" service:
 
 ```
-export EXAMPLE_SERVICE_URL=https://myservice.cloud.ibm.com/v2
+export EXAMPLE_SERVICE_URL=https://myservice.cloud.ibm.com/v1
 export EXAMPLE_SERVICE_AUTH_TYPE=iam
 export EXAMPLE_SERVICE_APIKEY=my-iam-apikey
 ```
