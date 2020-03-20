@@ -34,7 +34,8 @@ public class SdkCommonTest {
         assertFalse(headers.isEmpty());
         assertTrue(headers.containsKey("User-Agent"));
         String userAgent = headers.get("User-Agent");
-        // System.out.println("User-Agent: " + userAgent);
-        assertTrue(userAgent.startsWith("MySDK/0.0.1"));
+        System.out.println("User-Agent: " + userAgent);
+        String expectedUserAgentRegex = String.format("%s/%s .*", SdkCommon.getProjectName(), SdkCommon.getVersion());
+        assertTrue(userAgent.matches(expectedUserAgentRegex));
     }
 }

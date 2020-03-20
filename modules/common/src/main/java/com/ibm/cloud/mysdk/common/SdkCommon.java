@@ -13,8 +13,10 @@
 
 package com.ibm.cloud.mysdk.common;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import com.ibm.cloud.sdk.core.http.HttpHeaders;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
@@ -30,11 +32,34 @@ public class SdkCommon {
      */
     private static String userAgent;
 
+    private static String projectName;
+    private static String version;
+
+    static {
+        readBuildProperties();
+    }
+
     private SdkCommon() {
     }
 
-    private static String loadSdkVersion() {
-        return "0.0.1";
+    public static String getVersion() {
+        return version;
+    }
+
+    public static String getProjectName() {
+        return projectName;
+    }
+
+    protected static void readBuildProperties() {
+        Properties buildProps = new Properties();
+        try (InputStream is = SdkCommon.class.getResourceAsStream("/my-java-sdk.properties")) {
+            buildProps.load(is);
+            version = buildProps.getProperty("version", "unknown");
+            projectName = buildProps.getProperty("title", "unknown");
+       } catch (Throwable t) {
+            version = "unknown";
+            projectName = "unknown";
+        }
     }
 
     /**
@@ -43,9 +68,11 @@ public class SdkCommon {
      * a set of properties provided by the Java Core's RequestUtils class.
      * @return the SDK-specific user agent value
      */
-    private static String getUserAgent() {
+    private static synchronized String getUserAgent() {
         if (userAgent == null) {
-            userAgent = "MySDK/" + loadSdkVersion() + "; " + RequestUtils.getUserAgent();
+            String systemInfo = RequestUtils.getSystemInfo();
+            systemInfo = systemInfo.replace("(", "(lang=java; ");
+            userAgent = String.format("%s/%s %s", projectName, version, systemInfo);
         }
         return userAgent;
     }
