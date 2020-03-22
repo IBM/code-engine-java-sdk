@@ -3,53 +3,44 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- Modify these elements to reflect your SDK project's maven coordinates -->
     <groupId>com.ibm.cloud</groupId>
-    <artifactId>mysdk</artifactId>
+    <artifactId>my-java-sdk</artifactId>
     <version>99-SNAPSHOT</version>
-    <name>Example Java SDK Project</name>
+    <name>IBM Cloud "MySDK" Services Java SDK</name>
     <packaging>pom</packaging>
-    <description>A sample Java SDK produced by the IBM OpenAPI SDK Generator</description>
-    <url>https://github.ibm.com/CloudEngineering/java-sdk-template</url>
+    <description>Java Client Library to access the IBM Cloud "MySDK" Services</description>
+    <url>https://github.ibm.com/CloudEngineeringibmcloud/mysdk-java-sdk</url>
 
-    <!--
-        Modify these properties as needed to use the correct versions of
-        dependencies. Over time, new versions of maven plugins and other dependencies
-        are delivered and so their version numbers should be updated here as needed.
-    -->
     <properties>
+        <!-- This is the version associated with the Java core. The version used 
+            here should be compatible with the version of the SDK generator used to generate 
+            your SDK code. See this link for details: https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Compatibility-Chart -->
         <sdk-core-version>8.1.3</sdk-core-version>
-        <testng-version>7.1.1</testng-version>
+
+        <testng-version>7.1.0</testng-version>
+        <okhttp3-version>3.13.1</okhttp3-version>
         <surefire-version>3.0.0-M3</surefire-version>
-        <jacoco-plugin-version>0.8.3</jacoco-plugin-version>
+        <jacoco-plugin-version>0.8.5</jacoco-plugin-version>
         <maven-source-plugin-version>3.1.0</maven-source-plugin-version>
+        <maven-jar-plugin-version>3.2.0</maven-jar-plugin-version>
         <maven-javadoc-plugin-version>3.1.1</maven-javadoc-plugin-version>
         <maven-compiler-plugin-version>3.8.1</maven-compiler-plugin-version>
         <maven-site-plugin-version>3.7.1</maven-site-plugin-version>
         <maven-checkstyle-plugin-version>3.1.0</maven-checkstyle-plugin-version>
         <maven-reports-plugin-version>3.0.0</maven-reports-plugin-version>
         <maven-failsafe-plugin-version>3.0.0-M4</maven-failsafe-plugin-version>
-        <okhttp3-version>3.12.1</okhttp3-version>
+        <maven-buildnumber-plugin-version>1.4</maven-buildnumber-plugin-version>
         <powermock-version>2.0.5</powermock-version>
         <mockito-version>3.2.4</mockito-version>
-	
+
         <!-- Skip integration tests by default -->
         <skipITs>true</skipITs>
     </properties>
 
-    <!--
-        Modify this section to reflect the set of modules for your SDK project.
-        In addition to the common module, you'll typically have one module per generated
-        service. For each generated service, create a new directory under modules
-        for it, then copy the modules/example-service/pom.xml file to it. The "example-service"
-        module below services as an example of this. After adding module(s) for your
-        own generated service(s), remove "example-service" from your SDK project.
-    -->
     <modules>
         $MODULES
     </modules>
 
-    <!-- Make sure this license is correct for your SDK project. -->
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -57,35 +48,48 @@
         </license>
     </licenses>
 
-    <!-- Update this section to reflect the correct settings for your git repository. -->
+    <organization>
+        <name>IBM Cloud</name>
+    </organization>
+
     <scm>
         <connection>scm:git:https://github.ibm.com/CloudEngineering/java-sdk-template</connection>
         <developerConnection>scm:git:https://github.ibm.com/CloudEngineering/java-sdk-template</developerConnection>
         <url>https://github.ibm.com/CloudEngineering/java-sdk-template/tree/master</url>
     </scm>
 
-    <!-- Update this section to reflect the correct settings for your git repository. -->
     <issueManagement>
         <system>Github</system>
         <url>https://github.ibm.com/CloudEngineering/java-sdk-template/issues</url>
     </issueManagement>
 
-    <!-- Update this section to reflect the correct settings for your SDK project. -->
     <ciManagement>
         <system>Travis-CI</system>
         <url>https://travis.ibm.com/CloudEngineering/java-sdk-template/</url>
     </ciManagement>
 
-    <distributionManagement>
-    </distributionManagement>
-
-    <!-- Obtain the java core from JCenter. -->
     <repositories>
+        <repository>
+            <id>na-artifactory-ibmcloud-sdks</id>
+            <url>https://na.artifactory.swg-devops.com:443/artifactory/wcp-ibmcloud-sdks-team-maven-local/</url>
+        </repository>
+
         <repository>
             <id>jcenter</id>
             <url>https://jcenter.bintray.com/</url>
         </repository>
     </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>na-artifactory-ibmcloud-sdks</id>
+            <url>https://na.artifactory.swg-devops.com:443/artifactory/wcp-ibmcloud-sdks-team-maven-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>na-artifactory-sdkcodegen</id>
+            <url>https://na.artifactory.swg-devops.com:443/artifactory/wcp-ibmcloud-sdks-team-maven-local</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <dependencyManagement>
         <dependencies>
@@ -232,6 +236,52 @@
                         <skipITs>${skipITs}</skipITs>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>buildnumber-maven-plugin</artifactId>
+                    <version>${maven-buildnumber-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>create</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
+                        <shortRevisionLength>8</shortRevisionLength>
+                        <timestampFormat>{0,date,yyyyMMdd-HHmmss}</timestampFormat>
+                        <attach>true</attach>
+                        <addOutputDirectoryToResources>true</addOutputDirectoryToResources>
+                        <doCheck>false</doCheck>
+                        <doUpdate>false</doUpdate>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven-jar-plugin-version}</version>
+                    <configuration>
+                        <archive>
+                            <manifestEntries>
+                                <Build-Time>${maven.build.timestamp}</Build-Time>
+                            </manifestEntries>
+                            <manifestSections>
+                                <manifestSection>
+                                    <name>Implementation</name>
+                                    <manifestEntries>
+                                        <Implementation-Title>${project.name}</Implementation-Title>
+                                        <Implementation-Vendor>IBM Corporation</Implementation-Vendor>
+                                        <Implementation-Version>${project.version}</Implementation-Version>
+                                        <Implementation-SCM-Revision>${buildNumber}</Implementation-SCM-Revision>
+                                        <Implementation-SCM-Branch>${scmBranch}</Implementation-SCM-Branch>
+                                    </manifestEntries>
+                                </manifestSection>
+                            </manifestSections>
+                        </archive>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -259,6 +309,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

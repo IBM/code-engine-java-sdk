@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.ibm.cloud</groupId>
 	<!-- Update this to reflect your parent project's artifact id -->
-        <artifactId>mysdk</artifactId>
+        <artifactId>my-java-sdk</artifactId>
         <version>99-SNAPSHOT</version>
         <relativePath>../..</relativePath>
     </parent>

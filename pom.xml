@@ -9,7 +9,7 @@
     <name>IBM Cloud "MySDK" Services Java SDK</name>
     <packaging>pom</packaging>
     <description>Java Client Library to access the IBM Cloud "MySDK" Services</description>
-    <url>https://github.ibm.com/CloudEngineeringibmcloud/mysdk-java-sdk</url>
+    <url>https://github.ibm.com/CloudEngineering/java-sdk-template</url>
 
     <properties>
         <!-- This is the version associated with the Java core. The version used 
