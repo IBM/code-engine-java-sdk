@@ -110,7 +110,7 @@ Java SDK project, so modify it as needed to reflect your project.
   methods and should be modified to suit the needs of your particular SDK.
   The default implementation of `getSdkHeaders()` will return a map containing the "User-Agent" header with a value like this:
   ```
-  MySDK/0.0.1; ibm-java-sdk-core-7.0.0 (os.arch=x86_64; os.name=Linux; os.version=7.7; java.version=1.8.1)
+  my-java-sdk/0.0.1 (lang=java; java.version=1.8.1; os.arch=x86_64; os.name=Linux; os.version=7.7)
   ```
   You can modify this function to customize the value of the `User-Agent` header or add additional  headers to the map
   that is returned.  The headers returned in the map will be added to each outgoing request invoked by applications
@@ -247,3 +247,30 @@ The `before_install` step runs the instructions to decrypt the `ibm-credentials.
 The `script` section runs the command to build and run test.
 
 The `deploy` section is the last step of the build and triggers the automated release management. Builds will be published to the release section of the Github project.
+
+## Setting the ``User-Agent`` Header In Preparation for SDK Metrics Gathering
+
+If you plan to gather metrics for your SDK, the `User-Agent` header value must be
+a string similar to the following:
+   `my-java-sdk/0.0.1 (lang=java; java.vendor=AdoptOpenJDK; java.version=1.8.0_232; os.arch=x86_64; os.name=Linux; os.version=5.1)`
+
+The key parts are the sdk name (`my-java-sdk`), version (`0.0.1`) and the
+language name (`lang=java`).
+This is required because the analytics data collector uses the User-Agent header included
+with each request to gather usage data for IBM Cloud services.
+
+The default implementation of the `SdkCommon.getSdkHeaders()` method provided in this SDK template
+repository will need to be modified slightly for your SDK.
+Replace the `my-java-sdk/0.0.1` part with the name and version of your
+Java SDK. The rest of the system information should remain as-is.
+
+For example, suppose your Java SDK project is called `platform-services-java-sdk` and its
+version is `2.3.1`.
+The `User-Agent` header value should be:
+   `platform-services-java-sdk/2.3.1 (lang=java; java.vendor=AdoptOpenJDK; java.version=1.8.0_232; os.arch=x86_64; os.name=Linux; os.version=5.1)`
+
+__Note__: It is very important that the sdk name ends with the string `-sdk`,
+as the analytics data collector uses this to gather usage data.
+
+More information about the analytics tool, and other steps you should take to start gathering
+metrics for your SDK can be found [here](https://github.ibm.com/CloudEngineering/sdk-analytics).
