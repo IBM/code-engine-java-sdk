@@ -16,17 +16,17 @@ Java client library to interact with various [MySDK Service APIs](https://cloud.
 
 <!-- toc -->
 
-  * [Overview](#overview)
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
-      - [All the services](#all-the-services)
-      - [A single service](#a-single-service)
-  * [Using the SDK](#using-the-sdk)
-  * [Questions](#questions)
+- [Overview](#overview)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+    + [All the services](#all-the-services)
+    + [A single service](#a-single-service)
+- [Using the SDK](#using-the-sdk)
+- [Questions](#questions)
 - [Issues](#issues)
-  * [Open source @ IBM](#open-source--ibm)
-  * [Contributing](#contributing)
-  * [License](#license)
+- [Open source @ IBM](#open-source--ibm)
+- [Contributing](#contributing)
+- [License](#license)
 
 <!-- tocstop -->
 
@@ -97,7 +97,7 @@ If you are having difficulties using this SDK or have a question about the IBM C
 please ask a question at [dW Answers](https://developer.ibm.com/answers/questions/ask/?topics=ibm-cloud) or
 [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-cloud).
 
-# Issues
+## Issues
 If you encounter an issue with the project, you are welcome to submit a
 [bug report](<github-repo-url>/issues).
 Before that, please search for similar issues. It's possible that someone has already reported the problem.
