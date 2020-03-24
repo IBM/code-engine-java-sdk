@@ -16,16 +16,17 @@ Java client library to interact with various [MySDK Service APIs](https://cloud.
 
 <!-- toc -->
 
-- [Overview](#overview)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-    + [All the services](#all-the-services)
-    + [A single service](#a-single-service)
-- [Using the SDK](#using-the-sdk)
-- [Questions](#questions)
-- [Open source @ IBM](#open-source--ibm)
-- [Contributing](#contributing)
-- [License](#license)
+  * [Overview](#overview)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+      - [All the services](#all-the-services)
+      - [A single service](#a-single-service)
+  * [Using the SDK](#using-the-sdk)
+  * [Questions](#questions)
+- [Issues](#issues)
+  * [Open source @ IBM](#open-source--ibm)
+  * [Contributing](#contributing)
+  * [License](#license)
 
 <!-- tocstop -->
 
