@@ -1,8 +1,8 @@
 [![Build Status](https://travis.ibm.com/ibmcloud/platform-services-java-sdk.svg?token=eW5FVD71iyte6tTby8gr&branch=master)](https://travis.ibm.com/ibmcloud/platform-services-java-sdk)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-# IBM Cloud MySDK Java SDK Version 0.0.3
-Java client library to interact with various [MySDK Service APIs](https://cloud.ibm.com/apidocs?category=platform_services).
+# IBM Cloud My Services Java SDK Version 0.0.1
+Java client library to interact with various [IBM Cloud My Services](https://cloud.ibm.com/apidocs?category=<service-category>).
 
 <!--
   The TOC below is generated using the `markdown-toc` node package.
@@ -32,7 +32,7 @@ Java client library to interact with various [MySDK Service APIs](https://cloud.
 
 ## Overview
 
-The IBM Cloud MySDK Java SDK allows developers to programmatically interact with the following IBM Cloud services:
+The IBM Cloud My Services Java SDK allows developers to programmatically interact with the following IBM Cloud services:
 
 Service Name | Artifact Id 
 --- | --- 
@@ -40,14 +40,14 @@ Service Name | Artifact Id
 
 ## Prerequisites
 
-[ibm-cloud-onboarding]: https://cloud.ibm.com/registration?target=%2Fdeveloper%2Fwatson&
+[ibm-cloud-onboarding]: https://cloud.ibm.com/registration
 
 * An [IBM Cloud][ibm-cloud-onboarding] account.
 * An IAM API key to allow the SDK to access your account. Create one [here](https://cloud.ibm.com/iam/apikeys).
 * Java 8 or above.
 
 ## Installation
-The current version of this SDK is: 0.0.3
+The current version of this SDK is: 0.0.1
 
 #### All the services
 To define a dependency on the entire set of services contained in the project, use a dependency like these:
@@ -57,15 +57,15 @@ To define a dependency on the entire set of services contained in the project, u
 ```xml
 <dependency>
 	<groupId>com.ibm.cloud</groupId>
-	<artifactId>mysdk</artifactId>
-	<version>0.0.3</version>
+	<artifactId>my-services</artifactId>
+	<version>0.0.1</version>
 </dependency>
 ```
 
 ##### Gradle
 
 ```gradle
-'com.ibm.cloud:mysdk:0.0.3'
+'com.ibm.cloud:my-services:0.0.1'
 ```
 
 #### A single service
@@ -77,15 +77,15 @@ To define a dependency on a single service, use a dependency that contains the a
 <dependency>
     <groupId>com.ibm.cloud</groupId>
     <artifactId>example-service</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.1</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.cloud:example-service:0.0.3'
+'com.ibm.cloud:example-service:0.0.1'
 ```
-Each service's artifact id is listed in the table above.
+Each service's artifact id is listed in the table of services above.
 
 ## Using the SDK
 For general SDK usage information, please see [this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md)
@@ -94,7 +94,7 @@ For general SDK usage information, please see [this link](https://github.com/IBM
 ## Questions
 
 If you are having difficulties using this SDK or have a question about the IBM Cloud services,
-please ask a question at [dW Answers](https://developer.ibm.com/answers/questions/ask/?topics=ibm-cloud) or
+please ask a question at
 [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-cloud).
 
 ## Issues

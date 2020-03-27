@@ -3,16 +3,19 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <!-- Update this section to reflect the correct values for your SDK project -->
     <parent>
+	<!-- >>> Update this to reflect your parent project's artifact id -->
+        <artifactId>my-services</artifactId>
         <groupId>com.ibm.cloud</groupId>
-	<!-- Update this to reflect your parent project's artifact id -->
-        <artifactId>my-java-sdk</artifactId>
         <version>99-SNAPSHOT</version>
         <relativePath>../..</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>coverage-reports</artifactId>
-    <name>Coverage Reports</name>
+    <!-- >>> Replace "my-services" with the parent project's artifactId -->
+    <artifactId>my-services-coverage-reports</artifactId>
+
+    <!-- >>> Replace "My Services" with the service category for the project -->
+    <name>My Services Coverage Reports</name>
 
     <dependencies>
 	<!-- 
@@ -24,11 +27,13 @@
 	     in each module's pom.xml file (i.e. not the module's directory name).
 	-->
         <dependency>
+	    <!-- >>> Replace this with  the common module's artifactId -->
+            <artifactId>my-services-common</artifactId>
             <groupId>${project.groupId}</groupId>
-            <artifactId>mysdk-common</artifactId>
             <version>${project.version}</version>
         </dependency>
-	<!-- Uncomment this and modify to reflect your own module name(s).
+	
+	<!-- Copy and update this section for each service added to the project.
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>example-service</artifactId>

@@ -1,4 +1,5 @@
-# IBM Cloud Java SDK Template
+# IBM Cloud Java SDK Template Usage Instructions
+
 This repository serves as a template for Java SDKs that are produced with the
 [IBM OpenAPI SDK Generator](https://github.ibm.com/CloudEngineering/openapi-sdkgen).
 
@@ -6,29 +7,109 @@ You can use the contents of this repository to create your own Java SDKs.
 
 ## How to use this repository
 
-### 1. Copy or clone the repository
-Copy the files contained in this repository as a starting point when building your own Java SDK
-for one or more IBM Cloud services.
+### 1. Create your new github repository from this template
+This SDK template repository is implemented as a
+[github template](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template),
+which makes it easy to create new projects from it.
 
-You can copy the repository using one of the following methods:
-1. Download the zip file from the git repository main page
-(click on the `Clone or download` button, then click on `Download ZIP`).
-After downloading the zip file, unzip it into a suitable location where you want the project to exist.
-The unzip command will create the `java-sdk-template-master` directory, which you might want to rename
-to something that reflects the Java SDK project that you're trying to build.
-2. Clone this git repository using a command like this:
-`git clone git@github.ibm.com:CloudEngineering/java-sdk-template.git my-sdk`, where `my-sdk`
-is the name of the directory to clone the repository into.  If you omit that option,
-git will clone the repo into the `java-sdk-template` directory.
-In that case, you might want to rename the directory to something that reflects the
-Java SDK project that you're trying to build.
+To create a new SDK repository from this template, follow these instructions:  
+1. In your browser, open the link for this
+[template repository](https://github.ibm.com/CloudEngineering/java-sdk-template).
 
-Note: If you use the `git clone` method of copying the repository, be sure to change the URL
-associated with the `origin` remote, like this:
-```bash
-git remote set-url origin <your project's git URL>
+2. Click on the `Use this template` button that appears next to the `Clone or download` button.
+
+3. In the next window:  
+- Select the `Owner`. This is the github id or organization where the new repository should be created
+- Enter the respository name (e.g. `platform-services-java-sdk`):  
+  - Recommendation: use a name of the form `<service-category>-<language>-sdk`, where:  
+    - `<service-category>` refers to the IBM Cloud service category associated with the services that
+	  will be included in the project (e.g. `platform-services`)
+    - `<language>` is the language associated with the SDK project (e.g. `java`)
+	
+4. Click the `Create repository from template` button to create the new repository  
+
+If your goal is to create the new SDK repository on the `Github Enterprise` server (github.ibm.com),
+then you are finished creating the new repository and you can proceed to section 2.
+
+On the other hand, if your goal is to create the new SDK repository on the `Public Github` server (github.com),
+then perform these additional steps:
+
+5. Create a new **EMPTY** repository on the Public Github server:  
+- Select "No template" for the "Repository template" option
+- Select the `Owner` (your personal id or an organization)
+- Enter the same respository name that you used when creating the new repository above (e.g. my-java-sdk)
+- Do NOT select the `Initialize this repository with a README` option
+- Select `None` for the `Add .gitignore` and `Add a license` options
+- Click the `Create repository` button.
+- After the new empty repository has been created, you will be at the main page
+of your new repository, which will include this text:
 ```
-If you don't do this, you might inadvertently try to push your changes back to the `java-sdk-template` repository.
+...or push an existing repository from the command line
+
+git remote add origin git@github.com:padamstx/my-java-sdk.git
+git push -u origin master
+```
+- Take note of the two git commands listed above for your new repository, as we'll execute these later
+
+6. Clone your new `Github Enterprise` repository (created in steps 1-3 above)
+to your local development environment:  
+
+```sh
+[/work/demos]
+$ git clone git@github.ibm.com:phil-adams/my-java-sdk.git
+Cloning into 'my-java-sdk'...
+remote: Enumerating objects: 36, done.
+remote: Counting objects: 100% (36/36), done.
+remote: Compressing objects: 100% (32/32), done.
+remote: Total 36 (delta 1), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (36/36), 28.74 KiB | 577.00 KiB/s, done.
+Resolving deltas: 100% (1/1), done.
+```
+
+7. "cd" into your project's root directory:
+
+```sh
+[/work/demos]
+$ cd my-java-sdk
+[/work/demos/my-java-sdk]
+$ 
+```
+
+8. Remove the existing remote:  
+```sh
+[/work/demos/my-java-sdk]
+$ git remote remove origin
+```
+
+9. Add a new remote which reflects your new `Public Github` repository:
+
+```sh
+[/work/demos/my-java-sdk]
+$ git remote add origin git@github.com:padamstx/my-java-sdk.git
+```
+
+10. Push your local repository to the new remote (Public Github):  
+
+```sh
+[/work/demos/my-java-sdk]
+$ git push -u origin master
+Enumerating objects: 36, done.
+Counting objects: 100% (36/36), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (31/31), done.
+Writing objects: 100% (36/36), 28.74 KiB | 28.74 MiB/s, done.
+Total 36 (delta 1), reused 36 (delta 1)
+remote: Resolving deltas: 100% (1/1), done.
+To github.com:padamstx/my-java-sdk.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+```
+
+You have now created your new SDK repository on the `Public Github` server.
+
+You may want to now delete the new SDK repository that you created on the `Github Enterprise`
+server since it will no longer be used now that you have created your repository on `Public Github`.
+
 
 ### 2. Sanity-check your copy of the `java-sdk-template` repository
 After copying or cloning this repository, you can do a quick sanity check by running this command in
@@ -43,87 +124,95 @@ $ mvn package
 [INFO] ------------------------------------------------------------------------
 [INFO] Reactor Build Order:
 [INFO]
-[INFO] Example Java SDK Project
-[INFO] MySDK Common Library
-[INFO] Example Service
-[INFO] Coverage Reports
 .
 .    ...maven output...
 .
 [INFO] ------------------------------------------------------------------------
-[INFO] Reactor Summary:
-[INFO]
-[INFO] Example Java SDK Project ........................... SUCCESS [  1.065 s]
-[INFO] MySDK Common Library ............................... SUCCESS [  2.128 s]
-[INFO] Example Service .................................... SUCCESS [  0.895 s]
-[INFO] Coverage Reports ................................... SUCCESS [  0.073 s]
-[INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 4.239 s
-[INFO] Finished at: 2019-10-14T10:32:27-05:00
-[INFO] Final Memory: 34M/573M
+[INFO] Total time: 7.416 s
+[INFO] Finished at: 2020-03-27T17:53:36-05:00
+[INFO] Final Memory: 40M/716M
 [INFO] ------------------------------------------------------------------------
 ```
 
-### 3. Modify your copy of the repository to reflect your SDK project
-Once you have verified that your copy of this template repository builds and tests cleanly, it's time to
-transform it into your new Java SDK project.
-Make sure you have done the following:
-1. Rename the root directory to reflect your Java SDK project (e.g. `mv java-sdk-template my-java-sdk`)
-2. If you previously cloned the `java-sdk-template` git repository, be sure to change the url associated
-with the remote named `origin`, like this: `git remote set-url origin <your project's git URL>`
+### 3. Modify selected files
 
-Next, make modifications to various files and directories as instructed below:
+- In this section, you'll modify various files within your new SDK repository to reflect
+the proper names and settings for your specific project.
 
-* The Java SDK template repository uses the name `MySDK` as a placeholder for the name of the
-SDK project in various files.
-References to `MySDK` should be replaced with the name of your Java SDK project.
-* Also, the base package name `com.ibm.cloud.mysdk` is used within various modules in the project.
-Determine the base package name that you will use for your Java SDK project and then modify the directory paths underneath `src/main/java` and `src/test/java` within each module directory as needed.
-It is recommended that your base package name start with the `com.ibm.cloud` prefix (e.g. `com.ibm.cloud.xyz_sdk`).  After modifying the directory paths to reflect your base package name, you will also
-need to change the `package` statements within Java source files as well.
+- The template repository comes with an example service included, but this should be removed
+from your project:
+  - Remove the `modules/example-service` directory and its contents
+  - Comment out the "example-service" module entry from the list of modules in the parent pom.xml file
+    (look for ">>> List each service's module here")
 
-* __README.md__ - This file is intended to be customized to form the `README.md` file for your new
-Java SDK project, so modify it as needed to reflect your project.  
+- Next, decide on the appropriate java main package name for your project.
+  This should use the pattern `com.ibm.cloud.<service_category>` (e.g. com.ibm.cloud.platform_services).
+  This value should also be used as the `apiPackage` option when generating SDK code. More on this later.
 
-* __pom.xml__ - this is the top-level maven build script that requires several customizations:
+- Next, here is a list of the various files within the project with comments
+that will guide you in the required modifications:
 
-  - Update the project details such as project name, description, artifact-id, and url.
+  - `pom.xml`: this is the top-level maven build script (parent pom):
+    - follow the instructions within this file (look for each ">>>")
 
-  - __[Very important]__ Set the version of the Java `sdk-core` package to be used with your
-  SDK project.  This is defined in the line that looks like this:
-    ```
-        <sdk-core-version>7.0.0</sdk-core-version>
-    ```
+  - `modules/common/pom.xml`:  
+    - follow the instructions within this file (look for each ">>>")
 
-    You must use a version of the Java SDK Core that is compatible with the version of the SDK generator
-    used to generate your SDK code.   See [this link](https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Compatibility-Chart) for details.
+  - `modules/common/src/main/java/com/ibm/cloud/my_services/common/SdkCommon.java`:
+    - Rename the "my_services" part of the pathname to be the last part of the project's main package name
+      (e.g. `platform_services`).
+    - follow the instructions within this file (look for each ">>>")
 
-  Comments inside the pom.xml file will guide you when customizing this for your Java SDK project.
+  - `modules/common/src/test/java/com/ibm/cloud/my_services/common/test/SdkCommonTest.java`:
+    - Rename the "my_services" part of the pathname to be the last part of the project's main package name
+      (e.g. `platform_services`).
+    - follow the instructions within this file (look for each ">>>")
 
-* __modules/common/pom.xml__ - follow the instructions in the comments within this file.
+  - `modules/common/src/main/resources/my-services.properties`
+    - Rename this file so that the base name of the file reflects the parent project's artifactId
+      (e.g. platform-services.properties)
 
-* __modules/common/src/main/java/com/ibm/cloud/mysdk/common/SdkCommon.java__ -  
-  Java SDKs built with the IBM OpenAPI SDK Generator need to implement a class called `SdkCommon` that contains
-  a function named `getSdkHeaders()`.  The `SdkCommon.getSdkHeaders()` function is invoked by the generated service
-  methods and should be modified to suit the needs of your particular SDK.
-  The default implementation of `getSdkHeaders()` will return a map containing the "User-Agent" header with a value like this:
-  ```
-  my-java-sdk/0.0.1 (lang=java; java.version=1.8.1; os.arch=x86_64; os.name=Linux; os.version=7.7)
-  ```
-  You can modify this function to customize the value of the `User-Agent` header or add additional  headers to the map
-  that is returned.  The headers returned in the map will be added to each outgoing request invoked by applications
-  using your SDK.
+  - `modules/coverage-reports/pom.xml`:
+    - follow the instructions within this file (look for each ">>>")
 
-  At a minimum, the following changes need to be made to the `SdkCommon` class:
-  1. Rename the "mysdk" in this file's path to be consistent with your SDK's base package name (if not done
-    previously).  Make the same change in the corresponding `src/test/java/com/ibm/cloud/mysdk` path as well.
-  2. Update the `package` statement to reflect your Java SDK's base package name (if not done previously).
-  3. Update the `getSdkHeaders()` method so that it returns the desired set of SDK-specific HTTP headers
-     to be included in outgoing REST API requests.
-  4. After modifying the `SdkCommon` class, be sure to also update the accompanying testcase
-  (`SdkCommonTest`) to properly test the new version of `SdkCommon`.
+  - `README.md`:
+    - Change the title to reflect your project; leave the version in the title as `0.0.1`
+    - Change `[IBM Cloud My Services]` to reflect your project
+      (e.g. `[IBM Cloud Platform Services]`)
+    - Change the `cloud.ibm.com/apidocs` link to reflect the correct service category
+      (e.g. `platform-services`)
+    - In the Overview section, modify `IBM Cloud My Services Java SDK` to reflect your project
+      (e.g. `IBM Cloud Platform Services Java SDK`)
+    - In the table of services, remove the entry for the example service; later you'll list each
+      service contained in your SDK project in this table, along with a link to the online reference docs
+      and the name of the generated service artifact.
+    - In the Installation section:
+      - Update the dependency examples within the "All the services" section
+        to reflect your parent project's artifact id (e.g. change "my-services" to "platform-services")
+      - Update the dependency examples within the "A single service" section
+        to reflect the artifactId of ONE OF your services (e.g. change "example-service" to
+        "resource-controller")
+    - In the "Issues" section, modify `<github-repo-url>` to reflect the Github URL for your project.
+    - Note that the README.md file contains a link to a common README document where general
+      SDK usage information can be found.
+    - When finished, read through the document and make any other changes that might be necessary.
+
+  - `CONTRIBUTING.md`:
+    - In the "Issues" section, modify `<github-repo-url>` to reflect the Github URL for your project.
+
+At this point, it's probably a good idea to commit the changes that you have made so far.
+Be sure to use proper commit messages when committing changes (follow the link in `CONTRIBUTING.md`
+to the common CONTRIBUTING document).  
+Example:
+```sh
+cd <project-root>
+git add .
+git commit -m "chore: initial SDK project setup"
+```
+
+
 
 ### 4. Generate the Java code with the IBM OpenAPI SDK Generator
 This is the step that you've been waiting for!

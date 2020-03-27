@@ -34,5 +34,7 @@ hs_err_pid*
 .openapi-generator/
 .openapi-generator-ignore
 
-# IBM Credentials File
-ibm-credentials.env
+# credentials files
+*.env
+
+package-lock.json

@@ -2,19 +2,20 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- Update this section to reflect the correct values for your SDK project -->
     <parent>
+	<!-- >>> Replace this with the parent pom's artifactId -->
+        <artifactId>my-services</artifactId>
         <groupId>com.ibm.cloud</groupId>
-        <artifactId>my-java-sdk</artifactId>
-        <version>99-SNAPSHOT</version>
+	<version>99-SNAPSHOT</version>
         <relativePath>../..</relativePath>
     </parent>
 
-    <!-- Update this section to reflect your SDK project name, etc. -->
-    <artifactId>mysdk-common</artifactId>
-    <packaging>jar</packaging>
-    <name>MySDK Common Library</name>
+    <!-- >>> Replace "my-services" with the parent artifactId (e.g. platform-services-common) -->
+    <artifactId>my-services-common</artifactId>
 
+    <!-- >>> Replace "My Services" with the service category (e.g. Platform Services Common Library) -->
+    <name>My Services Common Library</name>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
