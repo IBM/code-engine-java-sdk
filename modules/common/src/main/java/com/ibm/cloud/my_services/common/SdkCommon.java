@@ -56,7 +56,6 @@ public class SdkCommon {
 
     protected static void readBuildProperties() {
         Properties buildProps = new Properties();
-        // >>> Replace "my-services" with the parent project's artifactId (e.g. platform-services)
         try (InputStream is = SdkCommon.class.getResourceAsStream("/" + parentArtifactId + ".properties")) {
             buildProps.load(is);
             version = buildProps.getProperty("version", "unknown");
