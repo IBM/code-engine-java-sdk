@@ -111,8 +111,9 @@ You may want to now delete the new SDK repository that you created on the `Githu
 server since it will no longer be used now that you have created your repository on `Public Github`.
 
 
-### 2. Sanity-check your copy of the `java-sdk-template` repository
-After copying or cloning this repository, you can do a quick sanity check by running this command in
+### 2. Sanity-check your new repository
+After creating your new project from the template repository, and cloning it in your local
+development environment, you can do a quick sanity check by running this command in
 the project root directory:
 ```
 mvn package
