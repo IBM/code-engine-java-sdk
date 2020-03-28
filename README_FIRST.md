@@ -178,6 +178,12 @@ that will guide you in the required modifications:
   - `modules/coverage-reports/pom.xml`:
     - follow the instructions within this file (look for each ">>>")
 
+  - `service-pom.xml`: this is a template for creating pom.xml files for new modules added to the project,
+    and will be used later when generating the SDK code for your services.
+    - Edit the file and make these changes:
+      - Replace `PARENT-ARTIFACTID` with the parent project's artifactId (e.g. platform-services)
+      - Replace `COMMON-ARTIFACTID` with the common module's artifactId (e.g. platform-services-common)
+
   - `README.md`:
     - Change the title to reflect your project; leave the version in the title as `0.0.1`
     - Change `[IBM Cloud My Services]` to reflect your project
@@ -214,129 +220,130 @@ git commit -m "chore: initial SDK project setup"
 ```
 
 
-
 ### 4. Generate the Java code with the IBM OpenAPI SDK Generator
 This is the step that you've been waiting for!
 
 In this step, you'll invoke the IBM OpenAPI SDK Generator to process your API definition(s).
 
-#### Generator setup
-1. Install an official release of the OpenAPI SDK Generator.
-Details are [here](https://github.ibm.com/CloudEngineering/openapi-sdkgen/blob/master/README.md#using-a-pre-built-installer).
-You might want to also add the installation directory to your shell PATH environment variable.
+This will generate a collection of Java source files which you will need to include in your SDK project.
 
-2. Modify your API definition(s) to include the base package name that you defined above. Details on the `apiPackage` configuration property can be found [here](https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Config-Options).  
-Here's an example of an API definition that has this property defined:
+You'll find instructions on how to do this on the [generator repository wiki](https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Usage-Instructions).
+
+**Recommended**: Modify each of your API definition files to configure the `apiPackage` property.
+The value of this property should be the main package name that you chose above
+(e.g. `com.ibm.cloud.platform_services`).
+Here's an example of the configuration properties that you can add to each API definition:
+```yaml
+  info:
+    x-codegen-config:
+      java:
+        apiPackage: '<main package name>'
 ```
-openapi: "3.0.0"
-info:
-  version: 1.0.0
-  title: Example service
-  x-alternate-name: ExampleService
-  license:
-    name: MIT
-  x-codegen-config:
-    java:
-      apiPackage: 'com.ibm.cloud.xyz_sdk'
+Details about SDK generator configuration properties can be found
+[here](https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Config-Options)
+
+Set the output location for the generated files to be the `./modules` directory of the project.
+
+If you did not configure the `apiPackage` configuration property in your API definition file(s), then
+be sure to use the `--api-package <main-package-name>` command line option when running the generator to
+ensure that source files are generated correctly.
+
+Here is an example of how to generate the SDK code for an API definition.
+Suppose your API definition file is named `my-service.json` and contains the definition of the "My Service"
+service.
+To generate the code into your project, run these commands:
+```sh
+cd <project-root>
+
+openapi-sdkgen.sh generate -g ibm-java -i my-service.json -o ./modules --api-package <main-package-name>
+
 ```
-#### Generating the code for your service(s)
-For each service that you want to include in your Java SDK project, process the
-service's API definition with the SDK Generator, like this:
-```
-openapi-sdkgen.sh generate -i <API-definition-filename> -g watson-java -o <output-directory>
-```
-For the output directory, you can specify the "modules" directory of your Java SDK project, and the generator
-will create a directory underneath that to represent the module associated with the generated service,
-then it will write the generated source files to that directory.  
+The generated service and unit test code will be written to a **module** directory underneath `/modules`.
+The name of the module directory will reflect the service name (e.g. my-service).
+For the example above, the module directory would be named `my-service`.
+You will have one module directory underneath `./modules` for each service contained in your project (plus
+the `common` and `coverage-reports` modules).
 
-For example, this command:
-```
-openapi-sdkgen.sh generate -i cloud-service.yaml -g watson-java -o /work/projects/xyz_sdk/modules
-```
-would write the generated source files to `/work/projects/xyz_sdk/modules/cloud-service`.
+Copy the `service-pom.xml` file to `modules/<module-name>/pom.xml, where `<module-name>` is
+the name of the new module directory.
+Edit this file and make these changes:
+  - Replace `MODULE-ARTIFACTID` with the new module's artifactId (e.g. my-service)
+  - Replace `MODULE-DESCRIPTION` with a suitable description for the module (e.g. "My Service").
 
-__Note:__ the name of the module directory comes from the `title` and/or `x-alternate-name` properties within
-the API definition, not the name of the API definition file.
+Update the service table in the `README.md` file to add an entry for the new service.
 
-After you generate each service, copy the __modules/example-service/pom.xml__ file into your new module
-directory (the new directory created by the SDK generator), and then modify it as needed to reflect your new
-service, using the comments within the file as a guide.  Also, be sure to add your new module to the list
-of modules within the root __poml.xml__ file.
+Next, modify the parent `pom.xml` file to add an entry for the new service to the `<modules>` element.
 
-For more information on using the SDK Generator to generate a Java SDK, see [this page](https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Generating-a-Java-SDK).
-
-### 5. Remove `example-service` module
-The `java-sdk-template` repository includes an example service in the `modules/example-service` directory.  
-This is an example of a service that was generated with the IBM OpenAPI SDK Generator.  
-
-Once you have generated the Java code for your own service(s) and added those modules to your Java SDK
-project, you'll want to remove the `example-service` module so that it is not included in your SDK.
-
-To remove the module, simply remove the `module/example-service` directory and the files contained within it,
-then modify the root __pom.xml__ to remove `example-service` from the list of modules.
-
-### 6. Develop tests for your generated service(s)
-After adding your generated service(s) to your Java SDK project, unit and integration tests should be developed
-which exercise the various methods (operations) belonging to your service(s).  We recommend that you use the
-[`TestNG`](https://testng.org/doc/) framework for testcases.
-
-Unit tests typically use a mock
-service endpoint along with mock request and response data to quickly test that the generated SDK code is working
-properly for your services.
-
-Integration tests are typically tests that use an actual running instance of the services.
+Repeat the steps in this section for each service to be included in your project.
 
 
-### 7. Build and test the project
+### 5. Build and test the project
 If you made it this far, congratulate yourself!
 
-After generating the code for your services and developing unit and integration tests, it's time to build
+After generating the service and unit test code for your services, it's time to build
 and test your project.   To do that, run this command in the project root directory:
 ```
 mvn package
 ```
 
-After the various tests within your project are run, you can examine the following for test and coverage results:
+If your build was clean, you can examine the following for test and coverage results:
 1. `modules/<module-name>/target/surefire-reports/index.html` - contains the unit test results for a particular module.
 2. `modules/coverage-reports/target/site/jacoco-aggregate/index.html` - contains an aggregate test coverage report
 for the project.
 
-### 8. Continuous Integration
-This repository is set up to use [Travis](https://travis-ci.org/) for continuous integration.
 
-Before setting up Travis CI and set up integration test, create a file named `ibm-credentials.env` at the root of the java-sdk-template project directory. For more information on the format of the `ibm-credentials.env` file, see (example credentials file here)[https://github.com/IBM/java-sdk-core/blob/master/src/test/resources/my-credentials.env].
+## Integration tests
+Integration tests must be developed by hand.
+For integration tests to run properly with an actual running instance of the service,
+credentials (e.g. IAM api key, etc.) must be provided as external configuration properties.
+Details about this can be found
+[here](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md#using-external-configuration).
 
-Then, in order to pass credentials to Travis and run integration tests:
+An example integration test is located at
+[ExampleServiceIT.java](https://github.ibm.com/CloudEngineering/java-sdk-template/blob/master/modules/example-service/src/test/java/com/ibm/cloud/my_services/example_service/v1/ExampleServiceIT.java).
 
-1. Enable Travis-CI for your repository in Travis.
-2. Make sure Ruby and Ruby Gem are installed and up to date on your local machine. You can [install Ruby here](https://www.ruby-lang.org/en/documentation/installation/)
-3. Install Travis CLI (`gem install travis`). To verify installation, type `travis -v`
-4. Log into Travis through CLI. Depending on whether you're trying to connect to Travis Enterprise, or Public Travis, the commands will be different.
+In order to run the "example service" integration test,
+you'll need an actual running instance of the example service.
+To run this service, clone the [Example Service repo](https://github.ibm.com/CloudEngineering/example-service)
+and follow the instructions there for how to start up an instance of the example service.
 
-Here's the command for logging into Travis Enterprise:
-```sh
-travis login -X --github-token <your-github-enterprise-token> --api-endpoint https://travis.ibm.com/api
-```
 
-Here's the command for logging into Public Travis
-```sh
-travis login --github-token <your-public-github-token> --com
-```
+## Continuous Integration
+This repository is set up to use [Travis](https://travis-ci.com/)
+or [Travis Enterprise](https://travis.ibm.com) for continuous integration.
 
-5. From the root of the project, run the command `travis encrypt-file ibm-credentials.env`
-6. The command will generate a file called `ibm-credentials.env.enc` in the project folder root directory. Commit the file to your repository
-7. Terminal should print out a command to add to your build script. In that command is a string with the format similar to `encrypted_12345_key`. Copy that string
-8. Open `.travis.yml` from the project root directory. Replace the string `encrypted_12345_key` with the name of your generated environment variable from the last step
-9. Also replace the string `encrypted_12345_iv` with the name of your generated environment variable, but modify the string from `_key` to `_iv`
-10. Commit the changes you made to the `.travis.yml` file and push to Github. Travis-CI pipeline should automatically start running
+The `.travis.yml` file contains all the instructions necessary to run the build.
 
-The config file `.travis.yml` contains all the instructions necessary to run the recommended build. Each step is described below.
+For details related to the `travis.yml` file, see
+[this](https://docs.travis-ci.com/user/customizing-the-build/)
 
-The `before_install` step runs the instructions to decrypt the `ibm-credentials.env.enc` file. It only does for *pushes* to a branch. This is done so that integration tests only run on *push* builds and not on *pull request* builds.
+### Release management with semantic-release
+The `.travis.yml` file included in this template repository is configured to
+perform automated release management with
+[semantic-release](https://semantic-release.gitbook.io/semantic-release/).
 
-The `script` section runs the command to build and run test.
+When you configure your SDK project in Travis, be sure to set these environment variables in your
+Travis build settings:  
+- `GH_TOKEN`: set this to the Github oauth token for a user having "push" access to your repository
 
-The `deploy` section is the last step of the build and triggers the automated release management. Builds will be published to the release section of the Github project.
+If you are using `Travis Enterprise` (travis.ibm.com), you'll need to set these additional
+environment variables as well:  
+- `GH_URL`: set this to the string `https://github.ibm.com`
+- `GH_PREFIX`: set this to the string `/api/v3`
+
+And if you are going to be deploying your project's jars to an internal Artifactory repository,
+set these additional environment variables as well:
+- `ARTIFACTORY_APIKEY`: set this to the Artficatory API key for a user that has write access to
+  the internal Artifactory repository where your jars will be deployed
+- `ARTIFACTORY_USER`: set this to the username associated with the Artifactory API key above
+
+
+### Encrypting secrets
+To run integration tests within a Travis build, you'll need to encrypt the file containing the
+required external configuration properties.
+For details on how to do this, please see
+[this](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/EncryptingSecrets.md)
+
 
 ## Setting the ``User-Agent`` Header In Preparation for SDK Metrics Gathering
 
