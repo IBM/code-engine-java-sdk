@@ -33,13 +33,12 @@
             <version>${project.version}</version>
         </dependency>
 	
-	<!-- Copy and update this section for each service added to the project.
+	<!-- Copy and update this section for each service added to the project. -->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>example-service</artifactId>
             <version>${project.version}</version>
         </dependency>
-	-->
     </dependencies>
 
     <build>
