@@ -264,7 +264,7 @@ For the example above, the module directory would be named `my-service`.
 You will have one module directory underneath `./modules` for each service contained in your project (plus
 the `common` and `coverage-reports` modules).
 
-Copy the `service-pom.xml` file to `modules/<module-name>/pom.xml, where `<module-name>` is
+Copy the `service-pom.xml` file to `modules/<module-name>/pom.xml`, where `<module-name>` is
 the name of the new module directory.
 Edit this file and make these changes:
   - Replace `MODULE-ARTIFACTID` with the new module's artifactId (e.g. my-service)
