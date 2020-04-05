@@ -1,19 +1,21 @@
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-	<!-- >>> Replace this with the parent pom's artifactId -->
+        <!-- >>> Replace this with the parent pom's artifactId -->
         <artifactId>my-services</artifactId>
         <groupId>com.ibm.cloud</groupId>
-	<version>99-SNAPSHOT</version>
+        <version>99-SNAPSHOT</version>
         <relativePath>../..</relativePath>
     </parent>
 
     <!-- >>> Replace "my-services" with the parent artifactId (e.g. platform-services-common) -->
     <artifactId>my-services-common</artifactId>
 
-    <!-- >>> Replace "My Services" with the service category (e.g. Platform Services Common Library) -->
+    <!-- >>> Replace "My Services" with the service category (e.g. Platform 
+        Services Common Library) -->
     <name>My Services Common Library</name>
     <packaging>jar</packaging>
 
@@ -27,6 +29,16 @@
             <artifactId>testng</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito2</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-testng</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <resources>
@@ -38,5 +50,18 @@
                 </includes>
             </resource>
         </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 </project>
