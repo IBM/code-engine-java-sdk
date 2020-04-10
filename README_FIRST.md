@@ -184,6 +184,9 @@ that will guide you in the required modifications:
       - Replace `PARENT-ARTIFACTID` with the parent project's artifactId (e.g. platform-services)
       - Replace `COMMON-ARTIFACTID` with the common module's artifactId (e.g. platform-services-common)
 
+  - `.travis.yml`:
+    - Remove the `jobs` section as it is applicable only to the template repository's build.
+    
   - `README.md`:
     - Change the title to reflect your project; leave the version in the title as `0.0.1`
     - Change `[IBM Cloud My Services]` to reflect your project

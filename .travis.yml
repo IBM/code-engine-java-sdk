@@ -3,7 +3,7 @@ language: java
 dist: xenial
 
 jdk:
-- openjdk8
+  - openjdk8
 
 notifications:
   email: true
@@ -20,18 +20,30 @@ cache:
   directories:
   - "$HOME/.m2"
 
+# After creating your SDK project from this template repository,
+# remove this entire "jobs" section as this is only applicable
+# to the template repo's travis build.
+jobs:
+  include:
+    - stage: Build and run tests
+    - stage: Run system test with template
+      script:
+        - git clone git@github.ibm.com:CloudEngineering/sdkgen-systest.git
+        - cd sdkgen-systest
+        - ./install_scripts/install_deps_ubuntu.sh
+        - ./setup_and_generate.sh -l ibm-java -t $TRAVIS_BRANCH
+
 before_install:
 - sudo apt-get update
 - sudo apt-get install python
 - nvm install 12
 - npm install -g npm@6.x
+# - '[ "${TRAVIS_PULL_REQUEST}" == "false" ] && openssl aes-256-cbc -K $my_key  -iv $my_iv -in myservice.env.enc -out myservice.env -d || true'
 
 install:
 - curl -s https://codecov.io/bash > $HOME/codecov-bash.sh && chmod +x $HOME/codecov-bash.sh
 
-
 before_script:
-# - 'openssl aes-256-cbc -K $my_key  -iv $my_iv -in myservice.env.enc -out myservice.env -d || true'
 - echo "TRAVIS_TAG = '${TRAVIS_TAG}'"
 - >-
       [ -n "${TRAVIS_TAG}" ]
@@ -41,6 +53,7 @@ before_script:
 script:
 -  mvn clean verify $MVN_ARGS
  
+# To enable semantic-release, uncomment these sections.
 # before_deploy:
 # - pip install --user bump2version
 # - npm install @semantic-release/changelog
