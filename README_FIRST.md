@@ -5,6 +5,33 @@ This repository serves as a template for Java SDKs that are produced with the
 
 You can use the contents of this repository to create your own Java SDKs.
 
+## Table of Contents
+<!--
+  The TOC below is generated using the `markdown-toc` node package.
+
+      https://github.com/jonschlinkert/markdown-toc
+
+  You should regenerate the TOC after making changes to this file.
+
+      markdown-toc -i --maxdepth 4 README_FIRST.md
+  -->
+
+<!-- toc -->
+
+- [How to use this repository](#how-to-use-this-repository)
+  * [1. Create your new github repository from this template](#1-create-your-new-github-repository-from-this-template)
+  * [2. Sanity-check your new repository](#2-sanity-check-your-new-repository)
+  * [3. Modify selected files](#3-modify-selected-files)
+  * [4. Add one or more services to the project](#4-add-one-or-more-services-to-the-project)
+  * [5. Build and test the project](#5-build-and-test-the-project)
+- [Integration tests](#integration-tests)
+- [Continuous Integration](#continuous-integration)
+  * [Release management with semantic-release](#release-management-with-semantic-release)
+  * [Encrypting secrets](#encrypting-secrets)
+- [Setting the ``User-Agent`` Header In Preparation for SDK Metrics Gathering](#setting-the-user-agent-header-in-preparation-for-sdk-metrics-gathering)
+
+<!-- tocstop -->
+
 ## How to use this repository
 
 ### 1. Create your new github repository from this template
@@ -223,61 +250,9 @@ git commit -m "chore: initial SDK project setup"
 ```
 
 
-### 4. Generate the Java code with the IBM OpenAPI SDK Generator
-This is the step that you've been waiting for!
-
-In this step, you'll invoke the IBM OpenAPI SDK Generator to process your API definition(s).
-
-This will generate a collection of Java source files which you will need to include in your SDK project.
-
-You'll find instructions on how to do this on the [generator repository wiki](https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Usage-Instructions).
-
-**Recommended**: Modify each of your API definition files to configure the `apiPackage` property.
-The value of this property should be the main package name that you chose above
-(e.g. `com.ibm.cloud.platform_services`).
-Here's an example of the configuration properties that you can add to each API definition:
-```yaml
-  info:
-    x-codegen-config:
-      java:
-        apiPackage: '<main package name>'
-```
-Details about SDK generator configuration properties can be found
-[here](https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Config-Options)
-
-Set the output location for the generated files to be the `./modules` directory of the project.
-
-If you did not configure the `apiPackage` configuration property in your API definition file(s), then
-be sure to use the `--api-package <main-package-name>` command line option when running the generator to
-ensure that source files are generated correctly.
-
-Here is an example of how to generate the SDK code for an API definition.
-Suppose your API definition file is named `my-service.json` and contains the definition of the "My Service"
-service.
-To generate the code into your project, run these commands:
-```sh
-cd <project-root>
-
-openapi-sdkgen.sh generate -g ibm-java -i my-service.json -o ./modules --api-package <main-package-name>
-
-```
-The generated service and unit test code will be written to a **module** directory underneath `/modules`.
-The name of the module directory will reflect the service name (e.g. my-service).
-For the example above, the module directory would be named `my-service`.
-You will have one module directory underneath `./modules` for each service contained in your project (plus
-the `common` and `coverage-reports` modules).
-
-Copy the `service-pom.xml` file to `modules/<module-name>/pom.xml`, where `<module-name>` is
-the name of the new module directory.
-Edit this file and make these changes:
-  - Replace `MODULE-ARTIFACTID` with the new module's artifactId (e.g. my-service)
-  - Replace `MODULE-DESCRIPTION` with a suitable description for the module (e.g. "My Service").
-
-Update the service table in the `README.md` file to add an entry for the new service.
-
-Next, modify the parent `pom.xml` file to add an entry for the new service to the `<modules>` element.
-
-Repeat the steps in this section for each service to be included in your project.
+### 4. Add one or more services to the project
+For each service that you'd like to add to your SDK project, follow
+[these instructions](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/CONTRIBUTING_java.md#adding-a-new-service).
 
 
 ### 5. Build and test the project
