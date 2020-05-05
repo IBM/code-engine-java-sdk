@@ -64,4 +64,13 @@
             </plugin>
         </plugins>
     </build>
+
+    <developers>
+        <developer>
+            <name>IBM Cloud DevX SDK Development</name>
+            <email>devxsdk@us.ibm.com</email>
+            <url>https://www.ibm.com/</url>
+        </developer>
+    </developers>
+
 </project>

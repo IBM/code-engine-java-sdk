@@ -23,7 +23,7 @@
         <!-- This is the version associated with the Java core. The version used 
              here should be compatible with the version of the SDK generator used to generate 
              your SDK code. See this link for details: https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Compatibility-Chart -->
-        <sdk-core-version>8.1.3</sdk-core-version>
+        <sdk-core-version>8.1.4</sdk-core-version>
 
         <!-- >>> Replace this with the name of your SDK's github repository -->
         <git-repository-name>my-services-java-sdk</git-repository-name>
