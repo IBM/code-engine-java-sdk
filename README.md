@@ -4,6 +4,9 @@
 # IBM Cloud My Services Java SDK Version 0.0.1
 Java client library to interact with various [IBM Cloud My Services](https://cloud.ibm.com/apidocs?category=<service-category>).
 
+Disclaimer: this SDK is being released initially as a **pre-release** version.
+Changes might occur which impact applications that use this SDK.
+
 <!--
   The TOC below is generated using the `markdown-toc` node package.
 
@@ -11,7 +14,7 @@ Java client library to interact with various [IBM Cloud My Services](https://clo
 
   You should regenerate the TOC after making changes to this file.
 
-      npx markdown-toc -i README.md
+      npx markdown-toc --maxdepth 4 -i README.md
   -->
 
 <!-- toc -->
@@ -19,8 +22,6 @@ Java client library to interact with various [IBM Cloud My Services](https://clo
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
-    + [All the services](#all-the-services)
-    + [A single service](#a-single-service)
 - [Using the SDK](#using-the-sdk)
 - [Questions](#questions)
 - [Issues](#issues)
@@ -34,9 +35,9 @@ Java client library to interact with various [IBM Cloud My Services](https://clo
 
 The IBM Cloud My Services Java SDK allows developers to programmatically interact with the following IBM Cloud services:
 
-Service Name | Artifact Id 
+Service Name | Artifact Coordinates
 --- | --- 
-[Example Service](https://cloud.ibm.com/apidocs/example-service) | example-service
+[Example Service](https://cloud.ibm.com/apidocs/example-service) | com.ibm.cloud:example-service:0.0.1
 
 ## Prerequisites
 
@@ -49,27 +50,19 @@ Service Name | Artifact Id
 ## Installation
 The current version of this SDK is: 0.0.1
 
-#### All the services
-To define a dependency on the entire set of services contained in the project, use a dependency like these:
+Each service's artifact coordinates are listed in the table above.
 
-##### Maven
+The project artifacts are published on the following public maven repositories:
+- [JCenter](https://bintray.com/bintray/jcenter) - For information on how to use the
+public JCenter maven repository, open [this link](https://bintray.com/bintray/jcenter)
+then click the `Set Me Up!` button.
+- [Maven Central](https://repo1.maven.org/maven2/) - This is the default public repository
+used by maven when searching for dependencies.  To use this repository within your
+gradle build, please see
+[this link](https://docs.gradle.org/current/userguide/declaring_repositories.html).
 
-```xml
-<dependency>
-	<groupId>com.ibm.cloud</groupId>
-	<artifactId>my-services</artifactId>
-	<version>0.0.1</version>
-</dependency>
-```
-
-##### Gradle
-
-```gradle
-'com.ibm.cloud:my-services:0.0.1'
-```
-
-#### A single service
-To define a dependency on a single service, use a dependency that contains the artifact id for the service, like this:
+To use a particular service, define a dependency that contains the
+artifact coordinates (group id, artifact id and version) for the service, like this:
 
 ##### Maven
 
@@ -85,11 +78,9 @@ To define a dependency on a single service, use a dependency that contains the a
 ```gradle
 'com.ibm.cloud:example-service:0.0.1'
 ```
-Each service's artifact id is listed in the table of services above.
 
 ## Using the SDK
 For general SDK usage information, please see [this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md)
-
 
 ## Questions
 
