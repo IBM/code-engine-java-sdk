@@ -7,6 +7,8 @@ Java client library to interact with various [IBM Cloud My Services](https://clo
 Disclaimer: this SDK is being released initially as a **pre-release** version.
 Changes might occur which impact applications that use this SDK.
 
+## Table of Contents
+
 <!--
   The TOC below is generated using the `markdown-toc` node package.
 
