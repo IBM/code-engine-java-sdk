@@ -1,9 +1,13 @@
 package com.ibm.cloud.my_services.example_service.v1;
 
+import static org.junit.Assert.assertFalse;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 import static org.testng.AssertJUnit.assertNotNull;
 
+import java.util.Map;
+
+import org.junit.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -13,6 +17,7 @@ import com.ibm.cloud.my_services.example_service.v1.model.Resource;
 import com.ibm.cloud.my_services.example_service.v1.model.Resources;
 import com.ibm.cloud.my_services.test.SdkIntegrationTestBase;
 import com.ibm.cloud.sdk.core.http.Response;
+import com.ibm.cloud.sdk.core.util.CredentialUtils;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
 
@@ -45,6 +50,7 @@ public class ExampleServiceIT extends SdkIntegrationTestBase {
 
     // Example service v1 integration
     public ExampleService service = null;
+    public static Map<String, String> config = null;
 
     /**
      * This method provides our config filename to the base class.
@@ -77,6 +83,14 @@ public class ExampleServiceIT extends SdkIntegrationTestBase {
         service = ExampleService.newInstance();
         assertNotNull(service);
         assertNotNull(service.getServiceUrl());
+
+        // Load up our test-specific config properties.
+        config = CredentialUtils.getServiceProperties(ExampleService.DEFAULT_SERVICE_NAME);
+        assertNotNull(config);
+        assertFalse(config.isEmpty());
+        assertEquals(service.getServiceUrl(), config.get("URL"));
+
+        System.out.println("Setup complete.");
     }
 
     /**
@@ -84,65 +98,64 @@ public class ExampleServiceIT extends SdkIntegrationTestBase {
      * does not exist.
      */
 
-    @Test
-    public void testListResources() {
-        assertNotNull(service);
-
+     @Test
+    public void testCreateResource() {
         try {
-            Response<Resources> response = service.listResources().execute();
+            CreateResourceOptions options = new CreateResourceOptions.Builder()
+                .resourceId("3")
+                .name("To Kill a Mockingbird")
+                .tag("Book")
+                .build();
+            // Invoke operation
+            Response<Resource> response = service.createResource(options).execute();
+            // Validate response
             assertNotNull(response);
-            assertEquals(response.getStatusCode(), 200);
+            assertEquals(response.getStatusCode(), 201);
 
-            Resources result = response.getResult();
+            Resource result = response.getResult();
             assertNotNull(result);
-            assertNotNull(result.getResources());
-            assertEquals(result.getResources().size(), 2);
-
-            Resource firstResource = result.getResources().get(0);
-            assertEquals(firstResource.resourceId(), "1");
-            assertEquals(firstResource.name(), "The Great Gatsby");
-            assertEquals(firstResource.tag(), "Book");
-
-            Resource secondResource = result.getResources().get(1);
-            assertEquals(secondResource.resourceId(), "2");
-            assertEquals(secondResource.name(), "Pride and Prejudice");
-            assertEquals(secondResource.tag(), "Book");
-        } catch (ServiceResponseException e) {
-            fail(String.format("Service returned status code %s: %s\nError details: %s", e.getStatusCode(),
-                    e.getMessage(), e.getDebuggingInfo()));
-        }
-    }
-
-    @Test(dependsOnMethods = {"testListResources"})
-    public void testGetResource() {
-        try {
-            GetResourceOptions options = new GetResourceOptions.Builder()
-                    .resourceId("1")
-                    .build();
-            Response<Resource> response = service.getResource(options).execute();
-            assertNotNull(response);
-            assertEquals(response.getStatusCode(), 200);
-
-            Resource resourceObj = response.getResult();
-            assertNotNull(resourceObj);
-            assertEquals(resourceObj.resourceId(), "1");
-            assertEquals(resourceObj.name(), "The Great Gatsby");
-            assertEquals(resourceObj.tag(), "Book");
+            assertEquals(result.resourceId(), "3");
+            assertEquals(result.name(), "To Kill a Mockingbird");
+            assertEquals(result.tag(), "Book");
         } catch (ServiceResponseException e) {
             fail(String.format("Service returned status code %s: %s\nError details: %s",
                     e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
         }
     }
 
-    @Test(dependsOnMethods = { "testGetResource" }, expectedExceptions = { NotFoundException.class })
-    public void testGetResourceNotFound() {
+    @Test
+    public void testGetResource() {
         try {
             GetResourceOptions options = new GetResourceOptions.Builder()
-                    .resourceId("BAD_RESOURCE_ID")
-                    .build();
+                .resourceId("1")
+                .build();
+            // Invoke operation
+            Response<Resource> response = service.getResource(options).execute();
+            // Validate response
+            assertNotNull(response);
+            assertEquals(response.getStatusCode(), 200);
+
+            Resource result = response.getResult();
+            assertNotNull(result);
+            assertEquals(result.resourceId(), "1");
+            assertEquals(result.name(), "The Great Gatsby");
+            assertEquals(result.tag(), "Book");
+        } catch (ServiceResponseException e) {
+            fail(String.format("Service returned status code %s: %s\nError details: %s",
+                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+        }
+    }
+
+    @Test(expectedExceptions = { NotFoundException.class })
+    public void testGetResourceNegativeTest() {
+        try {
+            GetResourceOptions options = new GetResourceOptions.Builder()
+                .resourceId("BAD_RESOURCE_ID")
+                .build();
+            // Invoke operation
             service.getResource(options).execute().getResult();
         } catch (ServiceResponseException e) {
-            assertEquals(e.getMessage(), "resource not found");
+            // Validate response
             assertEquals(e.getStatusCode(), 404);
             System.out.println(String.format("Service returned status code %s: %s\nError details: %s",
                     e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -150,24 +163,26 @@ public class ExampleServiceIT extends SdkIntegrationTestBase {
         }
     }
 
-    @Test(dependsOnMethods = { "testGetResourceNotFound" })
-    public void testCreateResource() {
+    @Test
+    public void testListResources() {
         try {
-            CreateResourceOptions options = new CreateResourceOptions.Builder()
-                    .resourceId("3")
-                    .name("To Kill a Mockingbird")
-                    .tag("Book")
-                    .build();
-            Response<Resource> response = service.createResource(options).execute();
-            assertEquals(response.getStatusCode(), 201);
+            // Invoke operation
+            Response<Resources> response = service.listResources().execute();
+            // Validate response
+            assertNotNull(response);
+            assertEquals(response.getStatusCode(), 200);
 
-            Resource resourceObj = response.getResult();
-            assertEquals(resourceObj.resourceId(), "3");
-            assertEquals(resourceObj.name(), "To Kill a Mockingbird");
-            assertEquals(resourceObj.tag(), "Book");
+            Resources result = response.getResult();
+            assertNotNull(result);
+            assertNotNull(result.getResources());
         } catch (ServiceResponseException e) {
-            fail(String.format("Service returned status code %s: %s\nError details: %s",
-                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+            fail(String.format("Service returned status code %s: %s\nError details: %s", e.getStatusCode(),
+                    e.getMessage(), e.getDebuggingInfo()));
         }
+    }
+    @AfterClass
+    public void tearDown() {
+        // Add any clean up logic here
+        System.out.println("Clean up complete.");
     }
 }
