@@ -335,6 +335,31 @@
                         </archive>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <!-- Disable use of bintray:deploy during "Maven -> Update Project" in eclipse -->
+                                    <pluginExecutionFilter>
+                                        <groupId>com.carrotgarden.maven</groupId>
+                                        <artifactId>bintray-maven-plugin</artifactId>
+                                        <versionRange>[1.0.0,)</versionRange>
+                                        <goals>
+                                            <goal>deploy</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore/>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -373,12 +398,12 @@
                     <performCleanup>false</performCleanup>
                     <performDeploy>true</performDeploy>
                     <performEnsure>true</performEnsure>
+		    <performPublish>true</performPublish>
                     <retryFailedDeploymentCount>2</retryFailedDeploymentCount>
                 </configuration>
                 <executions>
                     <!-- Activate "bintray:deploy" during "deploy" -->
                     <execution>
-                        <?m2e ignore?>
                         <id>bintray-deploy</id>
                         <phase>deploy</phase>
                         <goals>
