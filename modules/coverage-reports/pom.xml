@@ -10,10 +10,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- >>> Replace "my-services" with the parent project's artifactId -->
+    <!-- >>> Replace this with the coverage-report module's artifactId (e.g. platform-services-coverage-reports) -->
     <artifactId>my-services-coverage-reports</artifactId>
 
-    <!-- >>> Replace "My Services" with the service category for the project -->
+    <!-- >>> Replace this with the coverage-report module's description -->
     <name>My Services Coverage Reports</name>
 
     <dependencies>

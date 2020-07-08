@@ -11,11 +11,10 @@
         <relativePath>../..</relativePath>
     </parent>
 
-    <!-- >>> Replace "my-services" with the parent artifactId (e.g. platform-services-common) -->
+    <!-- >>> Replace this with the common module's artifactId (e.g. platform-services-common) -->
     <artifactId>my-services-common</artifactId>
 
-    <!-- >>> Replace "My Services" with the service category (e.g. Platform 
-        Services Common Library) -->
+    <!-- >>> Replace this with the common module's description (e.g. Platform Services Common Library) -->
     <name>My Services Common Library</name>
     <packaging>jar</packaging>
 

@@ -52,7 +52,7 @@ To create a new SDK repository from this template, follow these instructions:
     - `<service-category>` refers to the IBM Cloud service category associated with the services that
 	  will be included in the project (e.g. `platform-services`)
     - `<language>` is the language associated with the SDK project (e.g. `java`)
-	
+
 4. Click the `Create repository from template` button to create the new repository  
 
 If your goal is to create the new SDK repository on the `Github Enterprise` server (github.ibm.com),
@@ -99,7 +99,7 @@ Resolving deltas: 100% (1/1), done.
 [/work/demos]
 $ cd my-java-sdk
 [/work/demos/my-java-sdk]
-$ 
+$
 ```
 
 8. Remove the existing remote:  
@@ -166,6 +166,39 @@ $ mvn package
 
 ### 3. Modify selected files
 
+#### Automatic Script
+
+Use the `prepare_project.sh` script to perform the below modifications automatically.
+It will delete the `example service` files and update the corresponding sections with the specified values.
+Read through the manual steps below to understand the changes performed by the `prepare_project.sh` script.
+
+Here is a description of the various options that you can pass to the script:
+```bash
+prepare_project.sh -d <project-description> -g <git-repo-url> \
+        -s <service-category-description> -c <service-category-name> \
+        -a <optional-parent-artifact-id>
+```
+The `-a` flag is optional.  If not specified, the `<service-category-name>` will be used.
+
+Here is an example of how to run the script for the `platform-services-java-sdk` project:  
+```bash
+cd <project-root>
+./prepare_project.sh -d "IBM Cloud Platform Services Java SDK" -g https://github.com/IBM/platform-services-java-sdk \
+      -s "Platform Services" -c platform-services
+```
+
+##### After Preparation is complete
+
+Build your project using `mvn package`, and check that the changes are accurate using the commands below.
+
+- To list the files changed by the script, run : `git status`  
+- To view the changes made by this script, run: `git diff`  
+- To discard the changes made by the script, run `git checkout .`, or `git stash`  
+- If satisfied with the changes, then just commit the changes (e.g. `git commit -a -m "chore: prepare SDK project"`)
+
+
+#### Manual Steps
+
 - In this section, you'll modify various files within your new SDK repository to reflect
 the proper names and settings for your specific project.
 
@@ -213,7 +246,7 @@ that will guide you in the required modifications:
 
   - `.travis.yml`:
     - Remove the `jobs` section as it is applicable only to the template repository's build.
-    
+
   - `README.md`:
     - Change the title to reflect your project; leave the version in the title as `0.0.1`
     - Change `[IBM Cloud My Services]` to reflect your project
@@ -245,8 +278,7 @@ to the common CONTRIBUTING document).
 Example:
 ```sh
 cd <project-root>
-git add .
-git commit -m "chore: initial SDK project setup"
+git commit -a -m "chore: prepare SDK project"
 ```
 
 

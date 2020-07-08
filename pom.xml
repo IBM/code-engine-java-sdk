@@ -19,8 +19,8 @@
     <packaging>pom</packaging>
 
     <properties>
-        <!-- 
-            This is the version associated with the Java core. The version used here should be compatible with the version 
+        <!--
+            This is the version associated with the Java core. The version used here should be compatible with the version
             of the SDK generator used to generate your SDK code.
             See this link for details: https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Compatibility-Chart
         -->
@@ -109,9 +109,9 @@
         </repository>
     </repositories>
 
-    <!-- This section is commented out because we use an alternate deploy plugin. 
+    <!-- This section is commented out because we use an alternate deploy plugin.
     <distributionManagement>
-    </distributionManagement> 
+    </distributionManagement>
     -->
 
     <dependencyManagement>
@@ -398,7 +398,7 @@
                     <performCleanup>false</performCleanup>
                     <performDeploy>true</performDeploy>
                     <performEnsure>true</performEnsure>
-		    <performPublish>true</performPublish>
+                    <performPublish>true</performPublish>
                     <retryFailedDeploymentCount>2</retryFailedDeploymentCount>
                 </configuration>
                 <executions>

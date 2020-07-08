@@ -1,4 +1,4 @@
-[![Build Status](https://travis.ibm.com/ibmcloud/platform-services-java-sdk.svg?token=eW5FVD71iyte6tTby8gr&branch=master)](https://travis.ibm.com/ibmcloud/platform-services-java-sdk)
+[![Build Status](https://travis.ibm.com/CloudEngineering/java-sdk-template.svg?token=eW5FVD71iyte6tTby8gr&branch=master)](https://travis.ibm.com/CloudEngineering/java-sdk-template)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 # IBM Cloud My Services Java SDK Version 0.0.1
@@ -38,7 +38,7 @@ Changes might occur which impact applications that use this SDK.
 The IBM Cloud My Services Java SDK allows developers to programmatically interact with the following IBM Cloud services:
 
 Service Name | Artifact Coordinates
---- | --- 
+--- | ---
 [Example Service](https://cloud.ibm.com/apidocs/example-service) | com.ibm.cloud:example-service:0.0.1
 
 ## Prerequisites
