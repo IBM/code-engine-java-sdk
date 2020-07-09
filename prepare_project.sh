@@ -88,7 +88,7 @@ else
 
     printf "\n>>>>> modules/common/src/ files updated."
 
-    if [[ $SERVICE_CATEGORY != "my-services" ]]; then
+    if [[ $DIRECTORY_NAME != "my_services" ]]; then
       mv modules/common/src/main/java/com/ibm/cloud/my_services modules/common/src/main/java/com/ibm/cloud/$DIRECTORY_NAME
       mv modules/common/src/test/java/com/ibm/cloud/my_services modules/common/src/test/java/com/ibm/cloud/$DIRECTORY_NAME
       mv modules/common/src/main/resources/my-services.properties modules/common/src/main/resources/$SERVICE_CATEGORY.properties
