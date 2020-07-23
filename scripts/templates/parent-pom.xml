@@ -24,7 +24,7 @@
             of the SDK generator used to generate your SDK code.
             See this link for details: https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Compatibility-Chart
         -->
-        <sdk-core-version>8.3.0</sdk-core-version>
+        <sdk-core-version>8.4.2</sdk-core-version>
 
         <!-- >>> Replace this with the name of your SDK's github repository -->
         <git-repository-name>my-services-java-sdk</git-repository-name>
@@ -337,6 +337,31 @@
                     </configuration>
                 </plugin>
                 <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <!-- Disable use of bintray:deploy during "Maven -> Update Project" in eclipse -->
+                                    <pluginExecutionFilter>
+                                        <groupId>com.carrotgarden.maven</groupId>
+                                        <artifactId>bintray-maven-plugin</artifactId>
+                                        <versionRange>[1.0.0,)</versionRange>
+                                        <goals>
+                                            <goal>deploy</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore/>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-shade-plugin</artifactId>
                     <version>${maven-shade-plugin-version}</version>
@@ -387,12 +412,12 @@
                     <performCleanup>false</performCleanup>
                     <performDeploy>true</performDeploy>
                     <performEnsure>true</performEnsure>
+                    <performPublish>true</performPublish>
                     <retryFailedDeploymentCount>2</retryFailedDeploymentCount>
                 </configuration>
                 <executions>
                     <!-- Activate "bintray:deploy" during "deploy" -->
                     <execution>
-                        <?m2e ignore?>
                         <id>bintray-deploy</id>
                         <phase>deploy</phase>
                         <goals>
