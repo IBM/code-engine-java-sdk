@@ -1,7 +1,7 @@
 # Questions
 If you are having problems using this SDK or have a question about IBM Cloud services,
 please ask a question at
-[dW Answers](https://developer.ibm.com/answers/questions/ask).
+[Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-cloud).
 
 # Issues
 If you encounter an issue with the project, you are welcome to submit a
