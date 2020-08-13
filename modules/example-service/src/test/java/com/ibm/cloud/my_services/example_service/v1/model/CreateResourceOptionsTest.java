@@ -43,7 +43,7 @@ public class CreateResourceOptionsTest {
     assertEquals(createResourceOptionsModel.name(), "testString");
     assertEquals(createResourceOptionsModel.tag(), "testString");
   }
-  
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testCreateResourceOptionsError() throws Throwable {
     new CreateResourceOptions.Builder().build();

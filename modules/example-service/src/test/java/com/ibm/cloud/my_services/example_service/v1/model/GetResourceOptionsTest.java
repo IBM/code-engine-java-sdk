@@ -39,7 +39,7 @@ public class GetResourceOptionsTest {
       .build();
     assertEquals(getResourceOptionsModel.resourceId(), "testString");
   }
-  
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testGetResourceOptionsError() throws Throwable {
     new GetResourceOptions.Builder().build();

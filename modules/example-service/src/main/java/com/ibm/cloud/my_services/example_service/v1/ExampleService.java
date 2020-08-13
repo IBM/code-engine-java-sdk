@@ -10,11 +10,17 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
+/*
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-6abcf3d2-20200813-125746
+ */
+
 package com.ibm.cloud.my_services.example_service.v1;
 
 import com.google.gson.JsonObject;
 import com.ibm.cloud.my_services.common.SdkCommon;
 import com.ibm.cloud.my_services.example_service.v1.model.CreateResourceOptions;
+import com.ibm.cloud.my_services.example_service.v1.model.GetResourceEncodedOptions;
 import com.ibm.cloud.my_services.example_service.v1.model.GetResourceOptions;
 import com.ibm.cloud.my_services.example_service.v1.model.ListResourcesOptions;
 import com.ibm.cloud.my_services.example_service.v1.model.Resource;
@@ -83,6 +89,9 @@ public class ExampleService extends BaseService {
    * @return a {@link ServiceCall} with a result of type {@link Resources}
    */
   public ServiceCall<Resources> listResources(ListResourcesOptions listResourcesOptions) {
+    if (listResourcesOptions == null) {
+      listResourcesOptions = new ListResourcesOptions.Builder().build();
+    }
     String[] pathSegments = { "resources" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("example_service", "v1", "listResources");
@@ -90,10 +99,8 @@ public class ExampleService extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (listResourcesOptions != null) {
-      if (listResourcesOptions.limit() != null) {
-        builder.query("limit", String.valueOf(listResourcesOptions.limit()));
-      }
+    if (listResourcesOptions.limit() != null) {
+      builder.query("limit", String.valueOf(listResourcesOptions.limit()));
     }
     ResponseConverter<Resources> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Resources>() { }.getType());
@@ -154,7 +161,28 @@ public class ExampleService extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    ResponseConverter<Resource> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Resource>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
 
+  /**
+   * Info for a specific resource.
+   *
+   * @param getResourceEncodedOptions the {@link GetResourceEncodedOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Resource}
+   */
+  public ServiceCall<Resource> getResourceEncoded(GetResourceEncodedOptions getResourceEncodedOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getResourceEncodedOptions,
+      "getResourceEncodedOptions cannot be null");
+    String[] pathSegments = { "resources/encoded" };
+    String[] pathParameters = { getResourceEncodedOptions.urlEncodedResourceId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("example_service", "v1", "getResourceEncoded");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     ResponseConverter<Resource> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Resource>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);

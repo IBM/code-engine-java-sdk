@@ -13,7 +13,7 @@
 
 package com.ibm.cloud.my_services.example_service.v1.model;
 
-import com.ibm.cloud.my_services.example_service.v1.model.Resource;
+import com.ibm.cloud.my_services.example_service.v1.model.GetResourceEncodedOptions;
 import com.ibm.cloud.my_services.example_service.v1.utils.TestUtilities;
 
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -26,35 +26,23 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the Resource model.
+ * Unit test class for the GetResourceEncodedOptions model.
  */
-public class ResourceTest {
+public class GetResourceEncodedOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testResource() throws Throwable {
-    Resource resourceModel = new Resource.Builder()
-      .resourceId("testString")
-      .name("testString")
-      .tag("testString")
+  public void testGetResourceEncodedOptions() throws Throwable {
+    GetResourceEncodedOptions getResourceEncodedOptionsModel = new GetResourceEncodedOptions.Builder()
+      .urlEncodedResourceId("url%3encoded%3resource%3id")
       .build();
-    assertEquals(resourceModel.resourceId(), "testString");
-    assertEquals(resourceModel.name(), "testString");
-    assertEquals(resourceModel.tag(), "testString");
-
-    String json = TestUtilities.serialize(resourceModel);
-
-    Resource resourceModelNew = TestUtilities.deserialize(json, Resource.class);
-    assertTrue(resourceModelNew instanceof Resource);
-    assertEquals(resourceModelNew.resourceId(), "testString");
-    assertEquals(resourceModelNew.name(), "testString");
-    assertEquals(resourceModelNew.tag(), "testString");
+    assertEquals(getResourceEncodedOptionsModel.urlEncodedResourceId(), "url%3encoded%3resource%3id");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testResourceError() throws Throwable {
-    new Resource.Builder().build();
+  public void testGetResourceEncodedOptionsError() throws Throwable {
+    new GetResourceEncodedOptions.Builder().build();
   }
 
 }

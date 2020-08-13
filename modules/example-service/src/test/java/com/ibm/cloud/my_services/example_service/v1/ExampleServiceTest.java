@@ -14,6 +14,7 @@ package com.ibm.cloud.my_services.example_service.v1;
 
 import com.ibm.cloud.my_services.example_service.v1.ExampleService;
 import com.ibm.cloud.my_services.example_service.v1.model.CreateResourceOptions;
+import com.ibm.cloud.my_services.example_service.v1.model.GetResourceEncodedOptions;
 import com.ibm.cloud.my_services.example_service.v1.model.GetResourceOptions;
 import com.ibm.cloud.my_services.example_service.v1.model.ListResourcesOptions;
 import com.ibm.cloud.my_services.example_service.v1.model.Resource;
@@ -52,14 +53,14 @@ import static org.testng.Assert.*;
  * Unit test class for the ExampleService service.
  */
 @PrepareForTest({ EnvironmentUtils.class })
-@PowerMockIgnore("javax.net.ssl.*")
+@PowerMockIgnore({"javax.net.ssl.*", "org.mockito.*"})
 public class ExampleServiceTest extends PowerMockTestCase {
 
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
-  
+
   protected MockWebServer server;
-  protected ExampleService testService;
+  protected ExampleService exampleServiceService;
 
   // Creates a mock set of environment variables that are returned by EnvironmentUtils.getenv().
   private Map<String, String> getTestProcessEnvironment() {
@@ -73,9 +74,9 @@ public class ExampleServiceTest extends PowerMockTestCase {
     PowerMockito.when(EnvironmentUtils.getenv()).thenReturn(getTestProcessEnvironment());
     final String serviceName = "testService";
 
-    testService = ExampleService.newInstance(serviceName);
+    exampleServiceService = ExampleService.newInstance(serviceName);
     String url = server.url("/").toString();
-    testService.setServiceUrl(url);
+    exampleServiceService.setServiceUrl(url);
   }
 
   /**
@@ -92,7 +93,7 @@ public class ExampleServiceTest extends PowerMockTestCase {
   public void testListResourcesWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"offset\": 6, \"limit\": 5, \"resources\": [{\"resource_id\": \"resourceId\", \"name\": \"name\", \"tag\": \"tag\", \"read_only\": \"readOnly\"}]}";
-    String listResourcesPath = "/resources";
+    String listResourcesPath = java.net.URLEncoder.encode("/resources", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -107,7 +108,7 @@ public class ExampleServiceTest extends PowerMockTestCase {
     .build();
 
     // Invoke operation with valid options model (positive test)
-    Response<Resources> response = testService.listResources(listResourcesOptionsModel).execute();
+    Response<Resources> response = exampleServiceService.listResources(listResourcesOptionsModel).execute();
     assertNotNull(response);
     Resources responseObj = response.getResult();
     assertNotNull(responseObj);
@@ -131,7 +132,7 @@ public class ExampleServiceTest extends PowerMockTestCase {
   public void testCreateResourceWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"resource_id\": \"resourceId\", \"name\": \"name\", \"tag\": \"tag\", \"read_only\": \"readOnly\"}";
-    String createResourcePath = "/resources";
+    String createResourcePath = java.net.URLEncoder.encode("/resources", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -148,7 +149,7 @@ public class ExampleServiceTest extends PowerMockTestCase {
     .build();
 
     // Invoke operation with valid options model (positive test)
-    Response<Resource> response = testService.createResource(createResourceOptionsModel).execute();
+    Response<Resource> response = exampleServiceService.createResource(createResourceOptionsModel).execute();
     assertNotNull(response);
     Resource responseObj = response.getResult();
     assertNotNull(responseObj);
@@ -176,14 +177,14 @@ public class ExampleServiceTest extends PowerMockTestCase {
     server.enqueue(new MockResponse());
 
     // Invoke operation with null options model (negative test)
-    testService.createResource(null).execute();
+    exampleServiceService.createResource(null).execute();
   }
 
   @Test
   public void testGetResourceWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"resource_id\": \"resourceId\", \"name\": \"name\", \"tag\": \"tag\", \"read_only\": \"readOnly\"}";
-    String getResourcePath = "/resources/testString";
+    String getResourcePath = java.net.URLEncoder.encode("/resources/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -198,7 +199,7 @@ public class ExampleServiceTest extends PowerMockTestCase {
     .build();
 
     // Invoke operation with valid options model (positive test)
-    Response<Resource> response = testService.getResource(getResourceOptionsModel).execute();
+    Response<Resource> response = exampleServiceService.getResource(getResourceOptionsModel).execute();
     assertNotNull(response);
     Resource responseObj = response.getResult();
     assertNotNull(responseObj);
@@ -226,7 +227,57 @@ public class ExampleServiceTest extends PowerMockTestCase {
     server.enqueue(new MockResponse());
 
     // Invoke operation with null options model (negative test)
-    testService.getResource(null).execute();
+    exampleServiceService.getResource(null).execute();
+  }
+
+  @Test
+  public void testGetResourceEncodedWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"resource_id\": \"resourceId\", \"name\": \"name\", \"tag\": \"tag\", \"read_only\": \"readOnly\"}";
+    String getResourceEncodedPath = java.net.URLEncoder.encode("/resources/encoded/url%3encoded%3resource%3id", "UTF-8").replace("%2F", "/");
+
+    server.enqueue(new MockResponse()
+    .setHeader("Content-type", "application/json")
+    .setResponseCode(200)
+    .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetResourceEncodedOptions model
+    GetResourceEncodedOptions getResourceEncodedOptionsModel = new GetResourceEncodedOptions.Builder()
+    .urlEncodedResourceId("url%3encoded%3resource%3id")
+    .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Resource> response = exampleServiceService.getResourceEncoded(getResourceEncodedOptionsModel).execute();
+    assertNotNull(response);
+    Resource responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getResourceEncodedPath);
+  }
+
+  // Test the getResourceEncoded operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetResourceEncodedNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    exampleServiceService.getResourceEncoded(null).execute();
   }
 
   /** Initialize the server */
@@ -245,6 +296,6 @@ public class ExampleServiceTest extends PowerMockTestCase {
   @AfterMethod
   public void tearDownMockServer() throws IOException {
     server.shutdown();
-    testService = null;
+    exampleServiceService = null;
   }
 }
