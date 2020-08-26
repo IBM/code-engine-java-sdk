@@ -46,6 +46,9 @@ else
     printf "\n>>>>> Project Initialization In Progress...\n\t PROJECT_DESCRIPTION: ${PROJECT_DESCRIPTION}\n\t PROJECT_GIT_URL: ${PROJECT_GIT_URL}\n\t SDK_NAME: ${SDK_NAME}\n\t SERVICE_CATEGORY: ${SERVICE_CATEGORY}\n\t PARENT_ARTIFACT_ID: ${PARENT_ARTIFACT_ID}\n\t COMMON_ARTIFACT_ID: ${COMMON_ARTIFACT_ID}\n"
     # Remove sample files
     rm -r modules/example-service
+    if [ -d modules/examples/src ]; then
+        rm -rf modules/examples/src
+    fi
     sed -i.bak 's~<module>modules/example-service</module>~<!-- i.e. <module>modules/example-service</module> -->~' pom.xml
     printf "\n>>>>> Example Service files removed."
 
