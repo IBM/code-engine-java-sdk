@@ -25,18 +25,6 @@ cache:
   directories:
   - "$HOME/.m2"
 
-# After creating the SDK project from this template repository,
-# remove this entire "jobs" section as this is only applicable
-# to the template repo's travis build.
-jobs:
-  include:
-    - stage: Build and run tests
-    - stage: Run system test with template
-      script:
-        - git clone git@github.ibm.com:CloudEngineering/sdkgen-systest.git
-        - cd sdkgen-systest
-        - ./install_scripts/install_deps_ubuntu.sh
-        - ./setup_and_generate.sh -l ibm-java -t $TRAVIS_BRANCH
 
 before_install:
 - sudo apt-get update
