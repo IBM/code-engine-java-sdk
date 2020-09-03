@@ -7,12 +7,13 @@
         <!-- >>> Replace this with the parent pom's artifactId -->
         <artifactId>code-engine</artifactId>
         <groupId>com.ibm.cloud</groupId>
-        <version>99-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
         <relativePath>../..</relativePath>
     </parent>
 
     <!-- >>> Replace this with the common module's artifactId (e.g. platform-services-common) -->
     <artifactId>code-engine-common</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
 
     <!-- >>> Replace this with the common module's description (e.g. Platform Services Common Library) -->
     <name>Code Engine Common Library</name>
