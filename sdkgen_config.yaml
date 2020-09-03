@@ -1,9 +1,0 @@
-info:
-  title: Code Engine API
-  description: |
-    API specification for the Code Engine service.
-  version: 1.0.0
-  x-alternate-name: Code Engine
-  x-codegen-config:
-    java:
-      apiPackage: com.ibm.cloud.code_engine

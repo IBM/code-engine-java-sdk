@@ -62,7 +62,7 @@
         <module>modules/common</module>
 
         <!-- >>> List each service's module here -->
-        <!-- i.e. <module>modules/example-service</module> -->
+        <module>modules/ibm-cloud-code-engine</module>
 
         <!-- >>> Uncomment the following line if you want to build the examples -->
         <!-- <module>modules/examples</module> -->
