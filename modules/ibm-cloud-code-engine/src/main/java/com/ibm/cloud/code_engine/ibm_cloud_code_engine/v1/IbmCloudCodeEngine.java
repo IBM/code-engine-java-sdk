@@ -38,7 +38,7 @@ public class IbmCloudCodeEngine extends BaseService {
 
   public static final String DEFAULT_SERVICE_NAME = "ibm_cloud_code_engine";
 
-  public static final String DEFAULT_SERVICE_URL = "https://api.us-south.codeengine.cloud.ibm.com/api/v1";
+  public static final String DEFAULT_SERVICE_URL = "https://ibm-cloud-code-engine.cloud.ibm.com/api/v1";
 
  /**
    * Class method which constructs an instance of the `IbmCloudCodeEngine` client.

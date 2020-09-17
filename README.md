@@ -1,8 +1,9 @@
-[![Build Status](https://travis-ci.com/IBM/code-engine-java-sdk.svg?token=eW5FVD71iyte6tTby8gr&branch=master)](https://travis-ci.com/IBM/code-engine-java-sdk)
+<!-- [![Build Status](https://travis-ci.com/IBM/code-engine-java-sdk.svg?token=eW5FVD71iyte6tTby8gr&branch=master)](https://travis-ci.com/IBM/code-engine-java-sdk)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+-->
 
 # IBM Cloud Code Engine Java SDK Version 0.0.1
-Java client library to interact with various [IBM Cloud Code Engine](https://cloud.ibm.com/apidocs?category=code-engine).
+Java client library to interact with the [Code Engine API](https://cloud.ibm.com/apidocs/codeengine).
 
 Disclaimer: this SDK is being released initially as a **pre-release** version.
 Changes might occur which impact applications that use this SDK.
@@ -39,7 +40,7 @@ The IBM Cloud Code Engine Java SDK allows developers to programmatically interac
 
 Service Name | Artifact Coordinates
 --- | ---
-<!-- [Example Service](https://cloud.ibm.com/apidocs/example-service) | com.ibm.cloud:example-service:0.0.1 -->
+[Code Engine](https://cloud.ibm.com/apidocs/codeengine) | com.ibm.cloud.code_engine:0.0.1
 
 ## Prerequisites
 
@@ -71,17 +72,19 @@ artifact coordinates (group id, artifact id and version) for the service, like t
 ```xml
 <dependency>
     <groupId>com.ibm.cloud</groupId>
-    <artifactId>example-service</artifactId>
+    <artifactId>code_engine</artifactId>
     <version>0.0.1</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.cloud:example-service:0.0.1'
+'com.ibm.cloud:code_engine:0.0.1'
 ```
 
 ## Using the SDK
+Examples and a demo are available in the [module examples](/modules/examples) folder.
+
 For general SDK usage information, please see [this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md)
 
 ## Questions
