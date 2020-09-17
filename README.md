@@ -77,11 +77,6 @@ artifact coordinates (group id, artifact id and version) for the service, like t
 </dependency>
 ```
 
-##### Gradle
-```gradle
-'com.ibm.cloud:code_engine:0.0.1'
-```
-
 ## Using the SDK
 Examples and a demo are available in the [module examples](/modules/examples) folder.
 

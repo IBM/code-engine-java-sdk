@@ -2,18 +2,10 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- >>> Replace this with your service category (e.g. "platform-services") -->
-    <artifactId>code-engine</artifactId>
-
-    <!-- >>> Update this field to reflect your project -->
+    <artifactId>code-engine-parent</artifactId>
     <name>IBM Cloud Code Engine Java SDK</name>
-
-    <!-- >>> Update this field to reflect your project -->
     <description>Java Client Library to access the IBM Cloud Code Engine</description>
-
-    <!-- >>> Update this field to reflect your project's github URL -->
     <url>https://github.com/IBM/code-engine-java-sdk</url>
-
     <groupId>com.ibm.cloud</groupId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -25,8 +17,6 @@
             See this link for details: https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Compatibility-Chart
         -->
         <sdk-core-version>9.1.0</sdk-core-version>
-
-        <!-- >>> Replace this with the name of your SDK's github repository -->
         <git-repository-name>code-engine-java-sdk</git-repository-name>
 
         <testng-version>7.1.0</testng-version>
@@ -51,23 +41,14 @@
 
         <!-- Deployment-related properties -->
         <bintray.org>ibm-cloud-sdks</bintray.org>
-        <!-- >>> Replace this with the name of your project's bintray repository -->
         <bintray.repo>code-engine-java-sdk</bintray.repo>
-        <!-- >>> Replace this with your github repository's URL -->
         <bintray.package.url>https://github.com/IBM/code-engine-java-sdk</bintray.package.url>
     </properties>
 
     <modules>
-        <!-- This module should always be listed first -->
         <module>modules/common</module>
-
-        <!-- >>> List each service's module here -->
         <module>modules/ibm-cloud-code-engine</module>
-
-        <!-- >>> Uncomment the following line if you want to build the examples -->
-        <!-- <module>modules/examples</module> -->
-
-        <!-- This module should always be listed last -->
+        <module>modules/examples</module>
         <module>modules/coverage-reports</module>
     </modules>
 
@@ -82,20 +63,15 @@
         <name>IBM Cloud</name>
     </organization>
 
-    <!-- >>> Update these values to reflect your project -->
     <scm>
         <connection>scm:git:https://github.com/IBM/code-engine-java-sdk</connection>
         <developerConnection>scm:git:https://github.com/IBM/code-engine-java-sdk</developerConnection>
         <url>https://github.com/IBM/code-engine-java-sdk/tree/master</url>
     </scm>
-
-    <!-- >>> Update these values to reflect your project -->
     <issueManagement>
         <system>Github</system>
         <url>https://github.com/IBM/code-engine-java-sdk/issues</url>
     </issueManagement>
-
-    <!-- >>> Update these values to reflect your project -->
     <ciManagement>
         <system>Travis-CI</system>
         <url>https://travis.ibm.com/IBM/code-engine-java-sdk/</url>
@@ -130,13 +106,11 @@
 
             <!-- Each module (except "common") should depend on this artifact -->
             <dependency>
-                <!-- >>> Replace this with the common module's artifactId -->
                 <artifactId>code-engine-common</artifactId>
                 <groupId>${project.groupId}</groupId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <!-- >>> Replace this with the common module's artifactId -->
                 <artifactId>code-engine-common</artifactId>
                 <groupId>${project.groupId}</groupId>
                 <version>${project.version}</version>

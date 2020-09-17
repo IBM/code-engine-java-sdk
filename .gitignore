@@ -33,6 +33,8 @@ hs_err_pid*
 .idea
 .openapi-generator/
 .openapi-generator-ignore
+openapi-sdkgen
+swagger.json
 
 # credentials files
 *.env
@@ -42,8 +44,5 @@ package-lock.json
 # Examples depedency file
 /**/dependency-reduced-pom.xml
 
-# openapi-sdkgen
-.openapi-generator/
-.openapi-generator-ignore
-openapi-sdkgen
-swagger.json
+# IDE Files
+.vscode

@@ -4,26 +4,22 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <!-- >>> Replace this with the parent pom's artifactId -->
-        <artifactId>code-engine</artifactId>
+        <artifactId>code-engine-parent</artifactId>
         <groupId>com.ibm.cloud</groupId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../..</relativePath>
     </parent>
 
-    <!-- >>> Replace this with the common module's artifactId (e.g. platform-services-common) -->
-    <artifactId>code-engine-sdk</artifactId>
+    <artifactId>code-engine</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-
-    <!-- >>> Replace this with the common module's description (e.g. Platform Services Common Library) -->
-    <name>Code Engine SDK Library</name>
+    <name>Code Engine SDK Common Library</name>
     <packaging>jar</packaging>
 
     <dependencies>
-      <dependency>
-         <groupId>com.ibm.cloud</groupId>
-         <artifactId>code-engine-common</artifactId>
-     </dependency>
+        <dependency>
+            <groupId>com.ibm.cloud</groupId>
+            <artifactId>code-engine-common</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.ibm.cloud</groupId>
             <artifactId>sdk-core</artifactId>
@@ -34,10 +30,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-         <groupId>com.squareup.okhttp3</groupId>
-         <artifactId>mockwebserver</artifactId>
-         <scope>test</scope>
-     </dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>mockwebserver</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-api-mockito2</artifactId>
