@@ -14,31 +14,50 @@
 package com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1;
 
 import com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1.model.ListKubeconfigOptions;
-import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
+import com.ibm.cloud.sdk.core.http.Response;
+
+import java.io.Reader;
+import java.io.StringReader;
+import io.kubernetes.client.util.KubeConfig;
+import io.kubernetes.client.openapi.ApiClient;
+import io.kubernetes.client.util.Config;
+import io.kubernetes.client.openapi.Configuration;
+import io.kubernetes.client.openapi.apis.CoreV1Api;
+import io.kubernetes.client.openapi.models.V1ConfigMapList;
 
 public class IbmCloudCodeEngineExamples {
-  private static final Logger logger = LoggerFactory.getLogger(IbmCloudCodeEngineExamples.class);
-  protected IbmCloudCodeEngineExamples() { }
 
-  @SuppressWarnings("checkstyle:methodlength")
   public static void main(String[] args) throws Exception {
-    IbmCloudCodeEngine service = IbmCloudCodeEngine.newInstance();
 
-    try {
-    // begin-list_kubeconfig
-      ListKubeconfigOptions listKubeconfigOptions = new ListKubeconfigOptions.Builder()
-      .refreshToken("testString")
-      .id("testString")
+    // Create an IAM authenticator.
+    IamAuthenticator authenticator = new IamAuthenticator(System.getenv("CE_API_KEY"));
+    authenticator.setClientIdAndSecret("bx", "bx");
+
+    // Construct the Code Engine Client
+    IbmCloudCodeEngine ceClient = new IbmCloudCodeEngine("Code Engine Client", authenticator);
+    ceClient.setServiceUrl("https://api." + System.getenv("CE_PROJECT_REGION") + ".codeengine.cloud.ibm.com/api/v1");
+
+    // Get an IAM refresh token using the authenticator.
+    String refreshToken = authenticator.requestToken().getRefreshToken();
+
+    // Get Code Egnine project config using the Code Engine Client
+    ListKubeconfigOptions options = new ListKubeconfigOptions.Builder()
+      .id(System.getenv("CE_PROJECT_ID"))
+      .refreshToken(refreshToken)
       .build();
+    Response<String> kubeConfigResponse = ceClient.listKubeconfig(options).execute();
+    
+    // Setup Kubernetes client using the project config
+    String kubeConfigString = kubeConfigResponse.getResult();
+    Reader kubeConfigReader = new StringReader(kubeConfigString);
+    KubeConfig config = KubeConfig.loadKubeConfig(kubeConfigReader);
+    ApiClient client = Config.fromConfig(config);
+    Configuration.setDefaultApiClient(client);
 
-      service.listKubeconfig(listKubeconfigOptions).execute().getResult();
-    // end-list_kubeconfig
-    } catch (ServiceResponseException e) {
-        logger.error(String.format("Service returned status code %s: %s\nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
-    }
-
+    // Get something from project.
+    CoreV1Api api = new CoreV1Api();
+    V1ConfigMapList configMapList = api.listNamespacedConfigMap(config.getNamespace(), null, null, null, null, null, null, null, null, null);
+    System.out.printf("Project %s has %d configmaps.", System.getenv("CE_PROJECT_ID"), configMapList.getItems().size());
   }
 }

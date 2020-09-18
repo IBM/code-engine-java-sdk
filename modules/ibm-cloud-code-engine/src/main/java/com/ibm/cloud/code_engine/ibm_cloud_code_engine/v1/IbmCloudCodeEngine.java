@@ -84,7 +84,7 @@ public class IbmCloudCodeEngine extends BaseService {
    * @param listKubeconfigOptions the {@link ListKubeconfigOptions} containing the options for the call
    * @return a {@link ServiceCall} with a void result
    */
-  public ServiceCall<Void> listKubeconfig(ListKubeconfigOptions listKubeconfigOptions) {
+  public ServiceCall<String> listKubeconfig(ListKubeconfigOptions listKubeconfigOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(listKubeconfigOptions,
       "listKubeconfigOptions cannot be null");
     String[] pathSegments = { "namespaces", "config" };
@@ -98,7 +98,7 @@ public class IbmCloudCodeEngine extends BaseService {
     if (listKubeconfigOptions.accept() != null) {
       builder.header("Accept", listKubeconfigOptions.accept());
     }
-    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    ResponseConverter<String> responseConverter = ResponseConverterUtils.getString();
     return createServiceCall(builder.build(), responseConverter);
   }
 

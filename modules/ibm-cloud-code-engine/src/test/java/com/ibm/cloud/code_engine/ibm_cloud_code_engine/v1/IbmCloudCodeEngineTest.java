@@ -104,9 +104,9 @@ public class IbmCloudCodeEngineTest extends PowerMockTestCase {
     .build();
 
     // Invoke operation with valid options model (positive test)
-    Response<Void> response = ibmCloudCodeEngineService.listKubeconfig(listKubeconfigOptionsModel).execute();
+    Response<String> response = ibmCloudCodeEngineService.listKubeconfig(listKubeconfigOptionsModel).execute();
     assertNotNull(response);
-    Void responseObj = response.getResult();
+    String responseObj = response.getResult();
     // Response does not have a return type. Check that the result is null.
     assertNull(responseObj);
 
