@@ -15,7 +15,7 @@ env:
   global:
     - MVN_ARGS="--settings build/.travis.settings.xml"
     - BINTRAY_ORG=ibm-cloud-sdks
-    - BINTRAY_REPO=my-services-java-sdk
+    - BINTRAY_REPO=code-engine-java-sdk
 
 branches:
   except:

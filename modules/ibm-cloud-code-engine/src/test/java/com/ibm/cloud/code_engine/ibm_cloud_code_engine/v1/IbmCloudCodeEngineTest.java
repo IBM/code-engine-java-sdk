@@ -108,7 +108,7 @@ public class IbmCloudCodeEngineTest extends PowerMockTestCase {
     assertNotNull(response);
     String responseObj = response.getResult();
     // Response does not have a return type. Check that the result is null.
-    assertNull(responseObj);
+    assertEquals(responseObj.length(), 0);
 
     // Verify the contents of the request
     RecordedRequest request = server.takeRequest();

@@ -47,7 +47,7 @@ public class IbmCloudCodeEngineExamples {
       .refreshToken(refreshToken)
       .build();
     Response<String> kubeConfigResponse = ceClient.listKubeconfig(options).execute();
-    
+
     // Setup Kubernetes client using the project config
     String kubeConfigString = kubeConfigResponse.getResult();
     Reader kubeConfigReader = new StringReader(kubeConfigString);

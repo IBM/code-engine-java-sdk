@@ -120,7 +120,7 @@
 
     <!-- Checks for class design                         -->
     <!-- See http://checkstyle.sf.net/config_design.html -->
-    <module name="HideUtilityClassConstructor"/>
+    <!-- module name="HideUtilityClassConstructor"/ -->
 
     <!-- Miscellaneous other checks.                   -->
     <!-- See http://checkstyle.sf.net/config_misc.html -->
