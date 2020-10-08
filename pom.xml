@@ -89,12 +89,6 @@
             <url>https://jcenter.bintray.com/</url>
         </repository>
     </repositories>
-
-    <!-- This section is commented out because we use an alternate deploy plugin.
-    <distributionManagement>
-    </distributionManagement>
-    -->
-
     <dependencyManagement>
         <dependencies>
             <!-- This is the Java core dependency -->
