@@ -20,9 +20,9 @@ pkgversion=$5
 
 # List of maven artifacts to be sync'd from bintray to maven central"
 package_names="
-com.ibm.cloud:my-services
-com.ibm.cloud:my-services-common
-com.ibm.cloud:example-service"
+com.ibm.cloud:code-engine
+com.ibm.cloud:code-engine-common
+com.ibm.cloud:code-engine-parent"
 
 this_dir=`dirname "$0"`
 
