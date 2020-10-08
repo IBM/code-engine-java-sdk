@@ -64,7 +64,7 @@ deploy:
     script: npx semantic-release
     skip_cleanup: true
     on:
-      branch: master
+      branch: main
   # Publish jars on bintray for a tagged release.
   - provider: script
     script: >
