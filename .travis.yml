@@ -68,7 +68,7 @@ deploy:
       branch: main
   # Publish jars on bintray for a tagged release.
   - provider: script
-    script: >
+    script: >-
           mvn deploy $MVN_ARGS -DskipTests
           && build/bintraySync.sh $BINTRAY_USER $BINTRAY_APIKEY $BINTRAY_ORG $BINTRAY_REPO $TRAVIS_TAG
     skip_cleanup: true
