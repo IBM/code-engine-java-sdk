@@ -28,6 +28,11 @@ import io.kubernetes.client.openapi.models.V1ConfigMapList;
 
 public class IbmCloudCodeEngineExamples {
 
+  // Suppress utility class error by making private constructor
+  private IbmCloudCodeEngineExamples() {
+    throw new IllegalStateException("Just an example");
+  }
+
   public static void main(String[] args) throws Exception {
 
     // Create an IAM authenticator.

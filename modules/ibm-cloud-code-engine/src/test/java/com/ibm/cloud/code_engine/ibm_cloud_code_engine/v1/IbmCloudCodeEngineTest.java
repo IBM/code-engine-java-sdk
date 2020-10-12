@@ -87,10 +87,11 @@ public class IbmCloudCodeEngineTest extends PowerMockTestCase {
   @Test
   public void testListKubeconfigWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "";
+    String mockResponseBody = "\"operationResponse\"";
     String listKubeconfigPath = java.net.URLEncoder.encode("/namespaces/testString/config", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
+    .setHeader("Content-type", "text/html")
     .setResponseCode(200)
     .setBody(mockResponseBody));
 
@@ -100,15 +101,14 @@ public class IbmCloudCodeEngineTest extends PowerMockTestCase {
     ListKubeconfigOptions listKubeconfigOptionsModel = new ListKubeconfigOptions.Builder()
     .refreshToken("testString")
     .id("testString")
-    .accept("application/json")
+    .accept("text/html")
     .build();
 
     // Invoke operation with valid options model (positive test)
     Response<String> response = ibmCloudCodeEngineService.listKubeconfig(listKubeconfigOptionsModel).execute();
     assertNotNull(response);
     String responseObj = response.getResult();
-    // Response does not have a return type. Check that the result is null.
-    assertEquals(responseObj.length(), 0);
+    assertNotNull(responseObj);
 
     // Verify the contents of the request
     RecordedRequest request = server.takeRequest();

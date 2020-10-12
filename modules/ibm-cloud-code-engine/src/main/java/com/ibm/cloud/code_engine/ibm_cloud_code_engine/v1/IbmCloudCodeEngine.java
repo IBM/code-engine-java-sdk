@@ -82,7 +82,7 @@ public class IbmCloudCodeEngine extends BaseService {
    * Returns the KUBECONFIG, similar to the output of `kubectl config view --minify=true`.
    *
    * @param listKubeconfigOptions the {@link ListKubeconfigOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a void result
+   * @return a {@link ServiceCall} with a result of type {@link String}
    */
   public ServiceCall<String> listKubeconfig(ListKubeconfigOptions listKubeconfigOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(listKubeconfigOptions,
@@ -98,7 +98,8 @@ public class IbmCloudCodeEngine extends BaseService {
     if (listKubeconfigOptions.accept() != null) {
       builder.header("Accept", listKubeconfigOptions.accept());
     }
-    ResponseConverter<String> responseConverter = ResponseConverterUtils.getString();
+    ResponseConverter<String> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<String>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 

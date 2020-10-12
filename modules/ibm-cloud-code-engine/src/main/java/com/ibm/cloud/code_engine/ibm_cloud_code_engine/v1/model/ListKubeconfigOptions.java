@@ -141,7 +141,7 @@ public class ListKubeconfigOptions extends GenericModel {
   /**
    * Gets the accept.
    *
-   * The type of the response: application/json or text/html. A character encoding can be specified by including a
+   * The type of the response: text/html or application/json. A character encoding can be specified by including a
    * `charset` parameter. For example, 'text/html;charset=utf-8'.
    *
    * @return the accept

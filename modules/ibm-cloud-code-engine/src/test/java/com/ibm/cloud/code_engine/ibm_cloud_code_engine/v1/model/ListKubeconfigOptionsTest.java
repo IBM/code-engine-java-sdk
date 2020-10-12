@@ -37,11 +37,11 @@ public class ListKubeconfigOptionsTest {
     ListKubeconfigOptions listKubeconfigOptionsModel = new ListKubeconfigOptions.Builder()
       .refreshToken("testString")
       .id("testString")
-      .accept("application/json")
+      .accept("text/html")
       .build();
     assertEquals(listKubeconfigOptionsModel.refreshToken(), "testString");
     assertEquals(listKubeconfigOptionsModel.id(), "testString");
-    assertEquals(listKubeconfigOptionsModel.accept(), "application/json");
+    assertEquals(listKubeconfigOptionsModel.accept(), "text/html");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
