@@ -21,7 +21,6 @@ public class ListKubeconfigOptions extends GenericModel {
 
   protected String refreshToken;
   protected String id;
-  protected String accept;
 
   /**
    * Builder.
@@ -29,12 +28,10 @@ public class ListKubeconfigOptions extends GenericModel {
   public static class Builder {
     private String refreshToken;
     private String id;
-    private String accept;
 
     private Builder(ListKubeconfigOptions listKubeconfigOptions) {
       this.refreshToken = listKubeconfigOptions.refreshToken;
       this.id = listKubeconfigOptions.id;
-      this.accept = listKubeconfigOptions.accept;
     }
 
     /**
@@ -84,17 +81,6 @@ public class ListKubeconfigOptions extends GenericModel {
       this.id = id;
       return this;
     }
-
-    /**
-     * Set the accept.
-     *
-     * @param accept the accept
-     * @return the ListKubeconfigOptions builder
-     */
-    public Builder accept(String accept) {
-      this.accept = accept;
-      return this;
-    }
   }
 
   protected ListKubeconfigOptions(Builder builder) {
@@ -104,7 +90,6 @@ public class ListKubeconfigOptions extends GenericModel {
       "id cannot be empty");
     refreshToken = builder.refreshToken;
     id = builder.id;
-    accept = builder.accept;
   }
 
   /**
@@ -136,18 +121,6 @@ public class ListKubeconfigOptions extends GenericModel {
    */
   public String id() {
     return id;
-  }
-
-  /**
-   * Gets the accept.
-   *
-   * The type of the response: text/html or application/json. A character encoding can be specified by including a
-   * `charset` parameter. For example, 'text/html;charset=utf-8'.
-   *
-   * @return the accept
-   */
-  public String accept() {
-    return accept;
   }
 }
 

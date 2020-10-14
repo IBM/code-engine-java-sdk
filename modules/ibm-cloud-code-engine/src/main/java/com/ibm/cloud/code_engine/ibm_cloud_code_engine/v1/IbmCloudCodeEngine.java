@@ -94,12 +94,9 @@ public class IbmCloudCodeEngine extends BaseService {
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
+    builder.header("Accept", "text/plain");
     builder.header("Refresh-Token", listKubeconfigOptions.refreshToken());
-    if (listKubeconfigOptions.accept() != null) {
-      builder.header("Accept", listKubeconfigOptions.accept());
-    }
-    ResponseConverter<String> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<String>() { }.getType());
+    ResponseConverter<String> responseConverter = ResponseConverterUtils.getString();
     return createServiceCall(builder.build(), responseConverter);
   }
 
