@@ -68,10 +68,12 @@
         <configuration>
             <archive>
                 <manifest>
-                    <mainClass>com.ibm.cloud.code-engine-examples.v1.IbmCloudCodeEngineExamples</mainClass>
+                    <addClasspath>true</addClasspath>
+                    <mainClass>com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1.IbmCloudCodeEngineExamples</mainClass>
                 </manifest>
             </archive>
         </configuration>
+        
     </plugin>
     <!-- No need to deploy this artifact -->
     <plugin>

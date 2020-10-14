@@ -53,7 +53,9 @@ before_script:
       || true
 
 script:
--  mvn clean verify $MVN_ARGS
+- mvn clean verify $MVN_ARGS
+- mvn package
+- ./test-integration.sh
 
 # To enable semantic-release, uncomment these sections.
 before_deploy:
