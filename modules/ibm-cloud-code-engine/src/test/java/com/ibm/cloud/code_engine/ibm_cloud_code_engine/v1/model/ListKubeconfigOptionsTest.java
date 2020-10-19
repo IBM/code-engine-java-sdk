@@ -15,13 +15,10 @@ package com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1.model;
 
 import com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1.model.ListKubeconfigOptions;
 import com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1.utils.TestUtilities;
-
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-
 import java.util.HashMap;
 import java.util.List;
-
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 

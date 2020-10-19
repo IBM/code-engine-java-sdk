@@ -19,28 +19,21 @@ import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
-
 import com.ibm.cloud.sdk.core.util.EnvironmentUtils;
-
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.testng.PowerMockTestCase;
-
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -87,8 +80,8 @@ public class IbmCloudCodeEngineTest extends PowerMockTestCase {
   @Test
   public void testListKubeconfigWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "\"apiVersion: v1 clusters: - cluster: server: https://proxy.us-south.codeengine.test.cloud.ibm.com name: https://proxy.us-south.codeengine.test.cloud.ibm.com contexts: - context: cluster: https://proxy.us-south.codeengine.test.cloud.ibm.com user: <userID> namespace: <namespace> name:  <namespace> current-context:  <current namespace> kind: Config preferences: {} users: - name: <userID> user: auth-provider: name: oidc config: client-id: ce client-secret: ce id-token: <id-token> idp-issuer-url: https://iam.test.cloud.ibm.com/identity refresh-token: <refresh-token>\"";
-    String listKubeconfigPath = java.net.URLEncoder.encode("/namespaces/testString/config", "UTF-8").replace("%2F", "/");
+    String mockResponseBody = "\"operationResponse\"";
+    String listKubeconfigPath = "/namespaces/testString/config";
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "text/plain")

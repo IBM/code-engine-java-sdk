@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.12.0-64fe8d3f-20200820-144050
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-29f65b85-20201019-110440
  */
 
 package com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1;
@@ -26,6 +26,7 @@ import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.ConfigBasedAuthenticatorFactory;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -87,9 +88,9 @@ public class IbmCloudCodeEngine extends BaseService {
   public ServiceCall<String> listKubeconfig(ListKubeconfigOptions listKubeconfigOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(listKubeconfigOptions,
       "listKubeconfigOptions cannot be null");
-    String[] pathSegments = { "namespaces", "config" };
-    String[] pathParameters = { listKubeconfigOptions.id() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("id", listKubeconfigOptions.id());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/namespaces/{id}/config", pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("ibm_cloud_code_engine", "v1", "listKubeconfig");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
