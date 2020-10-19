@@ -80,7 +80,7 @@ public class IbmCloudCodeEngineTest extends PowerMockTestCase {
   @Test
   public void testListKubeconfigWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "\"operationResponse\"";
+    String mockResponseBody = "\"apiVersion: v1 clusters: - cluster: server: https://proxy.us-south.codeengine.test.cloud.ibm.com name: https://proxy.us-south.codeengine.test.cloud.ibm.com contexts: - context: cluster: https://proxy.us-south.codeengine.test.cloud.ibm.com user: <userID> namespace: <namespace> name:  <namespace> current-context:  <current namespace> kind: Config preferences: {} users: - name: <userID> user: auth-provider: name: oidc config: client-id: ce client-secret: ce id-token: <id-token> idp-issuer-url: https://iam.test.cloud.ibm.com/identity refresh-token: <refresh-token>\"";
     String listKubeconfigPath = "/namespaces/testString/config";
 
     server.enqueue(new MockResponse()
