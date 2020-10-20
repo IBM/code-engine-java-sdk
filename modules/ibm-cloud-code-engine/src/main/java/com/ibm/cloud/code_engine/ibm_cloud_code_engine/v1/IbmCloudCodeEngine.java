@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-29f65b85-20201019-110440
+ * IBM OpenAPI SDK Code Generator Version: 3.15.0-45841b53-20201019-214802
  */
 
 package com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1;
