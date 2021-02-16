@@ -15,11 +15,11 @@ package com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The listKubeconfig options.
+ * The getKubeconfig options.
  */
-public class ListKubeconfigOptions extends GenericModel {
+public class GetKubeconfigOptions extends GenericModel {
 
-  protected String refreshToken;
+  protected String xDelegatedRefreshToken;
   protected String id;
   protected String accept;
 
@@ -27,14 +27,14 @@ public class ListKubeconfigOptions extends GenericModel {
    * Builder.
    */
   public static class Builder {
-    private String refreshToken;
+    private String xDelegatedRefreshToken;
     private String id;
     private String accept;
 
-    private Builder(ListKubeconfigOptions listKubeconfigOptions) {
-      this.refreshToken = listKubeconfigOptions.refreshToken;
-      this.id = listKubeconfigOptions.id;
-      this.accept = listKubeconfigOptions.accept;
+    private Builder(GetKubeconfigOptions getKubeconfigOptions) {
+      this.xDelegatedRefreshToken = getKubeconfigOptions.xDelegatedRefreshToken;
+      this.id = getKubeconfigOptions.id;
+      this.accept = getKubeconfigOptions.accept;
     }
 
     /**
@@ -46,31 +46,31 @@ public class ListKubeconfigOptions extends GenericModel {
     /**
      * Instantiates a new builder with required properties.
      *
-     * @param refreshToken the refreshToken
+     * @param xDelegatedRefreshToken the xDelegatedRefreshToken
      * @param id the id
      */
-    public Builder(String refreshToken, String id) {
-      this.refreshToken = refreshToken;
+    public Builder(String xDelegatedRefreshToken, String id) {
+      this.xDelegatedRefreshToken = xDelegatedRefreshToken;
       this.id = id;
     }
 
     /**
-     * Builds a ListKubeconfigOptions.
+     * Builds a GetKubeconfigOptions.
      *
-     * @return the new ListKubeconfigOptions instance
+     * @return the new GetKubeconfigOptions instance
      */
-    public ListKubeconfigOptions build() {
-      return new ListKubeconfigOptions(this);
+    public GetKubeconfigOptions build() {
+      return new GetKubeconfigOptions(this);
     }
 
     /**
-     * Set the refreshToken.
+     * Set the xDelegatedRefreshToken.
      *
-     * @param refreshToken the refreshToken
-     * @return the ListKubeconfigOptions builder
+     * @param xDelegatedRefreshToken the xDelegatedRefreshToken
+     * @return the GetKubeconfigOptions builder
      */
-    public Builder refreshToken(String refreshToken) {
-      this.refreshToken = refreshToken;
+    public Builder xDelegatedRefreshToken(String xDelegatedRefreshToken) {
+      this.xDelegatedRefreshToken = xDelegatedRefreshToken;
       return this;
     }
 
@@ -78,7 +78,7 @@ public class ListKubeconfigOptions extends GenericModel {
      * Set the id.
      *
      * @param id the id
-     * @return the ListKubeconfigOptions builder
+     * @return the GetKubeconfigOptions builder
      */
     public Builder id(String id) {
       this.id = id;
@@ -89,7 +89,7 @@ public class ListKubeconfigOptions extends GenericModel {
      * Set the accept.
      *
      * @param accept the accept
-     * @return the ListKubeconfigOptions builder
+     * @return the GetKubeconfigOptions builder
      */
     public Builder accept(String accept) {
       this.accept = accept;
@@ -97,12 +97,12 @@ public class ListKubeconfigOptions extends GenericModel {
     }
   }
 
-  protected ListKubeconfigOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.refreshToken,
-      "refreshToken cannot be null");
+  protected GetKubeconfigOptions(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.xDelegatedRefreshToken,
+      "xDelegatedRefreshToken cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.id,
       "id cannot be empty");
-    refreshToken = builder.refreshToken;
+    xDelegatedRefreshToken = builder.xDelegatedRefreshToken;
     id = builder.id;
     accept = builder.accept;
   }
@@ -110,29 +110,30 @@ public class ListKubeconfigOptions extends GenericModel {
   /**
    * New builder.
    *
-   * @return a ListKubeconfigOptions builder
+   * @return a GetKubeconfigOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
   }
 
   /**
-   * Gets the refreshToken.
+   * Gets the xDelegatedRefreshToken.
    *
-   * The IAM Refresh token associated with the IBM Cloud account. To retrieve your IAM token, run `ibmcloud iam
-   * oauth-tokens`.
+   * This IAM Delegated Refresh Token is specifically valid for Code Engine. Generate this token with the [Create an IAM
+   * access token and delegated refresh token for a user or service
+   * ID](https://cloud.ibm.com/apidocs/iam-identity-token-api#gettoken-apikey-delegatedrefreshtoken) API. Specify the
+   * `receiver_client_ids` value to be `ce` and the `delegated_refresh_token_expiry` value to be `3600`.
    *
-   * @return the refreshToken
+   * @return the xDelegatedRefreshToken
    */
-  public String refreshToken() {
-    return refreshToken;
+  public String xDelegatedRefreshToken() {
+    return xDelegatedRefreshToken;
   }
 
   /**
    * Gets the id.
    *
-   * The id of the IBM Cloud Code Engine project. To retrieve your project ID, run `ibmcloud ce project get -n
-   * &lt;PROJECT_NAME&gt;`.
+   * The id of the IBM Cloud Code Engine project.
    *
    * @return the id
    */
