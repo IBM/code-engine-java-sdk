@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,6 +13,7 @@
 package com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1;
 
 import com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1.IbmCloudCodeEngine;
+import com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1.model.GetKubeconfigOptions;
 import com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1.model.ListKubeconfigOptions;
 import com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.http.Response;
@@ -80,7 +81,7 @@ public class IbmCloudCodeEngineTest extends PowerMockTestCase {
   @Test
   public void testListKubeconfigWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "\"apiVersion: v1 clusters: - cluster: server: https://proxy.us-south.codeengine.test.cloud.ibm.com name: https://proxy.us-south.codeengine.test.cloud.ibm.com contexts: - context: cluster: https://proxy.us-south.codeengine.test.cloud.ibm.com user: <userID> namespace: <namespace> name:  <namespace> current-context:  <current namespace> kind: Config preferences: {} users: - name: <userID> user: auth-provider: name: oidc config: client-id: ce client-secret: ce id-token: <id-token> idp-issuer-url: https://iam.test.cloud.ibm.com/identity refresh-token: <refresh-token>\"";
+    String mockResponseBody = "\"operationResponse\"";
     String listKubeconfigPath = "/namespaces/testString/config";
 
     server.enqueue(new MockResponse()
@@ -94,6 +95,7 @@ public class IbmCloudCodeEngineTest extends PowerMockTestCase {
     ListKubeconfigOptions listKubeconfigOptionsModel = new ListKubeconfigOptions.Builder()
     .refreshToken("testString")
     .id("testString")
+    .accept("text/plain")
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -127,6 +129,59 @@ public class IbmCloudCodeEngineTest extends PowerMockTestCase {
 
     // Invoke operation with null options model (negative test)
     ibmCloudCodeEngineService.listKubeconfig(null).execute();
+  }
+
+  @Test
+  public void testGetKubeconfigWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "\"operationResponse\"";
+    String getKubeconfigPath = "/project/testString/config";
+
+    server.enqueue(new MockResponse()
+    .setHeader("Content-type", "text/plain")
+    .setResponseCode(200)
+    .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetKubeconfigOptions model
+    GetKubeconfigOptions getKubeconfigOptionsModel = new GetKubeconfigOptions.Builder()
+    .xDelegatedRefreshToken("testString")
+    .id("testString")
+    .accept("text/plain")
+    .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<String> response = ibmCloudCodeEngineService.getKubeconfig(getKubeconfigOptionsModel).execute();
+    assertNotNull(response);
+    String responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    assertEquals(request.getHeader("X-Delegated-Refresh-Token"), "testString");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getKubeconfigPath);
+  }
+
+  // Test the getKubeconfig operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetKubeconfigNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    ibmCloudCodeEngineService.getKubeconfig(null).execute();
   }
 
   /** Initialize the server */
