@@ -50,8 +50,8 @@ String delegatedRefreshToken = iamJson.getString("delegated_refresh_token");
 ### Use the Code Engine client to get a Kubernetes config
 ```java
 GetKubeconfigOptions options = new GetKubeconfigOptions.Builder()
-  .id(ceProjectID)
-  .xDelegatedRefreshToken(authenticator.requestToken().getRefreshToken())
+  .id(System.getenv("CE_PROJECT_ID"))
+  .xDelegatedRefreshToken(delegatedRefreshToken)
   .build();
 Response<String> kubeConfigResponse = ceClient.getKubeconfig(options).execute();
 ```
