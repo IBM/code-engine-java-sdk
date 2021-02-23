@@ -40,6 +40,7 @@ jobs:
       script:
         - build/setMavenVersion.sh
         - mvn verify -fae -DskipITs $MVN_ARGS
+        - mvn package
         - ./test-integration.sh
       after_success:
         - build/publishCodeCoverage.sh
