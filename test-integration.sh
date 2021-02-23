@@ -7,7 +7,8 @@
 echo "Running integration tests..."
 
 # Run example, get exit code
-exampleoutput=$(java -jar ./modules/examples/target/code-engine-examples-1.0.0-SNAPSHOT.jar)
+jarname=$(ls ./modules/examples/target | grep '.jar' | grep -v 'sources' | grep -v 'original')
+exampleoutput=$(java -jar ./modules/examples/target/$jarname)
 exampleexit=$?
 if [ $exampleexit -ne 0 ]; then
     echo "Integration tests failed with exit code $exampleexit"
