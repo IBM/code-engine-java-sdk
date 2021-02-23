@@ -1,3 +1,10 @@
+## [0.2.1](https://github.com/IBM/code-engine-java-sdk/compare/0.2.0...0.2.1) (2021-02-23)
+
+
+### Bug Fixes
+
+* trigger release ([7d3f7b8](https://github.com/IBM/code-engine-java-sdk/commit/7d3f7b8b5408c524a717c39efd3869417ab3212b))
+
 # [0.2.0](https://github.com/IBM/code-engine-java-sdk/compare/0.1.0...0.2.0) (2021-02-23)
 
 
