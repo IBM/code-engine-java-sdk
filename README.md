@@ -3,7 +3,7 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 -->
 
-# IBM Cloud Code Engine Java SDK Version 0.1.0
+# IBM Cloud Code Engine Java SDK Version 0.2.0
 Java client library to interact with the [Code Engine API](https://cloud.ibm.com/apidocs/codeengine).
 
 Disclaimer: this SDK is being released initially as a **pre-release** version.
@@ -41,7 +41,7 @@ The IBM Cloud Code Engine Java SDK allows developers to programmatically interac
 
 Service Name | Artifact Coordinates
 --- | ---
-[Code Engine](https://cloud.ibm.com/apidocs/codeengine) | com.ibm.cloud.code_engine:0.1.0
+[Code Engine](https://cloud.ibm.com/apidocs/codeengine) | com.ibm.cloud.code_engine:0.2.0
 
 ## Prerequisites
 
@@ -52,7 +52,7 @@ Service Name | Artifact Coordinates
 * Java 8 or above.
 
 ## Installation
-The current version of this SDK is: 0.1.0
+The current version of this SDK is: 0.2.0
 
 Each service's artifact coordinates are listed in the table above.
 
@@ -74,7 +74,7 @@ artifact coordinates (group id, artifact id and version) for the service, like t
 <dependency>
     <groupId>com.ibm.cloud</groupId>
     <artifactId>code_engine</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
 </dependency>
 ```
 
