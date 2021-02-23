@@ -1,3 +1,10 @@
+## [0.2.2](https://github.com/IBM/code-engine-java-sdk/compare/0.2.1...0.2.2) (2021-02-23)
+
+
+### Bug Fixes
+
+* examples jar naming issue ([728c11e](https://github.com/IBM/code-engine-java-sdk/commit/728c11e192c7b58f9a6c2d5d2b0731d31d92132e))
+
 ## [0.2.1](https://github.com/IBM/code-engine-java-sdk/compare/0.2.0...0.2.1) (2021-02-23)
 
 
