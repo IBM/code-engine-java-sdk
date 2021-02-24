@@ -1,3 +1,12 @@
+## [0.2.3](https://github.com/IBM/code-engine-java-sdk/compare/0.2.2...0.2.3) (2021-02-24)
+
+
+### Bug Fixes
+
+* javadoc comments added to example ([6ef6df4](https://github.com/IBM/code-engine-java-sdk/commit/6ef6df406e635701ca4eec7a75236a334cfe8550))
+* restore maven-shade config on example ([4af4625](https://github.com/IBM/code-engine-java-sdk/commit/4af4625e8dc64a2d9b34583132c53a8ba24e03dc))
+* skip deploy for examples package ([24f425d](https://github.com/IBM/code-engine-java-sdk/commit/24f425dc0916a91cd2a8f23abc77cac0654df2b3))
+
 ## [0.2.2](https://github.com/IBM/code-engine-java-sdk/compare/0.2.1...0.2.2) (2021-02-23)
 
 
