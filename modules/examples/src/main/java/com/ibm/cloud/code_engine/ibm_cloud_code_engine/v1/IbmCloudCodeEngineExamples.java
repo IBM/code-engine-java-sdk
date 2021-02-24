@@ -32,6 +32,9 @@ import io.kubernetes.client.openapi.Configuration;
 import io.kubernetes.client.openapi.apis.CoreV1Api;
 import io.kubernetes.client.openapi.models.V1ConfigMapList;
 
+/**
+ * Provides an example of using the IbmCloudCodeEngine package to interact with the Code Engine API
+ */
 public class IbmCloudCodeEngineExamples {
 
   // Suppress utility class error by making private constructor
@@ -39,6 +42,11 @@ public class IbmCloudCodeEngineExamples {
     throw new IllegalStateException("Just an example");
   }
 
+  /**
+   * Class method which runs the example
+   *
+   * @param args argumments provided to the example program
+   */
   public static void main(String[] args) throws Exception {
 
     // Create an IAM authenticator.
