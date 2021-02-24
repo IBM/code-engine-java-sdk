@@ -33,7 +33,7 @@ import io.kubernetes.client.openapi.apis.CoreV1Api;
 import io.kubernetes.client.openapi.models.V1ConfigMapList;
 
 /**
- * Provides an example of using the IbmCloudCodeEngine package to interact with the Code Engine API
+ * Provides an example of using the IbmCloudCodeEngine package to interact with the Code Engine API.
  */
 public class IbmCloudCodeEngineExamples {
 
@@ -43,7 +43,7 @@ public class IbmCloudCodeEngineExamples {
   }
 
   /**
-   * Class method which runs the example
+   * Class method which runs the example.
    *
    * @param args argumments provided to the example program
    */
