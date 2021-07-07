@@ -1,3 +1,10 @@
+# [0.3.0](https://github.com/IBM/code-engine-java-sdk/compare/0.2.3...0.3.0) (2021-07-07)
+
+
+### Features
+
+* **build:** deploy artifacts to maven central ([e68d6fd](https://github.com/IBM/code-engine-java-sdk/commit/e68d6fdd2696b8210e519c8c2f7fb0bef5c71d79))
+
 ## [0.2.3](https://github.com/IBM/code-engine-java-sdk/compare/0.2.2...0.2.3) (2021-02-24)
 
 
