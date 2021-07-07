@@ -9,4 +9,3 @@ if [[ -n "${TRAVIS_TAG}" || "${TRAVIS_BRANCH}" == "main" && "${TRAVIS_PULL_REQUE
 else
     printf ">>>>> Bypassing code coverage publish step for feature branch/PR build.\n"
 fi
-     

@@ -16,11 +16,9 @@ echo '<!DOCTYPE html>
     <div class="page-header">
         <h1>IBM Cloud Code Engine Java SDK Documentation</h1>
     </div>
-
-    <p><a href="https://cloud.ibm.com/apidocs/codeengine">API Documentation</a>
+    <p><a href="https://cloud.ibm.com/apidocs/codeengine">Code Engine API Documentation</a>
         | <a href="https://github.com/IBM/code-engine-java-sdk">GitHub</a>
     </p>
-
     <p>Javadoc by branch/release:</p>
     <ul><li><a href="docs/latest">Latest</a></li>'
 ls docs | grep --invert-match index.html | sed 's/^.*/<li><a href="docs\/&">&<\/a><\/li>/'
