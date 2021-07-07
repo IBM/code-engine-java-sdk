@@ -1,3 +1,10 @@
+## [0.3.1](https://github.com/IBM/code-engine-java-sdk/compare/0.3.0...0.3.1) (2021-07-07)
+
+
+### Bug Fixes
+
+* **build:** build config update ([9cee08d](https://github.com/IBM/code-engine-java-sdk/commit/9cee08de08c22042c1121cfec8399a9dbdba96b8))
+
 # [0.3.0](https://github.com/IBM/code-engine-java-sdk/compare/0.2.3...0.3.0) (2021-07-07)
 
 
