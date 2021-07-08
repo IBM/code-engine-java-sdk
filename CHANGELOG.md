@@ -1,3 +1,10 @@
+## [0.3.3](https://github.com/IBM/code-engine-java-sdk/compare/0.3.2...0.3.3) (2021-07-08)
+
+
+### Bug Fixes
+
+* **build:** added javadocs to example repo ([7af666a](https://github.com/IBM/code-engine-java-sdk/commit/7af666ad0d57deed95461dae5e6c39f93960ebee))
+
 ## [0.3.2](https://github.com/IBM/code-engine-java-sdk/compare/0.3.1...0.3.2) (2021-07-08)
 
 
