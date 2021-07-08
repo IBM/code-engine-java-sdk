@@ -1,3 +1,10 @@
+## [0.3.2](https://github.com/IBM/code-engine-java-sdk/compare/0.3.1...0.3.2) (2021-07-08)
+
+
+### Bug Fixes
+
+* **build:** updated signing key ([757a7b2](https://github.com/IBM/code-engine-java-sdk/commit/757a7b23843b617f7ee3e996d353f09abea4ab54))
+
 ## [0.3.1](https://github.com/IBM/code-engine-java-sdk/compare/0.3.0...0.3.1) (2021-07-07)
 
 
