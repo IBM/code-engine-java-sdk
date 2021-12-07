@@ -42,9 +42,6 @@ before_install:
 #       && openssl aes-256-cbc -K $my_key  -iv $my_iv -in myservice.env.enc -out myservice.env -d
 #       || true
 
-install:
-- curl -s https://codecov.io/bash > $HOME/codecov-bash.sh && chmod +x $HOME/codecov-bash.sh
-
 before_script:
 - echo "TRAVIS_TAG = '${TRAVIS_TAG}'"
 - >-
@@ -88,10 +85,4 @@ deploy:
     on:
       tags: true
       jdk: openjdk8
-#   # Upload code coverage reports to codecov.io for master or tagged release
-#   - provider: script
-#     script: $HOME/codecov-bash.sh -s modules/coverage-reports/target/site/jacoco-aggregate -t $CODECOV_TOKEN
-#     skip_cleanup: true
-#     on:
-#       condition: $TRAVIS_BRANCH == master || -n "$TRAVIS_TAG"
-#       jdk: openjdk8
+
