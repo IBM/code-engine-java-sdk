@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,6 +21,7 @@ public class ListKubeconfigOptions extends GenericModel {
 
   protected String refreshToken;
   protected String id;
+  protected String accept;
 
   /**
    * Builder.
@@ -28,10 +29,12 @@ public class ListKubeconfigOptions extends GenericModel {
   public static class Builder {
     private String refreshToken;
     private String id;
+    private String accept;
 
     private Builder(ListKubeconfigOptions listKubeconfigOptions) {
       this.refreshToken = listKubeconfigOptions.refreshToken;
       this.id = listKubeconfigOptions.id;
+      this.accept = listKubeconfigOptions.accept;
     }
 
     /**
@@ -81,6 +84,17 @@ public class ListKubeconfigOptions extends GenericModel {
       this.id = id;
       return this;
     }
+
+    /**
+     * Set the accept.
+     *
+     * @param accept the accept
+     * @return the ListKubeconfigOptions builder
+     */
+    public Builder accept(String accept) {
+      this.accept = accept;
+      return this;
+    }
   }
 
   protected ListKubeconfigOptions(Builder builder) {
@@ -90,6 +104,7 @@ public class ListKubeconfigOptions extends GenericModel {
       "id cannot be empty");
     refreshToken = builder.refreshToken;
     id = builder.id;
+    accept = builder.accept;
   }
 
   /**
@@ -104,7 +119,8 @@ public class ListKubeconfigOptions extends GenericModel {
   /**
    * Gets the refreshToken.
    *
-   * The IAM Refresh token associated with the IBM Cloud account.
+   * The IAM Refresh token associated with the IBM Cloud account. To retrieve your IAM token, run `ibmcloud iam
+   * oauth-tokens`.
    *
    * @return the refreshToken
    */
@@ -115,12 +131,25 @@ public class ListKubeconfigOptions extends GenericModel {
   /**
    * Gets the id.
    *
-   * The id of the IBM Cloud Code Engine project.
+   * The id of the IBM Cloud Code Engine project. To retrieve your project ID, run `ibmcloud ce project get -n
+   * &lt;PROJECT_NAME&gt;`.
    *
    * @return the id
    */
   public String id() {
     return id;
+  }
+
+  /**
+   * Gets the accept.
+   *
+   * The type of the response: text/plain or application/json. A character encoding can be specified by including a
+   * `charset` parameter. For example, 'text/plain;charset=utf-8'.
+   *
+   * @return the accept
+   */
+  public String accept() {
+    return accept;
   }
 }
 
