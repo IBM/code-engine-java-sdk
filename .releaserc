@@ -1,5 +1,6 @@
 {
   "debug": true,
+  "branches": [ "main" ],
   "tagFormat": "${version}",
   "plugins": [
     "@semantic-release/commit-analyzer",
@@ -14,12 +15,10 @@
     [
       "@semantic-release/git", 
       {
+        "assets" : [ "CHANGELOG.md" ],
         "message": "chore(release): ${nextRelease.version} release notes\n\n${nextRelease.notes}"
       }
     ],
     "@semantic-release/github"
-  ],
-  "branches": [
-    {name: "main"}
   ]
 }

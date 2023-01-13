@@ -1,6 +1,6 @@
 ---
 language: java
-dist: xenial
+dist: bionic
 
 jdk:
 - openjdk8
@@ -35,24 +35,20 @@ jobs:
   include:
     - stage: Build-Test
       jdk: openjdk8
-      install:
-        - curl -s https://codecov.io/bash > $HOME/codecov-bash.sh && chmod +x $HOME/codecov-bash.sh
       script:
         - build/setMavenVersion.sh
         - mvn verify -fae -DskipITs $MVN_ARGS
         - ./test-integration.sh
-      after_success:
-        - build/publishCodeCoverage.sh
     - stage: Semantic-Release
       install:
         - sudo apt-get install python
-        - nvm install 12
-        - npm install -g npm@6.x
-        - pip install --user bump2version
+        - nvm install 18
+        - npm install -g npm@8.x
         - npm install @semantic-release/changelog
         - npm install @semantic-release/exec
         - npm install @semantic-release/git
         - npm install @semantic-release/github
+        - pip install --user bump2version
       script:
         - npx semantic-release
       after_success:
