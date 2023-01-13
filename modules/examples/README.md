@@ -23,11 +23,38 @@ IbmCloudCodeEngine ceClient = new IbmCloudCodeEngine("Code Engine Client", authe
 ceClient.setServiceUrl("https://api." + System.getenv("CE_PROJECT_REGION") + ".codeengine.cloud.ibm.com/api/v1");
 ```
 
+### Get a Delegated Refresh Token from IAM using an HTTP client
+This example uses Java's `HttpURLConnection`, but you may use the HTTP client of your choice.
+```java
+URL iamUrl = new URL("https://iam.cloud.ibm.com/identity/token?"
+  + "grant_type=urn:ibm:params:oauth:grant-type:apikey&"
+  + "response_type=delegated_refresh_token&"
+  + "receiver_client_ids=ce&"
+  + "delegated_refresh_token_expiry=3600&"
+  + "apikey="
+  + System.getenv("CE_API_KEY"));
+HttpURLConnection iamConnection = (HttpURLConnection) iamUrl.openConnection();
+iamConnection.setRequestMethod("POST");
+iamConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+BufferedReader iamInput = new BufferedReader(new InputStreamReader(iamConnection.getInputStream()));
+String iamResponse = "";
+String iamInputLine = "";
+while ((iamInputLine = iamInput.readLine()) != null) {
+  iamResponse = iamResponse + iamInputLine;
+}
+iamInput.close();
+JSONObject iamJson = new JSONObject(iamResponse);
+String delegatedRefreshToken = iamJson.getString("delegated_refresh_token");
+```
+
 ### Use the Code Engine client to get a Kubernetes config
 ```java
-ListKubeconfigOptions options = new ListKubeconfigOptions.Builder()
-  .id(ceProjectID)
-  .refreshToken(authenticator.requestToken().getRefreshToken())
+GetKubeconfigOptions options = new GetKubeconfigOptions.Builder()
+  .id(System.getenv("CE_PROJECT_ID"))
+  .xDelegatedRefreshToken(delegatedRefreshToken)
   .build();
-Response<String> kubeConfigResponse = ceClient.listKubeconfig(options).execute();
+Response<String> kubeConfigResponse = ceClient.getKubeconfig(options).execute();
 ```
+
+## Deprecated endpoint
+The `/namespaces/{id}/config` endpoint function, `listKubeconfig()`, is deprecated, and will be removed before Code Engine is out of Beta. Please use the `getKubeconfig()` function, demonstrated in the example above.

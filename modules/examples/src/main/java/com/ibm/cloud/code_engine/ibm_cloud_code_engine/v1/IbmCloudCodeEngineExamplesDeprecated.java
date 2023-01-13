@@ -13,18 +13,12 @@
 
 package com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1;
 
-import com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1.model.GetKubeconfigOptions;
+import com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1.model.ListKubeconfigOptions;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.cloud.sdk.core.http.Response;
 
 import java.io.Reader;
 import java.io.StringReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
-import org.json.JSONObject;
 import io.kubernetes.client.util.KubeConfig;
 import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.util.Config;
@@ -32,21 +26,13 @@ import io.kubernetes.client.openapi.Configuration;
 import io.kubernetes.client.openapi.apis.CoreV1Api;
 import io.kubernetes.client.openapi.models.V1ConfigMapList;
 
-/**
- * Provides an example of using the IbmCloudCodeEngine package to interact with the Code Engine API.
- */
-public class IbmCloudCodeEngineExamples {
+public class IbmCloudCodeEngineExamplesDeprecated {
 
   // Suppress utility class error by making private constructor
-  private IbmCloudCodeEngineExamples() {
+  private IbmCloudCodeEngineExamplesDeprecated() {
     throw new IllegalStateException("Just an example");
   }
 
-  /**
-   * Class method which runs the example.
-   *
-   * @param args argumments provided to the example program
-   */
   public static void main(String[] args) throws Exception {
 
     // Create an IAM authenticator.
@@ -57,33 +43,15 @@ public class IbmCloudCodeEngineExamples {
     IbmCloudCodeEngine ceClient = new IbmCloudCodeEngine("Code Engine Client", authenticator);
     ceClient.setServiceUrl("https://api." + System.getenv("CE_PROJECT_REGION") + ".codeengine.cloud.ibm.com/api/v1");
 
-    // Get an IAM delegated refresh token using an HTTP client
-    URL iamUrl = new URL("https://iam.cloud.ibm.com/identity/token?"
-      + "grant_type=urn:ibm:params:oauth:grant-type:apikey&"
-      + "response_type=delegated_refresh_token&"
-      + "receiver_client_ids=ce&"
-      + "delegated_refresh_token_expiry=3600&"
-      + "apikey="
-      + System.getenv("CE_API_KEY"));
-    HttpURLConnection iamConnection = (HttpURLConnection) iamUrl.openConnection();
-    iamConnection.setRequestMethod("POST");
-    iamConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-    BufferedReader iamInput = new BufferedReader(new InputStreamReader(iamConnection.getInputStream()));
-    String iamResponse = "";
-    String iamInputLine = "";
-    while ((iamInputLine = iamInput.readLine()) != null) {
-      iamResponse = iamResponse + iamInputLine;
-    }
-    iamInput.close();
-    JSONObject iamJson = new JSONObject(iamResponse);
-    String delegatedRefreshToken = iamJson.getString("delegated_refresh_token");
+    // Get an IAM refresh token using the authenticator.
+    String refreshToken = authenticator.requestToken().getRefreshToken();
 
     // Get Code Egnine project config using the Code Engine Client
-    GetKubeconfigOptions options = new GetKubeconfigOptions.Builder()
+    ListKubeconfigOptions options = new ListKubeconfigOptions.Builder()
       .id(System.getenv("CE_PROJECT_ID"))
-      .xDelegatedRefreshToken(delegatedRefreshToken)
+      .refreshToken(refreshToken)
       .build();
-    Response<String> kubeConfigResponse = ceClient.getKubeconfig(options).execute();
+    Response<String> kubeConfigResponse = ceClient.listKubeconfig(options).execute();
 
     // Setup Kubernetes client using the project config
     String kubeConfigString = kubeConfigResponse.getResult();

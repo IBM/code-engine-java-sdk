@@ -13,7 +13,7 @@
 
 package com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1.model;
 
-import com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1.model.ListKubeconfigOptions;
+import com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1.model.GetKubeconfigOptions;
 import com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -23,27 +23,27 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the ListKubeconfigOptions model.
+ * Unit test class for the GetKubeconfigOptions model.
  */
-public class ListKubeconfigOptionsTest {
+public class GetKubeconfigOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testListKubeconfigOptions() throws Throwable {
-    ListKubeconfigOptions listKubeconfigOptionsModel = new ListKubeconfigOptions.Builder()
-      .refreshToken("testString")
+  public void testGetKubeconfigOptions() throws Throwable {
+    GetKubeconfigOptions getKubeconfigOptionsModel = new GetKubeconfigOptions.Builder()
+      .xDelegatedRefreshToken("testString")
       .id("testString")
       .accept("text/plain")
       .build();
-    assertEquals(listKubeconfigOptionsModel.refreshToken(), "testString");
-    assertEquals(listKubeconfigOptionsModel.id(), "testString");
-    assertEquals(listKubeconfigOptionsModel.accept(), "text/plain");
+    assertEquals(getKubeconfigOptionsModel.xDelegatedRefreshToken(), "testString");
+    assertEquals(getKubeconfigOptionsModel.id(), "testString");
+    assertEquals(getKubeconfigOptionsModel.accept(), "text/plain");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testListKubeconfigOptionsError() throws Throwable {
-    new ListKubeconfigOptions.Builder().build();
+  public void testGetKubeconfigOptionsError() throws Throwable {
+    new GetKubeconfigOptions.Builder().build();
   }
 
 }
