@@ -46,7 +46,7 @@
 
     <modules>
         <module>modules/common</module>
-        <module>modules/ibm-cloud-code-engine</module>
+        <module>modules/code-engine</module>
         <module>modules/coverage-reports</module>
         <module>modules/examples</module>
     </modules>
