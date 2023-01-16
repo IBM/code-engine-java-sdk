@@ -1,3 +1,4 @@
 {
-   "apiPackage": "com.ibm.cloud.code_engine"
+   "apiPackage": "com.ibm.cloud.code_engine",
+   "intTestFolder": "<output-dir>/ibm-cloud-code-engine/src/test/java"
 }

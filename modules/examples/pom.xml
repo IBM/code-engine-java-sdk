@@ -74,7 +74,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.ibm.cloud.code_engine.ibm_cloud_code_engine.v1.IbmCloudCodeEngineExamples</mainClass>
+                            <mainClass>com.ibm.cloud.code_engine.code_engine.v2.IbmCloudCodeEngineExamples</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

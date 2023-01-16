@@ -30,15 +30,27 @@ stages:
 before_install:
   - sudo apt-get update
   - env | grep TRAVIS
+  - pyenv global 3.8
 
 jobs:
   include:
     - stage: Build-Test
       jdk: openjdk8
+      install: true
       script:
         - build/setMavenVersion.sh
         - mvn verify -fae -DskipITs $MVN_ARGS
         - ./test-integration.sh
+    - jdk: openjdk11
+      install: true
+      script:
+        - mvn verify -fae -DskipITs $MVN_ARGS
+
+    - jdk: openjdk17
+      install: true
+      script:
+        - mvn verify -fae -DskipITs $MVN_ARGS
+
     - stage: Semantic-Release
       install:
         - sudo apt-get install python
