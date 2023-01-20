@@ -5,6 +5,11 @@ dist: bionic
 jdk:
 - openjdk8
 
+# Only run on main (still tests PRs)
+branches:
+  only:
+  - main
+
 notifications:
   email: true
 
