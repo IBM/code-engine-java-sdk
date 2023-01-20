@@ -6,9 +6,6 @@
 # IBM Cloud Code Engine Java SDK Version 0.3.3
 Java client library to interact with the [Code Engine API](https://cloud.ibm.com/apidocs/codeengine).
 
-Disclaimer: this SDK is being released initially as a **pre-release** version.
-Changes might occur which impact applications that use this SDK.
-
 ## Table of Contents
 
 <!--

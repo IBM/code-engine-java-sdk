@@ -31,6 +31,11 @@ before_install:
   - sudo apt-get update
   - env | grep TRAVIS
   - pyenv global 3.8
+  # create an .env file that is pulled in while executing the v2 integration tests
+  - echo "CODE_ENGINE_URL=https://$CE_API_HOST/v2" > code_engine_v2.env
+  - echo "CODE_ENGINE_AUTH_TYPE=iam" >> code_engine_v2.env
+  - echo "CODE_ENGINE_APIKEY=$CE_API_KEY" >> code_engine_v2.env
+  - echo "CODE_ENGINE_AUTH_URL=$IAM_ENDPOINT" >> code_engine_v2.env
 
 jobs:
   include:
@@ -40,7 +45,6 @@ jobs:
       script:
         - build/setMavenVersion.sh
         - mvn verify -fae -DskipITs $MVN_ARGS
-        - ./test-integration.sh
     - jdk: openjdk11
       install: true
       script:
@@ -49,7 +53,8 @@ jobs:
     - jdk: openjdk17
       install: true
       script:
-        - mvn verify -fae -DskipITs $MVN_ARGS
+        # execute all tests including the integration tests
+        - mvn verify -fae $MVN_ARGS
 
     - stage: Semantic-Release
       install:
