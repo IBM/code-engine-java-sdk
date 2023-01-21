@@ -1,3 +1,15 @@
+# [1.0.0](https://github.ibm.com/coligo/java-sdk/compare/v0.3.3...1.0.0) (2023-01-21)
+
+
+### Features
+
+* **build:** major release v1 ([#11](https://github.ibm.com/coligo/java-sdk/issues/11)) ([a12e44b](https://github.ibm.com/coligo/java-sdk/commit/a12e44b71e58c330b876f8a35917094b73b1d724))
+
+
+### BREAKING CHANGES
+
+* **build:** marks v1.0.0 of this repository
+
 ## [0.3.3](https://github.com/IBM/code-engine-java-sdk/compare/0.3.2...0.3.3) (2021-07-08)
 
 
