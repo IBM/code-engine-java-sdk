@@ -48,11 +48,13 @@ jobs:
       jdk: openjdk8
       install: true
       script:
+        # execute unit tests
         - build/setMavenVersion.sh
         - mvn verify -fae -DskipITs $MVN_ARGS
     - jdk: openjdk11
       install: true
       script:
+        # execute unit tests
         - mvn verify -fae -DskipITs $MVN_ARGS
 
     - jdk: openjdk17
@@ -62,6 +64,7 @@ jobs:
         - mvn verify -fae $MVN_ARGS
 
     - stage: Semantic-Release
+      if: type != pull_request AND branch = main AND tag IS blank
       install:
         - sudo apt-get install python
         - nvm install 18
@@ -75,22 +78,3 @@ jobs:
         - npx semantic-release
       after_success:
         - echo "Semantic release has successfully created a new tagged-release"
-    - stage: Publish-Release
-      jdk: openjdk8
-      name: Publish-Javadoc
-      install: true
-      script:
-        - build/setMavenVersion.sh
-        - mvn clean javadoc:aggregate $MVN_ARGS
-        - build/publishJavadoc.sh
-      after_success:
-        - echo "Javadocs successfully published to gh-pages!"
-    - jdk: openjdk8
-      name: Publish-To-Maven-Central
-      install: true
-      script:
-        - build/setupSigning.sh
-        - build/setMavenVersion.sh
-        - mvn deploy $MVN_ARGS -DskipTests -P central
-      after_success:
-        - echo "Maven artifacts successfully published to Maven Central!"
