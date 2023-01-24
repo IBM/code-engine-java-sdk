@@ -40,7 +40,7 @@ The IBM Cloud Code Engine Java SDK allows developers to programmatically interac
 
 Service Name | Artifact Coordinates
 --- | ---
-[Code Engine](https://cloud.ibm.com/apidocs/codeengine) | com.ibm.cloud.code-engine:1.0.0
+[Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v2.0.0) | com.ibm.cloud.code-engine:1.0.0
 
 ## Prerequisites
 
