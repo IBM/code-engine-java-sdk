@@ -1,3 +1,15 @@
+# [2.0.0](https://github.ibm.com/coligo/java-sdk/compare/1.0.0...2.0.0) (2023-01-24)
+
+
+### Features
+
+* **core:** Enable v2.0.0 API functionality ([#12](https://github.ibm.com/coligo/java-sdk/issues/12)) ([2cd70c2](https://github.ibm.com/coligo/java-sdk/commit/2cd70c21625fbbaf99e1f0e0d2bc188e0102e827))
+
+
+### BREAKING CHANGES
+
+* **core:** v2.0.0
+
 # [1.0.0](https://github.ibm.com/coligo/java-sdk/compare/v0.3.3...1.0.0) (2023-01-21)
 
 
