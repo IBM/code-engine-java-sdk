@@ -55,7 +55,7 @@ jobs:
       jdk: openjdk8
       name: Publish-Javadoc
       install: true
-      if: type != pull_request AND branch = main AND tag IS present
+      if: tag IS present
       script:
         - build/setMavenVersion.sh
         - mvn clean javadoc:aggregate $MVN_ARGS
@@ -63,7 +63,7 @@ jobs:
       after_success:
         - echo "Javadocs successfully published to gh-pages!"
     - jdk: openjdk8
-      if: type != pull_request AND branch = main AND tag IS present
+      if: tag IS present
       name: Publish-To-Maven-Central
       install: true
       script:
