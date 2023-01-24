@@ -11,39 +11,42 @@
     <packaging>pom</packaging>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--
             This is the version associated with the Java core. The version used here should be compatible with the version
             of the SDK generator used to generate your SDK code.
             See this link for details: https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Compatibility-Chart
         -->
-        <sdk-core-version>9.4.0</sdk-core-version>
+        <sdk-core-version>9.17.4</sdk-core-version>
         <git-repository-name>code-engine-java-sdk</git-repository-name>
 
-        <testng-version>7.1.0</testng-version>
-        <okhttp3-version>4.9.0</okhttp3-version>
-        <surefire-version>3.0.0-M3</surefire-version>
-        <jacoco-plugin-version>0.8.5</jacoco-plugin-version>
-        <maven-deploy-plugin-version>3.0.0-M1</maven-deploy-plugin-version>
-        <maven-source-plugin-version>3.1.0</maven-source-plugin-version>
-        <maven-shade-plugin-version>3.2.2</maven-shade-plugin-version>
-        <maven-jar-plugin-version>3.2.0</maven-jar-plugin-version>
-        <maven-javadoc-plugin-version>3.1.1</maven-javadoc-plugin-version>
-        <maven-compiler-plugin-version>3.8.1</maven-compiler-plugin-version>
-        <maven-site-plugin-version>3.7.1</maven-site-plugin-version>
-        <maven-checkstyle-plugin-version>3.1.0</maven-checkstyle-plugin-version>
-        <maven-reports-plugin-version>3.0.0</maven-reports-plugin-version>
-        <maven-failsafe-plugin-version>3.0.0-M4</maven-failsafe-plugin-version>
-        <maven-buildnumber-plugin-version>1.4</maven-buildnumber-plugin-version>
-        <maven-gpg-plugin-version>1.6</maven-gpg-plugin-version>
-        <nexus-staging-plugin-version>1.6.8</nexus-staging-plugin-version>
-        <powermock-version>2.0.5</powermock-version>
-        <mockito-version>3.2.4</mockito-version>
-        <slf4j-version>1.7.28</slf4j-version>
+        <testng-version>7.4.0</testng-version>
+        <okhttp3-version>4.10.0</okhttp3-version>
+        <surefire-version>3.0.0-M7</surefire-version>
+        <jacoco-plugin-version>0.8.8</jacoco-plugin-version>
+        <maven-deploy-plugin-version>3.0.0</maven-deploy-plugin-version>
+        <nexus-staging-plugin-version>1.6.13</nexus-staging-plugin-version>
+        <maven-gpg-plugin-version>3.0.1</maven-gpg-plugin-version>
+        <maven-source-plugin-version>3.2.1</maven-source-plugin-version>
+        <maven-shade-plugin-version>3.3.0</maven-shade-plugin-version>
+        <maven-jar-plugin-version>3.2.2</maven-jar-plugin-version>
+        <maven-javadoc-plugin-version>3.4.1</maven-javadoc-plugin-version>
+        <maven-compiler-plugin-version>3.10.1</maven-compiler-plugin-version>
+        <maven-site-plugin-version>3.12.1</maven-site-plugin-version>
+        <maven-checkstyle-plugin-version>3.2.0</maven-checkstyle-plugin-version>
+        <checkstyle-version>8.41</checkstyle-version>
+        <maven-reports-plugin-version>3.4.1</maven-reports-plugin-version>
+        <maven-failsafe-plugin-version>3.0.0-M7</maven-failsafe-plugin-version>
+        <maven-buildnumber-plugin-version>3.0.0</maven-buildnumber-plugin-version>
+        <slf4j-version>2.0.0</slf4j-version>
+
+        <!-- versions of transitive dependencies we need to override to avoid vulnerability alerts -->
+        <junit-version>4.13.2</junit-version>
     </properties>
 
     <modules>
         <module>modules/common</module>
-        <module>modules/ibm-cloud-code-engine</module>
+        <module>modules/code-engine</module>
         <module>modules/coverage-reports</module>
         <module>modules/examples</module>
     </modules>
@@ -73,13 +76,6 @@
         <url>https://travis.ibm.com/IBM/code-engine-java-sdk/</url>
     </ciManagement>
 
-    <repositories>
-        <!-- these definitions are useful only for internal SDK projects -->
-        <repository>
-            <id>na-artifactory-ibmcloud-sdks</id>
-            <url>https://na.artifactory.swg-devops.com:443/artifactory/wcp-ibmcloud-sdks-team-maven-local/</url>
-        </repository>
-    </repositories>
     <dependencyManagement>
         <dependencies>
             <!-- This is the Java core dependency -->
@@ -112,6 +108,12 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit-version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
                 <groupId>com.squareup.okhttp3</groupId>
                 <artifactId>okhttp</artifactId>
                 <version>${okhttp3-version}</version>
@@ -122,20 +124,8 @@
                 <version>${okhttp3-version}</version>
                 <scope>test</scope>
             </dependency>
+            <!-- Dependency needed to build examples -->
             <dependency>
-                <groupId>org.powermock</groupId>
-                <artifactId>powermock-api-mockito2</artifactId>
-                <version>${powermock-version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.powermock</groupId>
-                <artifactId>powermock-module-testng</artifactId>
-                <version>${powermock-version}</version>
-                <scope>test</scope>
-            </dependency>
-            <!-- Depedency needed to build examples -->
-            <dependency> 
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-jdk14</artifactId>
                 <version>${slf4j-version}</version>
@@ -152,6 +142,16 @@
                     <version>${maven-deploy-plugin-version}</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>${nexus-staging-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>${maven-gpg-plugin-version}</version>
+                </plugin>
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
                     <version>${maven-source-plugin-version}</version>
@@ -165,22 +165,13 @@
                     </executions>
                 </plugin>
                 <plugin>
-                    <groupId>org.sonatype.plugins</groupId>
-                    <artifactId>nexus-staging-maven-plugin</artifactId>
-                    <version>${nexus-staging-plugin-version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-gpg-plugin</artifactId>
-                    <version>${maven-gpg-plugin-version}</version>
-                </plugin>
-                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${maven-javadoc-plugin-version}</version>
                     <configuration>
-                        <detectJavaApiLink>false</detectJavaApiLink>
                         <quiet>true</quiet>
+                        <source>8</source>
+                        <detectJavaApiLink>false</detectJavaApiLink>
                     </configuration>
                     <executions>
                         <execution>
@@ -223,6 +214,13 @@
                         <configLocation>checkstyle.xml</configLocation>
                         <consoleOutput>true</consoleOutput>
                     </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.puppycrawl.tools</groupId>
+                            <artifactId>checkstyle</artifactId>
+                            <version>${checkstyle-version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.jacoco</groupId>
@@ -280,7 +278,7 @@
                     <configuration>
                         <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
                         <shortRevisionLength>8</shortRevisionLength>
-                        <timestampFormat>{0,date,yyyyMMdd-HHmmss}</timestampFormat>
+                        <timestampFormat>yyyyMMdd-HHmmss</timestampFormat>
                         <attach>true</attach>
                         <addOutputDirectoryToResources>true</addOutputDirectoryToResources>
                         <doCheck>false</doCheck>
@@ -312,31 +310,6 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <!-- Disable use of bintray:deploy during "Maven -> Update Project" in eclipse -->
-                                    <pluginExecutionFilter>
-                                        <groupId>com.carrotgarden.maven</groupId>
-                                        <artifactId>bintray-maven-plugin</artifactId>
-                                        <versionRange>[1.0.0,)</versionRange>
-                                        <goals>
-                                            <goal>deploy</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore/>
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
-                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-shade-plugin</artifactId>
                     <version>${maven-shade-plugin-version}</version>
@@ -352,6 +325,7 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <!-- Disable default maven-deploy-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
@@ -363,10 +337,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <aggregate>true</aggregate>
                     <show>public</show>
                     <doctitle>${project.name}, version ${project.version}</doctitle>
-                    <footer>IBM Corporation</footer>
                 </configuration>
                 <executions>
                     <execution>
@@ -385,6 +357,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-surefire-plugin</artifactId>
+              <version>${surefire-version}</version>
+              <configuration>
+                <skipTests>${skip.unit.tests}</skipTests>
+              </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -485,9 +465,9 @@
                         </executions>
                         <configuration>
                             <gpgArguments>
-                                <gpgArgument>--batch</gpgArgument>
-                                <gpgArgument>--yes</gpgArgument>
-                                <gpgArgument>--no-tty</gpgArgument>
+                                <arg>--batch</arg>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
                             </gpgArguments>
                         </configuration>
                     </plugin>
