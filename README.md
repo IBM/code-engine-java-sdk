@@ -4,6 +4,7 @@
 -->
 
 # IBM Cloud Code Engine Java SDK Version 2.0.1
+
 Java client library to interact with the [Code Engine API](https://cloud.ibm.com/apidocs/codeengine).
 
 ## Table of Contents
@@ -69,7 +70,7 @@ Here are examples for maven and gradle:
 ```xml
 <dependency>
     <groupId>com.ibm.cloud</groupId>
-    <artifactId>code-engine</artifactId>
+    <artifactId>code-engine</artifactId
     <version>2.0.1</version>
 </dependency>
 ```
