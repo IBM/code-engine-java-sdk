@@ -4,6 +4,7 @@
 -->
 
 # IBM Cloud Code Engine Java SDK Version 2.0.3
+
 Java client library to interact with the [Code Engine API](https://cloud.ibm.com/apidocs/codeengine).
 
 ## Table of Contents
@@ -40,7 +41,7 @@ The IBM Cloud Code Engine Java SDK allows developers to programmatically interac
 
 Service Name | Artifact Coordinates
 --- | ---
-[Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v2.0.0) | com.ibm.cloud.code-engine:2.0.0
+[Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v2.0.0) | com.ibm.cloud.code-engine:2.0.3
 
 ## Prerequisites
 
@@ -51,6 +52,7 @@ Service Name | Artifact Coordinates
 * Java 8 or above.
 
 ## Installation
+
 The current version of this SDK is: 2.0.3
 
 Each service's artifact coordinates are listed in the table above.
