@@ -1,3 +1,10 @@
+## [2.0.3](https://github.ibm.com/coligo/java-sdk/compare/2.0.2...2.0.3) (2023-01-25)
+
+
+### Bug Fixes
+
+* **build:** adjusted javadoc deploy script ([2ce5e36](https://github.ibm.com/coligo/java-sdk/commit/2ce5e36b8be078c4e93d117553558edcbce52437))
+
 ## [2.0.2](https://github.ibm.com/coligo/java-sdk/compare/2.0.1...2.0.2) (2023-01-25)
 
 
