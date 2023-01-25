@@ -1,3 +1,10 @@
+## [2.0.2](https://github.ibm.com/coligo/java-sdk/compare/2.0.1...2.0.2) (2023-01-25)
+
+
+### Bug Fixes
+
+* **ci:** adjusted travis configuration ([7c46b9b](https://github.ibm.com/coligo/java-sdk/commit/7c46b9b45d43a90e21b3f4b95ebf5ad2b759ac97))
+
 ## [2.0.1](https://github.ibm.com/coligo/java-sdk/compare/2.0.0...2.0.1) (2023-01-24)
 
 
