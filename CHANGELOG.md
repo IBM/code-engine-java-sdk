@@ -1,3 +1,10 @@
+## [2.0.4](https://github.ibm.com/coligo/java-sdk/compare/2.0.3...2.0.4) (2023-01-26)
+
+
+### Bug Fixes
+
+* **sec:** addressed a dependency vulnerability ([386c2aa](https://github.ibm.com/coligo/java-sdk/commit/386c2aab1cc3b72d4da46a6d6ba4b12718a7d15b))
+
 ## [2.0.3](https://github.ibm.com/coligo/java-sdk/compare/2.0.2...2.0.3) (2023-01-25)
 
 
