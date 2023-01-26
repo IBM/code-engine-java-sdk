@@ -1,3 +1,10 @@
+## [2.0.5](https://github.ibm.com/coligo/java-sdk/compare/2.0.4...2.0.5) (2023-01-26)
+
+
+### Bug Fixes
+
+* **ci:** adjusted the signing key ([7323dd2](https://github.ibm.com/coligo/java-sdk/commit/7323dd2383a731398137a7b62a2c1e0db0d19b2b))
+
 ## [2.0.4](https://github.ibm.com/coligo/java-sdk/compare/2.0.3...2.0.4) (2023-01-26)
 
 
