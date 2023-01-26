@@ -1,9 +1,8 @@
 [![Build Status](https://travis-ci.com/IBM/code-engine-java-sdk.svg?branch=main)](https://travis-ci.com/IBM/code-engine-java-sdk)
-<!--
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
--->
 
 # IBM Cloud Code Engine Java SDK Version 2.0.4
+
 Java client library to interact with the [Code Engine API](https://cloud.ibm.com/apidocs/codeengine).
 
 ## Table of Contents
@@ -40,7 +39,7 @@ The IBM Cloud Code Engine Java SDK allows developers to programmatically interac
 
 Service Name | Artifact Coordinates
 --- | ---
-[Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v2.0.0) | com.ibm.cloud.code-engine:2.0.0
+[Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v2.0.0) | com.ibm.cloud.code-engine:2.0.4
 
 ## Prerequisites
 
@@ -51,6 +50,7 @@ Service Name | Artifact Coordinates
 * Java 8 or above.
 
 ## Installation
+
 The current version of this SDK is: 2.0.4
 
 Each service's artifact coordinates are listed in the table above.
@@ -75,11 +75,13 @@ Here are examples for maven and gradle:
 ```
 
 ### Gradle
+
 ```gradle
 compile 'com.ibm.cloud:code-engine:2.0.4'
 ```
 
 ## Using the SDK
+
 Examples and a demo are available in the [module examples](/modules/examples) folder.
 
 For general SDK usage information, please see [this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md)
@@ -91,14 +93,17 @@ please ask a question at
 [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-cloud).
 
 ## Issues
+
 If you encounter an issue with the project, you are welcome to submit a
 [bug report](https://github.com/IBM/code-engine-java-sdk/issues).
 Before that, please search for similar issues. It's possible that someone has already reported the problem.
 
 ## Open source @ IBM
+
 Find more open source projects on the [IBM Github Page](http://ibm.github.io/)
 
 ## Contributing
+
 See [CONTRIBUTING](CONTRIBUTING.md).
 
 ## License
