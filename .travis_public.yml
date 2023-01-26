@@ -18,7 +18,7 @@ cache:
 
 env:
   global:
-    - MVN_ARGS="--settings build/.travis.settings.xml"
+    - MVN_ARGS="--settings ./build/.travis.settings.xml"
 
 stages:
   - name: Build-Test
@@ -62,13 +62,13 @@ jobs:
         - build/publishJavadoc.sh
       after_success:
         - echo "Javadocs successfully published to gh-pages!"
-    - jdk: openjdk8
-      if: tag IS present
-      name: Publish-To-Maven-Central
-      install: true
-      script:
-        - build/setupSigning.sh
-        - build/setMavenVersion.sh
-        - mvn deploy $MVN_ARGS -DskipTests -P central
-      after_success:
-        - echo "Maven artifacts successfully published to Maven Central!"
+    # - jdk: openjdk8
+    #   if: tag IS present
+    #   name: Publish-To-Maven-Central
+    #   install: true
+    #   script:
+    #     - build/setupSigning.sh
+    #     - build/setMavenVersion.sh
+    #     - mvn deploy $MVN_ARGS -DskipTests -P central
+    #   after_success:
+    #     - echo "Maven artifacts successfully published to Maven Central!"
