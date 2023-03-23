@@ -13,7 +13,7 @@
 
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
-import com.ibm.cloud.code_engine.code_engine.v2.model.CreateConfigMapOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataGenericSecretData;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -23,27 +23,24 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the CreateConfigMapOptions model.
+ * Unit test class for the SecretDataGenericSecretData model.
  */
-public class CreateConfigMapOptionsTest {
+public class SecretDataGenericSecretDataTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testCreateConfigMapOptions() throws Throwable {
-    CreateConfigMapOptions createConfigMapOptionsModel = new CreateConfigMapOptions.Builder()
-      .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
-      .name("my-config-map")
-      .data(java.util.Collections.singletonMap("foo", "testString"))
+  public void testSecretDataGenericSecretData() throws Throwable {
+    SecretDataGenericSecretData secretDataGenericSecretDataModel = new SecretDataGenericSecretData.Builder()
+      .add("foo", "testString")
       .build();
-    assertEquals(createConfigMapOptionsModel.projectId(), "15314cc3-85b4-4338-903f-c28cdee6d005");
-    assertEquals(createConfigMapOptionsModel.name(), "my-config-map");
-    assertEquals(createConfigMapOptionsModel.data(), java.util.Collections.singletonMap("foo", "testString"));
-  }
+    assertEquals(secretDataGenericSecretDataModel.get("foo"), "testString");
 
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testCreateConfigMapOptionsError() throws Throwable {
-    new CreateConfigMapOptions.Builder().build();
-  }
+    String json = TestUtilities.serialize(secretDataGenericSecretDataModel);
 
+    SecretDataGenericSecretData secretDataGenericSecretDataModelNew = TestUtilities.deserialize(json, SecretDataGenericSecretData.class);
+    assertTrue(secretDataGenericSecretDataModelNew instanceof SecretDataGenericSecretData);
+    assertEquals(secretDataGenericSecretDataModelNew.get("foo"), "testString");
+    assertNotNull(secretDataGenericSecretDataModel);
+  }
 }

@@ -32,6 +32,5 @@ public class BuildStatusTest {
   @Test
   public void testBuildStatus() throws Throwable {
     BuildStatus buildStatusModel = new BuildStatus();
-    assertNull(buildStatusModel.getReason());
   }
 }

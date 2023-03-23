@@ -36,15 +36,9 @@ public class AppRevisionTest {
   public void testAppRevision() throws Throwable {
     AppRevision appRevisionModel = new AppRevision();
     assertNull(appRevisionModel.getAppName());
-    assertNull(appRevisionModel.getCreatedAt());
-    assertNull(appRevisionModel.getHref());
-    assertNull(appRevisionModel.getId());
     assertNull(appRevisionModel.getImagePort());
     assertNull(appRevisionModel.getImageReference());
     assertNull(appRevisionModel.getImageSecret());
-    assertNull(appRevisionModel.getName());
-    assertNull(appRevisionModel.getProjectId());
-    assertNull(appRevisionModel.getResourceType());
     assertNull(appRevisionModel.getRunArguments());
     assertNull(appRevisionModel.getRunAsUser());
     assertNull(appRevisionModel.getRunCommands());
@@ -60,7 +54,6 @@ public class AppRevisionTest {
     assertNull(appRevisionModel.getScaleMemoryLimit());
     assertNull(appRevisionModel.getScaleMinInstances());
     assertNull(appRevisionModel.getScaleRequestTimeout());
-    assertNull(appRevisionModel.getStatus());
     assertNull(appRevisionModel.getStatusDetails());
   }
 }

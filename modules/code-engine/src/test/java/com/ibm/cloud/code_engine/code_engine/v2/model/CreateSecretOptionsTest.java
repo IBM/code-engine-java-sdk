@@ -14,6 +14,7 @@
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateSecretOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataSSHSecretData;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -31,16 +32,25 @@ public class CreateSecretOptionsTest {
 
   @Test
   public void testCreateSecretOptions() throws Throwable {
+    SecretDataSSHSecretData secretDataModel = new SecretDataSSHSecretData.Builder()
+      .sshKey("testString")
+      .knownHosts("testString")
+      .add("foo", "testString")
+      .build();
+    assertEquals(secretDataModel.getSshKey(), "testString");
+    assertEquals(secretDataModel.getKnownHosts(), "testString");
+    assertEquals(secretDataModel.get("foo"), "testString");
+
     CreateSecretOptions createSecretOptionsModel = new CreateSecretOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
       .format("generic")
       .name("my-secret")
-      .data(java.util.Collections.singletonMap("foo", "testString"))
+      .data(secretDataModel)
       .build();
     assertEquals(createSecretOptionsModel.projectId(), "15314cc3-85b4-4338-903f-c28cdee6d005");
     assertEquals(createSecretOptionsModel.format(), "generic");
     assertEquals(createSecretOptionsModel.name(), "my-secret");
-    assertEquals(createSecretOptionsModel.data(), java.util.Collections.singletonMap("foo", "testString"));
+    assertEquals(createSecretOptionsModel.data(), secretDataModel);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

@@ -35,15 +35,10 @@ public class JobRunTest {
   @Test
   public void testJobRun() throws Throwable {
     JobRun jobRunModel = new JobRun();
-    assertNull(jobRunModel.getCreatedAt());
-    assertNull(jobRunModel.getHref());
-    assertNull(jobRunModel.getId());
     assertNull(jobRunModel.getImageReference());
     assertNull(jobRunModel.getImageSecret());
     assertNull(jobRunModel.getJobName());
     assertNull(jobRunModel.getName());
-    assertNull(jobRunModel.getProjectId());
-    assertNull(jobRunModel.getResourceType());
     assertNull(jobRunModel.getRunArguments());
     assertNull(jobRunModel.getRunAsUser());
     assertNull(jobRunModel.getRunCommands());
@@ -57,7 +52,6 @@ public class JobRunTest {
     assertNull(jobRunModel.getScaleMaxExecutionTime());
     assertNull(jobRunModel.getScaleMemoryLimit());
     assertNull(jobRunModel.getScaleRetryLimit());
-    assertNull(jobRunModel.getStatus());
     assertNull(jobRunModel.getStatusDetails());
   }
 }

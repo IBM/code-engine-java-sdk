@@ -13,7 +13,6 @@
 
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
-import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceSecretOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataSSHSecretData;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -24,40 +23,35 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the ReplaceSecretOptions model.
+ * Unit test class for the SecretDataSSHSecretData model.
  */
-public class ReplaceSecretOptionsTest {
+public class SecretDataSSHSecretDataTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testReplaceSecretOptions() throws Throwable {
-    SecretDataSSHSecretData secretDataModel = new SecretDataSSHSecretData.Builder()
+  public void testSecretDataSSHSecretData() throws Throwable {
+    SecretDataSSHSecretData secretDataSshSecretDataModel = new SecretDataSSHSecretData.Builder()
       .sshKey("testString")
       .knownHosts("testString")
       .add("foo", "testString")
       .build();
-    assertEquals(secretDataModel.getSshKey(), "testString");
-    assertEquals(secretDataModel.getKnownHosts(), "testString");
-    assertEquals(secretDataModel.get("foo"), "testString");
+    assertEquals(secretDataSshSecretDataModel.getSshKey(), "testString");
+    assertEquals(secretDataSshSecretDataModel.getKnownHosts(), "testString");
+    assertEquals(secretDataSshSecretDataModel.get("foo"), "testString");
 
-    ReplaceSecretOptions replaceSecretOptionsModel = new ReplaceSecretOptions.Builder()
-      .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
-      .name("my-secret")
-      .ifMatch("testString")
-      .data(secretDataModel)
-      .format("generic")
-      .build();
-    assertEquals(replaceSecretOptionsModel.projectId(), "15314cc3-85b4-4338-903f-c28cdee6d005");
-    assertEquals(replaceSecretOptionsModel.name(), "my-secret");
-    assertEquals(replaceSecretOptionsModel.ifMatch(), "testString");
-    assertEquals(replaceSecretOptionsModel.data(), secretDataModel);
-    assertEquals(replaceSecretOptionsModel.format(), "generic");
+    String json = TestUtilities.serialize(secretDataSshSecretDataModel);
+
+    SecretDataSSHSecretData secretDataSshSecretDataModelNew = TestUtilities.deserialize(json, SecretDataSSHSecretData.class);
+    assertTrue(secretDataSshSecretDataModelNew instanceof SecretDataSSHSecretData);
+    assertEquals(secretDataSshSecretDataModelNew.getSshKey(), "testString");
+    assertEquals(secretDataSshSecretDataModelNew.getKnownHosts(), "testString");
+    assertEquals(secretDataSshSecretDataModelNew.get("foo"), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testReplaceSecretOptionsError() throws Throwable {
-    new ReplaceSecretOptions.Builder().build();
+  public void testSecretDataSSHSecretDataError() throws Throwable {
+    new SecretDataSSHSecretData.Builder().build();
   }
 
 }

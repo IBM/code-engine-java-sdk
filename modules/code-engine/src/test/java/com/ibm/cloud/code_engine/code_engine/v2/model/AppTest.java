@@ -35,19 +35,12 @@ public class AppTest {
   @Test
   public void testApp() throws Throwable {
     App appModel = new App();
-    assertNull(appModel.getCreatedAt());
-    assertNull(appModel.getEndpoint());
-    assertNull(appModel.getEndpointInternal());
     assertNull(appModel.getEntityTag());
-    assertNull(appModel.getHref());
-    assertNull(appModel.getId());
     assertNull(appModel.getImagePort());
     assertNull(appModel.getImageReference());
     assertNull(appModel.getImageSecret());
     assertNull(appModel.getManagedDomainMappings());
     assertNull(appModel.getName());
-    assertNull(appModel.getProjectId());
-    assertNull(appModel.getResourceType());
     assertNull(appModel.getRunArguments());
     assertNull(appModel.getRunAsUser());
     assertNull(appModel.getRunCommands());
@@ -63,7 +56,6 @@ public class AppTest {
     assertNull(appModel.getScaleMemoryLimit());
     assertNull(appModel.getScaleMinInstances());
     assertNull(appModel.getScaleRequestTimeout());
-    assertNull(appModel.getStatus());
     assertNull(appModel.getStatusDetails());
   }
 }

@@ -32,14 +32,9 @@ public class SecretTest {
   @Test
   public void testSecret() throws Throwable {
     Secret secretModel = new Secret();
-    assertNull(secretModel.getCreatedAt());
     assertNull(secretModel.getData());
     assertNull(secretModel.getEntityTag());
     assertNull(secretModel.getFormat());
-    assertNull(secretModel.getHref());
-    assertNull(secretModel.getId());
     assertNull(secretModel.getName());
-    assertNull(secretModel.getProjectId());
-    assertNull(secretModel.getResourceType());
   }
 }

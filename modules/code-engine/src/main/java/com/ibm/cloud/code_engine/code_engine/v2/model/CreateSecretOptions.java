@@ -12,8 +12,6 @@
  */
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
-import java.util.Map;
-
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
@@ -44,7 +42,7 @@ public class CreateSecretOptions extends GenericModel {
   protected String projectId;
   protected String format;
   protected String name;
-  protected Map<String, String> data;
+  protected SecretData data;
 
   /**
    * Builder.
@@ -53,7 +51,7 @@ public class CreateSecretOptions extends GenericModel {
     private String projectId;
     private String format;
     private String name;
-    private Map<String, String> data;
+    private SecretData data;
 
     /**
      * Instantiates a new Builder from an existing CreateSecretOptions instance.
@@ -134,7 +132,7 @@ public class CreateSecretOptions extends GenericModel {
      * @param data the data
      * @return the CreateSecretOptions builder
      */
-    public Builder data(Map<String, String> data) {
+    public Builder data(SecretData data) {
       this.data = data;
       return this;
     }
@@ -206,7 +204,7 @@ public class CreateSecretOptions extends GenericModel {
    *
    * @return the data
    */
-  public Map<String, String> data() {
+  public SecretData data() {
     return data;
   }
 }

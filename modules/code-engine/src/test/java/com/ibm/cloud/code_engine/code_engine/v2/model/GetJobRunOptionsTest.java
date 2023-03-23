@@ -33,10 +33,10 @@ public class GetJobRunOptionsTest {
   public void testGetJobRunOptions() throws Throwable {
     GetJobRunOptions getJobRunOptionsModel = new GetJobRunOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
-      .name("my-job")
+      .name("my-job-run")
       .build();
     assertEquals(getJobRunOptionsModel.projectId(), "15314cc3-85b4-4338-903f-c28cdee6d005");
-    assertEquals(getJobRunOptionsModel.name(), "my-job");
+    assertEquals(getJobRunOptionsModel.name(), "my-job-run");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

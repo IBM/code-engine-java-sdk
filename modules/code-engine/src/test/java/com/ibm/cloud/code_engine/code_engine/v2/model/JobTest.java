@@ -34,15 +34,10 @@ public class JobTest {
   @Test
   public void testJob() throws Throwable {
     Job jobModel = new Job();
-    assertNull(jobModel.getCreatedAt());
     assertNull(jobModel.getEntityTag());
-    assertNull(jobModel.getHref());
-    assertNull(jobModel.getId());
     assertNull(jobModel.getImageReference());
     assertNull(jobModel.getImageSecret());
     assertNull(jobModel.getName());
-    assertNull(jobModel.getProjectId());
-    assertNull(jobModel.getResourceType());
     assertNull(jobModel.getRunArguments());
     assertNull(jobModel.getRunAsUser());
     assertNull(jobModel.getRunCommands());
