@@ -33,11 +33,11 @@ public class CreateConfigMapOptionsTest {
   public void testCreateConfigMapOptions() throws Throwable {
     CreateConfigMapOptions createConfigMapOptionsModel = new CreateConfigMapOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
-      .name("my-configmap")
+      .name("my-config-map")
       .data(java.util.Collections.singletonMap("foo", "testString"))
       .build();
     assertEquals(createConfigMapOptionsModel.projectId(), "15314cc3-85b4-4338-903f-c28cdee6d005");
-    assertEquals(createConfigMapOptionsModel.name(), "my-configmap");
+    assertEquals(createConfigMapOptionsModel.name(), "my-config-map");
     assertEquals(createConfigMapOptionsModel.data(), java.util.Collections.singletonMap("foo", "testString"));
   }
 

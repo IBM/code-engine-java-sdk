@@ -32,13 +32,5 @@ public class JobRunStatusTest {
   @Test
   public void testJobRunStatus() throws Throwable {
     JobRunStatus jobRunStatusModel = new JobRunStatus();
-    assertNull(jobRunStatusModel.getCompletionTime());
-    assertNull(jobRunStatusModel.getFailed());
-    assertNull(jobRunStatusModel.getPending());
-    assertNull(jobRunStatusModel.getRequested());
-    assertNull(jobRunStatusModel.getRunning());
-    assertNull(jobRunStatusModel.getStartTime());
-    assertNull(jobRunStatusModel.getSucceeded());
-    assertNull(jobRunStatusModel.getUnknown());
   }
 }

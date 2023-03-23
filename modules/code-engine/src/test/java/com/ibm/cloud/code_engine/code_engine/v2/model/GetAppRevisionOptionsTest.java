@@ -34,11 +34,11 @@ public class GetAppRevisionOptionsTest {
     GetAppRevisionOptions getAppRevisionOptionsModel = new GetAppRevisionOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
       .appName("my-app")
-      .name("my-app-001")
+      .name("my-app-00001")
       .build();
     assertEquals(getAppRevisionOptionsModel.projectId(), "15314cc3-85b4-4338-903f-c28cdee6d005");
     assertEquals(getAppRevisionOptionsModel.appName(), "my-app");
-    assertEquals(getAppRevisionOptionsModel.name(), "my-app-001");
+    assertEquals(getAppRevisionOptionsModel.name(), "my-app-00001");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

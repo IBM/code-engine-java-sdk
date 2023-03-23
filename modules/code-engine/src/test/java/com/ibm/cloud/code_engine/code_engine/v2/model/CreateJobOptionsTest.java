@@ -68,7 +68,7 @@ public class CreateJobOptionsTest {
       .runAsUser(Long.valueOf("1001"))
       .runCommands(java.util.Arrays.asList("testString"))
       .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
-      .runMode("daemon")
+      .runMode("task")
       .runServiceAccount("default")
       .runVolumeMounts(java.util.Arrays.asList(volumeMountPrototypeModel))
       .scaleArraySpec("1-5,7-8,10")
@@ -86,7 +86,7 @@ public class CreateJobOptionsTest {
     assertEquals(createJobOptionsModel.runAsUser(), Long.valueOf("1001"));
     assertEquals(createJobOptionsModel.runCommands(), java.util.Arrays.asList("testString"));
     assertEquals(createJobOptionsModel.runEnvVariables(), java.util.Arrays.asList(envVarPrototypeModel));
-    assertEquals(createJobOptionsModel.runMode(), "daemon");
+    assertEquals(createJobOptionsModel.runMode(), "task");
     assertEquals(createJobOptionsModel.runServiceAccount(), "default");
     assertEquals(createJobOptionsModel.runVolumeMounts(), java.util.Arrays.asList(volumeMountPrototypeModel));
     assertEquals(createJobOptionsModel.scaleArraySpec(), "1-5,7-8,10");

@@ -283,7 +283,7 @@ public class CodeEngineExamples {
       GetAppRevisionOptions getAppRevisionOptions = new GetAppRevisionOptions.Builder()
         .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
         .appName("my-app")
-        .name("my-app-001")
+        .name("my-app-00001")
         .build();
 
       Response<AppRevision> response = codeEngineService.getAppRevision(getAppRevisionOptions).execute();
@@ -423,7 +423,7 @@ public class CodeEngineExamples {
       // begin-get_job_run
       GetJobRunOptions getJobRunOptions = new GetJobRunOptions.Builder()
         .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
-        .name("my-job")
+        .name("my-job-run")
         .build();
 
       Response<JobRun> response = codeEngineService.getJobRun(getJobRunOptions).execute();
@@ -606,7 +606,7 @@ public class CodeEngineExamples {
       // begin-create_config_map
       CreateConfigMapOptions createConfigMapOptions = new CreateConfigMapOptions.Builder()
         .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
-        .name("my-configmap")
+        .name("my-config-map")
         .build();
 
       Response<ConfigMap> response = codeEngineService.createConfigMap(createConfigMapOptions).execute();
@@ -768,7 +768,7 @@ public class CodeEngineExamples {
       DeleteAppRevisionOptions deleteAppRevisionOptions = new DeleteAppRevisionOptions.Builder()
         .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
         .appName("my-app")
-        .name("my-app-001")
+        .name("my-app-00001")
         .build();
 
       Response<Void> response = codeEngineService.deleteAppRevision(deleteAppRevisionOptions).execute();
@@ -798,7 +798,7 @@ public class CodeEngineExamples {
       // begin-delete_job_run
       DeleteJobRunOptions deleteJobRunOptions = new DeleteJobRunOptions.Builder()
         .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
-        .name("my-job")
+        .name("my-job-run")
         .build();
 
       Response<Void> response = codeEngineService.deleteJobRun(deleteJobRunOptions).execute();

@@ -32,13 +32,8 @@ public class ConfigMapTest {
   @Test
   public void testConfigMap() throws Throwable {
     ConfigMap configMapModel = new ConfigMap();
-    assertNull(configMapModel.getCreatedAt());
     assertNull(configMapModel.getData());
     assertNull(configMapModel.getEntityTag());
-    assertNull(configMapModel.getHref());
-    assertNull(configMapModel.getId());
     assertNull(configMapModel.getName());
-    assertNull(configMapModel.getProjectId());
-    assertNull(configMapModel.getResourceType());
   }
 }

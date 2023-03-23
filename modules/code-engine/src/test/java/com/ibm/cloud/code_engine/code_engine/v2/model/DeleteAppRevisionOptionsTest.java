@@ -34,11 +34,11 @@ public class DeleteAppRevisionOptionsTest {
     DeleteAppRevisionOptions deleteAppRevisionOptionsModel = new DeleteAppRevisionOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
       .appName("my-app")
-      .name("my-app-001")
+      .name("my-app-00001")
       .build();
     assertEquals(deleteAppRevisionOptionsModel.projectId(), "15314cc3-85b4-4338-903f-c28cdee6d005");
     assertEquals(deleteAppRevisionOptionsModel.appName(), "my-app");
-    assertEquals(deleteAppRevisionOptionsModel.name(), "my-app-001");
+    assertEquals(deleteAppRevisionOptionsModel.name(), "my-app-00001");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
