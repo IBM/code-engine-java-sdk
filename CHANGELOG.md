@@ -1,3 +1,15 @@
+# [3.1.0](https://github.ibm.com/coligo/java-sdk/compare/3.0.0...3.1.0) (2023-03-24)
+
+
+### Bug Fixes
+
+* **ci:** travis update ([9e6fae3](https://github.ibm.com/coligo/java-sdk/commit/9e6fae32665a78e13eafdda20101d1bf34c30148))
+
+
+### Features
+
+* **api:** enabled support to retrieve egress ips ([#18](https://github.ibm.com/coligo/java-sdk/issues/18)) ([d839acb](https://github.ibm.com/coligo/java-sdk/commit/d839acbacdb6d01643345ea4fa9937764562ff9c))
+
 # [3.0.0](https://github.ibm.com/coligo/java-sdk/compare/2.0.5...3.0.0) (2023-03-24)
 
 
