@@ -60,6 +60,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.GetBuildRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetConfigMapOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobRunOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectEgressIpsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetSecretOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Job;
@@ -82,6 +83,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.ListNextMetadata;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListProjectsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListSecretsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Project;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectEgressIPAddresses;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectsPager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceConfigMapOptions;
@@ -398,6 +400,57 @@ public class CodeEngineTest {
   public void testDeleteProjectNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     codeEngineService.deleteProject(null).execute();
+  }
+
+  // Test the getProjectEgressIps operation with a valid options model parameter
+  @Test
+  public void testGetProjectEgressIpsWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"private\": [\"xPrivate\"], \"public\": [\"xPublic\"]}";
+    String getProjectEgressIpsPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/egress_ips";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetProjectEgressIpsOptions model
+    GetProjectEgressIpsOptions getProjectEgressIpsOptionsModel = new GetProjectEgressIpsOptions.Builder()
+      .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+      .build();
+
+    // Invoke getProjectEgressIps() with a valid options model and verify the result
+    Response<ProjectEgressIPAddresses> response = codeEngineService.getProjectEgressIps(getProjectEgressIpsOptionsModel).execute();
+    assertNotNull(response);
+    ProjectEgressIPAddresses responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getProjectEgressIpsPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getProjectEgressIps operation with and without retries enabled
+  @Test
+  public void testGetProjectEgressIpsWRetries() throws Throwable {
+    codeEngineService.enableRetries(4, 30);
+    testGetProjectEgressIpsWOptions();
+
+    codeEngineService.disableRetries();
+    testGetProjectEgressIpsWOptions();
+  }
+
+  // Test the getProjectEgressIps operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetProjectEgressIpsNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    codeEngineService.getProjectEgressIps(null).execute();
   }
 
   // Test the listApps operation with a valid options model parameter

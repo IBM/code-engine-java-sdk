@@ -49,6 +49,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.GetBuildRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetConfigMapOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobRunOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectEgressIpsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetSecretOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Job;
@@ -66,6 +67,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListProjectsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListSecretsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Project;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectEgressIPAddresses;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectsPager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceConfigMapOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceSecretOptions;
@@ -167,6 +169,23 @@ public class CodeEngineExamples {
 
       System.out.println(project);
       // end-get_project
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("getProjectEgressIps() result:");
+      // begin-get_project_egress_ips
+      GetProjectEgressIpsOptions getProjectEgressIpsOptions = new GetProjectEgressIpsOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .build();
+
+      Response<ProjectEgressIPAddresses> response = codeEngineService.getProjectEgressIps(getProjectEgressIpsOptions).execute();
+      ProjectEgressIPAddresses projectEgressIpAddresses = response.getResult();
+
+      System.out.println(projectEgressIpAddresses);
+      // end-get_project_egress_ips
     } catch (ServiceResponseException e) {
         logger.error(String.format("Service returned status code %s: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
