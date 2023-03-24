@@ -1,3 +1,25 @@
+# [3.0.0](https://github.ibm.com/coligo/java-sdk/compare/2.0.5...3.0.0) (2023-03-24)
+
+
+### Features
+
+* **oneOf:** Added one of type support for secret data prototypes ([#15](https://github.ibm.com/coligo/java-sdk/issues/15)) ([9ce5601](https://github.ibm.com/coligo/java-sdk/commit/9ce560193624ee060e0c59e2650a6ab43c8d8288))
+
+
+### BREAKING CHANGES
+
+* **oneOf:** Additional type support for secret data, which is not longer a string map
+
+* map fix
+
+* fix typo
+
+* fix tests
+
+* added patch fix
+
+* adjusted secret data to apply to both patch and prototype
+
 ## [2.0.5](https://github.ibm.com/coligo/java-sdk/compare/2.0.4...2.0.5) (2023-01-26)
 
 
