@@ -238,13 +238,22 @@
        Project project = null;
        for (int i = 0; i < 20; i++) {
          Thread.sleep(10000, 0);
-         Response<Project> getResponse = service.getProject(getProjectOptions).execute();
-         project = getResponse.getResult();
-         System.out.println(
-             String.format("Obtained status of project '%s' (guid: '%s'): %s.", project.getName(), project.getId(),
-                 project.getStatus()));
-         if ("active".equals(project.getStatus())) {
-           break;
+         try {
+             Response<Project> getResponse = service.getProject(getProjectOptions).execute();
+             project = getResponse.getResult();
+             System.out.println(
+                     String.format("Obtained status of project '%s' (guid: '%s'): %s.", project.getName(), project.getId(),
+                             project.getStatus()));
+             if ("active".equals(project.getStatus())) {
+                 break;
+             }
+         } catch(ServiceResponseException e) {
+             if (e.getStatusCode() == 403){
+                 // This is expected and acceptable
+                 // The API returns a 403 in case the project is not ready yet
+             } else {
+                 throw e;
+             }
          }
        }
        assertNotNull(project);
