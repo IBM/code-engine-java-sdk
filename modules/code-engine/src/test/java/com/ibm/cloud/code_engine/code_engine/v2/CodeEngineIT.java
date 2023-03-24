@@ -60,6 +60,7 @@
  import com.ibm.cloud.code_engine.code_engine.v2.model.GetConfigMapOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobRunOptions;
+ import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectEgressIpsOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.GetSecretOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.Job;
@@ -82,6 +83,7 @@
  import com.ibm.cloud.code_engine.code_engine.v2.model.ListProjectsOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.ListSecretsOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.Project;
+ import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectEgressIPAddresses;
  import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectList;
  import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectsPager;
  import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceConfigMapOptions;
@@ -92,8 +94,7 @@
  import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataTLSSecretData;
  import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataBasicAuthSecretData;
  import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataRegistrySecretData;
-import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataSSHSecretData;
-import com.ibm.cloud.code_engine.code_engine.v2.model.SecretList;
+ import com.ibm.cloud.code_engine.code_engine.v2.model.SecretList;
  import com.ibm.cloud.code_engine.code_engine.v2.model.SecretsPager;
  import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateAppOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateBuildOptions;
@@ -275,8 +276,30 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.SecretList;
            e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
      }
    }
+
+  @Test(dependsOnMethods = { "testGetProject" })
+  public void testGetProjectEgressIps() throws Exception {
+    try {
+      GetProjectEgressIpsOptions getProjectEgressIpsOptions = new GetProjectEgressIpsOptions.Builder()
+        .projectId(e2eTestProjectId)
+        .build();
+
+      // Invoke operation
+      Response<ProjectEgressIPAddresses> response = service.getProjectEgressIps(getProjectEgressIpsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      ProjectEgressIPAddresses projectEgressIpAddressesResult = response.getResult();
+
+      assertNotNull(projectEgressIpAddressesResult);
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
  
-   @Test(dependsOnMethods = { "testGetProject" })
+   @Test(dependsOnMethods = { "testGetProjectEgressIps" })
    public void testListApps() throws Exception {
      try {
        ListAppsOptions listAppsOptions = new ListAppsOptions.Builder()

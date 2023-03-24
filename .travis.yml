@@ -1,9 +1,9 @@
 ---
 language: java
-dist: bionic
+group: bionic
 
 jdk:
-- openjdk8
+- openjdk11
 
 # Only run on main (still tests PRs)
 branches:
@@ -45,16 +45,11 @@ before_install:
 jobs:
   include:
     - stage: Build-Test
-      jdk: openjdk8
-      install: true
-      script:
-        # execute unit tests
-        - build/setMavenVersion.sh
-        - mvn verify -fae -DskipITs $MVN_ARGS
     - jdk: openjdk11
       install: true
       script:
         # execute unit tests
+        - build/setMavenVersion.sh
         - mvn verify -fae -DskipITs $MVN_ARGS
 
     - jdk: openjdk17
@@ -68,13 +63,14 @@ jobs:
       install:
         - sudo apt-get install python
         - nvm install 18
-        - npm install -g npm@8.x
-        - npm install @semantic-release/changelog
-        - npm install @semantic-release/exec
-        - npm install @semantic-release/git
-        - npm install @semantic-release/github
+        - npm install -g npm@9.x
+        - npm install -g semantic-release
+        - npm install -g @semantic-release/changelog
+        - npm install -g @semantic-release/exec
+        - npm install -g @semantic-release/git
+        - npm install -g @semantic-release/github
         - pip install --user bump2version
       script:
-        - npx semantic-release
+        - semantic-release
       after_success:
         - echo "Semantic release has successfully created a new tagged-release"
