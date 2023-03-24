@@ -1,6 +1,7 @@
 ---
 language: java
-group: bionic
+dist: focal
+group: focal
 
 jdk:
 - openjdk11
