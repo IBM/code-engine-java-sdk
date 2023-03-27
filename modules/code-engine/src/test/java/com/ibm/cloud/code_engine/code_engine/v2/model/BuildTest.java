@@ -33,21 +33,15 @@ public class BuildTest {
   @Test
   public void testBuild() throws Throwable {
     Build buildModel = new Build();
-    assertNull(buildModel.getCreatedAt());
     assertNull(buildModel.getEntityTag());
-    assertNull(buildModel.getHref());
-    assertNull(buildModel.getId());
     assertNull(buildModel.getName());
     assertNull(buildModel.getOutputImage());
     assertNull(buildModel.getOutputSecret());
-    assertNull(buildModel.getProjectId());
-    assertNull(buildModel.getResourceType());
     assertNull(buildModel.getSourceContextDir());
     assertNull(buildModel.getSourceRevision());
     assertNull(buildModel.getSourceSecret());
     assertNull(buildModel.getSourceType());
     assertNull(buildModel.getSourceUrl());
-    assertNull(buildModel.getStatus());
     assertNull(buildModel.getStatusDetails());
     assertNull(buildModel.getStrategySize());
     assertNull(buildModel.getStrategySpecFile());

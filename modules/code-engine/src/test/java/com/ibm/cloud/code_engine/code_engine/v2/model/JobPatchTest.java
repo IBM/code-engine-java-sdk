@@ -67,7 +67,7 @@ public class JobPatchTest {
       .runAsUser(Long.valueOf("1001"))
       .runCommands(java.util.Arrays.asList("testString"))
       .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
-      .runMode("daemon")
+      .runMode("task")
       .runServiceAccount("default")
       .runVolumeMounts(java.util.Arrays.asList(volumeMountPrototypeModel))
       .scaleArraySpec("1-5,7-8,10")
@@ -83,7 +83,7 @@ public class JobPatchTest {
     assertEquals(jobPatchModel.runAsUser(), Long.valueOf("1001"));
     assertEquals(jobPatchModel.runCommands(), java.util.Arrays.asList("testString"));
     assertEquals(jobPatchModel.runEnvVariables(), java.util.Arrays.asList(envVarPrototypeModel));
-    assertEquals(jobPatchModel.runMode(), "daemon");
+    assertEquals(jobPatchModel.runMode(), "task");
     assertEquals(jobPatchModel.runServiceAccount(), "default");
     assertEquals(jobPatchModel.runVolumeMounts(), java.util.Arrays.asList(volumeMountPrototypeModel));
     assertEquals(jobPatchModel.scaleArraySpec(), "1-5,7-8,10");
@@ -100,7 +100,7 @@ public class JobPatchTest {
     assertEquals(jobPatchModelNew.imageReference(), "icr.io/codeengine/helloworld");
     assertEquals(jobPatchModelNew.imageSecret(), "my-secret");
     assertEquals(jobPatchModelNew.runAsUser(), Long.valueOf("1001"));
-    assertEquals(jobPatchModelNew.runMode(), "daemon");
+    assertEquals(jobPatchModelNew.runMode(), "task");
     assertEquals(jobPatchModelNew.runServiceAccount(), "default");
     assertEquals(jobPatchModelNew.scaleArraySpec(), "1-5,7-8,10");
     assertEquals(jobPatchModelNew.scaleCpuLimit(), "1");
@@ -134,7 +134,7 @@ public class JobPatchTest {
       .runAsUser(Long.valueOf("1001"))
       .runCommands(java.util.Arrays.asList("testString"))
       .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
-      .runMode("daemon")
+      .runMode("task")
       .runServiceAccount("default")
       .runVolumeMounts(java.util.Arrays.asList(volumeMountPrototypeModel))
       .scaleArraySpec("1-5,7-8,10")
@@ -153,7 +153,7 @@ public class JobPatchTest {
     assertTrue(mergePatch.containsKey("run_as_user"));
     assertTrue(mergePatch.containsKey("run_commands"));
     assertTrue(mergePatch.containsKey("run_env_variables"));
-    assertEquals(mergePatch.get("run_mode"), "daemon");
+    assertEquals(mergePatch.get("run_mode"), "task");
     assertEquals(mergePatch.get("run_service_account"), "default");
     assertTrue(mergePatch.containsKey("run_volume_mounts"));
     assertEquals(mergePatch.get("scale_array_spec"), "1-5,7-8,10");

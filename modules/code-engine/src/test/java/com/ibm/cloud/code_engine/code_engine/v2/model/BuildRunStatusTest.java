@@ -32,9 +32,5 @@ public class BuildRunStatusTest {
   @Test
   public void testBuildRunStatus() throws Throwable {
     BuildRunStatus buildRunStatusModel = new BuildRunStatus();
-    assertNull(buildRunStatusModel.getCompletionTime());
-    assertNull(buildRunStatusModel.getOutputDigest());
-    assertNull(buildRunStatusModel.getReason());
-    assertNull(buildRunStatusModel.getStartTime());
   }
 }

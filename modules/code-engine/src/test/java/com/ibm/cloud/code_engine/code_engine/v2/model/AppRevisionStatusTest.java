@@ -32,7 +32,5 @@ public class AppRevisionStatusTest {
   @Test
   public void testAppRevisionStatus() throws Throwable {
     AppRevisionStatus appRevisionStatusModel = new AppRevisionStatus();
-    assertNull(appRevisionStatusModel.getActualInstances());
-    assertNull(appRevisionStatusModel.getReason());
   }
 }

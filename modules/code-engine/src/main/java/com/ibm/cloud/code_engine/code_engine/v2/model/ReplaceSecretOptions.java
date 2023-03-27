@@ -12,8 +12,6 @@
  */
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
-import java.util.Map;
-
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
@@ -44,7 +42,7 @@ public class ReplaceSecretOptions extends GenericModel {
   protected String projectId;
   protected String name;
   protected String ifMatch;
-  protected Map<String, String> data;
+  protected SecretData data;
   protected String format;
 
   /**
@@ -54,7 +52,7 @@ public class ReplaceSecretOptions extends GenericModel {
     private String projectId;
     private String name;
     private String ifMatch;
-    private Map<String, String> data;
+    private SecretData data;
     private String format;
 
     /**
@@ -137,7 +135,7 @@ public class ReplaceSecretOptions extends GenericModel {
      * @param data the data
      * @return the ReplaceSecretOptions builder
      */
-    public Builder data(Map<String, String> data) {
+    public Builder data(SecretData data) {
       this.data = data;
       return this;
     }
@@ -223,7 +221,7 @@ public class ReplaceSecretOptions extends GenericModel {
    *
    * @return the data
    */
-  public Map<String, String> data() {
+  public SecretData data() {
     return data;
   }
 

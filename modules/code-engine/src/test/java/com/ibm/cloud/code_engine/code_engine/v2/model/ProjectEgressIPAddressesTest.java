@@ -13,7 +13,7 @@
 
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
-import com.ibm.cloud.code_engine.code_engine.v2.model.CreateConfigMapOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectEgressIPAddresses;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -23,27 +23,16 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the CreateConfigMapOptions model.
+ * Unit test class for the ProjectEgressIPAddresses model.
  */
-public class CreateConfigMapOptionsTest {
+public class ProjectEgressIPAddressesTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testCreateConfigMapOptions() throws Throwable {
-    CreateConfigMapOptions createConfigMapOptionsModel = new CreateConfigMapOptions.Builder()
-      .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
-      .name("my-config-map")
-      .data(java.util.Collections.singletonMap("foo", "testString"))
-      .build();
-    assertEquals(createConfigMapOptionsModel.projectId(), "15314cc3-85b4-4338-903f-c28cdee6d005");
-    assertEquals(createConfigMapOptionsModel.name(), "my-config-map");
-    assertEquals(createConfigMapOptionsModel.data(), java.util.Collections.singletonMap("foo", "testString"));
+  public void testProjectEgressIPAddresses() throws Throwable {
+    ProjectEgressIPAddresses projectEgressIpAddressesModel = new ProjectEgressIPAddresses();
+    assertNull(projectEgressIpAddressesModel.getXPrivate());
+    assertNull(projectEgressIpAddressesModel.getXPublic());
   }
-
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testCreateConfigMapOptionsError() throws Throwable {
-    new CreateConfigMapOptions.Builder().build();
-  }
-
 }
