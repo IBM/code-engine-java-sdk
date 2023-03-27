@@ -33,10 +33,10 @@ public class DeleteJobRunOptionsTest {
   public void testDeleteJobRunOptions() throws Throwable {
     DeleteJobRunOptions deleteJobRunOptionsModel = new DeleteJobRunOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
-      .name("my-job")
+      .name("my-job-run")
       .build();
     assertEquals(deleteJobRunOptionsModel.projectId(), "15314cc3-85b4-4338-903f-c28cdee6d005");
-    assertEquals(deleteJobRunOptionsModel.name(), "my-job");
+    assertEquals(deleteJobRunOptionsModel.name(), "my-job-run");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

@@ -27,8 +27,8 @@ public class JobPatch extends GenericModel {
 
   /**
    * The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and
-   * `retry_limit` options apply. In `daemon` mode, since there is no timeout and failed instances are restarted
-   * indefinitely, the `max_execution_time` and `retry_limit` options are not allowed.
+   * `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are restarted
+   * indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
    */
   public interface RunMode {
     /** task. */
@@ -39,7 +39,7 @@ public class JobPatch extends GenericModel {
 
   /**
    * The name of the service account. For built-in service accounts, you can use the shortened names `manager`, `none`,
-   * `reader`, and `writer`.
+   * `reader`, and `writer`. This property must not be set on a job run, which references a job template.
    */
   public interface RunServiceAccount {
     /** default. */
@@ -426,7 +426,7 @@ public class JobPatch extends GenericModel {
    * The name of the image registry access secret. The image registry access secret is used to authenticate with a
    * private registry when you download the container image. If the image reference points to a registry that requires
    * authentication, the job / job runs will be created but submitted job runs will fail, until this property is
-   * provided, too.
+   * provided, too. This property must not be set on a job run, which references a job template.
    *
    * @return the imageSecret
    */
@@ -484,8 +484,8 @@ public class JobPatch extends GenericModel {
    * Gets the runMode.
    *
    * The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and
-   * `retry_limit` options apply. In `daemon` mode, since there is no timeout and failed instances are restarted
-   * indefinitely, the `max_execution_time` and `retry_limit` options are not allowed.
+   * `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are restarted
+   * indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
    *
    * @return the runMode
    */
@@ -497,7 +497,7 @@ public class JobPatch extends GenericModel {
    * Gets the runServiceAccount.
    *
    * The name of the service account. For built-in service accounts, you can use the shortened names `manager`, `none`,
-   * `reader`, and `writer`.
+   * `reader`, and `writer`. This property must not be set on a job run, which references a job template.
    *
    * @return the runServiceAccount
    */
@@ -559,7 +559,8 @@ public class JobPatch extends GenericModel {
   /**
    * Gets the scaleMaxExecutionTime.
    *
-   * The maximum execution time in seconds for runs of the job. This option can only be specified if `mode` is `task`.
+   * The maximum execution time in seconds for runs of the job. This property can only be specified if `run_mode` is
+   * `task`.
    *
    * @return the scaleMaxExecutionTime
    */
@@ -585,8 +586,8 @@ public class JobPatch extends GenericModel {
   /**
    * Gets the scaleRetryLimit.
    *
-   * The number of times to rerun an instance of the job before the job is marked as failed. This option can only be
-   * specified if `mode` is `task`.
+   * The number of times to rerun an instance of the job before the job is marked as failed. This property can only be
+   * specified if `run_mode` is `task`.
    *
    * @return the scaleRetryLimit
    */

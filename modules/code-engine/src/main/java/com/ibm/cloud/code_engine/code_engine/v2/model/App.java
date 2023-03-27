@@ -170,7 +170,7 @@ public class App extends GenericModel {
   /**
    * Gets the entityTag.
    *
-   * The version of the job instance, which is used to achieve optimistic locking.
+   * The version of the app instance, which is used to achieve optimistic locking.
    *
    * @return the entityTag
    */

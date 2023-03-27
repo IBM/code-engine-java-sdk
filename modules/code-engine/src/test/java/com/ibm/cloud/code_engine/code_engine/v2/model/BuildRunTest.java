@@ -34,21 +34,15 @@ public class BuildRunTest {
   public void testBuildRun() throws Throwable {
     BuildRun buildRunModel = new BuildRun();
     assertNull(buildRunModel.getBuildName());
-    assertNull(buildRunModel.getCreatedAt());
-    assertNull(buildRunModel.getHref());
-    assertNull(buildRunModel.getId());
     assertNull(buildRunModel.getName());
     assertNull(buildRunModel.getOutputImage());
     assertNull(buildRunModel.getOutputSecret());
-    assertNull(buildRunModel.getProjectId());
-    assertNull(buildRunModel.getResourceType());
     assertNull(buildRunModel.getServiceAccount());
     assertNull(buildRunModel.getSourceContextDir());
     assertNull(buildRunModel.getSourceRevision());
     assertNull(buildRunModel.getSourceSecret());
     assertNull(buildRunModel.getSourceType());
     assertNull(buildRunModel.getSourceUrl());
-    assertNull(buildRunModel.getStatus());
     assertNull(buildRunModel.getStatusDetails());
     assertNull(buildRunModel.getStrategySize());
     assertNull(buildRunModel.getStrategySpecFile());

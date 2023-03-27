@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.64.0-959a5845-20230112-195144
+ * IBM OpenAPI SDK Code Generator Version: 3.66.0-d6c2d7e0-20230215-221247
  */
 
 package com.ibm.cloud.code_engine.code_engine.v2;
@@ -52,6 +52,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.GetBuildRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetConfigMapOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobRunOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectEgressIpsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetSecretOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Job;
@@ -68,6 +69,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListProjectsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListSecretsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Project;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectEgressIPAddresses;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceConfigMapOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceSecretOptions;
@@ -256,6 +258,30 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List egress IP addresses.
+   *
+   * Lists all egress IP addresses (public and private) that are used by components running in this project.
+   *
+   * @param getProjectEgressIpsOptions the {@link GetProjectEgressIpsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link ProjectEgressIPAddresses}
+   */
+  public ServiceCall<ProjectEgressIPAddresses> getProjectEgressIps(GetProjectEgressIpsOptions getProjectEgressIpsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getProjectEgressIpsOptions,
+      "getProjectEgressIpsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", getProjectEgressIpsOptions.projectId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/egress_ips", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "getProjectEgressIps");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<ProjectEgressIPAddresses> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ProjectEgressIPAddresses>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 

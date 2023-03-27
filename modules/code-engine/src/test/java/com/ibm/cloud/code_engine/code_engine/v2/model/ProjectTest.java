@@ -32,15 +32,7 @@ public class ProjectTest {
   @Test
   public void testProject() throws Throwable {
     Project projectModel = new Project();
-    assertNull(projectModel.getAccountId());
-    assertNull(projectModel.getCreatedAt());
-    assertNull(projectModel.getCrn());
-    assertNull(projectModel.getHref());
-    assertNull(projectModel.getId());
     assertNull(projectModel.getName());
-    assertNull(projectModel.getRegion());
     assertNull(projectModel.getResourceGroupId());
-    assertNull(projectModel.getResourceType());
-    assertNull(projectModel.getStatus());
   }
 }
