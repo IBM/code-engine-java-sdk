@@ -2,6 +2,7 @@
 language: java
 dist: focal
 group: focal
+version: ~> 1.0
 
 jdk:
 - openjdk11
