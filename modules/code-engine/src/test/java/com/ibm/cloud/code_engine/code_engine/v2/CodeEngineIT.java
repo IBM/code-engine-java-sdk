@@ -1423,8 +1423,51 @@
    public void testCreateTLSSecret() throws Exception {
      try {
        SecretDataTLSSecretData TlsSecretData = new SecretDataTLSSecretData();
-       TlsSecretData.setTlsKey("---BEGIN PRIVATE KEY------END PRIVATE KEY---");
-       TlsSecretData.setTlsCert("---BEGIN CERTIFICATE------END CERTIFICATE---");
+       TlsSecretData.setTlsKey("-----BEGIN PRIVATE KEY-----\n" + //
+           "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCr+Qx5OrAHLWwm\n" + //
+           "mstn7aEo317g/Lxv/Dmb/N/lanbGZfaVlnE1JrASNnEjps5CrVBLkjctbRYuAWOb\n" + //
+           "vX4OKIGbSmT2JDu3gieg1v2gg0iuMmfqh9pgP8szlfB8lG7/rZ5m4ApEEB8iszIe\n" + //
+           "+BrPsmlBBqd+tuJ3+t/BY9a7PjphkaMCbGlvoaDZEjT6KqubAMmZqkkYFT8mYx+A\n" + //
+           "kwImgqVR5zMs4R2XSEl0QGLsFjnDtWLDvrHGdeGE0hnqTS5OusJ8bmNLJDOvSJSd\n" + //
+           "ZSWPtyahNQT4wAnp3RKxd3D2pdChqmxGdIs+eeNwzoXD42M2VEE/MgPLu7hPuPmC\n" + //
+           "nN6AsET9AgMBAAECggEAc9d1cYv42zzbpz2KWt2VO6ULkl5syLqMS+kRIMaQb6Br\n" + //
+           "c+Q9KeJ/pCUMHUnVktCQT/eUN4NN93t0D4qbiQn8FBEO5UcO+tQvwYZQnnkQ0lad\n" + //
+           "7TvJ/B+8z2jm7+REyPG4y++KusJpVsSCtJ3H4bR6dhT3asHi15Mkem64TLTkOqf2\n" + //
+           "5lWg5BUi3ZR5qFjriZdb7N3A+/Cb1fwOObCwNjRUJX6FAPpCdwEr+L9/o6bod+1N\n" + //
+           "UArBYlSP8yMNyct3WzkPSpFnZxaYapjl0Nm9ipOfR5b9CHThoHg007WxdDF+6a/e\n" + //
+           "SEJOZ0jRHwSctLhjSuL8/EOIuQGSHsyOK4SOmeHRgQKBgQDYlrafbArou+pStqIU\n" + //
+           "ZCmV51UqSfqZAAJ+YzV9rqhsM97yQKQYEESeIbgAnWCGlAbY7XrysIA/aOdglOuF\n" + //
+           "o60oRqlnkYZJT8SXjvnwmyxor67f3G0jbVuoefYL1G1EPdcL9l2K0xehOa2huYm0\n" + //
+           "8lvlI8PPKKJkmu22r/TNyp6VEQKBgQDLRAHsDjNdwyMKVGe2G6ZmnyDWhGzVOOZf\n" + //
+           "+Ixfmt0BK5AnmJBeABM6WRC/6EM0eX31lcev7sJMpWF4Iw0Op+tW2gmtfphi3j/l\n" + //
+           "G7B3lU4V/M6jw0CrASy1RGY257ou3o+/yS4N6/lafZw/V8KDjgJngCeyRhgFf+Rj\n" + //
+           "VNC3FIsBLQKBgERN43ILZLVY7eD/78V2gRbhSZ54jitKMX8iUnA8cKkPArRrZlSg\n" + //
+           "bMNh5uFqwFIwxKgM3MVEnG1i6/Utgck3gRg+kJY08qCUI2+Yi4IxraOmJAQ9Q730\n" + //
+           "cv+C1vGMIJlw1yzSmVV6lO0nf3aNSLxj4k81JD9klTIdGfKPMyjjSXfBAoGBALhl\n" + //
+           "WI0JkOWlSZtsWK1mxfzgrMyOU6DWvn8fnlB4z7bpCxwwlf8AeHD9LWm6zYTEFlV8\n" + //
+           "7CsZIOChQxvWSFkcUi13HUJrztgaIMK57Mt/AdiGf/sl/Ptk1GcYxtVWQJuWQbfN\n" + //
+           "TN9KS+oge2cnOQlZAatdIiXi2pXaoJjP74u2sid9AoGAFuustiKF2vffjhyEg+HL\n" + //
+           "U57p6LG7y6x02COLDhKTX4c/bEa6MX4f91ZKXy2S47tCgLSf4SYd49k1H0wQEDkl\n" + //
+           "Ys+pznN30O/Jxu063JfvFbLZxJkeayLpQL12w+NQUDwsF6MGvIYTnUefhkfb3LWC\n" + //
+           "jBKCTCcw9u4SVX1jK4f2/OU=\n" + //
+           "-----END PRIVATE KEY-----");
+       TlsSecretData.setTlsCert("-----BEGIN CERTIFICATE-----\n" + //
+           "MIICqDCCAZACCQDB2CY2jE7CCjANBgkqhkiG9w0BAQsFADAWMRQwEgYDVQQDDAtm\n" + //
+           "b28uYmFyLmNvbTAeFw0yMzA2MjkyMDM5MzhaFw0yNDA2MjgyMDM5MzhaMBYxFDAS\n" + //
+           "BgNVBAMMC2Zvby5iYXIuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC\n" + //
+           "AQEAq/kMeTqwBy1sJprLZ+2hKN9e4Py8b/w5m/zf5Wp2xmX2lZZxNSawEjZxI6bO\n" + //
+           "Qq1QS5I3LW0WLgFjm71+DiiBm0pk9iQ7t4InoNb9oINIrjJn6ofaYD/LM5XwfJRu\n" + //
+           "/62eZuAKRBAfIrMyHvgaz7JpQQanfrbid/rfwWPWuz46YZGjAmxpb6Gg2RI0+iqr\n" + //
+           "mwDJmapJGBU/JmMfgJMCJoKlUeczLOEdl0hJdEBi7BY5w7Viw76xxnXhhNIZ6k0u\n" + //
+           "TrrCfG5jSyQzr0iUnWUlj7cmoTUE+MAJ6d0SsXdw9qXQoapsRnSLPnnjcM6Fw+Nj\n" + //
+           "NlRBPzIDy7u4T7j5gpzegLBE/QIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQCXRwhk\n" + //
+           "wjvOzKh5R+QKHGjtcjutSkwZbMj5+5enN/8IwX2BbX0i/aALxEPcZExMK5aIS5rm\n" + //
+           "+kUkDyZkYVaMQQoTGNHSnnET8WJf8zGqd/GdiVxZRVXjOnQ5tEezdwFm0a3TEEKw\n" + //
+           "/2HG9chz24ywhbIZZMEFmse7LLrcy5XSUQzOTMWBKZ8fTEXBYaEVhD/9b4SPuLpw\n" + //
+           "i4vDZPt+e+p96NcGNf0b932aod+X34dARUd55UM9PY4i4Z7UzzV7zK+U6tHjzzmg\n" + //
+           "rv+JA2kDt3mwQXn7bfgRxLcpBZFpUHjLRe+MGlQJM2xFYAXop9ZzF1go58ErHbsT\n" + //
+           "CyXJ56cw0ffDrXSn\n" + //
+           "-----END CERTIFICATE-----");
        CreateSecretOptions createSecretOptions = new CreateSecretOptions.Builder()
            .projectId(e2eTestProjectId)
            .format("tls")
@@ -1680,8 +1723,51 @@
    public void testReplaceTLSSecret() throws Exception {
      try {
        SecretDataTLSSecretData TlsSecretData = new SecretDataTLSSecretData();
-       TlsSecretData.setTlsKey("---BEGIN PRIVATE KEY---UpdatedData---END PRIVATE KEY---");
-       TlsSecretData.setTlsCert("---BEGIN CERTIFICATE------END CERTIFICATE---");
+       TlsSecretData.setTlsKey("-----BEGIN PRIVATE KEY-----\n" + //
+           "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDGfJO9qkAlq8Vy\n" + //
+           "KNyJEAwJ+VGurknonWKL+/B/8uS45qDYHP9McyokfHR6GEeL3p/vk4zf+QI/+5Dn\n" + //
+           "0IK6jyiLzl4x0FlEVbEesLubi/6B8r6I+pYfWlOX+ShJkryuZcMjuEtvP6sli+Wj\n" + //
+           "r5yILu8YHgAVVdvLs7XJmlDPv/kmq9R66Nsl02PgLazJfztijcdBGkQAPxClwwkJ\n" + //
+           "zVCWE/G7fS0iYUb76ScHrxLwN7Bh+wTOIMHk6qqK2UA45a8MmyGOkD4SoB4K3z3y\n" + //
+           "GNTQrxQbj+wCyK9kY2/sTs++kcsiwTfTx+17UYO05S0+ExqIWrD6bJpnYmWART/2\n" + //
+           "iBvcAfLvAgMBAAECggEBAKzVj6SJGmBzKXQVxquHEKSiuBC+bVcjrMsuL6aKb8Xd\n" + //
+           "9VMaNOhyI9EvmhEzESHnUidAuVvSLbZfLTfeZedjfy/2HCmOPhz17UxHIqX4ij7H\n" + //
+           "jEgkxBI7Ci18ZStjne7SZ9CzyuPtce842VbmNQyUqde7T+FEKSdArlwFhrbQeHjF\n" + //
+           "gJQrsroY8d0h9Xt6UlfVzX/CeNWP98YJLJ7my9WYRhZlcBE5qwyaMRIY2UKcjgpx\n" + //
+           "XaViny79P5GwiaVGgOUYZ32bA+GHf7u5WP7lCiqT32SgTZzQ9dov9KN+QSkui7qO\n" + //
+           "j0tC0c7OI59zatPAbp+t1LDjsgTjkuoReHes4nhupvECgYEA5b+S9uLtTn3XxLMf\n" + //
+           "R00anvek8EUbTA/TRrJWUhCgvyVCafpyx0BqJC9eR5LnmD3f3yFXDvD5DF201zTn\n" + //
+           "1Py+sk6oUfuPLXz8P76L5Wpz8ryRjR4LfLu0CTGMuUMDfE3NRHQJHNKnkrPwu0mX\n" + //
+           "jwbZrI08Xs8yjyx4gapdwE1cEvkCgYEA3SqPHW1AjCdnhSpnzf9QwxX0hzUKvUBK\n" + //
+           "euuhKvmwh/AnE2y4b/6VH7TRj+fUvbaSFl63tTKXvUA2J7gHvz8o3j24EYAibwe/\n" + //
+           "TvcloLjNxHOEq42vwB9zoZZ1UjvNhRo7lB6626/ffQRHXeSfoyMr2GTFYdpCAZds\n" + //
+           "f8/fHA14RycCgYASzd9FfcVWi05Btzd0KodnQ3WohL97NkBgpPATv3CotG//JJSI\n" + //
+           "YmlNlOLukMOL3mSYaq4pduerb3ABvT7MW/NvvKhiLWjGnFg5D2t7136t+2keV7sw\n" + //
+           "9lwB9KBD+YwrfGK0m5qzVTqJ81hcu+U/u5vNV7H9QJAuz8D9O+h4eNx0YQKBgQC+\n" + //
+           "aa3dv/oasLJHzEKi8HYv/+8PmXMtjPSS79tKjL6XywNZjfkdMypgqeTi6M4Yp98O\n" + //
+           "s22m63AI2AfIGoFQ/qfI74pSRudegGUNL2uN/I3r3SkUKmBuIKYFMOzBaAuB1RwG\n" + //
+           "Yo6uJbVchRqMlBF8+wL8w4XMwYSiqiQXxnhoRpCPcQKBgE2UoeHxvydgQjcfx7/M\n" + //
+           "8BmmLqohWUF6tU62TVBMhYeO77H5Qkn/y0K6UPvar7x0lNAz2ljiUtYvvHc3S9Mc\n" + //
+           "wSQ7GGIZu4ro/tLfi1xVfeQH5Ibm/pdk+1BZfcGeYAHC9Gr+LAT0iJRu8nFyWroB\n" + //
+           "q/Tq26sIqxRotUdtRDJ6D6jf\n" + //
+           "-----END PRIVATE KEY-----");
+       TlsSecretData.setTlsCert("-----BEGIN CERTIFICATE-----\n" + //
+           "MIICqDCCAZACCQDB2CY2jE7CCjANBgkqhkiG9w0BAQsFADAWMRQwEgYDVQQDDAtm\n" + //
+           "b28uYmFyLmNvbTAeFw0yMzA2MjkyMDM5MzhaFw0yNDA2MjgyMDM5MzhaMBYxFDAS\n" + //
+           "BgNVBAMMC2Zvby5iYXIuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC\n" + //
+           "AQEAq/kMeTqwBy1sJprLZ+2hKN9e4Py8b/w5m/zf5Wp2xmX2lZZxNSawEjZxI6bO\n" + //
+           "Qq1QS5I3LW0WLgFjm71+DiiBm0pk9iQ7t4InoNb9oINIrjJn6ofaYD/LM5XwfJRu\n" + //
+           "/62eZuAKRBAfIrMyHvgaz7JpQQanfrbid/rfwWPWuz46YZGjAmxpb6Gg2RI0+iqr\n" + //
+           "mwDJmapJGBU/JmMfgJMCJoKlUeczLOEdl0hJdEBi7BY5w7Viw76xxnXhhNIZ6k0u\n" + //
+           "TrrCfG5jSyQzr0iUnWUlj7cmoTUE+MAJ6d0SsXdw9qXQoapsRnSLPnnjcM6Fw+Nj\n" + //
+           "NlRBPzIDy7u4T7j5gpzegLBE/QIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQCXRwhk\n" + //
+           "wjvOzKh5R+QKHGjtcjutSkwZbMj5+5enN/8IwX2BbX0i/aALxEPcZExMK5aIS5rm\n" + //
+           "+kUkDyZkYVaMQQoTGNHSnnET8WJf8zGqd/GdiVxZRVXjOnQ5tEezdwFm0a3TEEKw\n" + //
+           "/2HG9chz24ywhbIZZMEFmse7LLrcy5XSUQzOTMWBKZ8fTEXBYaEVhD/9b4SPuLpw\n" + //
+           "i4vDZPt+e+p96NcGNf0b932aod+X34dARUd55UM9PY4i4Z7UzzV7zK+U6tHjzzmg\n" + //
+           "rv+JA2kDt3mwQXn7bfgRxLcpBZFpUHjLRe+MGlQJM2xFYAXop9ZzF1go58ErHbsT\n" + //
+           "CyXJ56cw0ffDrXSn\n" + //
+           "-----END CERTIFICATE-----");
        ReplaceSecretOptions replaceSecretOptions = new ReplaceSecretOptions.Builder()
            .projectId(e2eTestProjectId)
            .name("my-tls-secret")
