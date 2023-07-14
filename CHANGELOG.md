@@ -1,3 +1,10 @@
+## [3.1.1](https://github.ibm.com/coligo/java-sdk/compare/3.1.0...3.1.1) (2023-07-14)
+
+
+### Bug Fixes
+
+* **test:** tls test adjusted ([#22](https://github.ibm.com/coligo/java-sdk/issues/22)) ([1f2b876](https://github.ibm.com/coligo/java-sdk/commit/1f2b8766c677fc8e7132c7f52ea8871f1c99cc12))
+
 # [3.1.0](https://github.ibm.com/coligo/java-sdk/compare/3.0.0...3.1.0) (2023-03-24)
 
 
