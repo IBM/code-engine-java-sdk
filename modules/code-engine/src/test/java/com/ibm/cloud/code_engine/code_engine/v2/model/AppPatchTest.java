@@ -74,6 +74,7 @@ public class AppPatchTest {
       .scaleConcurrency(Long.valueOf("100"))
       .scaleConcurrencyTarget(Long.valueOf("80"))
       .scaleCpuLimit("1")
+      .scaleDownDelay(Long.valueOf("300"))
       .scaleEphemeralStorageLimit("4G")
       .scaleInitialInstances(Long.valueOf("1"))
       .scaleMaxInstances(Long.valueOf("10"))
@@ -94,6 +95,7 @@ public class AppPatchTest {
     assertEquals(appPatchModel.scaleConcurrency(), Long.valueOf("100"));
     assertEquals(appPatchModel.scaleConcurrencyTarget(), Long.valueOf("80"));
     assertEquals(appPatchModel.scaleCpuLimit(), "1");
+    assertEquals(appPatchModel.scaleDownDelay(), Long.valueOf("300"));
     assertEquals(appPatchModel.scaleEphemeralStorageLimit(), "4G");
     assertEquals(appPatchModel.scaleInitialInstances(), Long.valueOf("1"));
     assertEquals(appPatchModel.scaleMaxInstances(), Long.valueOf("10"));
@@ -114,6 +116,7 @@ public class AppPatchTest {
     assertEquals(appPatchModelNew.scaleConcurrency(), Long.valueOf("100"));
     assertEquals(appPatchModelNew.scaleConcurrencyTarget(), Long.valueOf("80"));
     assertEquals(appPatchModelNew.scaleCpuLimit(), "1");
+    assertEquals(appPatchModelNew.scaleDownDelay(), Long.valueOf("300"));
     assertEquals(appPatchModelNew.scaleEphemeralStorageLimit(), "4G");
     assertEquals(appPatchModelNew.scaleInitialInstances(), Long.valueOf("1"));
     assertEquals(appPatchModelNew.scaleMaxInstances(), Long.valueOf("10"));
@@ -153,6 +156,7 @@ public class AppPatchTest {
       .scaleConcurrency(Long.valueOf("100"))
       .scaleConcurrencyTarget(Long.valueOf("80"))
       .scaleCpuLimit("1")
+      .scaleDownDelay(Long.valueOf("300"))
       .scaleEphemeralStorageLimit("4G")
       .scaleInitialInstances(Long.valueOf("1"))
       .scaleMaxInstances(Long.valueOf("10"))
@@ -176,6 +180,7 @@ public class AppPatchTest {
     assertTrue(mergePatch.containsKey("scale_concurrency"));
     assertTrue(mergePatch.containsKey("scale_concurrency_target"));
     assertEquals(mergePatch.get("scale_cpu_limit"), "1");
+    assertTrue(mergePatch.containsKey("scale_down_delay"));
     assertEquals(mergePatch.get("scale_ephemeral_storage_limit"), "4G");
     assertTrue(mergePatch.containsKey("scale_initial_instances"));
     assertTrue(mergePatch.containsKey("scale_max_instances"));

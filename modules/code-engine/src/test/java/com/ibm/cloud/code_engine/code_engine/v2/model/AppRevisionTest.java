@@ -48,6 +48,7 @@ public class AppRevisionTest {
     assertNull(appRevisionModel.getScaleConcurrency());
     assertNull(appRevisionModel.getScaleConcurrencyTarget());
     assertNull(appRevisionModel.getScaleCpuLimit());
+    assertNull(appRevisionModel.getScaleDownDelay());
     assertNull(appRevisionModel.getScaleEphemeralStorageLimit());
     assertNull(appRevisionModel.getScaleInitialInstances());
     assertNull(appRevisionModel.getScaleMaxInstances());

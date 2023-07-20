@@ -35,12 +35,12 @@ public class ReplaceConfigMapOptionsTest {
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
       .name("my-config-map")
       .ifMatch("testString")
-      .data(java.util.Collections.singletonMap("foo", "testString"))
+      .data(java.util.Collections.singletonMap("key1", "testString"))
       .build();
     assertEquals(replaceConfigMapOptionsModel.projectId(), "15314cc3-85b4-4338-903f-c28cdee6d005");
     assertEquals(replaceConfigMapOptionsModel.name(), "my-config-map");
     assertEquals(replaceConfigMapOptionsModel.ifMatch(), "testString");
-    assertEquals(replaceConfigMapOptionsModel.data(), java.util.Collections.singletonMap("foo", "testString"));
+    assertEquals(replaceConfigMapOptionsModel.data(), java.util.Collections.singletonMap("key1", "testString"));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

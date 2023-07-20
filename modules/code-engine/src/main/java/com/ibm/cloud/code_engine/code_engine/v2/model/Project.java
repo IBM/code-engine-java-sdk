@@ -90,7 +90,7 @@ public class Project extends GenericModel {
   /**
    * Gets the createdAt.
    *
-   * The date when the project was created.
+   * The timestamp when the project was created.
    *
    * @return the createdAt
    */

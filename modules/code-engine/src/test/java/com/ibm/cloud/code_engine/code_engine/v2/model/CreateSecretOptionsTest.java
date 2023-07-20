@@ -14,7 +14,12 @@
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateSecretOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ResourceKeyRefPrototype;
+import com.ibm.cloud.code_engine.code_engine.v2.model.RoleRefPrototype;
 import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataSSHSecretData;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceAccessSecretPrototypeProps;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceIDRef;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceInstanceRefPrototype;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -41,16 +46,49 @@ public class CreateSecretOptionsTest {
     assertEquals(secretDataModel.getKnownHosts(), "testString");
     assertEquals(secretDataModel.get("foo"), "testString");
 
+    ResourceKeyRefPrototype resourceKeyRefPrototypeModel = new ResourceKeyRefPrototype.Builder()
+      .id("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
+      .build();
+    assertEquals(resourceKeyRefPrototypeModel.id(), "4e49b3e0-27a8-48d2-a784-c7ee48bb863b");
+
+    RoleRefPrototype roleRefPrototypeModel = new RoleRefPrototype.Builder()
+      .crn("crn:v1:bluemix:public:iam::::serviceRole:Writer")
+      .build();
+    assertEquals(roleRefPrototypeModel.crn(), "crn:v1:bluemix:public:iam::::serviceRole:Writer");
+
+    ServiceInstanceRefPrototype serviceInstanceRefPrototypeModel = new ServiceInstanceRefPrototype.Builder()
+      .id("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
+      .build();
+    assertEquals(serviceInstanceRefPrototypeModel.id(), "4e49b3e0-27a8-48d2-a784-c7ee48bb863b");
+
+    ServiceIDRef serviceIdRefModel = new ServiceIDRef.Builder()
+      .crn("testString")
+      .build();
+    assertEquals(serviceIdRefModel.crn(), "testString");
+
+    ServiceAccessSecretPrototypeProps serviceAccessSecretPrototypePropsModel = new ServiceAccessSecretPrototypeProps.Builder()
+      .resourceKey(resourceKeyRefPrototypeModel)
+      .role(roleRefPrototypeModel)
+      .serviceInstance(serviceInstanceRefPrototypeModel)
+      .serviceid(serviceIdRefModel)
+      .build();
+    assertEquals(serviceAccessSecretPrototypePropsModel.resourceKey(), resourceKeyRefPrototypeModel);
+    assertEquals(serviceAccessSecretPrototypePropsModel.role(), roleRefPrototypeModel);
+    assertEquals(serviceAccessSecretPrototypePropsModel.serviceInstance(), serviceInstanceRefPrototypeModel);
+    assertEquals(serviceAccessSecretPrototypePropsModel.serviceid(), serviceIdRefModel);
+
     CreateSecretOptions createSecretOptionsModel = new CreateSecretOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
       .format("generic")
       .name("my-secret")
       .data(secretDataModel)
+      .serviceAccess(serviceAccessSecretPrototypePropsModel)
       .build();
     assertEquals(createSecretOptionsModel.projectId(), "15314cc3-85b4-4338-903f-c28cdee6d005");
     assertEquals(createSecretOptionsModel.format(), "generic");
     assertEquals(createSecretOptionsModel.name(), "my-secret");
     assertEquals(createSecretOptionsModel.data(), secretDataModel);
+    assertEquals(createSecretOptionsModel.serviceAccess(), serviceAccessSecretPrototypePropsModel);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

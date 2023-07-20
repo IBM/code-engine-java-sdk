@@ -121,7 +121,7 @@ public class JobRun extends GenericModel {
   /**
    * Gets the createdAt.
    *
-   * The date when the resource was created.
+   * The timestamp when the resource was created.
    *
    * @return the createdAt
    */
@@ -239,7 +239,7 @@ public class JobRun extends GenericModel {
   /**
    * Gets the runAsUser.
    *
-   * The user ID (UID) to run the application (e.g., 1001).
+   * The user ID (UID) to run the job (e.g., 1001).
    *
    * @return the runAsUser
    */
@@ -262,7 +262,7 @@ public class JobRun extends GenericModel {
   /**
    * Gets the runEnvVariables.
    *
-   * References to config maps, secrets or a literal values, which are exposed as environment variables in the job run.
+   * References to config maps, secrets or literal values, which are exposed as environment variables in the job run.
    *
    * @return the runEnvVariables
    */

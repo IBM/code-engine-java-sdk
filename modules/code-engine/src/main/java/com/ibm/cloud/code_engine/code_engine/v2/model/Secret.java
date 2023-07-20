@@ -55,13 +55,15 @@ public class Secret extends GenericModel {
   protected String projectId;
   @SerializedName("resource_type")
   protected String resourceType;
+  @SerializedName("service_access")
+  protected ServiceAccessSecretProps serviceAccess;
 
   protected Secret() { }
 
   /**
    * Gets the createdAt.
    *
-   * The date when the resource was created.
+   * The timestamp when the resource was created.
    *
    * @return the createdAt
    */
@@ -157,6 +159,17 @@ public class Secret extends GenericModel {
    */
   public String getResourceType() {
     return resourceType;
+  }
+
+  /**
+   * Gets the serviceAccess.
+   *
+   * Properties for Service Access Secrets.
+   *
+   * @return the serviceAccess
+   */
+  public ServiceAccessSecretProps getServiceAccess() {
+    return serviceAccess;
   }
 }
 

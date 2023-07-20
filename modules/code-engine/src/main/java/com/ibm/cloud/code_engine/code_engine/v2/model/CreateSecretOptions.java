@@ -20,7 +20,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class CreateSecretOptions extends GenericModel {
 
   /**
-   * Specify the format of the secret.
+   * Specify the format of the secret. The format of the secret will determine how the secret is used.
    */
   public interface Format {
     /** generic. */
@@ -43,6 +43,7 @@ public class CreateSecretOptions extends GenericModel {
   protected String format;
   protected String name;
   protected SecretData data;
+  protected ServiceAccessSecretPrototypeProps serviceAccess;
 
   /**
    * Builder.
@@ -52,6 +53,7 @@ public class CreateSecretOptions extends GenericModel {
     private String format;
     private String name;
     private SecretData data;
+    private ServiceAccessSecretPrototypeProps serviceAccess;
 
     /**
      * Instantiates a new Builder from an existing CreateSecretOptions instance.
@@ -63,6 +65,7 @@ public class CreateSecretOptions extends GenericModel {
       this.format = createSecretOptions.format;
       this.name = createSecretOptions.name;
       this.data = createSecretOptions.data;
+      this.serviceAccess = createSecretOptions.serviceAccess;
     }
 
     /**
@@ -136,6 +139,17 @@ public class CreateSecretOptions extends GenericModel {
       this.data = data;
       return this;
     }
+
+    /**
+     * Set the serviceAccess.
+     *
+     * @param serviceAccess the serviceAccess
+     * @return the CreateSecretOptions builder
+     */
+    public Builder serviceAccess(ServiceAccessSecretPrototypeProps serviceAccess) {
+      this.serviceAccess = serviceAccess;
+      return this;
+    }
   }
 
   protected CreateSecretOptions() { }
@@ -151,6 +165,7 @@ public class CreateSecretOptions extends GenericModel {
     format = builder.format;
     name = builder.name;
     data = builder.data;
+    serviceAccess = builder.serviceAccess;
   }
 
   /**
@@ -176,7 +191,7 @@ public class CreateSecretOptions extends GenericModel {
   /**
    * Gets the format.
    *
-   * Specify the format of the secret.
+   * Specify the format of the secret. The format of the secret will determine how the secret is used.
    *
    * @return the format
    */
@@ -206,6 +221,17 @@ public class CreateSecretOptions extends GenericModel {
    */
   public SecretData data() {
     return data;
+  }
+
+  /**
+   * Gets the serviceAccess.
+   *
+   * Properties for Service Access Secret Prototypes.
+   *
+   * @return the serviceAccess
+   */
+  public ServiceAccessSecretPrototypeProps serviceAccess() {
+    return serviceAccess;
   }
 }
 

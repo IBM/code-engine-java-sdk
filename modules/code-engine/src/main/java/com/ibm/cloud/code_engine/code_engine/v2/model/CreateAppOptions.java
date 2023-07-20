@@ -68,6 +68,7 @@ public class CreateAppOptions extends GenericModel {
   protected Long scaleConcurrency;
   protected Long scaleConcurrencyTarget;
   protected String scaleCpuLimit;
+  protected Long scaleDownDelay;
   protected String scaleEphemeralStorageLimit;
   protected Long scaleInitialInstances;
   protected Long scaleMaxInstances;
@@ -94,6 +95,7 @@ public class CreateAppOptions extends GenericModel {
     private Long scaleConcurrency;
     private Long scaleConcurrencyTarget;
     private String scaleCpuLimit;
+    private Long scaleDownDelay;
     private String scaleEphemeralStorageLimit;
     private Long scaleInitialInstances;
     private Long scaleMaxInstances;
@@ -122,6 +124,7 @@ public class CreateAppOptions extends GenericModel {
       this.scaleConcurrency = createAppOptions.scaleConcurrency;
       this.scaleConcurrencyTarget = createAppOptions.scaleConcurrencyTarget;
       this.scaleCpuLimit = createAppOptions.scaleCpuLimit;
+      this.scaleDownDelay = createAppOptions.scaleDownDelay;
       this.scaleEphemeralStorageLimit = createAppOptions.scaleEphemeralStorageLimit;
       this.scaleInitialInstances = createAppOptions.scaleInitialInstances;
       this.scaleMaxInstances = createAppOptions.scaleMaxInstances;
@@ -392,6 +395,17 @@ public class CreateAppOptions extends GenericModel {
     }
 
     /**
+     * Set the scaleDownDelay.
+     *
+     * @param scaleDownDelay the scaleDownDelay
+     * @return the CreateAppOptions builder
+     */
+    public Builder scaleDownDelay(long scaleDownDelay) {
+      this.scaleDownDelay = scaleDownDelay;
+      return this;
+    }
+
+    /**
      * Set the scaleEphemeralStorageLimit.
      *
      * @param scaleEphemeralStorageLimit the scaleEphemeralStorageLimit
@@ -482,6 +496,7 @@ public class CreateAppOptions extends GenericModel {
     scaleConcurrency = builder.scaleConcurrency;
     scaleConcurrencyTarget = builder.scaleConcurrencyTarget;
     scaleCpuLimit = builder.scaleCpuLimit;
+    scaleDownDelay = builder.scaleDownDelay;
     scaleEphemeralStorageLimit = builder.scaleEphemeralStorageLimit;
     scaleInitialInstances = builder.scaleInitialInstances;
     scaleMaxInstances = builder.scaleMaxInstances;
@@ -513,7 +528,7 @@ public class CreateAppOptions extends GenericModel {
   /**
    * Gets the imageReference.
    *
-   * The name of the image that is used for this job. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where `REGISTRY`
+   * The name of the image that is used for this app. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where `REGISTRY`
    * and `TAG` are optional. If `REGISTRY` is not specified, the default is `docker.io`. If `TAG` is not specified, the
    * default is `latest`. If the image reference points to a registry that requires authentication, make sure to also
    * specify the property `image_secret`.
@@ -611,8 +626,8 @@ public class CreateAppOptions extends GenericModel {
   /**
    * Gets the runEnvVariables.
    *
-   * Optional references to config maps, secrets or a literal values that are exposed as environment variables within
-   * the running application.
+   * Optional references to config maps, secrets or literal values that are exposed as environment variables within the
+   * running application.
    *
    * @return the runEnvVariables
    */
@@ -677,6 +692,17 @@ public class CreateAppOptions extends GenericModel {
    */
   public String scaleCpuLimit() {
     return scaleCpuLimit;
+  }
+
+  /**
+   * Gets the scaleDownDelay.
+   *
+   * Optional amount of time in seconds that delays the scale down behavior for an app instance.
+   *
+   * @return the scaleDownDelay
+   */
+  public Long scaleDownDelay() {
+    return scaleDownDelay;
   }
 
   /**
