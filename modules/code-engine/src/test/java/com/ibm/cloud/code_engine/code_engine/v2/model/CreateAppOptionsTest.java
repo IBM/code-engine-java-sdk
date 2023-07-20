@@ -75,6 +75,7 @@ public class CreateAppOptionsTest {
       .scaleConcurrency(Long.valueOf("100"))
       .scaleConcurrencyTarget(Long.valueOf("80"))
       .scaleCpuLimit("1")
+      .scaleDownDelay(Long.valueOf("300"))
       .scaleEphemeralStorageLimit("4G")
       .scaleInitialInstances(Long.valueOf("1"))
       .scaleMaxInstances(Long.valueOf("10"))
@@ -97,6 +98,7 @@ public class CreateAppOptionsTest {
     assertEquals(createAppOptionsModel.scaleConcurrency(), Long.valueOf("100"));
     assertEquals(createAppOptionsModel.scaleConcurrencyTarget(), Long.valueOf("80"));
     assertEquals(createAppOptionsModel.scaleCpuLimit(), "1");
+    assertEquals(createAppOptionsModel.scaleDownDelay(), Long.valueOf("300"));
     assertEquals(createAppOptionsModel.scaleEphemeralStorageLimit(), "4G");
     assertEquals(createAppOptionsModel.scaleInitialInstances(), Long.valueOf("1"));
     assertEquals(createAppOptionsModel.scaleMaxInstances(), Long.valueOf("10"));

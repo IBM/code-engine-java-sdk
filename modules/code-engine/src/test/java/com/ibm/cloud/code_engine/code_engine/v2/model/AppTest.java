@@ -50,6 +50,7 @@ public class AppTest {
     assertNull(appModel.getScaleConcurrency());
     assertNull(appModel.getScaleConcurrencyTarget());
     assertNull(appModel.getScaleCpuLimit());
+    assertNull(appModel.getScaleDownDelay());
     assertNull(appModel.getScaleEphemeralStorageLimit());
     assertNull(appModel.getScaleInitialInstances());
     assertNull(appModel.getScaleMaxInstances());

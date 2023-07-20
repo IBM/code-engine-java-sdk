@@ -34,11 +34,11 @@ public class CreateConfigMapOptionsTest {
     CreateConfigMapOptions createConfigMapOptionsModel = new CreateConfigMapOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
       .name("my-config-map")
-      .data(java.util.Collections.singletonMap("foo", "testString"))
+      .data(java.util.Collections.singletonMap("key1", "testString"))
       .build();
     assertEquals(createConfigMapOptionsModel.projectId(), "15314cc3-85b4-4338-903f-c28cdee6d005");
     assertEquals(createConfigMapOptionsModel.name(), "my-config-map");
-    assertEquals(createConfigMapOptionsModel.data(), java.util.Collections.singletonMap("foo", "testString"));
+    assertEquals(createConfigMapOptionsModel.data(), java.util.Collections.singletonMap("key1", "testString"));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

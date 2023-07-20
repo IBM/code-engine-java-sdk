@@ -22,7 +22,8 @@
  import com.ibm.cloud.code_engine.code_engine.v2.model.AppRevisionsPager;
  import com.ibm.cloud.code_engine.code_engine.v2.model.AppStatus;
  import com.ibm.cloud.code_engine.code_engine.v2.model.AppsPager;
- import com.ibm.cloud.code_engine.code_engine.v2.model.Build;
+import com.ibm.cloud.code_engine.code_engine.v2.model.Binding;
+import com.ibm.cloud.code_engine.code_engine.v2.model.Build;
  import com.ibm.cloud.code_engine.code_engine.v2.model.BuildList;
  import com.ibm.cloud.code_engine.code_engine.v2.model.BuildPatch;
  import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRun;
@@ -31,11 +32,13 @@
  import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRunsPager;
  import com.ibm.cloud.code_engine.code_engine.v2.model.BuildStatus;
  import com.ibm.cloud.code_engine.code_engine.v2.model.BuildsPager;
- import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMap;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ComponentRef;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMap;
  import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMapList;
  import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMapsPager;
  import com.ibm.cloud.code_engine.code_engine.v2.model.CreateAppOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBindingOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildRunOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.CreateConfigMapOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.CreateJobOptions;
@@ -44,7 +47,8 @@
  import com.ibm.cloud.code_engine.code_engine.v2.model.CreateSecretOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAppOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAppRevisionOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBuildOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBindingOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBuildOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBuildRunOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteConfigMapOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteJobOptions;
@@ -55,7 +59,8 @@
  import com.ibm.cloud.code_engine.code_engine.v2.model.EnvVarPrototype;
  import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppRevisionOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.GetBuildOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetBindingOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetBuildOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.GetBuildRunOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.GetConfigMapOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobOptions;
@@ -88,7 +93,8 @@
  import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectsPager;
  import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceConfigMapOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceSecretOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.Secret;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ResourceKeyRefPrototype;
+import com.ibm.cloud.code_engine.code_engine.v2.model.Secret;
  import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataGenericSecretData;
  import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataSSHSecretData;
  import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataTLSSecretData;
@@ -96,15 +102,20 @@
  import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataRegistrySecretData;
  import com.ibm.cloud.code_engine.code_engine.v2.model.SecretList;
  import com.ibm.cloud.code_engine.code_engine.v2.model.SecretsPager;
- import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateAppOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceAccessSecretProps;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceAccessSecretPrototypeProps;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceInstanceRefPrototype;
+import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateAppOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateBuildOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateJobOptions;
  import com.ibm.cloud.code_engine.code_engine.v2.model.VolumeMount;
  import com.ibm.cloud.code_engine.code_engine.v2.model.VolumeMountPrototype;
- import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceInstanceRefPrototype.Builder;
+import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
  import com.ibm.cloud.code_engine.test.SdkIntegrationTestBase;
  import com.ibm.cloud.sdk.core.http.Response;
- import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
+import com.ibm.cloud.sdk.core.http.ServiceCall;
+import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
  import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
  import com.ibm.cloud.sdk.core.util.CredentialUtils;
  import java.io.InputStream;
@@ -1852,12 +1863,168 @@
    }
  
    @Test(dependsOnMethods = { "testReplaceRegistrySecret" })
+   public void testCreateServiceAccessSecret() throws Exception {
+     try {
+      ServiceInstanceRefPrototype SaRef = new ServiceInstanceRefPrototype.Builder().id("498131b4-d4b0-42ff-8592-ab3a2f6e3be6").build();
+      ResourceKeyRefPrototype RKRef = new ResourceKeyRefPrototype.Builder().build();
+      ServiceAccessSecretPrototypeProps serviceAccess = new ServiceAccessSecretPrototypeProps.Builder().serviceInstance(SaRef).resourceKey(RKRef).build();
+      CreateSecretOptions createSecretOptions = new CreateSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .format("service_access")
+          .name("my-service-access-secret")
+          .serviceAccess(serviceAccess)
+          .build();
+ 
+       // Invoke operation
+       Response<Secret> response = service.createSecret(createSecretOptions).execute();
+       // Validate response
+       assertNotNull(response);
+       assertEquals(response.getStatusCode(), 201);
+ 
+       Secret secretResult = response.getResult();
+ 
+       assertNotNull(secretResult);
+     } catch (ServiceResponseException e) {
+       fail(String.format("Service returned status code %d: %s%nError details: %s",
+           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+     }
+   }
+
+   @Test(dependsOnMethods = { "testCreateServiceAccessSecret" })
+   public void testGetServiceAccessSecret() throws Exception {
+     try {
+       GetSecretOptions getSecretOptions = new GetSecretOptions.Builder()
+           .projectId(e2eTestProjectId)
+           .name("my-service-access-secret")
+           .build();
+ 
+       // Invoke operation
+       Response<Secret> response = service.getSecret(getSecretOptions).execute();
+       // Validate response
+       assertNotNull(response);
+       assertEquals(response.getStatusCode(), 200);
+ 
+       Secret secretResult = response.getResult();
+ 
+       assertNotNull(secretResult);
+     } catch (ServiceResponseException e) {
+       fail(String.format("Service returned status code %d: %s%nError details: %s",
+           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+     }
+   }
+ 
+   @Test(dependsOnMethods = { "testGetServiceAccessSecret" })
+   public void testCreateBinding() throws Exception {
+     try {
+      ComponentRef component = new ComponentRef.Builder()
+          .name("my-app")
+          .resourceType("app_v2")
+          .build();
+      CreateBindingOptions createBindingOptions = new CreateBindingOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .prefix("MY_BINDING")
+          .component(component)
+          .secretName("my-service-access-secret")
+          .build();
+ 
+       // Invoke operation
+       Response<Binding> response = service.createBinding(createBindingOptions).execute();
+       // Validate response
+       assertNotNull(response);
+       assertEquals(response.getStatusCode(), 201);
+ 
+       Binding bindingResult = response.getResult();
+       assertNotNull(bindingResult);
+     } catch (ServiceResponseException e) {
+       fail(String.format("Service returned status code %d: %s%nError details: %s",
+           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+     }
+   }
+ 
+   @Test(dependsOnMethods = { "testCreateBinding" })
+   public void testGetBinding() throws Exception {
+     try {
+     
+      GetBindingOptions getBindingOptions = new GetBindingOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .id("a172ced-4c9a75c-0b02fe7-386425e")
+          .build();
+ 
+       // Invoke operation
+       Response<Binding> response = service.getBinding(getBindingOptions).execute();
+       // Validate response
+       assertNotNull(response);
+       assertEquals(response.getStatusCode(), 200);
+ 
+       Binding bindingResult = response.getResult();
+ 
+       assertNotNull(bindingResult);
+     } catch (ServiceResponseException e) {
+       fail(String.format("Service returned status code %d: %s%nError details: %s",
+           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+     }
+   }
+ 
+   @Test(dependsOnMethods = { "testGetBinding" })
+   public void testDeleteBinding() throws Exception {
+     try {
+     
+      DeleteBindingOptions deleteBindingOptions = new DeleteBindingOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .id("a172ced-4c9a75c-0b02fe7-386425e")
+          .build();
+ 
+       // Invoke operation
+       Response<Void> response = service.deleteBinding(deleteBindingOptions).execute();
+       // Validate response
+       assertNotNull(response);
+       assertEquals(response.getStatusCode(), 202);
+     } catch (ServiceResponseException e) {
+       fail(String.format("Service returned status code %d: %s%nError details: %s",
+           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+     }
+   }
+ 
+   @Test(dependsOnMethods = { "testDeleteBinding" })
+   public void testListAppRevisionsAfterBinding() throws Exception {
+       try {
+       ListAppRevisionsOptions options = new ListAppRevisionsOptions.Builder()
+           .projectId(e2eTestProjectId)
+           .appName("my-app")
+           .limit(Long.valueOf("100"))
+           .build();
+ 
+       // Test getNext().
+       List<AppRevision> allResults = new ArrayList<>();
+       AppRevisionsPager pager = new AppRevisionsPager(service, options);
+       while (pager.hasNext()) {
+         List<AppRevision> nextPage = pager.getNext();
+         assertNotNull(nextPage);
+         allResults.addAll(nextPage);
+       }
+       assertFalse(allResults.isEmpty());
+ 
+       // Test getAll();
+       pager = new AppRevisionsPager(service, options);
+       List<AppRevision> allItems = pager.getAll();
+       assertNotNull(allItems);
+       assertFalse(allItems.isEmpty());
+ 
+       assertEquals(allItems.size(), allResults.size());
+       System.out.println(String.format("Retrieved a total of %d item(s) with pagination.", allResults.size()));
+     } catch (ServiceResponseException e) {
+       fail(String.format("Service returned status code %d: %s%nError details: %s",
+           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+     }
+   }
+ 
+   @Test(dependsOnMethods = { "testListAppRevisionsAfterBinding" })
    public void testDeleteAppRevision() throws Exception {
      try {
        DeleteAppRevisionOptions deleteAppRevisionOptions = new DeleteAppRevisionOptions.Builder()
            .projectId(e2eTestProjectId)
            .appName("my-app")
-           .name("my-app-00001")
+           .name("my-app-00003")
            .build();
  
        // Invoke operation
@@ -1870,7 +2037,7 @@
            e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
      }
    }
- 
+
    @Test(dependsOnMethods = { "testDeleteAppRevision" })
    public void testDeleteApp() throws Exception {
      try {
@@ -2006,6 +2173,25 @@
    }
  
    @Test(dependsOnMethods = { "testDeleteGenericSecret" })
+   public void testDeleteServiceAccessSecret() throws Exception {
+     try {
+       DeleteSecretOptions deleteSecretOptions = new DeleteSecretOptions.Builder()
+           .projectId(e2eTestProjectId)
+           .name("my-service-access-secret")
+           .build();
+ 
+       // Invoke operation
+       Response<Void> response = service.deleteSecret(deleteSecretOptions).execute();
+       // Validate response
+       assertNotNull(response);
+       assertEquals(response.getStatusCode(), 202);
+     } catch (ServiceResponseException e) {
+       fail(String.format("Service returned status code %d: %s%nError details: %s",
+           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+     }
+   }
+ 
+   @Test(dependsOnMethods = { "testDeleteServiceAccessSecret" })
    public void testDeleteSSHSecret() throws Exception {
      try {
        DeleteSecretOptions deleteSecretOptions = new DeleteSecretOptions.Builder()

@@ -18,14 +18,18 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.AppPatch;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppRevision;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppRevisionsPager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppsPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.Binding;
+import com.ibm.cloud.code_engine.code_engine.v2.model.BindingsPager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Build;
 import com.ibm.cloud.code_engine.code_engine.v2.model.BuildPatch;
 import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRun;
 import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRunsPager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.BuildsPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ComponentRef;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMap;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMapsPager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateAppOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBindingOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateConfigMapOptions;
@@ -35,6 +39,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.CreateProjectOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateSecretOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAppOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAppRevisionOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBindingOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBuildOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBuildRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteConfigMapOptions;
@@ -44,6 +49,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteProjectOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteSecretOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppRevisionOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetBindingOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetBuildOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetBuildRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetConfigMapOptions;
@@ -51,6 +57,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectEgressIpsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectStatusDetailsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetSecretOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Job;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobPatch;
@@ -59,6 +66,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.JobRunsPager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobsPager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppRevisionsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppsOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListBindingsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListBuildRunsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListBuildsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListConfigMapsOptions;
@@ -68,6 +76,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.ListProjectsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListSecretsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Project;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectEgressIPAddresses;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectStatusDetails;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectsPager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceConfigMapOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceSecretOptions;
@@ -186,6 +195,23 @@ public class CodeEngineExamples {
 
       System.out.println(projectEgressIpAddresses);
       // end-get_project_egress_ips
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("getProjectStatusDetails() result:");
+      // begin-get_project_status_details
+      GetProjectStatusDetailsOptions getProjectStatusDetailsOptions = new GetProjectStatusDetailsOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .build();
+
+      Response<ProjectStatusDetails> response = codeEngineService.getProjectStatusDetails(getProjectStatusDetailsOptions).execute();
+      ProjectStatusDetails projectStatusDetails = response.getResult();
+
+      System.out.println(projectStatusDetails);
+      // end-get_project_status_details
     } catch (ServiceResponseException e) {
         logger.error(String.format("Service returned status code %s: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -456,6 +482,70 @@ public class CodeEngineExamples {
     }
 
     try {
+      System.out.println("listBindings() result:");
+      // begin-list_bindings
+      ListBindingsOptions listBindingsOptions = new ListBindingsOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .limit(Long.valueOf("100"))
+        .build();
+
+      BindingsPager pager = new BindingsPager(codeEngineService, listBindingsOptions);
+      List<Binding> allResults = new ArrayList<>();
+      while (pager.hasNext()) {
+        List<Binding> nextPage = pager.getNext();
+        allResults.addAll(nextPage);
+      }
+
+      System.out.println(GsonSingleton.getGson().toJson(allResults));
+      // end-list_bindings
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("createBinding() result:");
+      // begin-create_binding
+      ComponentRef componentRefModel = new ComponentRef.Builder()
+        .name("my-app-1")
+        .resourceType("app_v2")
+        .build();
+      CreateBindingOptions createBindingOptions = new CreateBindingOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .component(componentRefModel)
+        .prefix("MY_COS")
+        .secretName("my-service-access")
+        .build();
+
+      Response<Binding> response = codeEngineService.createBinding(createBindingOptions).execute();
+      Binding binding = response.getResult();
+
+      System.out.println(binding);
+      // end-create_binding
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("getBinding() result:");
+      // begin-get_binding
+      GetBindingOptions getBindingOptions = new GetBindingOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .id("a172ced-b5f21bc-71ba50c-1638604")
+        .build();
+
+      Response<Binding> response = codeEngineService.getBinding(getBindingOptions).execute();
+      Binding binding = response.getResult();
+
+      System.out.println(binding);
+      // end-get_binding
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
       System.out.println("listBuilds() result:");
       // begin-list_builds
       ListBuildsOptions listBuildsOptions = new ListBuildsOptions.Builder()
@@ -485,7 +575,6 @@ public class CodeEngineExamples {
         .name("my-build")
         .outputImage("private.de.icr.io/icr_namespace/image-name")
         .outputSecret("ce-auto-icr-private-eu-de")
-        .sourceUrl("https://github.com/IBM/CodeEngine")
         .strategyType("dockerfile")
         .build();
 
@@ -741,6 +830,7 @@ public class CodeEngineExamples {
         .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
         .name("my-secret")
         .ifMatch("testString")
+        .format("generic")
         .build();
 
       Response<Secret> response = codeEngineService.replaceSecret(replaceSecretOptions).execute();
@@ -823,6 +913,21 @@ public class CodeEngineExamples {
       Response<Void> response = codeEngineService.deleteJobRun(deleteJobRunOptions).execute();
       // end-delete_job_run
       System.out.printf("deleteJobRun() response status code: %d%n", response.getStatusCode());
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-delete_binding
+      DeleteBindingOptions deleteBindingOptions = new DeleteBindingOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .id("a172ced-b5f21bc-71ba50c-1638604")
+        .build();
+
+      Response<Void> response = codeEngineService.deleteBinding(deleteBindingOptions).execute();
+      // end-delete_binding
+      System.out.printf("deleteBinding() response status code: %d%n", response.getStatusCode());
     } catch (ServiceResponseException e) {
         logger.error(String.format("Service returned status code %s: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);

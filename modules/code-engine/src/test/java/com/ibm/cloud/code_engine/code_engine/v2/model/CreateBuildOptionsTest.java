@@ -36,12 +36,12 @@ public class CreateBuildOptionsTest {
       .name("my-build")
       .outputImage("private.de.icr.io/icr_namespace/image-name")
       .outputSecret("ce-auto-icr-private-eu-de")
-      .sourceUrl("https://github.com/IBM/CodeEngine")
       .strategyType("dockerfile")
       .sourceContextDir("some/subfolder")
       .sourceRevision("main")
       .sourceSecret("testString")
       .sourceType("git")
+      .sourceUrl("https://github.com/IBM/CodeEngine")
       .strategySize("medium")
       .strategySpecFile("Dockerfile")
       .timeout(Long.valueOf("600"))
@@ -50,12 +50,12 @@ public class CreateBuildOptionsTest {
     assertEquals(createBuildOptionsModel.name(), "my-build");
     assertEquals(createBuildOptionsModel.outputImage(), "private.de.icr.io/icr_namespace/image-name");
     assertEquals(createBuildOptionsModel.outputSecret(), "ce-auto-icr-private-eu-de");
-    assertEquals(createBuildOptionsModel.sourceUrl(), "https://github.com/IBM/CodeEngine");
     assertEquals(createBuildOptionsModel.strategyType(), "dockerfile");
     assertEquals(createBuildOptionsModel.sourceContextDir(), "some/subfolder");
     assertEquals(createBuildOptionsModel.sourceRevision(), "main");
     assertEquals(createBuildOptionsModel.sourceSecret(), "testString");
     assertEquals(createBuildOptionsModel.sourceType(), "git");
+    assertEquals(createBuildOptionsModel.sourceUrl(), "https://github.com/IBM/CodeEngine");
     assertEquals(createBuildOptionsModel.strategySize(), "medium");
     assertEquals(createBuildOptionsModel.strategySpecFile(), "Dockerfile");
     assertEquals(createBuildOptionsModel.timeout(), Long.valueOf("600"));

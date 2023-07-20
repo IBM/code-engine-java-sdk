@@ -35,12 +35,12 @@ public class CreateBuildOptions extends GenericModel {
   protected String name;
   protected String outputImage;
   protected String outputSecret;
-  protected String sourceUrl;
   protected String strategyType;
   protected String sourceContextDir;
   protected String sourceRevision;
   protected String sourceSecret;
   protected String sourceType;
+  protected String sourceUrl;
   protected String strategySize;
   protected String strategySpecFile;
   protected Long timeout;
@@ -53,12 +53,12 @@ public class CreateBuildOptions extends GenericModel {
     private String name;
     private String outputImage;
     private String outputSecret;
-    private String sourceUrl;
     private String strategyType;
     private String sourceContextDir;
     private String sourceRevision;
     private String sourceSecret;
     private String sourceType;
+    private String sourceUrl;
     private String strategySize;
     private String strategySpecFile;
     private Long timeout;
@@ -73,12 +73,12 @@ public class CreateBuildOptions extends GenericModel {
       this.name = createBuildOptions.name;
       this.outputImage = createBuildOptions.outputImage;
       this.outputSecret = createBuildOptions.outputSecret;
-      this.sourceUrl = createBuildOptions.sourceUrl;
       this.strategyType = createBuildOptions.strategyType;
       this.sourceContextDir = createBuildOptions.sourceContextDir;
       this.sourceRevision = createBuildOptions.sourceRevision;
       this.sourceSecret = createBuildOptions.sourceSecret;
       this.sourceType = createBuildOptions.sourceType;
+      this.sourceUrl = createBuildOptions.sourceUrl;
       this.strategySize = createBuildOptions.strategySize;
       this.strategySpecFile = createBuildOptions.strategySpecFile;
       this.timeout = createBuildOptions.timeout;
@@ -97,15 +97,13 @@ public class CreateBuildOptions extends GenericModel {
      * @param name the name
      * @param outputImage the outputImage
      * @param outputSecret the outputSecret
-     * @param sourceUrl the sourceUrl
      * @param strategyType the strategyType
      */
-    public Builder(String projectId, String name, String outputImage, String outputSecret, String sourceUrl, String strategyType) {
+    public Builder(String projectId, String name, String outputImage, String outputSecret, String strategyType) {
       this.projectId = projectId;
       this.name = name;
       this.outputImage = outputImage;
       this.outputSecret = outputSecret;
-      this.sourceUrl = sourceUrl;
       this.strategyType = strategyType;
     }
 
@@ -159,17 +157,6 @@ public class CreateBuildOptions extends GenericModel {
      */
     public Builder outputSecret(String outputSecret) {
       this.outputSecret = outputSecret;
-      return this;
-    }
-
-    /**
-     * Set the sourceUrl.
-     *
-     * @param sourceUrl the sourceUrl
-     * @return the CreateBuildOptions builder
-     */
-    public Builder sourceUrl(String sourceUrl) {
-      this.sourceUrl = sourceUrl;
       return this;
     }
 
@@ -229,6 +216,17 @@ public class CreateBuildOptions extends GenericModel {
     }
 
     /**
+     * Set the sourceUrl.
+     *
+     * @param sourceUrl the sourceUrl
+     * @return the CreateBuildOptions builder
+     */
+    public Builder sourceUrl(String sourceUrl) {
+      this.sourceUrl = sourceUrl;
+      return this;
+    }
+
+    /**
      * Set the strategySize.
      *
      * @param strategySize the strategySize
@@ -273,20 +271,18 @@ public class CreateBuildOptions extends GenericModel {
       "outputImage cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.outputSecret,
       "outputSecret cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.sourceUrl,
-      "sourceUrl cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.strategyType,
       "strategyType cannot be null");
     projectId = builder.projectId;
     name = builder.name;
     outputImage = builder.outputImage;
     outputSecret = builder.outputSecret;
-    sourceUrl = builder.sourceUrl;
     strategyType = builder.strategyType;
     sourceContextDir = builder.sourceContextDir;
     sourceRevision = builder.sourceRevision;
     sourceSecret = builder.sourceSecret;
     sourceType = builder.sourceType;
+    sourceUrl = builder.sourceUrl;
     strategySize = builder.strategySize;
     strategySpecFile = builder.strategySpecFile;
     timeout = builder.timeout;
@@ -344,20 +340,6 @@ public class CreateBuildOptions extends GenericModel {
    */
   public String outputSecret() {
     return outputSecret;
-  }
-
-  /**
-   * Gets the sourceUrl.
-   *
-   * The URL of the code repository. This field is required if the `source_type` is `git`. If the `source_type` value is
-   * `local`, this field must be omitted. If the repository is publicly available you can provide a 'https' URL like
-   * `https://github.com/IBM/CodeEngine`. If the repository requires authentication, you need to provide a 'ssh' URL
-   * like `git@github.com:IBM/CodeEngine.git` along with a `source_secret` that points to a secret of format `ssh_auth`.
-   *
-   * @return the sourceUrl
-   */
-  public String sourceUrl() {
-    return sourceUrl;
   }
 
   /**
@@ -420,6 +402,20 @@ public class CreateBuildOptions extends GenericModel {
    */
   public String sourceType() {
     return sourceType;
+  }
+
+  /**
+   * Gets the sourceUrl.
+   *
+   * The URL of the code repository. This field is required if the `source_type` is `git`. If the `source_type` value is
+   * `local`, this field must be omitted. If the repository is publicly available you can provide a 'https' URL like
+   * `https://github.com/IBM/CodeEngine`. If the repository requires authentication, you need to provide a 'ssh' URL
+   * like `git@github.com:IBM/CodeEngine.git` along with a `source_secret` that points to a secret of format `ssh_auth`.
+   *
+   * @return the sourceUrl
+   */
+  public String sourceUrl() {
+    return sourceUrl;
   }
 
   /**
