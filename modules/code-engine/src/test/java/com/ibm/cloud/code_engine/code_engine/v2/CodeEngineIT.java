@@ -13,103 +13,7 @@
 
  package com.ibm.cloud.code_engine.code_engine.v2;
 
- import com.ibm.cloud.code_engine.code_engine.v2.model.App;
- import com.ibm.cloud.code_engine.code_engine.v2.model.AppList;
- import com.ibm.cloud.code_engine.code_engine.v2.model.AppPatch;
- import com.ibm.cloud.code_engine.code_engine.v2.model.AppRevision;
- import com.ibm.cloud.code_engine.code_engine.v2.model.AppRevisionList;
- import com.ibm.cloud.code_engine.code_engine.v2.model.AppRevisionStatus;
- import com.ibm.cloud.code_engine.code_engine.v2.model.AppRevisionsPager;
- import com.ibm.cloud.code_engine.code_engine.v2.model.AppStatus;
- import com.ibm.cloud.code_engine.code_engine.v2.model.AppsPager;
-import com.ibm.cloud.code_engine.code_engine.v2.model.Binding;
-import com.ibm.cloud.code_engine.code_engine.v2.model.Build;
- import com.ibm.cloud.code_engine.code_engine.v2.model.BuildList;
- import com.ibm.cloud.code_engine.code_engine.v2.model.BuildPatch;
- import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRun;
- import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRunList;
- import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRunStatus;
- import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRunsPager;
- import com.ibm.cloud.code_engine.code_engine.v2.model.BuildStatus;
- import com.ibm.cloud.code_engine.code_engine.v2.model.BuildsPager;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ComponentRef;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMap;
- import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMapList;
- import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMapsPager;
- import com.ibm.cloud.code_engine.code_engine.v2.model.CreateAppOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBindingOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildRunOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.CreateConfigMapOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.CreateJobOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.CreateJobRunOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.CreateProjectOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.CreateSecretOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAppOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAppRevisionOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBindingOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBuildOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBuildRunOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteConfigMapOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteJobOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteJobRunOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteProjectOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteSecretOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.EnvVar;
- import com.ibm.cloud.code_engine.code_engine.v2.model.EnvVarPrototype;
- import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppRevisionOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.GetBindingOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.GetBuildOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.GetBuildRunOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.GetConfigMapOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobRunOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectEgressIpsOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.GetSecretOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.Job;
- import com.ibm.cloud.code_engine.code_engine.v2.model.JobList;
- import com.ibm.cloud.code_engine.code_engine.v2.model.JobPatch;
- import com.ibm.cloud.code_engine.code_engine.v2.model.JobRun;
- import com.ibm.cloud.code_engine.code_engine.v2.model.JobRunList;
- import com.ibm.cloud.code_engine.code_engine.v2.model.JobRunStatus;
- import com.ibm.cloud.code_engine.code_engine.v2.model.JobRunsPager;
- import com.ibm.cloud.code_engine.code_engine.v2.model.JobsPager;
- import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppRevisionsOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppsOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.ListBuildRunsOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.ListBuildsOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.ListConfigMapsOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.ListFirstMetadata;
- import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobRunsOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobsOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.ListNextMetadata;
- import com.ibm.cloud.code_engine.code_engine.v2.model.ListProjectsOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.ListSecretsOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.Project;
- import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectEgressIPAddresses;
- import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectList;
- import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectsPager;
- import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceConfigMapOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceSecretOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ResourceKeyRefPrototype;
-import com.ibm.cloud.code_engine.code_engine.v2.model.Secret;
- import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataGenericSecretData;
- import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataSSHSecretData;
- import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataTLSSecretData;
- import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataBasicAuthSecretData;
- import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataRegistrySecretData;
- import com.ibm.cloud.code_engine.code_engine.v2.model.SecretList;
- import com.ibm.cloud.code_engine.code_engine.v2.model.SecretsPager;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceAccessSecretProps;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceAccessSecretPrototypeProps;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceInstanceRefPrototype;
-import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateAppOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateBuildOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateJobOptions;
- import com.ibm.cloud.code_engine.code_engine.v2.model.VolumeMount;
- import com.ibm.cloud.code_engine.code_engine.v2.model.VolumeMountPrototype;
+ import com.ibm.cloud.code_engine.code_engine.v2.model.*;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceInstanceRefPrototype.Builder;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
  import com.ibm.cloud.code_engine.test.SdkIntegrationTestBase;
@@ -1966,6 +1870,29 @@ import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
    }
  
    @Test(dependsOnMethods = { "testGetBinding" })
+   public void testListBindings() throws Exception {
+     try {
+      ListBindingsOptions listBindingsOptions = new ListBindingsOptions.Builder()
+            .projectId(e2eTestProjectId)
+            .build();
+
+ 
+       // Invoke operation
+       Response<BindingList> response = service.listBindings(listBindingsOptions).execute();
+       // Validate response
+       assertNotNull(response);
+       assertEquals(response.getStatusCode(), 200);
+ 
+       BindingList bindingListResult = response.getResult();
+ 
+       assertNotNull(bindingListResult);
+     } catch (ServiceResponseException e) {
+       fail(String.format("Service returned status code %d: %s%nError details: %s",
+           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+     }
+   }
+ 
+   @Test(dependsOnMethods = { "testListBindings" })
    public void testDeleteBinding() throws Exception {
      try {
      
@@ -1986,39 +1913,6 @@ import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
    }
  
    @Test(dependsOnMethods = { "testDeleteBinding" })
-   public void testListAppRevisionsAfterBinding() throws Exception {
-       try {
-       ListAppRevisionsOptions options = new ListAppRevisionsOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .appName("my-app")
-           .limit(Long.valueOf("100"))
-           .build();
- 
-       // Test getNext().
-       List<AppRevision> allResults = new ArrayList<>();
-       AppRevisionsPager pager = new AppRevisionsPager(service, options);
-       while (pager.hasNext()) {
-         List<AppRevision> nextPage = pager.getNext();
-         assertNotNull(nextPage);
-         allResults.addAll(nextPage);
-       }
-       assertFalse(allResults.isEmpty());
- 
-       // Test getAll();
-       pager = new AppRevisionsPager(service, options);
-       List<AppRevision> allItems = pager.getAll();
-       assertNotNull(allItems);
-       assertFalse(allItems.isEmpty());
- 
-       assertEquals(allItems.size(), allResults.size());
-       System.out.println(String.format("Retrieved a total of %d item(s) with pagination.", allResults.size()));
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testListAppRevisionsAfterBinding" })
    public void testDeleteAppRevision() throws Exception {
      try {
        DeleteAppRevisionOptions deleteAppRevisionOptions = new DeleteAppRevisionOptions.Builder()
