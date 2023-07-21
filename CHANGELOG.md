@@ -1,3 +1,15 @@
+# [4.0.0](https://github.ibm.com/coligo/java-sdk/compare/3.1.1...4.0.0) (2023-07-21)
+
+
+### Features
+
+* **v2:** Added additional int test, commit msg for semantic release ([#24](https://github.ibm.com/coligo/java-sdk/issues/24)) ([d01d802](https://github.ibm.com/coligo/java-sdk/commit/d01d802a620b7167662c4f867f34f4da4d18d1ee))
+
+
+### BREAKING CHANGES
+
+* **v2:** Removed SoureURL from required fields for build create operations
+
 ## [3.1.1](https://github.ibm.com/coligo/java-sdk/compare/3.1.0...3.1.1) (2023-07-14)
 
 
