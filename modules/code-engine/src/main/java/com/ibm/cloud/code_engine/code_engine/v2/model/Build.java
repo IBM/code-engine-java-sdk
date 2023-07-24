@@ -91,7 +91,7 @@ public class Build extends GenericModel {
   /**
    * Gets the createdAt.
    *
-   * The date when the resource was created.
+   * The timestamp when the resource was created.
    *
    * @return the createdAt
    */

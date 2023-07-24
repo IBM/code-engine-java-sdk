@@ -96,6 +96,8 @@ public class AppRevision extends GenericModel {
   protected Long scaleConcurrencyTarget;
   @SerializedName("scale_cpu_limit")
   protected String scaleCpuLimit;
+  @SerializedName("scale_down_delay")
+  protected Long scaleDownDelay;
   @SerializedName("scale_ephemeral_storage_limit")
   protected String scaleEphemeralStorageLimit;
   @SerializedName("scale_initial_instances")
@@ -128,7 +130,7 @@ public class AppRevision extends GenericModel {
   /**
    * Gets the createdAt.
    *
-   * The date when the resource was created.
+   * The timestamp when the resource was created.
    *
    * @return the createdAt
    */
@@ -173,7 +175,7 @@ public class AppRevision extends GenericModel {
   /**
    * Gets the imageReference.
    *
-   * The name of the image that is used for this job. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where `REGISTRY`
+   * The name of the image that is used for this app. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where `REGISTRY`
    * and `TAG` are optional. If `REGISTRY` is not specified, the default is `docker.io`. If `TAG` is not specified, the
    * default is `latest`. If the image reference points to a registry that requires authentication, make sure to also
    * specify the property `image_secret`.
@@ -268,7 +270,7 @@ public class AppRevision extends GenericModel {
   /**
    * Gets the runEnvVariables.
    *
-   * References to config maps, secrets or a literal values, which are exposed as environment variables in the
+   * References to config maps, secrets or literal values, which are exposed as environment variables in the
    * application.
    *
    * @return the runEnvVariables
@@ -334,6 +336,17 @@ public class AppRevision extends GenericModel {
    */
   public String getScaleCpuLimit() {
     return scaleCpuLimit;
+  }
+
+  /**
+   * Gets the scaleDownDelay.
+   *
+   * Optional amount of time in seconds that delays the scale down behavior for an app instance.
+   *
+   * @return the scaleDownDelay
+   */
+  public Long getScaleDownDelay() {
+    return scaleDownDelay;
   }
 
   /**
