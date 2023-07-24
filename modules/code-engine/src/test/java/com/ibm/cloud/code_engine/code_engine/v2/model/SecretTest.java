@@ -13,7 +13,12 @@
 
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
+import com.ibm.cloud.code_engine.code_engine.v2.model.ResourceKeyRef;
+import com.ibm.cloud.code_engine.code_engine.v2.model.RoleRef;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Secret;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceAccessSecretProps;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceIDRef;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceInstanceRef;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -36,5 +41,6 @@ public class SecretTest {
     assertNull(secretModel.getEntityTag());
     assertNull(secretModel.getFormat());
     assertNull(secretModel.getName());
+    assertNull(secretModel.getServiceAccess());
   }
 }

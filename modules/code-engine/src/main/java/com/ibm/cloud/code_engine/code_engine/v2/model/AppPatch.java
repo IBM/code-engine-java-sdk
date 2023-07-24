@@ -82,6 +82,8 @@ public class AppPatch extends GenericModel {
   protected Long scaleConcurrencyTarget;
   @SerializedName("scale_cpu_limit")
   protected String scaleCpuLimit;
+  @SerializedName("scale_down_delay")
+  protected Long scaleDownDelay;
   @SerializedName("scale_ephemeral_storage_limit")
   protected String scaleEphemeralStorageLimit;
   @SerializedName("scale_initial_instances")
@@ -112,6 +114,7 @@ public class AppPatch extends GenericModel {
     private Long scaleConcurrency;
     private Long scaleConcurrencyTarget;
     private String scaleCpuLimit;
+    private Long scaleDownDelay;
     private String scaleEphemeralStorageLimit;
     private Long scaleInitialInstances;
     private Long scaleMaxInstances;
@@ -138,6 +141,7 @@ public class AppPatch extends GenericModel {
       this.scaleConcurrency = appPatch.scaleConcurrency;
       this.scaleConcurrencyTarget = appPatch.scaleConcurrencyTarget;
       this.scaleCpuLimit = appPatch.scaleCpuLimit;
+      this.scaleDownDelay = appPatch.scaleDownDelay;
       this.scaleEphemeralStorageLimit = appPatch.scaleEphemeralStorageLimit;
       this.scaleInitialInstances = appPatch.scaleInitialInstances;
       this.scaleMaxInstances = appPatch.scaleMaxInstances;
@@ -373,6 +377,17 @@ public class AppPatch extends GenericModel {
     }
 
     /**
+     * Set the scaleDownDelay.
+     *
+     * @param scaleDownDelay the scaleDownDelay
+     * @return the AppPatch builder
+     */
+    public Builder scaleDownDelay(long scaleDownDelay) {
+      this.scaleDownDelay = scaleDownDelay;
+      return this;
+    }
+
+    /**
      * Set the scaleEphemeralStorageLimit.
      *
      * @param scaleEphemeralStorageLimit the scaleEphemeralStorageLimit
@@ -455,6 +470,7 @@ public class AppPatch extends GenericModel {
     scaleConcurrency = builder.scaleConcurrency;
     scaleConcurrencyTarget = builder.scaleConcurrencyTarget;
     scaleCpuLimit = builder.scaleCpuLimit;
+    scaleDownDelay = builder.scaleDownDelay;
     scaleEphemeralStorageLimit = builder.scaleEphemeralStorageLimit;
     scaleInitialInstances = builder.scaleInitialInstances;
     scaleMaxInstances = builder.scaleMaxInstances;
@@ -487,7 +503,7 @@ public class AppPatch extends GenericModel {
   /**
    * Gets the imageReference.
    *
-   * The name of the image that is used for this job. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where `REGISTRY`
+   * The name of the image that is used for this app. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where `REGISTRY`
    * and `TAG` are optional. If `REGISTRY` is not specified, the default is `docker.io`. If `TAG` is not specified, the
    * default is `latest`. If the image reference points to a registry that requires authentication, make sure to also
    * specify the property `image_secret`.
@@ -562,7 +578,7 @@ public class AppPatch extends GenericModel {
   /**
    * Gets the runEnvVariables.
    *
-   * Optional references to config maps, secrets or a literal values.
+   * Optional references to config maps, secrets or literal values.
    *
    * @return the runEnvVariables
    */
@@ -628,6 +644,17 @@ public class AppPatch extends GenericModel {
    */
   public String scaleCpuLimit() {
     return scaleCpuLimit;
+  }
+
+  /**
+   * Gets the scaleDownDelay.
+   *
+   * Optional amount of time in seconds that delays the scale down behavior for an app instance.
+   *
+   * @return the scaleDownDelay
+   */
+  public Long scaleDownDelay() {
+    return scaleDownDelay;
   }
 
   /**

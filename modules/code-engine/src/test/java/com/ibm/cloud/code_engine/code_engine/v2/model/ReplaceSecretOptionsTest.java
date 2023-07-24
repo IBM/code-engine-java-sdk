@@ -45,14 +45,14 @@ public class ReplaceSecretOptionsTest {
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
       .name("my-secret")
       .ifMatch("testString")
-      .data(secretDataModel)
       .format("generic")
+      .data(secretDataModel)
       .build();
     assertEquals(replaceSecretOptionsModel.projectId(), "15314cc3-85b4-4338-903f-c28cdee6d005");
     assertEquals(replaceSecretOptionsModel.name(), "my-secret");
     assertEquals(replaceSecretOptionsModel.ifMatch(), "testString");
-    assertEquals(replaceSecretOptionsModel.data(), secretDataModel);
     assertEquals(replaceSecretOptionsModel.format(), "generic");
+    assertEquals(replaceSecretOptionsModel.data(), secretDataModel);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

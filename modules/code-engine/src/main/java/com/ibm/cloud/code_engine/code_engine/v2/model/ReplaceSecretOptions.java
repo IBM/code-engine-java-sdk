@@ -20,7 +20,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class ReplaceSecretOptions extends GenericModel {
 
   /**
-   * Specify the format of the secret.
+   * Specify the format of the secret. The format of the secret will determine how the secret is used.
    */
   public interface Format {
     /** generic. */
@@ -42,8 +42,8 @@ public class ReplaceSecretOptions extends GenericModel {
   protected String projectId;
   protected String name;
   protected String ifMatch;
-  protected SecretData data;
   protected String format;
+  protected SecretData data;
 
   /**
    * Builder.
@@ -52,8 +52,8 @@ public class ReplaceSecretOptions extends GenericModel {
     private String projectId;
     private String name;
     private String ifMatch;
-    private SecretData data;
     private String format;
+    private SecretData data;
 
     /**
      * Instantiates a new Builder from an existing ReplaceSecretOptions instance.
@@ -64,8 +64,8 @@ public class ReplaceSecretOptions extends GenericModel {
       this.projectId = replaceSecretOptions.projectId;
       this.name = replaceSecretOptions.name;
       this.ifMatch = replaceSecretOptions.ifMatch;
-      this.data = replaceSecretOptions.data;
       this.format = replaceSecretOptions.format;
+      this.data = replaceSecretOptions.data;
     }
 
     /**
@@ -80,11 +80,13 @@ public class ReplaceSecretOptions extends GenericModel {
      * @param projectId the projectId
      * @param name the name
      * @param ifMatch the ifMatch
+     * @param format the format
      */
-    public Builder(String projectId, String name, String ifMatch) {
+    public Builder(String projectId, String name, String ifMatch, String format) {
       this.projectId = projectId;
       this.name = name;
       this.ifMatch = ifMatch;
+      this.format = format;
     }
 
     /**
@@ -130,17 +132,6 @@ public class ReplaceSecretOptions extends GenericModel {
     }
 
     /**
-     * Set the data.
-     *
-     * @param data the data
-     * @return the ReplaceSecretOptions builder
-     */
-    public Builder data(SecretData data) {
-      this.data = data;
-      return this;
-    }
-
-    /**
      * Set the format.
      *
      * @param format the format
@@ -148,6 +139,17 @@ public class ReplaceSecretOptions extends GenericModel {
      */
     public Builder format(String format) {
       this.format = format;
+      return this;
+    }
+
+    /**
+     * Set the data.
+     *
+     * @param data the data
+     * @return the ReplaceSecretOptions builder
+     */
+    public Builder data(SecretData data) {
+      this.data = data;
       return this;
     }
   }
@@ -161,11 +163,13 @@ public class ReplaceSecretOptions extends GenericModel {
       "name cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.ifMatch,
       "ifMatch cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.format,
+      "format cannot be null");
     projectId = builder.projectId;
     name = builder.name;
     ifMatch = builder.ifMatch;
-    data = builder.data;
     format = builder.format;
+    data = builder.data;
   }
 
   /**
@@ -213,6 +217,17 @@ public class ReplaceSecretOptions extends GenericModel {
   }
 
   /**
+   * Gets the format.
+   *
+   * Specify the format of the secret. The format of the secret will determine how the secret is used.
+   *
+   * @return the format
+   */
+  public String format() {
+    return format;
+  }
+
+  /**
    * Gets the data.
    *
    * Data container that allows to specify config parameters and their values as a key-value map. Each key field must
@@ -223,17 +238,6 @@ public class ReplaceSecretOptions extends GenericModel {
    */
   public SecretData data() {
     return data;
-  }
-
-  /**
-   * Gets the format.
-   *
-   * Specify the format of the secret.
-   *
-   * @return the format
-   */
-  public String format() {
-    return format;
   }
 }
 

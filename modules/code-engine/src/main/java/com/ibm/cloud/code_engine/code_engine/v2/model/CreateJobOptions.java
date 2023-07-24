@@ -502,7 +502,7 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the runAsUser.
    *
-   * The user ID (UID) to run the application (e.g., 1001).
+   * The user ID (UID) to run the job (e.g., 1001).
    *
    * @return the runAsUser
    */
@@ -525,7 +525,7 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the runEnvVariables.
    *
-   * Optional references to config maps, secrets or a literal values.
+   * Optional references to config maps, secrets or literal values.
    *
    * @return the runEnvVariables
    */

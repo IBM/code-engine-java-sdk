@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.66.0-d6c2d7e0-20230215-221247
+ * IBM OpenAPI SDK Code Generator Version: 3.72.2-2bede9d2-20230601-202845
  */
 
 package com.ibm.cloud.code_engine.code_engine.v2;
@@ -22,6 +22,8 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.App;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppRevision;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppRevisionList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.Binding;
+import com.ibm.cloud.code_engine.code_engine.v2.model.BindingList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Build;
 import com.ibm.cloud.code_engine.code_engine.v2.model.BuildList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRun;
@@ -29,6 +31,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRunList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMap;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMapList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateAppOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBindingOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateConfigMapOptions;
@@ -38,6 +41,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.CreateProjectOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateSecretOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAppOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAppRevisionOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBindingOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBuildOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBuildRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteConfigMapOptions;
@@ -47,6 +51,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteProjectOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteSecretOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppRevisionOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetBindingOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetBuildOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetBuildRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetConfigMapOptions;
@@ -54,6 +59,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectEgressIpsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectStatusDetailsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetSecretOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Job;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobList;
@@ -61,6 +67,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.JobRun;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobRunList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppRevisionsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppsOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListBindingsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListBuildRunsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListBuildsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListConfigMapsOptions;
@@ -71,6 +78,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.ListSecretsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Project;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectEgressIPAddresses;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectStatusDetails;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceConfigMapOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceSecretOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Secret;
@@ -264,7 +272,9 @@ public class CodeEngine extends BaseService {
   /**
    * List egress IP addresses.
    *
-   * Lists all egress IP addresses (public and private) that are used by components running in this project.
+   * Lists all egress IP addresses (public and private) that are used by components running in this project. For
+   * information about using egress IP addresses, see [Code Engine public and private IP
+   * addresses](https://cloud.ibm.com/docs/codeengine?topic=codeengine-network-addresses).
    *
    * @param getProjectEgressIpsOptions the {@link GetProjectEgressIpsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link ProjectEgressIPAddresses}
@@ -282,6 +292,30 @@ public class CodeEngine extends BaseService {
     builder.header("Accept", "application/json");
     ResponseConverter<ProjectEgressIPAddresses> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ProjectEgressIPAddresses>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get the status details for a project.
+   *
+   * Retrieves status details about the given project.
+   *
+   * @param getProjectStatusDetailsOptions the {@link GetProjectStatusDetailsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link ProjectStatusDetails}
+   */
+  public ServiceCall<ProjectStatusDetails> getProjectStatusDetails(GetProjectStatusDetailsOptions getProjectStatusDetailsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getProjectStatusDetailsOptions,
+      "getProjectStatusDetailsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", getProjectStatusDetailsOptions.projectId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/status_details", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "getProjectStatusDetails");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<ProjectStatusDetails> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ProjectStatusDetails>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -372,6 +406,9 @@ public class CodeEngine extends BaseService {
     }
     if (createAppOptions.scaleCpuLimit() != null) {
       contentJson.addProperty("scale_cpu_limit", createAppOptions.scaleCpuLimit());
+    }
+    if (createAppOptions.scaleDownDelay() != null) {
+      contentJson.addProperty("scale_down_delay", createAppOptions.scaleDownDelay());
     }
     if (createAppOptions.scaleEphemeralStorageLimit() != null) {
       contentJson.addProperty("scale_ephemeral_storage_limit", createAppOptions.scaleEphemeralStorageLimit());
@@ -889,6 +926,115 @@ public class CodeEngine extends BaseService {
   }
 
   /**
+   * List bindings.
+   *
+   * List all bindings in a project.
+   *
+   * @param listBindingsOptions the {@link ListBindingsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link BindingList}
+   */
+  public ServiceCall<BindingList> listBindings(ListBindingsOptions listBindingsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listBindingsOptions,
+      "listBindingsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", listBindingsOptions.projectId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/bindings", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "listBindings");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (listBindingsOptions.limit() != null) {
+      builder.query("limit", String.valueOf(listBindingsOptions.limit()));
+    }
+    if (listBindingsOptions.start() != null) {
+      builder.query("start", String.valueOf(listBindingsOptions.start()));
+    }
+    ResponseConverter<BindingList> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<BindingList>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create a binding.
+   *
+   * Create a binding. Creating a service binding with a Code Engine app will update the app, creating a new revision.
+   * For more information see the
+   * [documentaion](https://cloud.ibm.com/docs/codeengine?topic=codeengine-service-binding).
+   *
+   * @param createBindingOptions the {@link CreateBindingOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Binding}
+   */
+  public ServiceCall<Binding> createBinding(CreateBindingOptions createBindingOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createBindingOptions,
+      "createBindingOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", createBindingOptions.projectId());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/bindings", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "createBinding");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.add("component", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createBindingOptions.component()));
+    contentJson.addProperty("prefix", createBindingOptions.prefix());
+    contentJson.addProperty("secret_name", createBindingOptions.secretName());
+    builder.bodyJson(contentJson);
+    ResponseConverter<Binding> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Binding>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get a binding.
+   *
+   * Display the details of a binding.
+   *
+   * @param getBindingOptions the {@link GetBindingOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Binding}
+   */
+  public ServiceCall<Binding> getBinding(GetBindingOptions getBindingOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getBindingOptions,
+      "getBindingOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", getBindingOptions.projectId());
+    pathParamsMap.put("id", getBindingOptions.id());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/bindings/{id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "getBinding");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<Binding> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Binding>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a binding.
+   *
+   * Delete a binding.
+   *
+   * @param deleteBindingOptions the {@link DeleteBindingOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteBinding(DeleteBindingOptions deleteBindingOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteBindingOptions,
+      "deleteBindingOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", deleteBindingOptions.projectId());
+    pathParamsMap.put("id", deleteBindingOptions.id());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/bindings/{id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteBinding");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * List builds.
    *
    * List all builds in a project.
@@ -941,7 +1087,6 @@ public class CodeEngine extends BaseService {
     contentJson.addProperty("name", createBuildOptions.name());
     contentJson.addProperty("output_image", createBuildOptions.outputImage());
     contentJson.addProperty("output_secret", createBuildOptions.outputSecret());
-    contentJson.addProperty("source_url", createBuildOptions.sourceUrl());
     contentJson.addProperty("strategy_type", createBuildOptions.strategyType());
     if (createBuildOptions.sourceContextDir() != null) {
       contentJson.addProperty("source_context_dir", createBuildOptions.sourceContextDir());
@@ -954,6 +1099,9 @@ public class CodeEngine extends BaseService {
     }
     if (createBuildOptions.sourceType() != null) {
       contentJson.addProperty("source_type", createBuildOptions.sourceType());
+    }
+    if (createBuildOptions.sourceUrl() != null) {
+      contentJson.addProperty("source_url", createBuildOptions.sourceUrl());
     }
     if (createBuildOptions.strategySize() != null) {
       contentJson.addProperty("strategy_size", createBuildOptions.strategySize());
@@ -1388,6 +1536,9 @@ public class CodeEngine extends BaseService {
     if (createSecretOptions.data() != null) {
       contentJson.add("data", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createSecretOptions.data()));
     }
+    if (createSecretOptions.serviceAccess() != null) {
+      contentJson.add("service_access", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createSecretOptions.serviceAccess()));
+    }
     builder.bodyJson(contentJson);
     ResponseConverter<Secret> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Secret>() { }.getType());
@@ -1441,11 +1592,9 @@ public class CodeEngine extends BaseService {
     builder.header("Accept", "application/json");
     builder.header("If-Match", replaceSecretOptions.ifMatch());
     final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("format", replaceSecretOptions.format());
     if (replaceSecretOptions.data() != null) {
       contentJson.add("data", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(replaceSecretOptions.data()));
-    }
-    if (replaceSecretOptions.format() != null) {
-      contentJson.addProperty("format", replaceSecretOptions.format());
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Secret> responseConverter =
