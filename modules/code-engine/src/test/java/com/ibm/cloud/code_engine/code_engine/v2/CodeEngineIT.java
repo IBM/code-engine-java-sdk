@@ -11,202 +11,325 @@
  * specific language governing permissions and limitations under the License.
  */
 
- package com.ibm.cloud.code_engine.code_engine.v2;
+package com.ibm.cloud.code_engine.code_engine.v2;
 
- import com.ibm.cloud.code_engine.code_engine.v2.model.*;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceInstanceRefPrototype.Builder;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.fail;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+import com.ibm.cloud.code_engine.code_engine.v2.model.App;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AppList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AppPatch;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AppRevision;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AppRevisionList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AppRevisionsPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AppsPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.Binding;
+import com.ibm.cloud.code_engine.code_engine.v2.model.BindingList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.Build;
+import com.ibm.cloud.code_engine.code_engine.v2.model.BuildList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.BuildPatch;
+import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRun;
+import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRunList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRunsPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.BuildsPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ComponentRef;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMap;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMapList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMapsPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.CreateAppOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBindingOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildRunOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.CreateConfigMapOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.CreateJobOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.CreateJobRunOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.CreateProjectOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.CreateSecretOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAppOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAppRevisionOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBindingOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBuildOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBuildRunOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteConfigMapOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteJobOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteJobRunOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteProjectOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteSecretOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.EnvVarPrototype;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppRevisionOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetBindingOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetBuildOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetBuildRunOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetConfigMapOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobRunOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectEgressIpsOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetSecretOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.Job;
+import com.ibm.cloud.code_engine.code_engine.v2.model.JobList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.JobPatch;
+import com.ibm.cloud.code_engine.code_engine.v2.model.JobRun;
+import com.ibm.cloud.code_engine.code_engine.v2.model.JobRunList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.JobRunsPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.JobsPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppRevisionsOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppsOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListBindingsOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListBuildRunsOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListBuildsOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListConfigMapsOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobRunsOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobsOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListProjectsOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListSecretsOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.Project;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectEgressIPAddresses;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectsPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceConfigMapOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceSecretOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ResourceKeyRefPrototype;
+import com.ibm.cloud.code_engine.code_engine.v2.model.Secret;
+import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataBasicAuthSecretData;
+import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataGenericSecretData;
+import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataRegistrySecretData;
+import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataSSHSecretData;
+import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataTLSSecretData;
+import com.ibm.cloud.code_engine.code_engine.v2.model.SecretList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.SecretsPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceAccessSecretPrototypeProps;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceInstanceRefPrototype;
+import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateAppOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateBuildOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateJobOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.VolumeMountPrototype;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
- import com.ibm.cloud.code_engine.test.SdkIntegrationTestBase;
- import com.ibm.cloud.sdk.core.http.Response;
-import com.ibm.cloud.sdk.core.http.ServiceCall;
+import com.ibm.cloud.code_engine.test.SdkIntegrationTestBase;
+import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
- import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
- import com.ibm.cloud.sdk.core.util.CredentialUtils;
- import java.io.InputStream;
- import java.util.ArrayList;
- import java.util.HashMap;
- import java.util.List;
- import java.util.Map;
- import org.testng.annotations.AfterClass;
- import org.testng.annotations.BeforeClass;
- import org.testng.annotations.Test;
- import static org.testng.Assert.*;
- 
- /**
-  * Integration test class for the CodeEngine service.
-  */
- public class CodeEngineIT extends SdkIntegrationTestBase {
-   public CodeEngine service = null;
-   public static Map<String, String> config = null;
-   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
-   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
- 
-   protected String e2eTestProjectId;
- 
-   /**
-    * This method provides our config filename to the base class.
-    */
- 
-   public String getConfigFilename() {
-     return "../../code_engine_v2.env";
-   }
- 
-   @BeforeClass
-   public void constructService() {
-     // Ask super if we should skip the tests.
-     if (skipTests()) {
-       return;
-     }
- 
-     service = CodeEngine.newInstance();
-     assertNotNull(service);
-     assertNotNull(service.getServiceUrl());
- 
-     // Load up our test-specific config properties.
-     config = CredentialUtils.getServiceProperties(CodeEngine.DEFAULT_SERVICE_NAME);
-     assertNotNull(config);
-     assertFalse(config.isEmpty());
-     assertEquals(service.getServiceUrl(), config.get("URL"));
- 
-     service.enableRetries(4, 30);
- 
-     System.out.println("Setup complete.");
-   }
- 
-   @Test
-   public void testListProjects() throws Exception {
-     try {
-       ListProjectsOptions listProjectsOptions = new ListProjectsOptions.Builder()
-           .limit(Long.valueOf("100"))
-           .build();
- 
-       // Invoke operation
-       Response<ProjectList> response = service.listProjects(listProjectsOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       ProjectList projectListResult = response.getResult();
- 
-       assertNotNull(projectListResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testListProjects" })
-   public void testListProjectsWithPager() throws Exception {
-     try {
-       ListProjectsOptions options = new ListProjectsOptions.Builder()
-           .limit(Long.valueOf("100"))
-           .build();
- 
-       // Test getNext().
-       List<Project> allResults = new ArrayList<>();
-       ProjectsPager pager = new ProjectsPager(service, options);
-       while (pager.hasNext()) {
-         List<Project> nextPage = pager.getNext();
-         assertNotNull(nextPage);
-         allResults.addAll(nextPage);
-       }
-       assertFalse(allResults.isEmpty());
- 
-       // Test getAll();
-       pager = new ProjectsPager(service, options);
-       List<Project> allItems = pager.getAll();
-       assertNotNull(allItems);
-       assertFalse(allItems.isEmpty());
- 
-       assertEquals(allItems.size(), allResults.size());
-       System.out.println(String.format("Retrieved a total of %d item(s) with pagination.", allResults.size()));
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testListProjects" })
-   public void testCreateProject() throws Exception {
-     try {
-       CreateProjectOptions createProjectOptions = new CreateProjectOptions.Builder()
-           .name("sdk-e2e-java-" + System.currentTimeMillis())
-           .tags(java.util.Arrays.asList("testString"))
-           .build();
- 
-       // Invoke operation
-       Response<Project> response = service.createProject(createProjectOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 202);
- 
-       Project projectResult = response.getResult();
-       assertNotNull(projectResult);
-       e2eTestProjectId = projectResult.getId();
- 
-       GetProjectOptions getProjectOptions = new GetProjectOptions.Builder()
-           .id(e2eTestProjectId)
-           .build();
- 
-       //
-       // Assume that the project creation takes some time
-       Project project = null;
-       for (int i = 0; i < 20; i++) {
-         Thread.sleep(10000, 0);
-         try {
-             Response<Project> getResponse = service.getProject(getProjectOptions).execute();
-             project = getResponse.getResult();
-             System.out.println(
-                     String.format("Obtained status of project '%s' (guid: '%s'): %s.", project.getName(), project.getId(),
-                             project.getStatus()));
-             if ("active".equals(project.getStatus())) {
-                 break;
-             }
-         } catch(ServiceResponseException e) {
-             if (e.getStatusCode() == 403){
-                 // This is expected and acceptable
-                 // The API returns a 403 in case the project is not ready yet
-             } else {
-                 throw e;
-             }
-         }
-       }
-       assertNotNull(project);
-       assertEquals(project.getStatus(), "active");
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testCreateProject" })
-   public void testGetProject() throws Exception {
-     try {
-       GetProjectOptions getProjectOptions = new GetProjectOptions.Builder()
-           .id(e2eTestProjectId)
-           .build();
- 
-       // Invoke operation
-       Response<Project> response = service.getProject(getProjectOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       Project projectResult = response.getResult();
- 
-       assertNotNull(projectResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
+import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
+import com.ibm.cloud.sdk.core.util.CredentialUtils;
+
+/**
+ * Integration test class for the CodeEngine service.
+ */
+public class CodeEngineIT extends SdkIntegrationTestBase {
+  public CodeEngine service = null;
+  public static Map<String, String> config = null;
+  final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
+  final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
+
+  protected String e2eTestProjectId;
+
+  /**
+   * This method provides our config filename to the base class.
+   */
+
+  public String getConfigFilename() {
+    return "../../code_engine_v2.env";
+  }
+
+  // helper function to read file content
+  public String readFromFile(String fileName) throws IOException {
+    ClassLoader classLoader = getClass().getClassLoader();
+    InputStream inputStream = null;
+    BufferedReader bufReader = null;
+    InputStreamReader isReader = null;
+    try {
+      inputStream = classLoader.getResourceAsStream(fileName);
+      isReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+      bufReader = new BufferedReader(isReader);
+      return bufReader
+          .lines()
+          .collect(Collectors.joining("\n"));
+    } finally {
+      if (isReader != null) {
+        isReader.close();
+      }
+      if (bufReader != null) {
+        bufReader.close();
+      }
+      if (inputStream != null) {
+        inputStream.close();
+      }
+    }
+  }
+
+  @BeforeClass
+  public void constructService() {
+    // Ask super if we should skip the tests.
+    if (skipTests()) {
+      return;
+    }
+
+    service = CodeEngine.newInstance();
+    assertNotNull(service);
+    assertNotNull(service.getServiceUrl());
+
+    // Load up our test-specific config properties.
+    config = CredentialUtils.getServiceProperties(CodeEngine.DEFAULT_SERVICE_NAME);
+    assertNotNull(config);
+    assertFalse(config.isEmpty());
+    assertEquals(service.getServiceUrl(), config.get("URL"));
+
+    service.enableRetries(4, 30);
+
+    System.out.println("Setup complete.");
+  }
+
+  @Test
+  public void testListProjects() throws Exception {
+    try {
+      ListProjectsOptions listProjectsOptions = new ListProjectsOptions.Builder()
+          .limit(Long.valueOf("100"))
+          .build();
+
+      // Invoke operation
+      Response<ProjectList> response = service.listProjects(listProjectsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      ProjectList projectListResult = response.getResult();
+
+      assertNotNull(projectListResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testListProjects" })
+  public void testListProjectsWithPager() throws Exception {
+    try {
+      ListProjectsOptions options = new ListProjectsOptions.Builder()
+          .limit(Long.valueOf("100"))
+          .build();
+
+      // Test getNext().
+      List<Project> allResults = new ArrayList<>();
+      ProjectsPager pager = new ProjectsPager(service, options);
+      while (pager.hasNext()) {
+        List<Project> nextPage = pager.getNext();
+        assertNotNull(nextPage);
+        allResults.addAll(nextPage);
+      }
+      assertFalse(allResults.isEmpty());
+
+      // Test getAll();
+      pager = new ProjectsPager(service, options);
+      List<Project> allItems = pager.getAll();
+      assertNotNull(allItems);
+      assertFalse(allItems.isEmpty());
+
+      assertEquals(allItems.size(), allResults.size());
+      System.out.println(String.format("Retrieved a total of %d item(s) with pagination.", allResults.size()));
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testListProjects" })
+  public void testCreateProject() throws Exception {
+    try {
+      CreateProjectOptions createProjectOptions = new CreateProjectOptions.Builder()
+          .name("sdk-e2e-java-" + System.currentTimeMillis())
+          .tags(java.util.Arrays.asList("testString"))
+          .build();
+
+      // Invoke operation
+      Response<Project> response = service.createProject(createProjectOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 202);
+
+      Project projectResult = response.getResult();
+      assertNotNull(projectResult);
+      e2eTestProjectId = projectResult.getId();
+
+      GetProjectOptions getProjectOptions = new GetProjectOptions.Builder()
+          .id(e2eTestProjectId)
+          .build();
+
+      //
+      // Assume that the project creation takes some time
+      Project project = null;
+      for (int i = 0; i < 20; i++) {
+        Thread.sleep(10000, 0);
+        try {
+          Response<Project> getResponse = service.getProject(getProjectOptions).execute();
+          project = getResponse.getResult();
+          System.out.println(
+              String.format("Obtained status of project '%s' (guid: '%s'): %s.", project.getName(), project.getId(),
+                  project.getStatus()));
+          if ("active".equals(project.getStatus())) {
+            break;
+          }
+        } catch (ServiceResponseException e) {
+          if (e.getStatusCode() == 403) {
+            // This is expected and acceptable
+            // The API returns a 403 in case the project is not ready yet
+          } else {
+            throw e;
+          }
+        }
+      }
+      assertNotNull(project);
+      assertEquals(project.getStatus(), "active");
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testCreateProject" })
+  public void testGetProject() throws Exception {
+    try {
+      GetProjectOptions getProjectOptions = new GetProjectOptions.Builder()
+          .id(e2eTestProjectId)
+          .build();
+
+      // Invoke operation
+      Response<Project> response = service.getProject(getProjectOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      Project projectResult = response.getResult();
+
+      assertNotNull(projectResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
 
   @Test(dependsOnMethods = { "testGetProject" })
   public void testGetProjectEgressIps() throws Exception {
     try {
       GetProjectEgressIpsOptions getProjectEgressIpsOptions = new GetProjectEgressIpsOptions.Builder()
-        .projectId(e2eTestProjectId)
-        .build();
+          .projectId(e2eTestProjectId)
+          .build();
 
       // Invoke operation
       Response<ProjectEgressIPAddresses> response = service.getProjectEgressIps(getProjectEgressIpsOptions).execute();
@@ -218,1608 +341,1523 @@ import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
 
       assertNotNull(projectEgressIpAddressesResult);
     } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
- 
-   @Test(dependsOnMethods = { "testGetProjectEgressIps" })
-   public void testListApps() throws Exception {
-     try {
-       ListAppsOptions listAppsOptions = new ListAppsOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .limit(Long.valueOf("100"))
-           .build();
- 
-       // Invoke operation
-       Response<AppList> response = service.listApps(listAppsOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       AppList appListResult = response.getResult();
- 
-       assertNotNull(appListResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testListApps" })
-   public void testListAppsWithPager() throws Exception {
-     try {
-       ListAppsOptions options = new ListAppsOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .limit(Long.valueOf("100"))
-           .build();
- 
-       // Test getNext().
-       List<App> allResults = new ArrayList<>();
-       AppsPager pager = new AppsPager(service, options);
-       while (pager.hasNext()) {
-         List<App> nextPage = pager.getNext();
-         assertNotNull(nextPage);
-         allResults.addAll(nextPage);
-       }
-       assertFalse(allResults.isEmpty());
- 
-       // Test getAll();
-       pager = new AppsPager(service, options);
-       List<App> allItems = pager.getAll();
-       assertNotNull(allItems);
-       assertFalse(allItems.isEmpty());
- 
-       assertEquals(allItems.size(), allResults.size());
-       System.out.println(String.format("Retrieved a total of %d item(s) with pagination.", allResults.size()));
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testListApps" })
-   public void testCreateApp() throws Exception {
-     try {
-       EnvVarPrototype envVarPrototypeModel = new EnvVarPrototype.Builder()
-           .key("MY_VARIABLE")
-           .name("SOME")
-           .prefix("PREFIX_")
-           .reference("my-secret")
-           .type("literal")
-           .value("VALUE")
-           .build();
- 
-       VolumeMountPrototype volumeMountPrototypeModel = new VolumeMountPrototype.Builder()
-           .mountPath("/app")
-           .name("codeengine-mount-b69u90")
-           .reference("my-secret")
-           .type("secret")
-           .build();
- 
-       CreateAppOptions createAppOptions = new CreateAppOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .imageReference("icr.io/codeengine/helloworld")
-           .name("my-app")
-           .imagePort(Long.valueOf("8080"))
-           .imageSecret("my-secret")
-           .managedDomainMappings("local_public")
-           .runArguments(java.util.Arrays.asList("testString"))
-           .runAsUser(Long.valueOf("1001"))
-           .runCommands(java.util.Arrays.asList("testString"))
-           .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
-           .runServiceAccount("default")
-           .runVolumeMounts(java.util.Arrays.asList(volumeMountPrototypeModel))
-           .scaleConcurrency(Long.valueOf("100"))
-           .scaleConcurrencyTarget(Long.valueOf("80"))
-           .scaleCpuLimit("1")
-           .scaleEphemeralStorageLimit("4G")
-           .scaleInitialInstances(Long.valueOf("1"))
-           .scaleMaxInstances(Long.valueOf("10"))
-           .scaleMemoryLimit("4G")
-           .scaleMinInstances(Long.valueOf("0"))
-           .scaleRequestTimeout(Long.valueOf("300"))
-           .build();
- 
-       // Invoke operation
-       Response<App> response = service.createApp(createAppOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 201);
- 
-       App appResult = response.getResult();
- 
-       assertNotNull(appResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testCreateApp" })
-   public void testGetApp() throws Exception {
-     try {
-       GetAppOptions getAppOptions = new GetAppOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-app")
-           .build();
- 
-       // Invoke operation
-       Response<App> response = service.getApp(getAppOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       App appResult = response.getResult();
- 
-       assertNotNull(appResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testGetApp" })
-   public void testUpdateApp() throws Exception {
-     try {
-       EnvVarPrototype envVarPrototypeModel = new EnvVarPrototype.Builder()
-           .key("MY_VARIABLE")
-           .name("SOME")
-           .prefix("PREFIX_")
-           .reference("my-secret")
-           .type("literal")
-           .value("VALUE")
-           .build();
- 
-       VolumeMountPrototype volumeMountPrototypeModel = new VolumeMountPrototype.Builder()
-           .mountPath("/app")
-           .name("codeengine-mount-b69u90")
-           .reference("my-secret")
-           .type("secret")
-           .build();
- 
-       AppPatch appPatchModel = new AppPatch.Builder()
-           .imagePort(Long.valueOf("8080"))
-           .imageReference("icr.io/codeengine/helloworld")
-           .imageSecret("my-secret")
-           .managedDomainMappings("local_public")
-           .runArguments(java.util.Arrays.asList("testString"))
-           .runAsUser(Long.valueOf("1001"))
-           .runCommands(java.util.Arrays.asList("testString"))
-           .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
-           .runServiceAccount("default")
-           .runVolumeMounts(java.util.Arrays.asList(volumeMountPrototypeModel))
-           .scaleConcurrency(Long.valueOf("100"))
-           .scaleConcurrencyTarget(Long.valueOf("80"))
-           .scaleCpuLimit("1")
-           .scaleEphemeralStorageLimit("4G")
-           .scaleInitialInstances(Long.valueOf("1"))
-           .scaleMaxInstances(Long.valueOf("10"))
-           .scaleMemoryLimit("4G")
-           .scaleMinInstances(Long.valueOf("0"))
-           .scaleRequestTimeout(Long.valueOf("300"))
-           .build();
-       Map<String, Object> appPatchModelAsPatch = appPatchModel.asPatch();
- 
-       UpdateAppOptions updateAppOptions = new UpdateAppOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-app")
-           .ifMatch("*")
-           .app(appPatchModelAsPatch)
-           .build();
- 
-       // Invoke operation
-       Response<App> response = service.updateApp(updateAppOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       App appResult = response.getResult();
- 
-       assertNotNull(appResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testUpdateApp" })
-   public void testListAppRevisions() throws Exception {
-     try {
-       ListAppRevisionsOptions listAppRevisionsOptions = new ListAppRevisionsOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .appName("my-app")
-           .limit(Long.valueOf("100"))
-           .build();
- 
-       // Invoke operation
-       Response<AppRevisionList> response = service.listAppRevisions(listAppRevisionsOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       AppRevisionList appRevisionListResult = response.getResult();
- 
-       assertNotNull(appRevisionListResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testListAppRevisions" })
-   public void testListAppRevisionsWithPager() throws Exception {
-     try {
-       ListAppRevisionsOptions options = new ListAppRevisionsOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .appName("my-app")
-           .limit(Long.valueOf("100"))
-           .build();
- 
-       // Test getNext().
-       List<AppRevision> allResults = new ArrayList<>();
-       AppRevisionsPager pager = new AppRevisionsPager(service, options);
-       while (pager.hasNext()) {
-         List<AppRevision> nextPage = pager.getNext();
-         assertNotNull(nextPage);
-         allResults.addAll(nextPage);
-       }
-       assertFalse(allResults.isEmpty());
- 
-       // Test getAll();
-       pager = new AppRevisionsPager(service, options);
-       List<AppRevision> allItems = pager.getAll();
-       assertNotNull(allItems);
-       assertFalse(allItems.isEmpty());
- 
-       assertEquals(allItems.size(), allResults.size());
-       System.out.println(String.format("Retrieved a total of %d item(s) with pagination.", allResults.size()));
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testListAppRevisions" })
-   public void testGetAppRevision() throws Exception {
-     try {
-       GetAppRevisionOptions getAppRevisionOptions = new GetAppRevisionOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .appName("my-app")
-           .name("my-app-00001")
-           .build();
- 
-       // Invoke operation
-       Response<AppRevision> response = service.getAppRevision(getAppRevisionOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       AppRevision appRevisionResult = response.getResult();
- 
-       assertNotNull(appRevisionResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testGetAppRevision" })
-   public void testListJobs() throws Exception {
-     try {
-       ListJobsOptions listJobsOptions = new ListJobsOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .limit(Long.valueOf("100"))
-           .build();
- 
-       // Invoke operation
-       Response<JobList> response = service.listJobs(listJobsOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       JobList jobListResult = response.getResult();
- 
-       assertNotNull(jobListResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testListJobs" })
-   public void testListJobsWithPager() throws Exception {
-     try {
-       ListJobsOptions options = new ListJobsOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .limit(Long.valueOf("100"))
-           .build();
- 
-       // Test getNext().
-       List<Job> allResults = new ArrayList<>();
-       JobsPager pager = new JobsPager(service, options);
-       while (pager.hasNext()) {
-         List<Job> nextPage = pager.getNext();
-         assertNotNull(nextPage);
-         allResults.addAll(nextPage);
-       }
-       assertFalse(allResults.isEmpty());
- 
-       // Test getAll();
-       pager = new JobsPager(service, options);
-       List<Job> allItems = pager.getAll();
-       assertNotNull(allItems);
-       assertFalse(allItems.isEmpty());
- 
-       assertEquals(allItems.size(), allResults.size());
-       System.out.println(String.format("Retrieved a total of %d item(s) with pagination.", allResults.size()));
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testListJobs" })
-   public void testCreateJob() throws Exception {
-     try {
-       EnvVarPrototype envVarPrototypeModel = new EnvVarPrototype.Builder()
-           .key("MY_VARIABLE")
-           .name("SOME")
-           .prefix("PREFIX_")
-           .reference("my-secret")
-           .type("literal")
-           .value("VALUE")
-           .build();
- 
-       VolumeMountPrototype volumeMountPrototypeModel = new VolumeMountPrototype.Builder()
-           .mountPath("/app")
-           .name("codeengine-mount-b69u90")
-           .reference("my-secret")
-           .type("secret")
-           .build();
- 
-       CreateJobOptions createJobOptions = new CreateJobOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .imageReference("icr.io/codeengine/helloworld")
-           .name("my-job")
-           .imageSecret("my-secret")
-           .runArguments(java.util.Arrays.asList("testString"))
-           .runAsUser(Long.valueOf("1001"))
-           .runCommands(java.util.Arrays.asList("testString"))
-           .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
-           .runMode("task")
-           .runServiceAccount("default")
-           .runVolumeMounts(java.util.Arrays.asList(volumeMountPrototypeModel))
-           .scaleArraySpec("1-5,7-8,10")
-           .scaleCpuLimit("1")
-           .scaleEphemeralStorageLimit("4G")
-           .scaleMaxExecutionTime(Long.valueOf("7200"))
-           .scaleMemoryLimit("4G")
-           .scaleRetryLimit(Long.valueOf("3"))
-           .build();
- 
-       // Invoke operation
-       Response<Job> response = service.createJob(createJobOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 201);
- 
-       Job jobResult = response.getResult();
- 
-       assertNotNull(jobResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testCreateJob" })
-   public void testGetJob() throws Exception {
-     try {
-       GetJobOptions getJobOptions = new GetJobOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-job")
-           .build();
- 
-       // Invoke operation
-       Response<Job> response = service.getJob(getJobOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       Job jobResult = response.getResult();
- 
-       assertNotNull(jobResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testGetJob" })
-   public void testUpdateJob() throws Exception {
-     try {
-       EnvVarPrototype envVarPrototypeModel = new EnvVarPrototype.Builder()
-           .key("MY_VARIABLE")
-           .name("SOME")
-           .prefix("PREFIX_")
-           .reference("my-secret")
-           .type("literal")
-           .value("VALUE")
-           .build();
- 
-       VolumeMountPrototype volumeMountPrototypeModel = new VolumeMountPrototype.Builder()
-           .mountPath("/app")
-           .name("codeengine-mount-b69u90")
-           .reference("my-secret")
-           .type("secret")
-           .build();
- 
-       JobPatch jobPatchModel = new JobPatch.Builder()
-           .imageReference("icr.io/codeengine/helloworld")
-           .imageSecret("my-secret")
-           .runArguments(java.util.Arrays.asList("testString"))
-           .runAsUser(Long.valueOf("1001"))
-           .runCommands(java.util.Arrays.asList("testString"))
-           .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
-           .runMode("task")
-           .runServiceAccount("default")
-           .runVolumeMounts(java.util.Arrays.asList(volumeMountPrototypeModel))
-           .scaleArraySpec("1-5,7-8,10")
-           .scaleCpuLimit("1")
-           .scaleEphemeralStorageLimit("4G")
-           .scaleMaxExecutionTime(Long.valueOf("7200"))
-           .scaleMemoryLimit("4G")
-           .scaleRetryLimit(Long.valueOf("3"))
-           .build();
-       Map<String, Object> jobPatchModelAsPatch = jobPatchModel.asPatch();
- 
-       UpdateJobOptions updateJobOptions = new UpdateJobOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-job")
-           .ifMatch("*")
-           .job(jobPatchModelAsPatch)
-           .build();
- 
-       // Invoke operation
-       Response<Job> response = service.updateJob(updateJobOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       Job jobResult = response.getResult();
- 
-       assertNotNull(jobResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testUpdateJob" })
-   public void testListJobRuns() throws Exception {
-     try {
-       ListJobRunsOptions listJobRunsOptions = new ListJobRunsOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .jobName("my-job")
-           .limit(Long.valueOf("100"))
-           .build();
- 
-       // Invoke operation
-       Response<JobRunList> response = service.listJobRuns(listJobRunsOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       JobRunList jobRunListResult = response.getResult();
- 
-       assertNotNull(jobRunListResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testListJobRuns" })
-   public void testListJobRunsWithPager() throws Exception {
-     try {
-       ListJobRunsOptions options = new ListJobRunsOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .jobName("my-job")
-           .limit(Long.valueOf("100"))
-           .build();
- 
-       // Test getNext().
-       List<JobRun> allResults = new ArrayList<>();
-       JobRunsPager pager = new JobRunsPager(service, options);
-       while (pager.hasNext()) {
-         List<JobRun> nextPage = pager.getNext();
-         assertNotNull(nextPage);
-         allResults.addAll(nextPage);
-       }
-       assertFalse(allResults.isEmpty());
- 
-       // Test getAll();
-       pager = new JobRunsPager(service, options);
-       List<JobRun> allItems = pager.getAll();
-       assertNotNull(allItems);
-       assertFalse(allItems.isEmpty());
- 
-       assertEquals(allItems.size(), allResults.size());
-       System.out.println(String.format("Retrieved a total of %d item(s) with pagination.", allResults.size()));
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testListJobRuns" })
-   public void testCreateJobRun() throws Exception {
-     try {
-       EnvVarPrototype envVarPrototypeModel = new EnvVarPrototype.Builder()
-           .key("MY_VARIABLE")
-           .name("SOME")
-           .prefix("PREFIX_")
-           .reference("my-secret")
-           .type("literal")
-           .value("VALUE")
-           .build();
- 
-       VolumeMountPrototype volumeMountPrototypeModel = new VolumeMountPrototype.Builder()
-           .mountPath("/app")
-           .name("codeengine-mount-b69u90")
-           .reference("my-secret")
-           .type("secret")
-           .build();
- 
-       CreateJobRunOptions createJobRunOptions = new CreateJobRunOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .imageReference("icr.io/codeengine/helloworld")
-           .jobName("my-job")
-           .name("my-job-run")
-           .runArguments(java.util.Arrays.asList("testString"))
-           .runAsUser(Long.valueOf("1001"))
-           .runCommands(java.util.Arrays.asList("testString"))
-           .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
-           .runMode("task")
-           .runVolumeMounts(java.util.Arrays.asList(volumeMountPrototypeModel))
-           .scaleArraySpec("1-5,7-8,10")
-           .scaleCpuLimit("1")
-           .scaleEphemeralStorageLimit("4G")
-           .scaleMaxExecutionTime(Long.valueOf("7200"))
-           .scaleMemoryLimit("4G")
-           .scaleRetryLimit(Long.valueOf("3"))
-           .build();
- 
-       // Invoke operation
-       Response<JobRun> response = service.createJobRun(createJobRunOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 202);
- 
-       JobRun jobRunResult = response.getResult();
- 
-       assertNotNull(jobRunResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testCreateJobRun" })
-   public void testGetJobRun() throws Exception {
-     try {
-       GetJobRunOptions getJobRunOptions = new GetJobRunOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-job-run")
-           .build();
- 
-       // Invoke operation
-       Response<JobRun> response = service.getJobRun(getJobRunOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       JobRun jobRunResult = response.getResult();
- 
-       assertNotNull(jobRunResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testGetJobRun" })
-   public void testListBuilds() throws Exception {
-     try {
-       ListBuildsOptions listBuildsOptions = new ListBuildsOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .limit(Long.valueOf("100"))
-           .build();
- 
-       // Invoke operation
-       Response<BuildList> response = service.listBuilds(listBuildsOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       BuildList buildListResult = response.getResult();
- 
-       assertNotNull(buildListResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testListBuilds" })
-   public void testListBuildsWithPager() throws Exception {
-     try {
-       ListBuildsOptions options = new ListBuildsOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .limit(Long.valueOf("100"))
-           .build();
- 
-       // Test getNext().
-       List<Build> allResults = new ArrayList<>();
-       BuildsPager pager = new BuildsPager(service, options);
-       while (pager.hasNext()) {
-         List<Build> nextPage = pager.getNext();
-         assertNotNull(nextPage);
-         allResults.addAll(nextPage);
-       }
-       assertFalse(allResults.isEmpty());
- 
-       // Test getAll();
-       pager = new BuildsPager(service, options);
-       List<Build> allItems = pager.getAll();
-       assertNotNull(allItems);
-       assertFalse(allItems.isEmpty());
- 
-       assertEquals(allItems.size(), allResults.size());
-       System.out.println(String.format("Retrieved a total of %d item(s) with pagination.", allResults.size()));
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testListBuilds" })
-   public void testCreateBuild() throws Exception {
-     try {
-       CreateBuildOptions createBuildOptions = new CreateBuildOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-build")
-           .outputImage("private.de.icr.io/icr_namespace/image-name")
-           .outputSecret("ce-auto-icr-private-eu-de")
-           .sourceUrl("https://github.com/IBM/CodeEngine")
-           .strategyType("dockerfile")
-           .sourceContextDir("some/subfolder")
-           .sourceRevision("main")
-           .sourceSecret("my-secret")
-           .sourceType("git")
-           .strategySize("medium")
-           .strategySpecFile("Dockerfile")
-           .timeout(Long.valueOf("600"))
-           .build();
- 
-       // Invoke operation
-       Response<Build> response = service.createBuild(createBuildOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 201);
- 
-       Build buildResult = response.getResult();
- 
-       assertNotNull(buildResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testCreateBuild" })
-   public void testGetBuild() throws Exception {
-     try {
-       GetBuildOptions getBuildOptions = new GetBuildOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-build")
-           .build();
- 
-       // Invoke operation
-       Response<Build> response = service.getBuild(getBuildOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       Build buildResult = response.getResult();
- 
-       assertNotNull(buildResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testGetBuild" })
-   public void testUpdateBuild() throws Exception {
-     try {
-       BuildPatch buildPatchModel = new BuildPatch.Builder()
-           .outputImage("private.de.icr.io/icr_namespace/image-name")
-           .outputSecret("ce-auto-icr-private-eu-de")
-           .sourceContextDir("some/subfolder")
-           .sourceRevision("main")
-           .sourceSecret("my-secret")
-           .sourceType("git")
-           .sourceUrl("https://github.com/IBM/CodeEngine")
-           .strategySize("medium")
-           .strategySpecFile("Dockerfile")
-           .strategyType("dockerfile")
-           .timeout(Long.valueOf("600"))
-           .build();
-       Map<String, Object> buildPatchModelAsPatch = buildPatchModel.asPatch();
- 
-       UpdateBuildOptions updateBuildOptions = new UpdateBuildOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-build")
-           .ifMatch("*")
-           .build(buildPatchModelAsPatch)
-           .build();
- 
-       // Invoke operation
-       Response<Build> response = service.updateBuild(updateBuildOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       Build buildResult = response.getResult();
- 
-       assertNotNull(buildResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testUpdateBuild" })
-   public void testCreateBuildRun() throws Exception {
-     try {
-       CreateBuildRunOptions createBuildRunOptions = new CreateBuildRunOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .buildName("my-build")
-           .name("my-build-run")
-           .outputImage("private.de.icr.io/icr_namespace/image-name")
-           .outputSecret("ce-auto-icr-private-eu-de")
-           .serviceAccount("default")
-           .sourceContextDir("some/subfolder")
-           .sourceRevision("main")
-           .sourceSecret("my-secret")
-           .sourceType("git")
-           .sourceUrl("https://github.com/IBM/CodeEngine")
-           .strategySize("medium")
-           .strategySpecFile("Dockerfile")
-           .strategyType("dockerfile")
-           .timeout(Long.valueOf("600"))
-           .build();
- 
-       // Invoke operation
-       Response<BuildRun> response = service.createBuildRun(createBuildRunOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 202);
- 
-       BuildRun buildRunResult = response.getResult();
- 
-       assertNotNull(buildRunResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testCreateBuildRun" })
-   public void testGetBuildRun() throws Exception {
-     try {
-       GetBuildRunOptions getBuildRunOptions = new GetBuildRunOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-build-run")
-           .build();
- 
-       // Invoke operation
-       Response<BuildRun> response = service.getBuildRun(getBuildRunOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       BuildRun buildRunResult = response.getResult();
- 
-       assertNotNull(buildRunResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
- 
-   @Test(dependsOnMethods = { "testGetBuildRun" })
-   public void testListBuildRuns() throws Exception {
-     try {
-       ListBuildRunsOptions listBuildRunsOptions = new ListBuildRunsOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .buildName("my-build")
-           .limit(Long.valueOf("100"))
-           .build();
- 
-       // Invoke operation
-       Response<BuildRunList> response = service.listBuildRuns(listBuildRunsOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       BuildRunList buildRunListResult = response.getResult();
- 
-       assertNotNull(buildRunListResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testListBuildRuns" })
-   public void testListBuildRunsWithPager() throws Exception {
-     try {
-       ListBuildRunsOptions options = new ListBuildRunsOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .buildName("my-build")
-           .limit(Long.valueOf("100"))
-           .build();
- 
-       // Test getNext().
-       List<BuildRun> allResults = new ArrayList<>();
-       BuildRunsPager pager = new BuildRunsPager(service, options);
-       while (pager.hasNext()) {
-         List<BuildRun> nextPage = pager.getNext();
-         assertNotNull(nextPage);
-         allResults.addAll(nextPage);
-       }
-       // FIXME assertFalse(allResults.isEmpty());
- 
-       // Test getAll();
-       pager = new BuildRunsPager(service, options);
-       List<BuildRun> allItems = pager.getAll();
-       assertNotNull(allItems);
-       // FIXME FassertFalse(allItems.isEmpty());
- 
-       assertEquals(allItems.size(), allResults.size());
-       System.out.println(String.format("Retrieved a total of %d item(s) with pagination.", allResults.size()));
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testListBuildRunsWithPager" })
-   public void testListConfigMaps() throws Exception {
-     try {
-       ListConfigMapsOptions listConfigMapsOptions = new ListConfigMapsOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .limit(Long.valueOf("100"))
-           .build();
- 
-       // Invoke operation
-       Response<ConfigMapList> response = service.listConfigMaps(listConfigMapsOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       ConfigMapList configMapListResult = response.getResult();
- 
-       assertNotNull(configMapListResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testListConfigMaps" })
-   public void testListConfigMapsWithPager() throws Exception {
-     try {
-       ListConfigMapsOptions options = new ListConfigMapsOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .limit(Long.valueOf("100"))
-           .build();
- 
-       // Test getNext().
-       List<ConfigMap> allResults = new ArrayList<>();
-       ConfigMapsPager pager = new ConfigMapsPager(service, options);
-       while (pager.hasNext()) {
-         List<ConfigMap> nextPage = pager.getNext();
-         assertNotNull(nextPage);
-         allResults.addAll(nextPage);
-       }
-       assertFalse(allResults.isEmpty());
- 
-       // Test getAll();
-       pager = new ConfigMapsPager(service, options);
-       List<ConfigMap> allItems = pager.getAll();
-       assertNotNull(allItems);
-       assertFalse(allItems.isEmpty());
- 
-       assertEquals(allItems.size(), allResults.size());
-       System.out.println(String.format("Retrieved a total of %d item(s) with pagination.", allResults.size()));
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testListConfigMaps" })
-   public void testCreateConfigMap() throws Exception {
-     try {
-       CreateConfigMapOptions createConfigMapOptions = new CreateConfigMapOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-config-map")
-           .data(java.util.Collections.singletonMap("foo", "testString"))
-           .build();
- 
-       // Invoke operation
-       Response<ConfigMap> response = service.createConfigMap(createConfigMapOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 201);
- 
-       ConfigMap configMapResult = response.getResult();
- 
-       assertNotNull(configMapResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testCreateConfigMap" })
-   public void testGetConfigMap() throws Exception {
-     try {
-       GetConfigMapOptions getConfigMapOptions = new GetConfigMapOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-config-map")
-           .build();
- 
-       // Invoke operation
-       Response<ConfigMap> response = service.getConfigMap(getConfigMapOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       ConfigMap configMapResult = response.getResult();
- 
-       assertNotNull(configMapResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testGetConfigMap" })
-   public void testReplaceConfigMap() throws Exception {
-     try {
-       ReplaceConfigMapOptions replaceConfigMapOptions = new ReplaceConfigMapOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-config-map")
-           .ifMatch("*")
-           .data(java.util.Collections.singletonMap("foo", "testString"))
-           .build();
- 
-       // Invoke operation
-       Response<ConfigMap> response = service.replaceConfigMap(replaceConfigMapOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       ConfigMap configMapResult = response.getResult();
- 
-       assertNotNull(configMapResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testReplaceConfigMap" })
-   public void testListSecrets() throws Exception {
-     try {
-       ListSecretsOptions listSecretsOptions = new ListSecretsOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .limit(Long.valueOf("100"))
-           .build();
- 
-       // Invoke operation
-       Response<SecretList> response = service.listSecrets(listSecretsOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       SecretList secretListResult = response.getResult();
- 
-       assertNotNull(secretListResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testListSecrets" })
-   public void testListSecretsWithPager() throws Exception {
-     try {
-       ListSecretsOptions options = new ListSecretsOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .limit(Long.valueOf("100"))
-           .build();
- 
-       // Test getNext().
-       List<Secret> allResults = new ArrayList<>();
-       SecretsPager pager = new SecretsPager(service, options);
-       while (pager.hasNext()) {
-         List<Secret> nextPage = pager.getNext();
-         assertNotNull(nextPage);
-         allResults.addAll(nextPage);
-       }
-       assertFalse(allResults.isEmpty());
- 
-       // Test getAll();
-       pager = new SecretsPager(service, options);
-       List<Secret> allItems = pager.getAll();
-       assertNotNull(allItems);
-       assertFalse(allItems.isEmpty());
- 
-       assertEquals(allItems.size(), allResults.size());
-       System.out.println(String.format("Retrieved a total of %d item(s) with pagination.", allResults.size()));
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testListSecrets" })
-   public void testCreateGenericSecret() throws Exception {
-     try {
-       SecretDataGenericSecretData secretData = new SecretDataGenericSecretData();
-       secretData.setProperties(java.util.Collections.singletonMap("foo", "testString"));
-       CreateSecretOptions createSecretOptions = new CreateSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .format("generic")
-           .name("my-secret")
-           .data(secretData)
-           .build();
- 
-       // Invoke operation
-       Response<Secret> response = service.createSecret(createSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 201);
- 
-       Secret secretResult = response.getResult();
- 
-       assertNotNull(secretResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testCreateGenericSecret" })
-   public void testCreateSSHSecret() throws Exception {
-     try {
-       SecretDataSSHSecretData SshSecretData = new SecretDataSSHSecretData();
-       SshSecretData.setSshKey("-----BEGIN RSA PRIVATE KEY----------END RSA PRIVATE KEY-----");
-       CreateSecretOptions createSecretOptions = new CreateSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .format("ssh_auth")
-           .name("my-ssh-secret")
-           .data(SshSecretData)
-           .build();
- 
-       // Invoke operation
-       Response<Secret> response = service.createSecret(createSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 201);
- 
-       Secret secretResult = response.getResult();
- 
-       assertNotNull(secretResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testCreateSSHSecret" })
-   public void testCreateTLSSecret() throws Exception {
-     try {
-       SecretDataTLSSecretData TlsSecretData = new SecretDataTLSSecretData();
-       TlsSecretData.setTlsKey("-----BEGIN PRIVATE KEY-----\n" + //
-           "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCr+Qx5OrAHLWwm\n" + //
-           "mstn7aEo317g/Lxv/Dmb/N/lanbGZfaVlnE1JrASNnEjps5CrVBLkjctbRYuAWOb\n" + //
-           "vX4OKIGbSmT2JDu3gieg1v2gg0iuMmfqh9pgP8szlfB8lG7/rZ5m4ApEEB8iszIe\n" + //
-           "+BrPsmlBBqd+tuJ3+t/BY9a7PjphkaMCbGlvoaDZEjT6KqubAMmZqkkYFT8mYx+A\n" + //
-           "kwImgqVR5zMs4R2XSEl0QGLsFjnDtWLDvrHGdeGE0hnqTS5OusJ8bmNLJDOvSJSd\n" + //
-           "ZSWPtyahNQT4wAnp3RKxd3D2pdChqmxGdIs+eeNwzoXD42M2VEE/MgPLu7hPuPmC\n" + //
-           "nN6AsET9AgMBAAECggEAc9d1cYv42zzbpz2KWt2VO6ULkl5syLqMS+kRIMaQb6Br\n" + //
-           "c+Q9KeJ/pCUMHUnVktCQT/eUN4NN93t0D4qbiQn8FBEO5UcO+tQvwYZQnnkQ0lad\n" + //
-           "7TvJ/B+8z2jm7+REyPG4y++KusJpVsSCtJ3H4bR6dhT3asHi15Mkem64TLTkOqf2\n" + //
-           "5lWg5BUi3ZR5qFjriZdb7N3A+/Cb1fwOObCwNjRUJX6FAPpCdwEr+L9/o6bod+1N\n" + //
-           "UArBYlSP8yMNyct3WzkPSpFnZxaYapjl0Nm9ipOfR5b9CHThoHg007WxdDF+6a/e\n" + //
-           "SEJOZ0jRHwSctLhjSuL8/EOIuQGSHsyOK4SOmeHRgQKBgQDYlrafbArou+pStqIU\n" + //
-           "ZCmV51UqSfqZAAJ+YzV9rqhsM97yQKQYEESeIbgAnWCGlAbY7XrysIA/aOdglOuF\n" + //
-           "o60oRqlnkYZJT8SXjvnwmyxor67f3G0jbVuoefYL1G1EPdcL9l2K0xehOa2huYm0\n" + //
-           "8lvlI8PPKKJkmu22r/TNyp6VEQKBgQDLRAHsDjNdwyMKVGe2G6ZmnyDWhGzVOOZf\n" + //
-           "+Ixfmt0BK5AnmJBeABM6WRC/6EM0eX31lcev7sJMpWF4Iw0Op+tW2gmtfphi3j/l\n" + //
-           "G7B3lU4V/M6jw0CrASy1RGY257ou3o+/yS4N6/lafZw/V8KDjgJngCeyRhgFf+Rj\n" + //
-           "VNC3FIsBLQKBgERN43ILZLVY7eD/78V2gRbhSZ54jitKMX8iUnA8cKkPArRrZlSg\n" + //
-           "bMNh5uFqwFIwxKgM3MVEnG1i6/Utgck3gRg+kJY08qCUI2+Yi4IxraOmJAQ9Q730\n" + //
-           "cv+C1vGMIJlw1yzSmVV6lO0nf3aNSLxj4k81JD9klTIdGfKPMyjjSXfBAoGBALhl\n" + //
-           "WI0JkOWlSZtsWK1mxfzgrMyOU6DWvn8fnlB4z7bpCxwwlf8AeHD9LWm6zYTEFlV8\n" + //
-           "7CsZIOChQxvWSFkcUi13HUJrztgaIMK57Mt/AdiGf/sl/Ptk1GcYxtVWQJuWQbfN\n" + //
-           "TN9KS+oge2cnOQlZAatdIiXi2pXaoJjP74u2sid9AoGAFuustiKF2vffjhyEg+HL\n" + //
-           "U57p6LG7y6x02COLDhKTX4c/bEa6MX4f91ZKXy2S47tCgLSf4SYd49k1H0wQEDkl\n" + //
-           "Ys+pznN30O/Jxu063JfvFbLZxJkeayLpQL12w+NQUDwsF6MGvIYTnUefhkfb3LWC\n" + //
-           "jBKCTCcw9u4SVX1jK4f2/OU=\n" + //
-           "-----END PRIVATE KEY-----");
-       TlsSecretData.setTlsCert("-----BEGIN CERTIFICATE-----\n" + //
-           "MIICqDCCAZACCQDB2CY2jE7CCjANBgkqhkiG9w0BAQsFADAWMRQwEgYDVQQDDAtm\n" + //
-           "b28uYmFyLmNvbTAeFw0yMzA2MjkyMDM5MzhaFw0yNDA2MjgyMDM5MzhaMBYxFDAS\n" + //
-           "BgNVBAMMC2Zvby5iYXIuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC\n" + //
-           "AQEAq/kMeTqwBy1sJprLZ+2hKN9e4Py8b/w5m/zf5Wp2xmX2lZZxNSawEjZxI6bO\n" + //
-           "Qq1QS5I3LW0WLgFjm71+DiiBm0pk9iQ7t4InoNb9oINIrjJn6ofaYD/LM5XwfJRu\n" + //
-           "/62eZuAKRBAfIrMyHvgaz7JpQQanfrbid/rfwWPWuz46YZGjAmxpb6Gg2RI0+iqr\n" + //
-           "mwDJmapJGBU/JmMfgJMCJoKlUeczLOEdl0hJdEBi7BY5w7Viw76xxnXhhNIZ6k0u\n" + //
-           "TrrCfG5jSyQzr0iUnWUlj7cmoTUE+MAJ6d0SsXdw9qXQoapsRnSLPnnjcM6Fw+Nj\n" + //
-           "NlRBPzIDy7u4T7j5gpzegLBE/QIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQCXRwhk\n" + //
-           "wjvOzKh5R+QKHGjtcjutSkwZbMj5+5enN/8IwX2BbX0i/aALxEPcZExMK5aIS5rm\n" + //
-           "+kUkDyZkYVaMQQoTGNHSnnET8WJf8zGqd/GdiVxZRVXjOnQ5tEezdwFm0a3TEEKw\n" + //
-           "/2HG9chz24ywhbIZZMEFmse7LLrcy5XSUQzOTMWBKZ8fTEXBYaEVhD/9b4SPuLpw\n" + //
-           "i4vDZPt+e+p96NcGNf0b932aod+X34dARUd55UM9PY4i4Z7UzzV7zK+U6tHjzzmg\n" + //
-           "rv+JA2kDt3mwQXn7bfgRxLcpBZFpUHjLRe+MGlQJM2xFYAXop9ZzF1go58ErHbsT\n" + //
-           "CyXJ56cw0ffDrXSn\n" + //
-           "-----END CERTIFICATE-----");
-       CreateSecretOptions createSecretOptions = new CreateSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .format("tls")
-           .name("my-tls-secret")
-           .data(TlsSecretData)
-           .build();
- 
-       // Invoke operation
-       Response<Secret> response = service.createSecret(createSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 201);
- 
-       Secret secretResult = response.getResult();
- 
-       assertNotNull(secretResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testCreateTLSSecret" })
-   public void testCreateBasicAuthSecret() throws Exception {
-     try {
-       SecretDataBasicAuthSecretData BasicAuthSecretData = new SecretDataBasicAuthSecretData();
-       BasicAuthSecretData.setUsername("user1");
-       BasicAuthSecretData.setPassword("pass1");
-       CreateSecretOptions createSecretOptions = new CreateSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .format("basic_auth")
-           .name("my-basic-auth-secret")
-           .data(BasicAuthSecretData)
-           .build();
- 
-       // Invoke operation
-       Response<Secret> response = service.createSecret(createSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 201);
- 
-       Secret secretResult = response.getResult();
- 
-       assertNotNull(secretResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testCreateBasicAuthSecret" })
-   public void testCreateRegistrySecret() throws Exception {
-     try {
-       SecretDataRegistrySecretData RegistrySecretData = new SecretDataRegistrySecretData();
-       RegistrySecretData.setUsername("user1");
-       RegistrySecretData.setPassword("pass1");
-       RegistrySecretData.setEmail("email@email.com");
-       RegistrySecretData.setServer("github.com");
-       CreateSecretOptions createSecretOptions = new CreateSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .format("registry")
-           .name("my-registry-secret")
-           .data(RegistrySecretData)
-           .build();
- 
-       // Invoke operation
-       Response<Secret> response = service.createSecret(createSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 201);
- 
-       Secret secretResult = response.getResult();
- 
-       assertNotNull(secretResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testCreateRegistrySecret" })
-   public void testGetGenericSecret() throws Exception {
-     try {
-       GetSecretOptions getSecretOptions = new GetSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-secret")
-           .build();
- 
-       // Invoke operation
-       Response<Secret> response = service.getSecret(getSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       Secret secretResult = response.getResult();
- 
-       assertNotNull(secretResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testGetGenericSecret" })
-   public void testGetSSHSecret() throws Exception {
-     try {
-       GetSecretOptions getSecretOptions = new GetSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-ssh-secret")
-           .build();
- 
-       // Invoke operation
-       Response<Secret> response = service.getSecret(getSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       Secret secretResult = response.getResult();
- 
-       assertNotNull(secretResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testGetSSHSecret" })
-   public void testGetTLSSecret() throws Exception {
-     try {
-       GetSecretOptions getSecretOptions = new GetSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-tls-secret")
-           .build();
- 
-       // Invoke operation
-       Response<Secret> response = service.getSecret(getSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       Secret secretResult = response.getResult();
- 
-       assertNotNull(secretResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testGetTLSSecret" })
-   public void testGetBasicAuthSecret() throws Exception {
-     try {
-       GetSecretOptions getSecretOptions = new GetSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-basic-auth-secret")
-           .build();
- 
-       // Invoke operation
-       Response<Secret> response = service.getSecret(getSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       Secret secretResult = response.getResult();
- 
-       assertNotNull(secretResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testGetBasicAuthSecret" })
-   public void testGetRegistrySecret() throws Exception {
-     try {
-       GetSecretOptions getSecretOptions = new GetSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-registry-secret")
-           .build();
- 
-       // Invoke operation
-       Response<Secret> response = service.getSecret(getSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       Secret secretResult = response.getResult();
- 
-       assertNotNull(secretResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testGetRegistrySecret" })
-   public void testReplaceGenericSecret() throws Exception {
-     try {
-       SecretDataGenericSecretData secretData = new SecretDataGenericSecretData();
-       secretData.setProperties(java.util.Collections.singletonMap("foo", "testString2"));
-       ReplaceSecretOptions replaceSecretOptions = new ReplaceSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-secret")
-           .ifMatch("*")
-           .data(secretData)
-           .format("generic")
-           .build();
- 
-       // Invoke operation
-       Response<Secret> response = service.replaceSecret(replaceSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       Secret secretResult = response.getResult();
- 
-       assertNotNull(secretResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testReplaceGenericSecret" })
-   public void testReplaceSSHSecret() throws Exception {
-     try {
-       SecretDataSSHSecretData SshSecretData = new SecretDataSSHSecretData();
-       SshSecretData.setSshKey("-----BEGIN RSA PRIVATE KEY-----newData-----END RSA PRIVATE KEY-----");
-       ReplaceSecretOptions replaceSecretOptions = new ReplaceSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-ssh-secret")
-           .ifMatch("*")
-           .data(SshSecretData)
-           .format("ssh_auth")
-           .build();
- 
-       // Invoke operation
-       Response<Secret> response = service.replaceSecret(replaceSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       Secret secretResult = response.getResult();
- 
-       assertNotNull(secretResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testReplaceSSHSecret" })
-   public void testReplaceTLSSecret() throws Exception {
-     try {
-       SecretDataTLSSecretData TlsSecretData = new SecretDataTLSSecretData();
-       TlsSecretData.setTlsKey("-----BEGIN PRIVATE KEY-----\n" + //
-           "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDGfJO9qkAlq8Vy\n" + //
-           "KNyJEAwJ+VGurknonWKL+/B/8uS45qDYHP9McyokfHR6GEeL3p/vk4zf+QI/+5Dn\n" + //
-           "0IK6jyiLzl4x0FlEVbEesLubi/6B8r6I+pYfWlOX+ShJkryuZcMjuEtvP6sli+Wj\n" + //
-           "r5yILu8YHgAVVdvLs7XJmlDPv/kmq9R66Nsl02PgLazJfztijcdBGkQAPxClwwkJ\n" + //
-           "zVCWE/G7fS0iYUb76ScHrxLwN7Bh+wTOIMHk6qqK2UA45a8MmyGOkD4SoB4K3z3y\n" + //
-           "GNTQrxQbj+wCyK9kY2/sTs++kcsiwTfTx+17UYO05S0+ExqIWrD6bJpnYmWART/2\n" + //
-           "iBvcAfLvAgMBAAECggEBAKzVj6SJGmBzKXQVxquHEKSiuBC+bVcjrMsuL6aKb8Xd\n" + //
-           "9VMaNOhyI9EvmhEzESHnUidAuVvSLbZfLTfeZedjfy/2HCmOPhz17UxHIqX4ij7H\n" + //
-           "jEgkxBI7Ci18ZStjne7SZ9CzyuPtce842VbmNQyUqde7T+FEKSdArlwFhrbQeHjF\n" + //
-           "gJQrsroY8d0h9Xt6UlfVzX/CeNWP98YJLJ7my9WYRhZlcBE5qwyaMRIY2UKcjgpx\n" + //
-           "XaViny79P5GwiaVGgOUYZ32bA+GHf7u5WP7lCiqT32SgTZzQ9dov9KN+QSkui7qO\n" + //
-           "j0tC0c7OI59zatPAbp+t1LDjsgTjkuoReHes4nhupvECgYEA5b+S9uLtTn3XxLMf\n" + //
-           "R00anvek8EUbTA/TRrJWUhCgvyVCafpyx0BqJC9eR5LnmD3f3yFXDvD5DF201zTn\n" + //
-           "1Py+sk6oUfuPLXz8P76L5Wpz8ryRjR4LfLu0CTGMuUMDfE3NRHQJHNKnkrPwu0mX\n" + //
-           "jwbZrI08Xs8yjyx4gapdwE1cEvkCgYEA3SqPHW1AjCdnhSpnzf9QwxX0hzUKvUBK\n" + //
-           "euuhKvmwh/AnE2y4b/6VH7TRj+fUvbaSFl63tTKXvUA2J7gHvz8o3j24EYAibwe/\n" + //
-           "TvcloLjNxHOEq42vwB9zoZZ1UjvNhRo7lB6626/ffQRHXeSfoyMr2GTFYdpCAZds\n" + //
-           "f8/fHA14RycCgYASzd9FfcVWi05Btzd0KodnQ3WohL97NkBgpPATv3CotG//JJSI\n" + //
-           "YmlNlOLukMOL3mSYaq4pduerb3ABvT7MW/NvvKhiLWjGnFg5D2t7136t+2keV7sw\n" + //
-           "9lwB9KBD+YwrfGK0m5qzVTqJ81hcu+U/u5vNV7H9QJAuz8D9O+h4eNx0YQKBgQC+\n" + //
-           "aa3dv/oasLJHzEKi8HYv/+8PmXMtjPSS79tKjL6XywNZjfkdMypgqeTi6M4Yp98O\n" + //
-           "s22m63AI2AfIGoFQ/qfI74pSRudegGUNL2uN/I3r3SkUKmBuIKYFMOzBaAuB1RwG\n" + //
-           "Yo6uJbVchRqMlBF8+wL8w4XMwYSiqiQXxnhoRpCPcQKBgE2UoeHxvydgQjcfx7/M\n" + //
-           "8BmmLqohWUF6tU62TVBMhYeO77H5Qkn/y0K6UPvar7x0lNAz2ljiUtYvvHc3S9Mc\n" + //
-           "wSQ7GGIZu4ro/tLfi1xVfeQH5Ibm/pdk+1BZfcGeYAHC9Gr+LAT0iJRu8nFyWroB\n" + //
-           "q/Tq26sIqxRotUdtRDJ6D6jf\n" + //
-           "-----END PRIVATE KEY-----");
-       TlsSecretData.setTlsCert("-----BEGIN CERTIFICATE-----\n" + //
-           "MIICqDCCAZACCQDB2CY2jE7CCjANBgkqhkiG9w0BAQsFADAWMRQwEgYDVQQDDAtm\n" + //
-           "b28uYmFyLmNvbTAeFw0yMzA2MjkyMDM5MzhaFw0yNDA2MjgyMDM5MzhaMBYxFDAS\n" + //
-           "BgNVBAMMC2Zvby5iYXIuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC\n" + //
-           "AQEAq/kMeTqwBy1sJprLZ+2hKN9e4Py8b/w5m/zf5Wp2xmX2lZZxNSawEjZxI6bO\n" + //
-           "Qq1QS5I3LW0WLgFjm71+DiiBm0pk9iQ7t4InoNb9oINIrjJn6ofaYD/LM5XwfJRu\n" + //
-           "/62eZuAKRBAfIrMyHvgaz7JpQQanfrbid/rfwWPWuz46YZGjAmxpb6Gg2RI0+iqr\n" + //
-           "mwDJmapJGBU/JmMfgJMCJoKlUeczLOEdl0hJdEBi7BY5w7Viw76xxnXhhNIZ6k0u\n" + //
-           "TrrCfG5jSyQzr0iUnWUlj7cmoTUE+MAJ6d0SsXdw9qXQoapsRnSLPnnjcM6Fw+Nj\n" + //
-           "NlRBPzIDy7u4T7j5gpzegLBE/QIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQCXRwhk\n" + //
-           "wjvOzKh5R+QKHGjtcjutSkwZbMj5+5enN/8IwX2BbX0i/aALxEPcZExMK5aIS5rm\n" + //
-           "+kUkDyZkYVaMQQoTGNHSnnET8WJf8zGqd/GdiVxZRVXjOnQ5tEezdwFm0a3TEEKw\n" + //
-           "/2HG9chz24ywhbIZZMEFmse7LLrcy5XSUQzOTMWBKZ8fTEXBYaEVhD/9b4SPuLpw\n" + //
-           "i4vDZPt+e+p96NcGNf0b932aod+X34dARUd55UM9PY4i4Z7UzzV7zK+U6tHjzzmg\n" + //
-           "rv+JA2kDt3mwQXn7bfgRxLcpBZFpUHjLRe+MGlQJM2xFYAXop9ZzF1go58ErHbsT\n" + //
-           "CyXJ56cw0ffDrXSn\n" + //
-           "-----END CERTIFICATE-----");
-       ReplaceSecretOptions replaceSecretOptions = new ReplaceSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-tls-secret")
-           .ifMatch("*")
-           .data(TlsSecretData)
-           .format("tls")
-           .build();
- 
-       // Invoke operation
-       Response<Secret> response = service.replaceSecret(replaceSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       Secret secretResult = response.getResult();
- 
-       assertNotNull(secretResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testReplaceTLSSecret" })
-   public void testReplaceBasicAuthSecret() throws Exception {
-     try {
-       SecretDataBasicAuthSecretData BasicAuthSecretData = new SecretDataBasicAuthSecretData();
-       BasicAuthSecretData.setUsername("user2");
-       BasicAuthSecretData.setPassword("pass2");
-       ReplaceSecretOptions replaceSecretOptions = new ReplaceSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-basic-auth-secret")
-           .ifMatch("*")
-           .data(BasicAuthSecretData)
-           .format("basic_auth")
-           .build();
- 
-       // Invoke operation
-       Response<Secret> response = service.replaceSecret(replaceSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       Secret secretResult = response.getResult();
- 
-       assertNotNull(secretResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testReplaceBasicAuthSecret" })
-   public void testReplaceRegistrySecret() throws Exception {
-     try {
-       SecretDataRegistrySecretData RegistrySecretData = new SecretDataRegistrySecretData();
-       RegistrySecretData.setUsername("user2");
-       RegistrySecretData.setPassword("pass2");
-       RegistrySecretData.setEmail("email@email.com");
-       RegistrySecretData.setServer("github.com");
-       ReplaceSecretOptions replaceSecretOptions = new ReplaceSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-registry-secret")
-           .ifMatch("*")
-           .data(RegistrySecretData)
-           .format("registry")
-           .build();
- 
-       // Invoke operation
-       Response<Secret> response = service.replaceSecret(replaceSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       Secret secretResult = response.getResult();
- 
-       assertNotNull(secretResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testReplaceRegistrySecret" })
-   public void testCreateServiceAccessSecret() throws Exception {
-     try {
-      ServiceInstanceRefPrototype SaRef = new ServiceInstanceRefPrototype.Builder().id("498131b4-d4b0-42ff-8592-ab3a2f6e3be6").build();
+
+  @Test(dependsOnMethods = { "testGetProjectEgressIps" })
+  public void testListApps() throws Exception {
+    try {
+      ListAppsOptions listAppsOptions = new ListAppsOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .limit(Long.valueOf("100"))
+          .build();
+
+      // Invoke operation
+      Response<AppList> response = service.listApps(listAppsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      AppList appListResult = response.getResult();
+
+      assertNotNull(appListResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testListApps" })
+  public void testListAppsWithPager() throws Exception {
+    try {
+      ListAppsOptions options = new ListAppsOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .limit(Long.valueOf("100"))
+          .build();
+
+      // Test getNext().
+      List<App> allResults = new ArrayList<>();
+      AppsPager pager = new AppsPager(service, options);
+      while (pager.hasNext()) {
+        List<App> nextPage = pager.getNext();
+        assertNotNull(nextPage);
+        allResults.addAll(nextPage);
+      }
+      assertFalse(allResults.isEmpty());
+
+      // Test getAll();
+      pager = new AppsPager(service, options);
+      List<App> allItems = pager.getAll();
+      assertNotNull(allItems);
+      assertFalse(allItems.isEmpty());
+
+      assertEquals(allItems.size(), allResults.size());
+      System.out.println(String.format("Retrieved a total of %d item(s) with pagination.", allResults.size()));
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testListApps" })
+  public void testCreateApp() throws Exception {
+    try {
+      EnvVarPrototype envVarPrototypeModel = new EnvVarPrototype.Builder()
+          .key("MY_VARIABLE")
+          .name("SOME")
+          .prefix("PREFIX_")
+          .reference("my-secret")
+          .type("literal")
+          .value("VALUE")
+          .build();
+
+      VolumeMountPrototype volumeMountPrototypeModel = new VolumeMountPrototype.Builder()
+          .mountPath("/app")
+          .name("codeengine-mount-b69u90")
+          .reference("my-secret")
+          .type("secret")
+          .build();
+
+      CreateAppOptions createAppOptions = new CreateAppOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .imageReference("icr.io/codeengine/helloworld")
+          .name("my-app")
+          .imagePort(Long.valueOf("8080"))
+          .imageSecret("my-secret")
+          .managedDomainMappings("local_public")
+          .runArguments(java.util.Arrays.asList("testString"))
+          .runAsUser(Long.valueOf("1001"))
+          .runCommands(java.util.Arrays.asList("testString"))
+          .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
+          .runServiceAccount("default")
+          .runVolumeMounts(java.util.Arrays.asList(volumeMountPrototypeModel))
+          .scaleConcurrency(Long.valueOf("100"))
+          .scaleConcurrencyTarget(Long.valueOf("80"))
+          .scaleCpuLimit("1")
+          .scaleEphemeralStorageLimit("4G")
+          .scaleInitialInstances(Long.valueOf("1"))
+          .scaleMaxInstances(Long.valueOf("10"))
+          .scaleMemoryLimit("4G")
+          .scaleMinInstances(Long.valueOf("0"))
+          .scaleRequestTimeout(Long.valueOf("300"))
+          .build();
+
+      // Invoke operation
+      Response<App> response = service.createApp(createAppOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 201);
+
+      App appResult = response.getResult();
+
+      assertNotNull(appResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testCreateApp" })
+  public void testGetApp() throws Exception {
+    try {
+      GetAppOptions getAppOptions = new GetAppOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-app")
+          .build();
+
+      // Invoke operation
+      Response<App> response = service.getApp(getAppOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      App appResult = response.getResult();
+
+      assertNotNull(appResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetApp" })
+  public void testUpdateApp() throws Exception {
+    try {
+      EnvVarPrototype envVarPrototypeModel = new EnvVarPrototype.Builder()
+          .key("MY_VARIABLE")
+          .name("SOME")
+          .prefix("PREFIX_")
+          .reference("my-secret")
+          .type("literal")
+          .value("VALUE")
+          .build();
+
+      VolumeMountPrototype volumeMountPrototypeModel = new VolumeMountPrototype.Builder()
+          .mountPath("/app")
+          .name("codeengine-mount-b69u90")
+          .reference("my-secret")
+          .type("secret")
+          .build();
+
+      AppPatch appPatchModel = new AppPatch.Builder()
+          .imagePort(Long.valueOf("8080"))
+          .imageReference("icr.io/codeengine/helloworld")
+          .imageSecret("my-secret")
+          .managedDomainMappings("local_public")
+          .runArguments(java.util.Arrays.asList("testString"))
+          .runAsUser(Long.valueOf("1001"))
+          .runCommands(java.util.Arrays.asList("testString"))
+          .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
+          .runServiceAccount("default")
+          .runVolumeMounts(java.util.Arrays.asList(volumeMountPrototypeModel))
+          .scaleConcurrency(Long.valueOf("100"))
+          .scaleConcurrencyTarget(Long.valueOf("80"))
+          .scaleCpuLimit("1")
+          .scaleEphemeralStorageLimit("4G")
+          .scaleInitialInstances(Long.valueOf("1"))
+          .scaleMaxInstances(Long.valueOf("10"))
+          .scaleMemoryLimit("4G")
+          .scaleMinInstances(Long.valueOf("0"))
+          .scaleRequestTimeout(Long.valueOf("300"))
+          .build();
+      Map<String, Object> appPatchModelAsPatch = appPatchModel.asPatch();
+
+      UpdateAppOptions updateAppOptions = new UpdateAppOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-app")
+          .ifMatch("*")
+          .app(appPatchModelAsPatch)
+          .build();
+
+      // Invoke operation
+      Response<App> response = service.updateApp(updateAppOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      App appResult = response.getResult();
+
+      assertNotNull(appResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testUpdateApp" })
+  public void testListAppRevisions() throws Exception {
+    try {
+      ListAppRevisionsOptions listAppRevisionsOptions = new ListAppRevisionsOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .appName("my-app")
+          .limit(Long.valueOf("100"))
+          .build();
+
+      // Invoke operation
+      Response<AppRevisionList> response = service.listAppRevisions(listAppRevisionsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      AppRevisionList appRevisionListResult = response.getResult();
+
+      assertNotNull(appRevisionListResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testListAppRevisions" })
+  public void testListAppRevisionsWithPager() throws Exception {
+    try {
+      ListAppRevisionsOptions options = new ListAppRevisionsOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .appName("my-app")
+          .limit(Long.valueOf("100"))
+          .build();
+
+      // Test getNext().
+      List<AppRevision> allResults = new ArrayList<>();
+      AppRevisionsPager pager = new AppRevisionsPager(service, options);
+      while (pager.hasNext()) {
+        List<AppRevision> nextPage = pager.getNext();
+        assertNotNull(nextPage);
+        allResults.addAll(nextPage);
+      }
+      assertFalse(allResults.isEmpty());
+
+      // Test getAll();
+      pager = new AppRevisionsPager(service, options);
+      List<AppRevision> allItems = pager.getAll();
+      assertNotNull(allItems);
+      assertFalse(allItems.isEmpty());
+
+      assertEquals(allItems.size(), allResults.size());
+      System.out.println(String.format("Retrieved a total of %d item(s) with pagination.", allResults.size()));
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testListAppRevisions" })
+  public void testGetAppRevision() throws Exception {
+    try {
+      GetAppRevisionOptions getAppRevisionOptions = new GetAppRevisionOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .appName("my-app")
+          .name("my-app-00001")
+          .build();
+
+      // Invoke operation
+      Response<AppRevision> response = service.getAppRevision(getAppRevisionOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      AppRevision appRevisionResult = response.getResult();
+
+      assertNotNull(appRevisionResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetAppRevision" })
+  public void testListJobs() throws Exception {
+    try {
+      ListJobsOptions listJobsOptions = new ListJobsOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .limit(Long.valueOf("100"))
+          .build();
+
+      // Invoke operation
+      Response<JobList> response = service.listJobs(listJobsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      JobList jobListResult = response.getResult();
+
+      assertNotNull(jobListResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testListJobs" })
+  public void testListJobsWithPager() throws Exception {
+    try {
+      ListJobsOptions options = new ListJobsOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .limit(Long.valueOf("100"))
+          .build();
+
+      // Test getNext().
+      List<Job> allResults = new ArrayList<>();
+      JobsPager pager = new JobsPager(service, options);
+      while (pager.hasNext()) {
+        List<Job> nextPage = pager.getNext();
+        assertNotNull(nextPage);
+        allResults.addAll(nextPage);
+      }
+      assertFalse(allResults.isEmpty());
+
+      // Test getAll();
+      pager = new JobsPager(service, options);
+      List<Job> allItems = pager.getAll();
+      assertNotNull(allItems);
+      assertFalse(allItems.isEmpty());
+
+      assertEquals(allItems.size(), allResults.size());
+      System.out.println(String.format("Retrieved a total of %d item(s) with pagination.", allResults.size()));
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testListJobs" })
+  public void testCreateJob() throws Exception {
+    try {
+      EnvVarPrototype envVarPrototypeModel = new EnvVarPrototype.Builder()
+          .key("MY_VARIABLE")
+          .name("SOME")
+          .prefix("PREFIX_")
+          .reference("my-secret")
+          .type("literal")
+          .value("VALUE")
+          .build();
+
+      VolumeMountPrototype volumeMountPrototypeModel = new VolumeMountPrototype.Builder()
+          .mountPath("/app")
+          .name("codeengine-mount-b69u90")
+          .reference("my-secret")
+          .type("secret")
+          .build();
+
+      CreateJobOptions createJobOptions = new CreateJobOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .imageReference("icr.io/codeengine/helloworld")
+          .name("my-job")
+          .imageSecret("my-secret")
+          .runArguments(java.util.Arrays.asList("testString"))
+          .runAsUser(Long.valueOf("1001"))
+          .runCommands(java.util.Arrays.asList("testString"))
+          .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
+          .runMode("task")
+          .runServiceAccount("default")
+          .runVolumeMounts(java.util.Arrays.asList(volumeMountPrototypeModel))
+          .scaleArraySpec("1-5,7-8,10")
+          .scaleCpuLimit("1")
+          .scaleEphemeralStorageLimit("4G")
+          .scaleMaxExecutionTime(Long.valueOf("7200"))
+          .scaleMemoryLimit("4G")
+          .scaleRetryLimit(Long.valueOf("3"))
+          .build();
+
+      // Invoke operation
+      Response<Job> response = service.createJob(createJobOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 201);
+
+      Job jobResult = response.getResult();
+
+      assertNotNull(jobResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testCreateJob" })
+  public void testGetJob() throws Exception {
+    try {
+      GetJobOptions getJobOptions = new GetJobOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-job")
+          .build();
+
+      // Invoke operation
+      Response<Job> response = service.getJob(getJobOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      Job jobResult = response.getResult();
+
+      assertNotNull(jobResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetJob" })
+  public void testUpdateJob() throws Exception {
+    try {
+      EnvVarPrototype envVarPrototypeModel = new EnvVarPrototype.Builder()
+          .key("MY_VARIABLE")
+          .name("SOME")
+          .prefix("PREFIX_")
+          .reference("my-secret")
+          .type("literal")
+          .value("VALUE")
+          .build();
+
+      VolumeMountPrototype volumeMountPrototypeModel = new VolumeMountPrototype.Builder()
+          .mountPath("/app")
+          .name("codeengine-mount-b69u90")
+          .reference("my-secret")
+          .type("secret")
+          .build();
+
+      JobPatch jobPatchModel = new JobPatch.Builder()
+          .imageReference("icr.io/codeengine/helloworld")
+          .imageSecret("my-secret")
+          .runArguments(java.util.Arrays.asList("testString"))
+          .runAsUser(Long.valueOf("1001"))
+          .runCommands(java.util.Arrays.asList("testString"))
+          .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
+          .runMode("task")
+          .runServiceAccount("default")
+          .runVolumeMounts(java.util.Arrays.asList(volumeMountPrototypeModel))
+          .scaleArraySpec("1-5,7-8,10")
+          .scaleCpuLimit("1")
+          .scaleEphemeralStorageLimit("4G")
+          .scaleMaxExecutionTime(Long.valueOf("7200"))
+          .scaleMemoryLimit("4G")
+          .scaleRetryLimit(Long.valueOf("3"))
+          .build();
+      Map<String, Object> jobPatchModelAsPatch = jobPatchModel.asPatch();
+
+      UpdateJobOptions updateJobOptions = new UpdateJobOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-job")
+          .ifMatch("*")
+          .job(jobPatchModelAsPatch)
+          .build();
+
+      // Invoke operation
+      Response<Job> response = service.updateJob(updateJobOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      Job jobResult = response.getResult();
+
+      assertNotNull(jobResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testUpdateJob" })
+  public void testListJobRuns() throws Exception {
+    try {
+      ListJobRunsOptions listJobRunsOptions = new ListJobRunsOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .jobName("my-job")
+          .limit(Long.valueOf("100"))
+          .build();
+
+      // Invoke operation
+      Response<JobRunList> response = service.listJobRuns(listJobRunsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      JobRunList jobRunListResult = response.getResult();
+
+      assertNotNull(jobRunListResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testListJobRuns" })
+  public void testListJobRunsWithPager() throws Exception {
+    try {
+      ListJobRunsOptions options = new ListJobRunsOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .jobName("my-job")
+          .limit(Long.valueOf("100"))
+          .build();
+
+      // Test getNext().
+      List<JobRun> allResults = new ArrayList<>();
+      JobRunsPager pager = new JobRunsPager(service, options);
+      while (pager.hasNext()) {
+        List<JobRun> nextPage = pager.getNext();
+        assertNotNull(nextPage);
+        allResults.addAll(nextPage);
+      }
+      assertFalse(allResults.isEmpty());
+
+      // Test getAll();
+      pager = new JobRunsPager(service, options);
+      List<JobRun> allItems = pager.getAll();
+      assertNotNull(allItems);
+      assertFalse(allItems.isEmpty());
+
+      assertEquals(allItems.size(), allResults.size());
+      System.out.println(String.format("Retrieved a total of %d item(s) with pagination.", allResults.size()));
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testListJobRuns" })
+  public void testCreateJobRun() throws Exception {
+    try {
+      EnvVarPrototype envVarPrototypeModel = new EnvVarPrototype.Builder()
+          .key("MY_VARIABLE")
+          .name("SOME")
+          .prefix("PREFIX_")
+          .reference("my-secret")
+          .type("literal")
+          .value("VALUE")
+          .build();
+
+      VolumeMountPrototype volumeMountPrototypeModel = new VolumeMountPrototype.Builder()
+          .mountPath("/app")
+          .name("codeengine-mount-b69u90")
+          .reference("my-secret")
+          .type("secret")
+          .build();
+
+      CreateJobRunOptions createJobRunOptions = new CreateJobRunOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .imageReference("icr.io/codeengine/helloworld")
+          .jobName("my-job")
+          .name("my-job-run")
+          .runArguments(java.util.Arrays.asList("testString"))
+          .runAsUser(Long.valueOf("1001"))
+          .runCommands(java.util.Arrays.asList("testString"))
+          .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
+          .runMode("task")
+          .runVolumeMounts(java.util.Arrays.asList(volumeMountPrototypeModel))
+          .scaleArraySpec("1-5,7-8,10")
+          .scaleCpuLimit("1")
+          .scaleEphemeralStorageLimit("4G")
+          .scaleMaxExecutionTime(Long.valueOf("7200"))
+          .scaleMemoryLimit("4G")
+          .scaleRetryLimit(Long.valueOf("3"))
+          .build();
+
+      // Invoke operation
+      Response<JobRun> response = service.createJobRun(createJobRunOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 202);
+
+      JobRun jobRunResult = response.getResult();
+
+      assertNotNull(jobRunResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testCreateJobRun" })
+  public void testGetJobRun() throws Exception {
+    try {
+      GetJobRunOptions getJobRunOptions = new GetJobRunOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-job-run")
+          .build();
+
+      // Invoke operation
+      Response<JobRun> response = service.getJobRun(getJobRunOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      JobRun jobRunResult = response.getResult();
+
+      assertNotNull(jobRunResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetJobRun" })
+  public void testListBuilds() throws Exception {
+    try {
+      ListBuildsOptions listBuildsOptions = new ListBuildsOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .limit(Long.valueOf("100"))
+          .build();
+
+      // Invoke operation
+      Response<BuildList> response = service.listBuilds(listBuildsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      BuildList buildListResult = response.getResult();
+
+      assertNotNull(buildListResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testListBuilds" })
+  public void testListBuildsWithPager() throws Exception {
+    try {
+      ListBuildsOptions options = new ListBuildsOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .limit(Long.valueOf("100"))
+          .build();
+
+      // Test getNext().
+      List<Build> allResults = new ArrayList<>();
+      BuildsPager pager = new BuildsPager(service, options);
+      while (pager.hasNext()) {
+        List<Build> nextPage = pager.getNext();
+        assertNotNull(nextPage);
+        allResults.addAll(nextPage);
+      }
+      assertFalse(allResults.isEmpty());
+
+      // Test getAll();
+      pager = new BuildsPager(service, options);
+      List<Build> allItems = pager.getAll();
+      assertNotNull(allItems);
+      assertFalse(allItems.isEmpty());
+
+      assertEquals(allItems.size(), allResults.size());
+      System.out.println(String.format("Retrieved a total of %d item(s) with pagination.", allResults.size()));
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testListBuilds" })
+  public void testCreateBuild() throws Exception {
+    try {
+      CreateBuildOptions createBuildOptions = new CreateBuildOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-build")
+          .outputImage("private.de.icr.io/icr_namespace/image-name")
+          .outputSecret("ce-auto-icr-private-eu-de")
+          .sourceUrl("https://github.com/IBM/CodeEngine")
+          .strategyType("dockerfile")
+          .sourceContextDir("some/subfolder")
+          .sourceRevision("main")
+          .sourceSecret("my-secret")
+          .sourceType("git")
+          .strategySize("medium")
+          .strategySpecFile("Dockerfile")
+          .timeout(Long.valueOf("600"))
+          .build();
+
+      // Invoke operation
+      Response<Build> response = service.createBuild(createBuildOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 201);
+
+      Build buildResult = response.getResult();
+
+      assertNotNull(buildResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testCreateBuild" })
+  public void testGetBuild() throws Exception {
+    try {
+      GetBuildOptions getBuildOptions = new GetBuildOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-build")
+          .build();
+
+      // Invoke operation
+      Response<Build> response = service.getBuild(getBuildOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      Build buildResult = response.getResult();
+
+      assertNotNull(buildResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetBuild" })
+  public void testUpdateBuild() throws Exception {
+    try {
+      BuildPatch buildPatchModel = new BuildPatch.Builder()
+          .outputImage("private.de.icr.io/icr_namespace/image-name")
+          .outputSecret("ce-auto-icr-private-eu-de")
+          .sourceContextDir("some/subfolder")
+          .sourceRevision("main")
+          .sourceSecret("my-secret")
+          .sourceType("git")
+          .sourceUrl("https://github.com/IBM/CodeEngine")
+          .strategySize("medium")
+          .strategySpecFile("Dockerfile")
+          .strategyType("dockerfile")
+          .timeout(Long.valueOf("600"))
+          .build();
+      Map<String, Object> buildPatchModelAsPatch = buildPatchModel.asPatch();
+
+      UpdateBuildOptions updateBuildOptions = new UpdateBuildOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-build")
+          .ifMatch("*")
+          .build(buildPatchModelAsPatch)
+          .build();
+
+      // Invoke operation
+      Response<Build> response = service.updateBuild(updateBuildOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      Build buildResult = response.getResult();
+
+      assertNotNull(buildResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testUpdateBuild" })
+  public void testCreateBuildRun() throws Exception {
+    try {
+      CreateBuildRunOptions createBuildRunOptions = new CreateBuildRunOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .buildName("my-build")
+          .name("my-build-run")
+          .outputImage("private.de.icr.io/icr_namespace/image-name")
+          .outputSecret("ce-auto-icr-private-eu-de")
+          .serviceAccount("default")
+          .sourceContextDir("some/subfolder")
+          .sourceRevision("main")
+          .sourceSecret("my-secret")
+          .sourceType("git")
+          .sourceUrl("https://github.com/IBM/CodeEngine")
+          .strategySize("medium")
+          .strategySpecFile("Dockerfile")
+          .strategyType("dockerfile")
+          .timeout(Long.valueOf("600"))
+          .build();
+
+      // Invoke operation
+      Response<BuildRun> response = service.createBuildRun(createBuildRunOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 202);
+
+      BuildRun buildRunResult = response.getResult();
+
+      assertNotNull(buildRunResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testCreateBuildRun" })
+  public void testGetBuildRun() throws Exception {
+    try {
+      GetBuildRunOptions getBuildRunOptions = new GetBuildRunOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-build-run")
+          .build();
+
+      // Invoke operation
+      Response<BuildRun> response = service.getBuildRun(getBuildRunOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      BuildRun buildRunResult = response.getResult();
+
+      assertNotNull(buildRunResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetBuildRun" })
+  public void testListBuildRuns() throws Exception {
+    try {
+      ListBuildRunsOptions listBuildRunsOptions = new ListBuildRunsOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .buildName("my-build")
+          .limit(Long.valueOf("100"))
+          .build();
+
+      // Invoke operation
+      Response<BuildRunList> response = service.listBuildRuns(listBuildRunsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      BuildRunList buildRunListResult = response.getResult();
+
+      assertNotNull(buildRunListResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testListBuildRuns" })
+  public void testListBuildRunsWithPager() throws Exception {
+    try {
+      ListBuildRunsOptions options = new ListBuildRunsOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .buildName("my-build")
+          .limit(Long.valueOf("100"))
+          .build();
+
+      // Test getNext().
+      List<BuildRun> allResults = new ArrayList<>();
+      BuildRunsPager pager = new BuildRunsPager(service, options);
+      while (pager.hasNext()) {
+        List<BuildRun> nextPage = pager.getNext();
+        assertNotNull(nextPage);
+        allResults.addAll(nextPage);
+      }
+      // FIXME assertFalse(allResults.isEmpty());
+
+      // Test getAll();
+      pager = new BuildRunsPager(service, options);
+      List<BuildRun> allItems = pager.getAll();
+      assertNotNull(allItems);
+      // FIXME FassertFalse(allItems.isEmpty());
+
+      assertEquals(allItems.size(), allResults.size());
+      System.out.println(String.format("Retrieved a total of %d item(s) with pagination.", allResults.size()));
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testListBuildRunsWithPager" })
+  public void testListConfigMaps() throws Exception {
+    try {
+      ListConfigMapsOptions listConfigMapsOptions = new ListConfigMapsOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .limit(Long.valueOf("100"))
+          .build();
+
+      // Invoke operation
+      Response<ConfigMapList> response = service.listConfigMaps(listConfigMapsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      ConfigMapList configMapListResult = response.getResult();
+
+      assertNotNull(configMapListResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testListConfigMaps" })
+  public void testListConfigMapsWithPager() throws Exception {
+    try {
+      ListConfigMapsOptions options = new ListConfigMapsOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .limit(Long.valueOf("100"))
+          .build();
+
+      // Test getNext().
+      List<ConfigMap> allResults = new ArrayList<>();
+      ConfigMapsPager pager = new ConfigMapsPager(service, options);
+      while (pager.hasNext()) {
+        List<ConfigMap> nextPage = pager.getNext();
+        assertNotNull(nextPage);
+        allResults.addAll(nextPage);
+      }
+      assertFalse(allResults.isEmpty());
+
+      // Test getAll();
+      pager = new ConfigMapsPager(service, options);
+      List<ConfigMap> allItems = pager.getAll();
+      assertNotNull(allItems);
+      assertFalse(allItems.isEmpty());
+
+      assertEquals(allItems.size(), allResults.size());
+      System.out.println(String.format("Retrieved a total of %d item(s) with pagination.", allResults.size()));
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testListConfigMaps" })
+  public void testCreateConfigMap() throws Exception {
+    try {
+      CreateConfigMapOptions createConfigMapOptions = new CreateConfigMapOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-config-map")
+          .data(java.util.Collections.singletonMap("foo", "testString"))
+          .build();
+
+      // Invoke operation
+      Response<ConfigMap> response = service.createConfigMap(createConfigMapOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 201);
+
+      ConfigMap configMapResult = response.getResult();
+
+      assertNotNull(configMapResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testCreateConfigMap" })
+  public void testGetConfigMap() throws Exception {
+    try {
+      GetConfigMapOptions getConfigMapOptions = new GetConfigMapOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-config-map")
+          .build();
+
+      // Invoke operation
+      Response<ConfigMap> response = service.getConfigMap(getConfigMapOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      ConfigMap configMapResult = response.getResult();
+
+      assertNotNull(configMapResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetConfigMap" })
+  public void testReplaceConfigMap() throws Exception {
+    try {
+      ReplaceConfigMapOptions replaceConfigMapOptions = new ReplaceConfigMapOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-config-map")
+          .ifMatch("*")
+          .data(java.util.Collections.singletonMap("foo", "testString"))
+          .build();
+
+      // Invoke operation
+      Response<ConfigMap> response = service.replaceConfigMap(replaceConfigMapOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      ConfigMap configMapResult = response.getResult();
+
+      assertNotNull(configMapResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testReplaceConfigMap" })
+  public void testListSecrets() throws Exception {
+    try {
+      ListSecretsOptions listSecretsOptions = new ListSecretsOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .limit(Long.valueOf("100"))
+          .build();
+
+      // Invoke operation
+      Response<SecretList> response = service.listSecrets(listSecretsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      SecretList secretListResult = response.getResult();
+
+      assertNotNull(secretListResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testListSecrets" })
+  public void testListSecretsWithPager() throws Exception {
+    try {
+      ListSecretsOptions options = new ListSecretsOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .limit(Long.valueOf("100"))
+          .build();
+
+      // Test getNext().
+      List<Secret> allResults = new ArrayList<>();
+      SecretsPager pager = new SecretsPager(service, options);
+      while (pager.hasNext()) {
+        List<Secret> nextPage = pager.getNext();
+        assertNotNull(nextPage);
+        allResults.addAll(nextPage);
+      }
+      assertFalse(allResults.isEmpty());
+
+      // Test getAll();
+      pager = new SecretsPager(service, options);
+      List<Secret> allItems = pager.getAll();
+      assertNotNull(allItems);
+      assertFalse(allItems.isEmpty());
+
+      assertEquals(allItems.size(), allResults.size());
+      System.out.println(String.format("Retrieved a total of %d item(s) with pagination.", allResults.size()));
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testListSecrets" })
+  public void testCreateGenericSecret() throws Exception {
+    try {
+      SecretDataGenericSecretData secretData = new SecretDataGenericSecretData();
+      secretData.setProperties(java.util.Collections.singletonMap("foo", "testString"));
+      CreateSecretOptions createSecretOptions = new CreateSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .format("generic")
+          .name("my-secret")
+          .data(secretData)
+          .build();
+
+      // Invoke operation
+      Response<Secret> response = service.createSecret(createSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 201);
+
+      Secret secretResult = response.getResult();
+
+      assertNotNull(secretResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testCreateGenericSecret" })
+  public void testCreateSSHSecret() throws Exception {
+    try {
+      SecretDataSSHSecretData SshSecretData = new SecretDataSSHSecretData();
+      SshSecretData.setSshKey(readFromFile("sshkey.pem"));
+      CreateSecretOptions createSecretOptions = new CreateSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .format("ssh_auth")
+          .name("my-ssh-secret")
+          .data(SshSecretData)
+          .build();
+
+      // Invoke operation
+      Response<Secret> response = service.createSecret(createSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 201);
+
+      Secret secretResult = response.getResult();
+
+      assertNotNull(secretResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testCreateSSHSecret" })
+  public void testCreateTLSSecret() throws Exception {
+    try {
+      SecretDataTLSSecretData TlsSecretData = new SecretDataTLSSecretData();
+      TlsSecretData.setTlsKey(readFromFile("domain.key"));
+      TlsSecretData.setTlsCert(readFromFile("domain.crt"));
+      CreateSecretOptions createSecretOptions = new CreateSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .format("tls")
+          .name("my-tls-secret")
+          .data(TlsSecretData)
+          .build();
+
+      // Invoke operation
+      Response<Secret> response = service.createSecret(createSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 201);
+
+      Secret secretResult = response.getResult();
+
+      assertNotNull(secretResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testCreateTLSSecret" })
+  public void testCreateBasicAuthSecret() throws Exception {
+    try {
+      SecretDataBasicAuthSecretData BasicAuthSecretData = new SecretDataBasicAuthSecretData();
+      BasicAuthSecretData.setUsername("user1");
+      BasicAuthSecretData.setPassword("pass1");
+      CreateSecretOptions createSecretOptions = new CreateSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .format("basic_auth")
+          .name("my-basic-auth-secret")
+          .data(BasicAuthSecretData)
+          .build();
+
+      // Invoke operation
+      Response<Secret> response = service.createSecret(createSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 201);
+
+      Secret secretResult = response.getResult();
+
+      assertNotNull(secretResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testCreateBasicAuthSecret" })
+  public void testCreateRegistrySecret() throws Exception {
+    try {
+      SecretDataRegistrySecretData RegistrySecretData = new SecretDataRegistrySecretData();
+      RegistrySecretData.setUsername("user1");
+      RegistrySecretData.setPassword("pass1");
+      RegistrySecretData.setEmail("email@email.com");
+      RegistrySecretData.setServer("github.com");
+      CreateSecretOptions createSecretOptions = new CreateSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .format("registry")
+          .name("my-registry-secret")
+          .data(RegistrySecretData)
+          .build();
+
+      // Invoke operation
+      Response<Secret> response = service.createSecret(createSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 201);
+
+      Secret secretResult = response.getResult();
+
+      assertNotNull(secretResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testCreateRegistrySecret" })
+  public void testGetGenericSecret() throws Exception {
+    try {
+      GetSecretOptions getSecretOptions = new GetSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-secret")
+          .build();
+
+      // Invoke operation
+      Response<Secret> response = service.getSecret(getSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      Secret secretResult = response.getResult();
+
+      assertNotNull(secretResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetGenericSecret" })
+  public void testGetSSHSecret() throws Exception {
+    try {
+      GetSecretOptions getSecretOptions = new GetSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-ssh-secret")
+          .build();
+
+      // Invoke operation
+      Response<Secret> response = service.getSecret(getSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      Secret secretResult = response.getResult();
+
+      assertNotNull(secretResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetSSHSecret" })
+  public void testGetTLSSecret() throws Exception {
+    try {
+      GetSecretOptions getSecretOptions = new GetSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-tls-secret")
+          .build();
+
+      // Invoke operation
+      Response<Secret> response = service.getSecret(getSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      Secret secretResult = response.getResult();
+
+      assertNotNull(secretResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetTLSSecret" })
+  public void testGetBasicAuthSecret() throws Exception {
+    try {
+      GetSecretOptions getSecretOptions = new GetSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-basic-auth-secret")
+          .build();
+
+      // Invoke operation
+      Response<Secret> response = service.getSecret(getSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      Secret secretResult = response.getResult();
+
+      assertNotNull(secretResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetBasicAuthSecret" })
+  public void testGetRegistrySecret() throws Exception {
+    try {
+      GetSecretOptions getSecretOptions = new GetSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-registry-secret")
+          .build();
+
+      // Invoke operation
+      Response<Secret> response = service.getSecret(getSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      Secret secretResult = response.getResult();
+
+      assertNotNull(secretResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetRegistrySecret" })
+  public void testReplaceGenericSecret() throws Exception {
+    try {
+      SecretDataGenericSecretData secretData = new SecretDataGenericSecretData();
+      secretData.setProperties(java.util.Collections.singletonMap("foo", "testString2"));
+      ReplaceSecretOptions replaceSecretOptions = new ReplaceSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-secret")
+          .ifMatch("*")
+          .data(secretData)
+          .format("generic")
+          .build();
+
+      // Invoke operation
+      Response<Secret> response = service.replaceSecret(replaceSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      Secret secretResult = response.getResult();
+
+      assertNotNull(secretResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testReplaceGenericSecret" })
+  public void testReplaceSSHSecret() throws Exception {
+    try {
+      SecretDataSSHSecretData SshSecretData = new SecretDataSSHSecretData();
+      SshSecretData.setSshKey(readFromFile("sshkey.pem"));
+      ReplaceSecretOptions replaceSecretOptions = new ReplaceSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-ssh-secret")
+          .ifMatch("*")
+          .data(SshSecretData)
+          .format("ssh_auth")
+          .build();
+
+      // Invoke operation
+      Response<Secret> response = service.replaceSecret(replaceSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      Secret secretResult = response.getResult();
+
+      assertNotNull(secretResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testReplaceSSHSecret" })
+  public void testReplaceTLSSecret() throws Exception {
+    try {
+      SecretDataTLSSecretData TlsSecretData = new SecretDataTLSSecretData();
+      TlsSecretData.setTlsKey(readFromFile("domain.key"));
+      TlsSecretData.setTlsCert(readFromFile("domain.crt"));
+      ReplaceSecretOptions replaceSecretOptions = new ReplaceSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-tls-secret")
+          .ifMatch("*")
+          .data(TlsSecretData)
+          .format("tls")
+          .build();
+
+      // Invoke operation
+      Response<Secret> response = service.replaceSecret(replaceSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      Secret secretResult = response.getResult();
+
+      assertNotNull(secretResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testReplaceTLSSecret" })
+  public void testReplaceBasicAuthSecret() throws Exception {
+    try {
+      SecretDataBasicAuthSecretData BasicAuthSecretData = new SecretDataBasicAuthSecretData();
+      BasicAuthSecretData.setUsername("user2");
+      BasicAuthSecretData.setPassword("pass2");
+      ReplaceSecretOptions replaceSecretOptions = new ReplaceSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-basic-auth-secret")
+          .ifMatch("*")
+          .data(BasicAuthSecretData)
+          .format("basic_auth")
+          .build();
+
+      // Invoke operation
+      Response<Secret> response = service.replaceSecret(replaceSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      Secret secretResult = response.getResult();
+
+      assertNotNull(secretResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testReplaceBasicAuthSecret" })
+  public void testReplaceRegistrySecret() throws Exception {
+    try {
+      SecretDataRegistrySecretData RegistrySecretData = new SecretDataRegistrySecretData();
+      RegistrySecretData.setUsername("user2");
+      RegistrySecretData.setPassword("pass2");
+      RegistrySecretData.setEmail("email@email.com");
+      RegistrySecretData.setServer("github.com");
+      ReplaceSecretOptions replaceSecretOptions = new ReplaceSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-registry-secret")
+          .ifMatch("*")
+          .data(RegistrySecretData)
+          .format("registry")
+          .build();
+
+      // Invoke operation
+      Response<Secret> response = service.replaceSecret(replaceSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      Secret secretResult = response.getResult();
+
+      assertNotNull(secretResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testReplaceRegistrySecret" })
+  public void testCreateServiceAccessSecret() throws Exception {
+    try {
+      ServiceInstanceRefPrototype SaRef = new ServiceInstanceRefPrototype.Builder()
+          .id("498131b4-d4b0-42ff-8592-ab3a2f6e3be6").build();
       ResourceKeyRefPrototype RKRef = new ResourceKeyRefPrototype.Builder().build();
-      ServiceAccessSecretPrototypeProps serviceAccess = new ServiceAccessSecretPrototypeProps.Builder().serviceInstance(SaRef).resourceKey(RKRef).build();
+      ServiceAccessSecretPrototypeProps serviceAccess = new ServiceAccessSecretPrototypeProps.Builder()
+          .serviceInstance(SaRef).resourceKey(RKRef).build();
       CreateSecretOptions createSecretOptions = new CreateSecretOptions.Builder()
           .projectId(e2eTestProjectId)
           .format("service_access")
           .name("my-service-access-secret")
           .serviceAccess(serviceAccess)
           .build();
- 
-       // Invoke operation
-       Response<Secret> response = service.createSecret(createSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 201);
- 
-       Secret secretResult = response.getResult();
- 
-       assertNotNull(secretResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
 
-   @Test(dependsOnMethods = { "testCreateServiceAccessSecret" })
-   public void testGetServiceAccessSecret() throws Exception {
-     try {
-       GetSecretOptions getSecretOptions = new GetSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-service-access-secret")
-           .build();
- 
-       // Invoke operation
-       Response<Secret> response = service.getSecret(getSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       Secret secretResult = response.getResult();
- 
-       assertNotNull(secretResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testGetServiceAccessSecret" })
-   public void testCreateBinding() throws Exception {
-     try {
+      // Invoke operation
+      Response<Secret> response = service.createSecret(createSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 201);
+
+      Secret secretResult = response.getResult();
+
+      assertNotNull(secretResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testCreateServiceAccessSecret" })
+  public void testGetServiceAccessSecret() throws Exception {
+    try {
+      GetSecretOptions getSecretOptions = new GetSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-service-access-secret")
+          .build();
+
+      // Invoke operation
+      Response<Secret> response = service.getSecret(getSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      Secret secretResult = response.getResult();
+
+      assertNotNull(secretResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetServiceAccessSecret" })
+  public void testCreateBinding() throws Exception {
+    try {
       ComponentRef component = new ComponentRef.Builder()
           .name("my-app")
           .resourceType("app_v2")
@@ -1830,360 +1868,356 @@ import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
           .component(component)
           .secretName("my-service-access-secret")
           .build();
- 
-       // Invoke operation
-       Response<Binding> response = service.createBinding(createBindingOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 201);
- 
-       Binding bindingResult = response.getResult();
-       assertNotNull(bindingResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testCreateBinding" })
-   public void testGetBinding() throws Exception {
-     try {
-     
+
+      // Invoke operation
+      Response<Binding> response = service.createBinding(createBindingOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 201);
+
+      Binding bindingResult = response.getResult();
+      assertNotNull(bindingResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testCreateBinding" })
+  public void testGetBinding() throws Exception {
+    try {
+
       GetBindingOptions getBindingOptions = new GetBindingOptions.Builder()
           .projectId(e2eTestProjectId)
           .id("a172ced-4c9a75c-0b02fe7-386425e")
           .build();
- 
-       // Invoke operation
-       Response<Binding> response = service.getBinding(getBindingOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       Binding bindingResult = response.getResult();
- 
-       assertNotNull(bindingResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testGetBinding" })
-   public void testListBindings() throws Exception {
-     try {
-      ListBindingsOptions listBindingsOptions = new ListBindingsOptions.Builder()
-            .projectId(e2eTestProjectId)
-            .build();
 
- 
-       // Invoke operation
-       Response<BindingList> response = service.listBindings(listBindingsOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 200);
- 
-       BindingList bindingListResult = response.getResult();
- 
-       assertNotNull(bindingListResult);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testListBindings" })
-   public void testDeleteBinding() throws Exception {
-     try {
-     
+      // Invoke operation
+      Response<Binding> response = service.getBinding(getBindingOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      Binding bindingResult = response.getResult();
+
+      assertNotNull(bindingResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetBinding" })
+  public void testListBindings() throws Exception {
+    try {
+      ListBindingsOptions listBindingsOptions = new ListBindingsOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .build();
+
+      // Invoke operation
+      Response<BindingList> response = service.listBindings(listBindingsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      BindingList bindingListResult = response.getResult();
+
+      assertNotNull(bindingListResult);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testListBindings" })
+  public void testDeleteBinding() throws Exception {
+    try {
+
       DeleteBindingOptions deleteBindingOptions = new DeleteBindingOptions.Builder()
           .projectId(e2eTestProjectId)
           .id("a172ced-4c9a75c-0b02fe7-386425e")
           .build();
- 
-       // Invoke operation
-       Response<Void> response = service.deleteBinding(deleteBindingOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 202);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testDeleteBinding" })
-   public void testDeleteAppRevision() throws Exception {
-     try {
-       DeleteAppRevisionOptions deleteAppRevisionOptions = new DeleteAppRevisionOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .appName("my-app")
-           .name("my-app-00003")
-           .build();
- 
-       // Invoke operation
-       Response<Void> response = service.deleteAppRevision(deleteAppRevisionOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 202);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
 
-   @Test(dependsOnMethods = { "testDeleteAppRevision" })
-   public void testDeleteApp() throws Exception {
-     try {
-       DeleteAppOptions deleteAppOptions = new DeleteAppOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-app")
-           .build();
- 
-       // Invoke operation
-       Response<Void> response = service.deleteApp(deleteAppOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 202);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testDeleteApp" })
-   public void testDeleteJobRun() throws Exception {
-     try {
-       DeleteJobRunOptions deleteJobRunOptions = new DeleteJobRunOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-job-run")
-           .build();
- 
-       // Invoke operation
-       Response<Void> response = service.deleteJobRun(deleteJobRunOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 202);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testDeleteJobRun" })
-   public void testDeleteJob() throws Exception {
-     try {
-       DeleteJobOptions deleteJobOptions = new DeleteJobOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-job")
-           .build();
- 
-       // Invoke operation
-       Response<Void> response = service.deleteJob(deleteJobOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 202);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testDeleteJob" })
-   public void testDeleteBuildRun() throws Exception {
-     try {
-       DeleteBuildRunOptions deleteBuildRunOptions = new DeleteBuildRunOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-build-run")
-           .build();
- 
-       // Invoke operation
-       Response<Void> response = service.deleteBuildRun(deleteBuildRunOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 202);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testDeleteBuildRun" })
-   public void testDeleteBuild() throws Exception {
-     try {
-       DeleteBuildOptions deleteBuildOptions = new DeleteBuildOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-build")
-           .build();
- 
-       // Invoke operation
-       Response<Void> response = service.deleteBuild(deleteBuildOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 202);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
- 
-   @Test(dependsOnMethods = { "testDeleteBuild" })
-   public void testDeleteConfigMap() throws Exception {
-     try {
-       DeleteConfigMapOptions deleteConfigMapOptions = new DeleteConfigMapOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-config-map")
-           .build();
- 
-       // Invoke operation
-       Response<Void> response = service.deleteConfigMap(deleteConfigMapOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 202);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testDeleteConfigMap" })
-   public void testDeleteGenericSecret() throws Exception {
-     try {
-       DeleteSecretOptions deleteSecretOptions = new DeleteSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-secret")
-           .build();
- 
-       // Invoke operation
-       Response<Void> response = service.deleteSecret(deleteSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 202);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testDeleteGenericSecret" })
-   public void testDeleteServiceAccessSecret() throws Exception {
-     try {
-       DeleteSecretOptions deleteSecretOptions = new DeleteSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-service-access-secret")
-           .build();
- 
-       // Invoke operation
-       Response<Void> response = service.deleteSecret(deleteSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 202);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testDeleteServiceAccessSecret" })
-   public void testDeleteSSHSecret() throws Exception {
-     try {
-       DeleteSecretOptions deleteSecretOptions = new DeleteSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-ssh-secret")
-           .build();
- 
-       // Invoke operation
-       Response<Void> response = service.deleteSecret(deleteSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 202);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testDeleteSSHSecret" })
-   public void testDeleteTLSSecret() throws Exception {
-     try {
-       DeleteSecretOptions deleteSecretOptions = new DeleteSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-tls-secret")
-           .build();
- 
-       // Invoke operation
-       Response<Void> response = service.deleteSecret(deleteSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 202);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testDeleteTLSSecret" })
-   public void testDeleteBasicAuthSecret() throws Exception {
-     try {
-       DeleteSecretOptions deleteSecretOptions = new DeleteSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-basic-auth-secret")
-           .build();
- 
-       // Invoke operation
-       Response<Void> response = service.deleteSecret(deleteSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 202);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testDeleteBasicAuthSecret" })
-   public void testDeleteRegistrySecret() throws Exception {
-     try {
-       DeleteSecretOptions deleteSecretOptions = new DeleteSecretOptions.Builder()
-           .projectId(e2eTestProjectId)
-           .name("my-registry-secret")
-           .build();
- 
-       // Invoke operation
-       Response<Void> response = service.deleteSecret(deleteSecretOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 202);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
-   @Test(dependsOnMethods = { "testDeleteRegistrySecret" })
-   public void testDeleteProject() throws Exception {
-     try {
-       DeleteProjectOptions deleteProjectOptions = new DeleteProjectOptions.Builder()
-           .id(e2eTestProjectId)
-           .build();
- 
-       // Invoke operation
-       Response<Void> response = service.deleteProject(deleteProjectOptions).execute();
-       // Validate response
-       assertNotNull(response);
-       assertEquals(response.getStatusCode(), 202);
-     } catch (ServiceResponseException e) {
-       fail(String.format("Service returned status code %d: %s%nError details: %s",
-           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-     }
-   }
- 
- 
-   @AfterClass
-   public void tearDown() {
-     // Add any clean up logic here
-     System.out.println("Clean up complete.");
-   }
- }
- 
+      // Invoke operation
+      Response<Void> response = service.deleteBinding(deleteBindingOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 202);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testDeleteBinding" })
+  public void testDeleteAppRevision() throws Exception {
+    try {
+      DeleteAppRevisionOptions deleteAppRevisionOptions = new DeleteAppRevisionOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .appName("my-app")
+          .name("my-app-00003")
+          .build();
+
+      // Invoke operation
+      Response<Void> response = service.deleteAppRevision(deleteAppRevisionOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 202);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testDeleteAppRevision" })
+  public void testDeleteApp() throws Exception {
+    try {
+      DeleteAppOptions deleteAppOptions = new DeleteAppOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-app")
+          .build();
+
+      // Invoke operation
+      Response<Void> response = service.deleteApp(deleteAppOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 202);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testDeleteApp" })
+  public void testDeleteJobRun() throws Exception {
+    try {
+      DeleteJobRunOptions deleteJobRunOptions = new DeleteJobRunOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-job-run")
+          .build();
+
+      // Invoke operation
+      Response<Void> response = service.deleteJobRun(deleteJobRunOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 202);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testDeleteJobRun" })
+  public void testDeleteJob() throws Exception {
+    try {
+      DeleteJobOptions deleteJobOptions = new DeleteJobOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-job")
+          .build();
+
+      // Invoke operation
+      Response<Void> response = service.deleteJob(deleteJobOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 202);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testDeleteJob" })
+  public void testDeleteBuildRun() throws Exception {
+    try {
+      DeleteBuildRunOptions deleteBuildRunOptions = new DeleteBuildRunOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-build-run")
+          .build();
+
+      // Invoke operation
+      Response<Void> response = service.deleteBuildRun(deleteBuildRunOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 202);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testDeleteBuildRun" })
+  public void testDeleteBuild() throws Exception {
+    try {
+      DeleteBuildOptions deleteBuildOptions = new DeleteBuildOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-build")
+          .build();
+
+      // Invoke operation
+      Response<Void> response = service.deleteBuild(deleteBuildOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 202);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testDeleteBuild" })
+  public void testDeleteConfigMap() throws Exception {
+    try {
+      DeleteConfigMapOptions deleteConfigMapOptions = new DeleteConfigMapOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-config-map")
+          .build();
+
+      // Invoke operation
+      Response<Void> response = service.deleteConfigMap(deleteConfigMapOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 202);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testDeleteConfigMap" })
+  public void testDeleteGenericSecret() throws Exception {
+    try {
+      DeleteSecretOptions deleteSecretOptions = new DeleteSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-secret")
+          .build();
+
+      // Invoke operation
+      Response<Void> response = service.deleteSecret(deleteSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 202);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testDeleteGenericSecret" })
+  public void testDeleteServiceAccessSecret() throws Exception {
+    try {
+      DeleteSecretOptions deleteSecretOptions = new DeleteSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-service-access-secret")
+          .build();
+
+      // Invoke operation
+      Response<Void> response = service.deleteSecret(deleteSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 202);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testDeleteServiceAccessSecret" })
+  public void testDeleteSSHSecret() throws Exception {
+    try {
+      DeleteSecretOptions deleteSecretOptions = new DeleteSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-ssh-secret")
+          .build();
+
+      // Invoke operation
+      Response<Void> response = service.deleteSecret(deleteSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 202);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testDeleteSSHSecret" })
+  public void testDeleteTLSSecret() throws Exception {
+    try {
+      DeleteSecretOptions deleteSecretOptions = new DeleteSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-tls-secret")
+          .build();
+
+      // Invoke operation
+      Response<Void> response = service.deleteSecret(deleteSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 202);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testDeleteTLSSecret" })
+  public void testDeleteBasicAuthSecret() throws Exception {
+    try {
+      DeleteSecretOptions deleteSecretOptions = new DeleteSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-basic-auth-secret")
+          .build();
+
+      // Invoke operation
+      Response<Void> response = service.deleteSecret(deleteSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 202);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testDeleteBasicAuthSecret" })
+  public void testDeleteRegistrySecret() throws Exception {
+    try {
+      DeleteSecretOptions deleteSecretOptions = new DeleteSecretOptions.Builder()
+          .projectId(e2eTestProjectId)
+          .name("my-registry-secret")
+          .build();
+
+      // Invoke operation
+      Response<Void> response = service.deleteSecret(deleteSecretOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 202);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testDeleteRegistrySecret" })
+  public void testDeleteProject() throws Exception {
+    try {
+      DeleteProjectOptions deleteProjectOptions = new DeleteProjectOptions.Builder()
+          .id(e2eTestProjectId)
+          .build();
+
+      // Invoke operation
+      Response<Void> response = service.deleteProject(deleteProjectOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 202);
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @AfterClass
+  public void tearDown() {
+    // Add any clean up logic here
+    System.out.println("Clean up complete.");
+  }
+}
