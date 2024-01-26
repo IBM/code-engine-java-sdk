@@ -66,7 +66,7 @@ jobs:
       if: type != pull_request AND branch = main AND tag IS blank
       install:
         - sudo apt-get install python
-        - nvm install 18
+        - nvm install 20
         - npm install -g semantic-release
         - npm install -g @semantic-release/changelog
         - npm install -g @semantic-release/exec
