@@ -1,3 +1,18 @@
+# [4.1.0](https://github.ibm.com/coligo/java-sdk/compare/4.0.0...4.1.0) (2024-01-26)
+
+
+### Bug Fixes
+
+* **ci:** implemented deploy script ([#19](https://github.ibm.com/coligo/java-sdk/issues/19)) ([bed582c](https://github.ibm.com/coligo/java-sdk/commit/bed582c94cbe0a5f0be54eb02ed5bb6a04d6711a))
+* **deps:** update dependency com.ibm.cloud:sdk-core to v9.19.0 ([#50](https://github.ibm.com/coligo/java-sdk/issues/50)) ([46e0ed6](https://github.ibm.com/coligo/java-sdk/commit/46e0ed649734136f3219d345276ff68c7e4ccd61))
+* **deps:** update slf4j-version to v2.0.11 ([#51](https://github.ibm.com/coligo/java-sdk/issues/51)) ([29f1a11](https://github.ibm.com/coligo/java-sdk/commit/29f1a115e5f552bc59dcfb32ef2bbee5d77afad7))
+* **tests:** fixed broken integration tests ([#48](https://github.ibm.com/coligo/java-sdk/issues/48)) ([b05461d](https://github.ibm.com/coligo/java-sdk/commit/b05461d366b4856203bf5564155b1abf7954d65f))
+
+
+### Features
+
+* **api:** sdk-update-20240124-144834 ([#69](https://github.ibm.com/coligo/java-sdk/issues/69)) ([9f266ee](https://github.ibm.com/coligo/java-sdk/commit/9f266ee76b22b479725f2dea9a8de16ff75e8fea))
+
 # [4.0.0](https://github.ibm.com/coligo/java-sdk/compare/3.1.1...4.0.0) (2023-07-21)
 
 
