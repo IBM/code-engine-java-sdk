@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -72,6 +72,7 @@ public class CreateJobRunOptionsTest {
       .runMode("task")
       .runServiceAccount("default")
       .runVolumeMounts(java.util.Arrays.asList(volumeMountPrototypeModel))
+      .scaleArraySizeVariableOverride(Long.valueOf("2"))
       .scaleArraySpec("1-5,7-8,10")
       .scaleCpuLimit("1")
       .scaleEphemeralStorageLimit("4G")
@@ -91,6 +92,7 @@ public class CreateJobRunOptionsTest {
     assertEquals(createJobRunOptionsModel.runMode(), "task");
     assertEquals(createJobRunOptionsModel.runServiceAccount(), "default");
     assertEquals(createJobRunOptionsModel.runVolumeMounts(), java.util.Arrays.asList(volumeMountPrototypeModel));
+    assertEquals(createJobRunOptionsModel.scaleArraySizeVariableOverride(), Long.valueOf("2"));
     assertEquals(createJobRunOptionsModel.scaleArraySpec(), "1-5,7-8,10");
     assertEquals(createJobRunOptionsModel.scaleCpuLimit(), "1");
     assertEquals(createJobRunOptionsModel.scaleEphemeralStorageLimit(), "4G");

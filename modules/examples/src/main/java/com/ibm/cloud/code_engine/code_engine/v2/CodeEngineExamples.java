@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,6 +33,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBindingOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateConfigMapOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.CreateDomainMappingOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateJobOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateJobRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateProjectOptions;
@@ -43,16 +44,21 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBindingOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBuildOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBuildRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteConfigMapOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteDomainMappingOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteJobOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteJobRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteProjectOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteSecretOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DomainMapping;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DomainMappingPatch;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DomainMappingsPager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppRevisionOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetBindingOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetBuildOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetBuildRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetConfigMapOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetDomainMappingOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectEgressIpsOptions;
@@ -70,6 +76,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.ListBindingsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListBuildRunsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListBuildsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListConfigMapsOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListDomainMappingsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobRunsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListProjectsOptions;
@@ -84,6 +91,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.Secret;
 import com.ibm.cloud.code_engine.code_engine.v2.model.SecretsPager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateAppOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateBuildOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateDomainMappingOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateJobOptions;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
@@ -844,6 +852,93 @@ public class CodeEngineExamples {
     }
 
     try {
+      System.out.println("listDomainMappings() result:");
+      // begin-list_domain_mappings
+      ListDomainMappingsOptions listDomainMappingsOptions = new ListDomainMappingsOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .limit(Long.valueOf("100"))
+        .build();
+
+      DomainMappingsPager pager = new DomainMappingsPager(codeEngineService, listDomainMappingsOptions);
+      List<DomainMapping> allResults = new ArrayList<>();
+      while (pager.hasNext()) {
+        List<DomainMapping> nextPage = pager.getNext();
+        allResults.addAll(nextPage);
+      }
+
+      System.out.println(GsonSingleton.getGson().toJson(allResults));
+      // end-list_domain_mappings
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("createDomainMapping() result:");
+      // begin-create_domain_mapping
+      ComponentRef componentRefModel = new ComponentRef.Builder()
+        .name("my-app-1")
+        .resourceType("app_v2")
+        .build();
+      CreateDomainMappingOptions createDomainMappingOptions = new CreateDomainMappingOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .component(componentRefModel)
+        .name("www.example.com")
+        .tlsSecret("my-tls-secret")
+        .build();
+
+      Response<DomainMapping> response = codeEngineService.createDomainMapping(createDomainMappingOptions).execute();
+      DomainMapping domainMapping = response.getResult();
+
+      System.out.println(domainMapping);
+      // end-create_domain_mapping
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("getDomainMapping() result:");
+      // begin-get_domain_mapping
+      GetDomainMappingOptions getDomainMappingOptions = new GetDomainMappingOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .name("www.example.com")
+        .build();
+
+      Response<DomainMapping> response = codeEngineService.getDomainMapping(getDomainMappingOptions).execute();
+      DomainMapping domainMapping = response.getResult();
+
+      System.out.println(domainMapping);
+      // end-get_domain_mapping
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("updateDomainMapping() result:");
+      // begin-update_domain_mapping
+      DomainMappingPatch domainMappingPatchModel = new DomainMappingPatch.Builder()
+        .build();
+      Map<String, Object> domainMappingPatchModelAsPatch = domainMappingPatchModel.asPatch();
+      UpdateDomainMappingOptions updateDomainMappingOptions = new UpdateDomainMappingOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .name("www.example.com")
+        .ifMatch("testString")
+        .domainMapping(domainMappingPatchModelAsPatch)
+        .build();
+
+      Response<DomainMapping> response = codeEngineService.updateDomainMapping(updateDomainMappingOptions).execute();
+      DomainMapping domainMapping = response.getResult();
+
+      System.out.println(domainMapping);
+      // end-update_domain_mapping
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
       // begin-delete_project
       DeleteProjectOptions deleteProjectOptions = new DeleteProjectOptions.Builder()
         .id("15314cc3-85b4-4338-903f-c28cdee6d005")
@@ -988,6 +1083,21 @@ public class CodeEngineExamples {
       Response<Void> response = codeEngineService.deleteSecret(deleteSecretOptions).execute();
       // end-delete_secret
       System.out.printf("deleteSecret() response status code: %d%n", response.getStatusCode());
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-delete_domain_mapping
+      DeleteDomainMappingOptions deleteDomainMappingOptions = new DeleteDomainMappingOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .name("www.example.com")
+        .build();
+
+      Response<Void> response = codeEngineService.deleteDomainMapping(deleteDomainMappingOptions).execute();
+      // end-delete_domain_mapping
+      System.out.printf("deleteDomainMapping() response status code: %d%n", response.getStatusCode());
     } catch (ServiceResponseException e) {
         logger.error(String.format("Service returned status code %s: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);

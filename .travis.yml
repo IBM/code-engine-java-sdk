@@ -43,6 +43,7 @@ before_install:
   - echo "CODE_ENGINE_AUTH_TYPE=iam" >> code_engine_v2.env
   - echo "CODE_ENGINE_APIKEY=$CE_API_KEY" >> code_engine_v2.env
   - echo "CODE_ENGINE_AUTH_URL=$IAM_ENDPOINT" >> code_engine_v2.env
+  - echo "CODE_ENGINE_DOMAIN_MAPPING_NAME=api-unit-test-tls.e2e-board.info" >> code_engine_v2.env
 
 jobs:
   include:
@@ -57,6 +58,7 @@ jobs:
     - jdk: openjdk17
       install: true
       script:
+        - ./scripts/get-dependencies.sh # get api repo for access to latest domain mapping cert
         # execute all tests including the integration tests
         - mvn verify -fae $MVN_ARGS
 

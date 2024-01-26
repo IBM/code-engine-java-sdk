@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -64,6 +64,10 @@ public class AppPatch extends GenericModel {
   protected String imageSecret;
   @SerializedName("managed_domain_mappings")
   protected String managedDomainMappings;
+  @SerializedName("probe_liveness")
+  protected ProbePrototype probeLiveness;
+  @SerializedName("probe_readiness")
+  protected ProbePrototype probeReadiness;
   @SerializedName("run_arguments")
   protected List<String> runArguments;
   @SerializedName("run_as_user")
@@ -105,6 +109,8 @@ public class AppPatch extends GenericModel {
     private String imageReference;
     private String imageSecret;
     private String managedDomainMappings;
+    private ProbePrototype probeLiveness;
+    private ProbePrototype probeReadiness;
     private List<String> runArguments;
     private Long runAsUser;
     private List<String> runCommands;
@@ -132,6 +138,8 @@ public class AppPatch extends GenericModel {
       this.imageReference = appPatch.imageReference;
       this.imageSecret = appPatch.imageSecret;
       this.managedDomainMappings = appPatch.managedDomainMappings;
+      this.probeLiveness = appPatch.probeLiveness;
+      this.probeReadiness = appPatch.probeReadiness;
       this.runArguments = appPatch.runArguments;
       this.runAsUser = appPatch.runAsUser;
       this.runCommands = appPatch.runCommands;
@@ -270,6 +278,28 @@ public class AppPatch extends GenericModel {
      */
     public Builder managedDomainMappings(String managedDomainMappings) {
       this.managedDomainMappings = managedDomainMappings;
+      return this;
+    }
+
+    /**
+     * Set the probeLiveness.
+     *
+     * @param probeLiveness the probeLiveness
+     * @return the AppPatch builder
+     */
+    public Builder probeLiveness(ProbePrototype probeLiveness) {
+      this.probeLiveness = probeLiveness;
+      return this;
+    }
+
+    /**
+     * Set the probeReadiness.
+     *
+     * @param probeReadiness the probeReadiness
+     * @return the AppPatch builder
+     */
+    public Builder probeReadiness(ProbePrototype probeReadiness) {
+      this.probeReadiness = probeReadiness;
       return this;
     }
 
@@ -461,6 +491,8 @@ public class AppPatch extends GenericModel {
     imageReference = builder.imageReference;
     imageSecret = builder.imageSecret;
     managedDomainMappings = builder.managedDomainMappings;
+    probeLiveness = builder.probeLiveness;
+    probeReadiness = builder.probeReadiness;
     runArguments = builder.runArguments;
     runAsUser = builder.runAsUser;
     runCommands = builder.runCommands;
@@ -538,6 +570,28 @@ public class AppPatch extends GenericModel {
    */
   public String managedDomainMappings() {
     return managedDomainMappings;
+  }
+
+  /**
+   * Gets the probeLiveness.
+   *
+   * Request model for probes.
+   *
+   * @return the probeLiveness
+   */
+  public ProbePrototype probeLiveness() {
+    return probeLiveness;
+  }
+
+  /**
+   * Gets the probeReadiness.
+   *
+   * Request model for probes.
+   *
+   * @return the probeReadiness
+   */
+  public ProbePrototype probeReadiness() {
+    return probeReadiness;
   }
 
   /**
