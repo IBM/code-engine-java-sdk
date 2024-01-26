@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,6 +35,8 @@ public class ReplaceSecretOptions extends GenericModel {
     String SERVICE_ACCESS = "service_access";
     /** registry. */
     String REGISTRY = "registry";
+    /** service_operator. */
+    String SERVICE_OPERATOR = "service_operator";
     /** other. */
     String OTHER = "other";
   }
@@ -231,8 +233,8 @@ public class ReplaceSecretOptions extends GenericModel {
    * Gets the data.
    *
    * Data container that allows to specify config parameters and their values as a key-value map. Each key field must
-   * consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters. Each
-   * value field can consists of any character and must not be exceed a max length of 1048576 characters.
+   * consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max length of 253 characters. Each value
+   * field can consists of any character and must not exceed a max length of 1048576 characters.
    *
    * @return the data
    */

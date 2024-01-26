@@ -53,5 +53,11 @@ node_modules/
 
 # ignore the generated integration test files, as they cannot be used without manual editing
 modules/ibm-cloud-code-engine
+/modules/code-engine/src/test/resources/domainmapping.crt
+/modules/code-engine/src/test/resources/domainmapping.key
 
 build/signing.key
+
+# API repo (pulled from Github)
+api
+

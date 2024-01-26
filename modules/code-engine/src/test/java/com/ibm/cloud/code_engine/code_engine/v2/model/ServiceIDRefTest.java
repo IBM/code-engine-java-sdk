@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,13 +33,16 @@ public class ServiceIDRefTest {
   public void testServiceIDRef() throws Throwable {
     ServiceIDRef serviceIdRefModel = new ServiceIDRef.Builder()
       .crn("testString")
+      .id("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637")
       .build();
     assertEquals(serviceIdRefModel.crn(), "testString");
+    assertEquals(serviceIdRefModel.id(), "ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637");
 
     String json = TestUtilities.serialize(serviceIdRefModel);
 
     ServiceIDRef serviceIdRefModelNew = TestUtilities.deserialize(json, ServiceIDRef.class);
     assertTrue(serviceIdRefModelNew instanceof ServiceIDRef);
     assertEquals(serviceIdRefModelNew.crn(), "testString");
+    assertEquals(serviceIdRefModelNew.id(), "ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637");
   }
 }

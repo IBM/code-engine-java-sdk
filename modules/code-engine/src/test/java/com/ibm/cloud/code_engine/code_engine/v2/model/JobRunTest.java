@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -46,6 +46,7 @@ public class JobRunTest {
     assertNull(jobRunModel.getRunMode());
     assertNull(jobRunModel.getRunServiceAccount());
     assertNull(jobRunModel.getRunVolumeMounts());
+    assertNull(jobRunModel.getScaleArraySizeVariableOverride());
     assertNull(jobRunModel.getScaleArraySpec());
     assertNull(jobRunModel.getScaleCpuLimit());
     assertNull(jobRunModel.getScaleEphemeralStorageLimit());

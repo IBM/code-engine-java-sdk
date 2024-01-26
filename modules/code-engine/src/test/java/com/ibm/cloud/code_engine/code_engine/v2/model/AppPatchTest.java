@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,6 +15,7 @@ package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppPatch;
 import com.ibm.cloud.code_engine.code_engine.v2.model.EnvVarPrototype;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ProbePrototype;
 import com.ibm.cloud.code_engine.code_engine.v2.model.VolumeMountPrototype;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -34,6 +35,23 @@ public class AppPatchTest {
 
   @Test
   public void testAppPatch() throws Throwable {
+    ProbePrototype probePrototypeModel = new ProbePrototype.Builder()
+      .failureThreshold(Long.valueOf("5"))
+      .initialDelay(Long.valueOf("5"))
+      .interval(Long.valueOf("5"))
+      .path("testString")
+      .port(Long.valueOf("8080"))
+      .timeout(Long.valueOf("300"))
+      .type("tcp")
+      .build();
+    assertEquals(probePrototypeModel.failureThreshold(), Long.valueOf("5"));
+    assertEquals(probePrototypeModel.initialDelay(), Long.valueOf("5"));
+    assertEquals(probePrototypeModel.interval(), Long.valueOf("5"));
+    assertEquals(probePrototypeModel.path(), "testString");
+    assertEquals(probePrototypeModel.port(), Long.valueOf("8080"));
+    assertEquals(probePrototypeModel.timeout(), Long.valueOf("300"));
+    assertEquals(probePrototypeModel.type(), "tcp");
+
     EnvVarPrototype envVarPrototypeModel = new EnvVarPrototype.Builder()
       .key("MY_VARIABLE")
       .name("SOME")
@@ -65,6 +83,8 @@ public class AppPatchTest {
       .imageReference("icr.io/codeengine/helloworld")
       .imageSecret("my-secret")
       .managedDomainMappings("local_public")
+      .probeLiveness(probePrototypeModel)
+      .probeReadiness(probePrototypeModel)
       .runArguments(java.util.Arrays.asList("testString"))
       .runAsUser(Long.valueOf("1001"))
       .runCommands(java.util.Arrays.asList("testString"))
@@ -86,6 +106,8 @@ public class AppPatchTest {
     assertEquals(appPatchModel.imageReference(), "icr.io/codeengine/helloworld");
     assertEquals(appPatchModel.imageSecret(), "my-secret");
     assertEquals(appPatchModel.managedDomainMappings(), "local_public");
+    assertEquals(appPatchModel.probeLiveness(), probePrototypeModel);
+    assertEquals(appPatchModel.probeReadiness(), probePrototypeModel);
     assertEquals(appPatchModel.runArguments(), java.util.Arrays.asList("testString"));
     assertEquals(appPatchModel.runAsUser(), Long.valueOf("1001"));
     assertEquals(appPatchModel.runCommands(), java.util.Arrays.asList("testString"));
@@ -111,6 +133,8 @@ public class AppPatchTest {
     assertEquals(appPatchModelNew.imageReference(), "icr.io/codeengine/helloworld");
     assertEquals(appPatchModelNew.imageSecret(), "my-secret");
     assertEquals(appPatchModelNew.managedDomainMappings(), "local_public");
+    assertEquals(appPatchModelNew.probeLiveness().toString(), probePrototypeModel.toString());
+    assertEquals(appPatchModelNew.probeReadiness().toString(), probePrototypeModel.toString());
     assertEquals(appPatchModelNew.runAsUser(), Long.valueOf("1001"));
     assertEquals(appPatchModelNew.runServiceAccount(), "default");
     assertEquals(appPatchModelNew.scaleConcurrency(), Long.valueOf("100"));
@@ -126,6 +150,16 @@ public class AppPatchTest {
   }
   @Test
   public void testAppPatchAsPatch() throws Throwable {
+    ProbePrototype probePrototypeModel = new ProbePrototype.Builder()
+      .failureThreshold(Long.valueOf("5"))
+      .initialDelay(Long.valueOf("5"))
+      .interval(Long.valueOf("5"))
+      .path("testString")
+      .port(Long.valueOf("8080"))
+      .timeout(Long.valueOf("300"))
+      .type("tcp")
+      .build();
+
     EnvVarPrototype envVarPrototypeModel = new EnvVarPrototype.Builder()
       .key("MY_VARIABLE")
       .name("SOME")
@@ -147,6 +181,8 @@ public class AppPatchTest {
       .imageReference("icr.io/codeengine/helloworld")
       .imageSecret("my-secret")
       .managedDomainMappings("local_public")
+      .probeLiveness(probePrototypeModel)
+      .probeReadiness(probePrototypeModel)
       .runArguments(java.util.Arrays.asList("testString"))
       .runAsUser(Long.valueOf("1001"))
       .runCommands(java.util.Arrays.asList("testString"))
@@ -171,6 +207,8 @@ public class AppPatchTest {
     assertEquals(mergePatch.get("image_reference"), "icr.io/codeengine/helloworld");
     assertEquals(mergePatch.get("image_secret"), "my-secret");
     assertEquals(mergePatch.get("managed_domain_mappings"), "local_public");
+    assertTrue(mergePatch.containsKey("probe_liveness"));
+    assertTrue(mergePatch.containsKey("probe_readiness"));
     assertTrue(mergePatch.containsKey("run_arguments"));
     assertTrue(mergePatch.containsKey("run_as_user"));
     assertTrue(mergePatch.containsKey("run_commands"));

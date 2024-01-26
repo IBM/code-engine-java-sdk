@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,6 +35,8 @@ public class CreateSecretOptions extends GenericModel {
     String SERVICE_ACCESS = "service_access";
     /** registry. */
     String REGISTRY = "registry";
+    /** service_operator. */
+    String SERVICE_OPERATOR = "service_operator";
     /** other. */
     String OTHER = "other";
   }
@@ -44,6 +46,7 @@ public class CreateSecretOptions extends GenericModel {
   protected String name;
   protected SecretData data;
   protected ServiceAccessSecretPrototypeProps serviceAccess;
+  protected OperatorSecretPrototypeProps serviceOperator;
 
   /**
    * Builder.
@@ -54,6 +57,7 @@ public class CreateSecretOptions extends GenericModel {
     private String name;
     private SecretData data;
     private ServiceAccessSecretPrototypeProps serviceAccess;
+    private OperatorSecretPrototypeProps serviceOperator;
 
     /**
      * Instantiates a new Builder from an existing CreateSecretOptions instance.
@@ -66,6 +70,7 @@ public class CreateSecretOptions extends GenericModel {
       this.name = createSecretOptions.name;
       this.data = createSecretOptions.data;
       this.serviceAccess = createSecretOptions.serviceAccess;
+      this.serviceOperator = createSecretOptions.serviceOperator;
     }
 
     /**
@@ -150,6 +155,17 @@ public class CreateSecretOptions extends GenericModel {
       this.serviceAccess = serviceAccess;
       return this;
     }
+
+    /**
+     * Set the serviceOperator.
+     *
+     * @param serviceOperator the serviceOperator
+     * @return the CreateSecretOptions builder
+     */
+    public Builder serviceOperator(OperatorSecretPrototypeProps serviceOperator) {
+      this.serviceOperator = serviceOperator;
+      return this;
+    }
   }
 
   protected CreateSecretOptions() { }
@@ -166,6 +182,7 @@ public class CreateSecretOptions extends GenericModel {
     name = builder.name;
     data = builder.data;
     serviceAccess = builder.serviceAccess;
+    serviceOperator = builder.serviceOperator;
   }
 
   /**
@@ -214,8 +231,8 @@ public class CreateSecretOptions extends GenericModel {
    * Gets the data.
    *
    * Data container that allows to specify config parameters and their values as a key-value map. Each key field must
-   * consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters. Each
-   * value field can consists of any character and must not be exceed a max length of 1048576 characters.
+   * consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max length of 253 characters. Each value
+   * field can consists of any character and must not exceed a max length of 1048576 characters.
    *
    * @return the data
    */
@@ -232,6 +249,17 @@ public class CreateSecretOptions extends GenericModel {
    */
   public ServiceAccessSecretPrototypeProps serviceAccess() {
     return serviceAccess;
+  }
+
+  /**
+   * Gets the serviceOperator.
+   *
+   * Properties for the IBM Cloud Operator Secret Prototype.
+   *
+   * @return the serviceOperator
+   */
+  public OperatorSecretPrototypeProps serviceOperator() {
+    return serviceOperator;
   }
 }
 
