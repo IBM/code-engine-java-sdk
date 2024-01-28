@@ -59,6 +59,9 @@ public class Job extends GenericModel {
     String NONE = "none";
   }
 
+  protected String build;
+  @SerializedName("build_run")
+  protected String buildRun;
   @SerializedName("created_at")
   protected String createdAt;
   @SerializedName("entity_tag")
@@ -103,6 +106,28 @@ public class Job extends GenericModel {
   protected Long scaleRetryLimit;
 
   protected Job() { }
+
+  /**
+   * Gets the build.
+   *
+   * Reference to a build that is associated with the job.
+   *
+   * @return the build
+   */
+  public String getBuild() {
+    return build;
+  }
+
+  /**
+   * Gets the buildRun.
+   *
+   * Reference to a buildrun that is associated with the job.
+   *
+   * @return the buildRun
+   */
+  public String getBuildRun() {
+    return buildRun;
+  }
 
   /**
    * Gets the createdAt.
