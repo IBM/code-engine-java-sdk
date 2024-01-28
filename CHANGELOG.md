@@ -1,3 +1,15 @@
+# [4.2.0](https://github.ibm.com/coligo/java-sdk/compare/4.1.0...4.2.0) (2024-01-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency com.ibm.cloud:sdk-core to v9.20.0 ([#68](https://github.ibm.com/coligo/java-sdk/issues/68)) ([44f09f2](https://github.ibm.com/coligo/java-sdk/commit/44f09f2a6c0a2e718b19a44f30183d652457ef9b))
+
+
+### Features
+
+* **api:** SDK update 20240126-142534 ([#70](https://github.ibm.com/coligo/java-sdk/issues/70)) ([21bb50a](https://github.ibm.com/coligo/java-sdk/commit/21bb50a651e4d0b2749bcd983b3a6694b2a83890))
+
 # [4.1.0](https://github.ibm.com/coligo/java-sdk/compare/4.0.0...4.1.0) (2024-01-26)
 
 
