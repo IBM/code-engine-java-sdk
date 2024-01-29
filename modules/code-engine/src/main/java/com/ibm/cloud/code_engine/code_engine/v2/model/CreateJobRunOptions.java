@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -63,6 +63,7 @@ public class CreateJobRunOptions extends GenericModel {
   protected String runMode;
   protected String runServiceAccount;
   protected List<VolumeMountPrototype> runVolumeMounts;
+  protected Long scaleArraySizeVariableOverride;
   protected String scaleArraySpec;
   protected String scaleCpuLimit;
   protected String scaleEphemeralStorageLimit;
@@ -86,6 +87,7 @@ public class CreateJobRunOptions extends GenericModel {
     private String runMode;
     private String runServiceAccount;
     private List<VolumeMountPrototype> runVolumeMounts;
+    private Long scaleArraySizeVariableOverride;
     private String scaleArraySpec;
     private String scaleCpuLimit;
     private String scaleEphemeralStorageLimit;
@@ -111,6 +113,7 @@ public class CreateJobRunOptions extends GenericModel {
       this.runMode = createJobRunOptions.runMode;
       this.runServiceAccount = createJobRunOptions.runServiceAccount;
       this.runVolumeMounts = createJobRunOptions.runVolumeMounts;
+      this.scaleArraySizeVariableOverride = createJobRunOptions.scaleArraySizeVariableOverride;
       this.scaleArraySpec = createJobRunOptions.scaleArraySpec;
       this.scaleCpuLimit = createJobRunOptions.scaleCpuLimit;
       this.scaleEphemeralStorageLimit = createJobRunOptions.scaleEphemeralStorageLimit;
@@ -344,6 +347,17 @@ public class CreateJobRunOptions extends GenericModel {
     }
 
     /**
+     * Set the scaleArraySizeVariableOverride.
+     *
+     * @param scaleArraySizeVariableOverride the scaleArraySizeVariableOverride
+     * @return the CreateJobRunOptions builder
+     */
+    public Builder scaleArraySizeVariableOverride(long scaleArraySizeVariableOverride) {
+      this.scaleArraySizeVariableOverride = scaleArraySizeVariableOverride;
+      return this;
+    }
+
+    /**
      * Set the scaleArraySpec.
      *
      * @param scaleArraySpec the scaleArraySpec
@@ -427,6 +441,7 @@ public class CreateJobRunOptions extends GenericModel {
     runMode = builder.runMode;
     runServiceAccount = builder.runServiceAccount;
     runVolumeMounts = builder.runVolumeMounts;
+    scaleArraySizeVariableOverride = builder.scaleArraySizeVariableOverride;
     scaleArraySpec = builder.scaleArraySpec;
     scaleCpuLimit = builder.scaleCpuLimit;
     scaleEphemeralStorageLimit = builder.scaleEphemeralStorageLimit;
@@ -586,6 +601,17 @@ public class CreateJobRunOptions extends GenericModel {
    */
   public List<VolumeMountPrototype> runVolumeMounts() {
     return runVolumeMounts;
+  }
+
+  /**
+   * Gets the scaleArraySizeVariableOverride.
+   *
+   * Optional value to override the JOB_ARRAY_SIZE environment variable for a job run.
+   *
+   * @return the scaleArraySizeVariableOverride
+   */
+  public Long scaleArraySizeVariableOverride() {
+    return scaleArraySizeVariableOverride;
   }
 
   /**

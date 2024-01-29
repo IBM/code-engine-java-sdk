@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,6 +13,7 @@
 
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
+import com.ibm.cloud.code_engine.code_engine.v2.model.OperatorSecretProps;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ResourceKeyRef;
 import com.ibm.cloud.code_engine.code_engine.v2.model.RoleRef;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Secret;
@@ -42,5 +43,6 @@ public class SecretTest {
     assertNull(secretModel.getFormat());
     assertNull(secretModel.getName());
     assertNull(secretModel.getServiceAccess());
+    assertNull(secretModel.getServiceOperator());
   }
 }

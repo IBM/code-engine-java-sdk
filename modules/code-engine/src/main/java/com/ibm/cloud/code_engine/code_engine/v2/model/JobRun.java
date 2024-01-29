@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -63,6 +63,8 @@ public class JobRun extends GenericModel {
    * The current status of the job run.
    */
   public interface Status {
+    /** failed. */
+    String FAILED = "failed";
     /** completed. */
     String COMPLETED = "completed";
     /** running. */
@@ -84,6 +86,7 @@ public class JobRun extends GenericModel {
   protected String name;
   @SerializedName("project_id")
   protected String projectId;
+  protected String region;
   @SerializedName("resource_type")
   protected String resourceType;
   @SerializedName("run_arguments")
@@ -100,6 +103,8 @@ public class JobRun extends GenericModel {
   protected String runServiceAccount;
   @SerializedName("run_volume_mounts")
   protected List<VolumeMount> runVolumeMounts;
+  @SerializedName("scale_array_size_variable_override")
+  protected Long scaleArraySizeVariableOverride;
   @SerializedName("scale_array_spec")
   protected String scaleArraySpec;
   @SerializedName("scale_cpu_limit")
@@ -214,6 +219,18 @@ public class JobRun extends GenericModel {
   }
 
   /**
+   * Gets the region.
+   *
+   * The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
+   * 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
+   *
+   * @return the region
+   */
+  public String getRegion() {
+    return region;
+  }
+
+  /**
    * Gets the resourceType.
    *
    * The type of the job run.
@@ -304,6 +321,17 @@ public class JobRun extends GenericModel {
    */
   public List<VolumeMount> getRunVolumeMounts() {
     return runVolumeMounts;
+  }
+
+  /**
+   * Gets the scaleArraySizeVariableOverride.
+   *
+   * Optional value to override the JOB_ARRAY_SIZE environment variable for a job run.
+   *
+   * @return the scaleArraySizeVariableOverride
+   */
+  public Long getScaleArraySizeVariableOverride() {
+    return scaleArraySizeVariableOverride;
   }
 
   /**

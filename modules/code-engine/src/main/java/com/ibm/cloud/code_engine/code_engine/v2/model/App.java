@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -75,6 +75,9 @@ public class App extends GenericModel {
     String WARNING = "warning";
   }
 
+  protected String build;
+  @SerializedName("build_run")
+  protected String buildRun;
   @SerializedName("created_at")
   protected String createdAt;
   protected String endpoint;
@@ -93,8 +96,13 @@ public class App extends GenericModel {
   @SerializedName("managed_domain_mappings")
   protected String managedDomainMappings;
   protected String name;
+  @SerializedName("probe_liveness")
+  protected Probe probeLiveness;
+  @SerializedName("probe_readiness")
+  protected Probe probeReadiness;
   @SerializedName("project_id")
   protected String projectId;
+  protected String region;
   @SerializedName("resource_type")
   protected String resourceType;
   @SerializedName("run_arguments")
@@ -134,6 +142,28 @@ public class App extends GenericModel {
   protected AppStatus statusDetails;
 
   protected App() { }
+
+  /**
+   * Gets the build.
+   *
+   * Reference to a build that is associated with the application.
+   *
+   * @return the build
+   */
+  public String getBuild() {
+    return build;
+  }
+
+  /**
+   * Gets the buildRun.
+   *
+   * Reference to a buildrun that is associated with the application.
+   *
+   * @return the buildRun
+   */
+  public String getBuildRun() {
+    return buildRun;
+  }
 
   /**
    * Gets the createdAt.
@@ -266,6 +296,28 @@ public class App extends GenericModel {
   }
 
   /**
+   * Gets the probeLiveness.
+   *
+   * Response model for probes.
+   *
+   * @return the probeLiveness
+   */
+  public Probe getProbeLiveness() {
+    return probeLiveness;
+  }
+
+  /**
+   * Gets the probeReadiness.
+   *
+   * Response model for probes.
+   *
+   * @return the probeReadiness
+   */
+  public Probe getProbeReadiness() {
+    return probeReadiness;
+  }
+
+  /**
    * Gets the projectId.
    *
    * The ID of the project the resource is located in.
@@ -274,6 +326,18 @@ public class App extends GenericModel {
    */
   public String getProjectId() {
     return projectId;
+  }
+
+  /**
+   * Gets the region.
+   *
+   * The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
+   * 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
+   *
+   * @return the region
+   */
+  public String getRegion() {
+    return region;
   }
 
   /**

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -38,6 +38,8 @@ public class Secret extends GenericModel {
     String SERVICE_ACCESS = "service_access";
     /** registry. */
     String REGISTRY = "registry";
+    /** service_operator. */
+    String SERVICE_OPERATOR = "service_operator";
     /** other. */
     String OTHER = "other";
   }
@@ -53,10 +55,13 @@ public class Secret extends GenericModel {
   protected String name;
   @SerializedName("project_id")
   protected String projectId;
+  protected String region;
   @SerializedName("resource_type")
   protected String resourceType;
   @SerializedName("service_access")
   protected ServiceAccessSecretProps serviceAccess;
+  @SerializedName("service_operator")
+  protected OperatorSecretProps serviceOperator;
 
   protected Secret() { }
 
@@ -75,8 +80,8 @@ public class Secret extends GenericModel {
    * Gets the data.
    *
    * Data container that allows to specify config parameters and their values as a key-value map. Each key field must
-   * consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters. Each
-   * value field can consists of any character and must not be exceed a max length of 1048576 characters.
+   * consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max length of 253 characters. Each value
+   * field can consists of any character and must not exceed a max length of 1048576 characters.
    *
    * @return the data
    */
@@ -151,6 +156,18 @@ public class Secret extends GenericModel {
   }
 
   /**
+   * Gets the region.
+   *
+   * The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
+   * 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
+   *
+   * @return the region
+   */
+  public String getRegion() {
+    return region;
+  }
+
+  /**
    * Gets the resourceType.
    *
    * The type of the secret.
@@ -170,6 +187,17 @@ public class Secret extends GenericModel {
    */
   public ServiceAccessSecretProps getServiceAccess() {
     return serviceAccess;
+  }
+
+  /**
+   * Gets the serviceOperator.
+   *
+   * Properties for the IBM Cloud Operator Secret.
+   *
+   * @return the serviceOperator
+   */
+  public OperatorSecretProps getServiceOperator() {
+    return serviceOperator;
   }
 }
 
