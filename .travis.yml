@@ -1,16 +1,9 @@
 ---
 language: java
-dist: focal
-group: focal
-version: ~> 1.0
+dist: bionic
 
 jdk:
 - openjdk11
-
-# Only run on main (still tests PRs)
-branches:
-  only:
-  - main
 
 notifications:
   email: true
@@ -25,7 +18,7 @@ cache:
 
 env:
   global:
-    - MVN_ARGS="--settings build/.travis.settings.xml"
+    - MVN_ARGS="--settings ./build/.travis.settings.xml"
 
 stages:
   - name: Build-Test
@@ -38,42 +31,44 @@ before_install:
   - sudo apt-get update
   - env | grep TRAVIS
   - pyenv global 3.8
-  # create an .env file that is pulled in while executing the v2 integration tests
-  - echo "CODE_ENGINE_URL=https://$CE_API_HOST/v2" > code_engine_v2.env
-  - echo "CODE_ENGINE_AUTH_TYPE=iam" >> code_engine_v2.env
-  - echo "CODE_ENGINE_APIKEY=$CE_API_KEY" >> code_engine_v2.env
-  - echo "CODE_ENGINE_AUTH_URL=$IAM_ENDPOINT" >> code_engine_v2.env
-  - echo "CODE_ENGINE_DOMAIN_MAPPING_NAME=api-unit-test-tls.e2e-board.info" >> code_engine_v2.env
 
 jobs:
   include:
+    # Build and test stage
     - stage: Build-Test
+      jdk: openjdk11
+      install: true
+      script:
+        - build/setMavenVersion.sh
+        - mvn verify -fae -DskipITs $MVN_ARGS
     - jdk: openjdk11
       install: true
       script:
-        # execute unit tests
-        - build/setMavenVersion.sh
         - mvn verify -fae -DskipITs $MVN_ARGS
-
     - jdk: openjdk17
       install: true
       script:
-        - ./scripts/get-dependencies.sh # get api repo for access to latest domain mapping cert
-        # execute all tests including the integration tests
-        - mvn verify -fae $MVN_ARGS
+        - mvn verify -fae -DskipITs $MVN_ARGS
 
-    - stage: Semantic-Release
-      if: type != pull_request AND branch = main AND tag IS blank
-      install:
-        - sudo apt-get install python
-        - nvm install 20
-        - npm install -g semantic-release
-        - npm install -g @semantic-release/changelog
-        - npm install -g @semantic-release/exec
-        - npm install -g @semantic-release/git
-        - npm install -g @semantic-release/github
-        - pip install --user bump2version
+    # Publish stage
+    - stage: Publish-Release
+      jdk: openjdk11
+      name: Publish-Javadoc
+      install: true
+      if: tag IS present
       script:
-        - semantic-release
+        - build/setMavenVersion.sh
+        - mvn clean javadoc:aggregate $MVN_ARGS
+        - build/publishJavadoc.sh
       after_success:
-        - echo "Semantic release has successfully created a new tagged-release"
+        - echo "Javadocs successfully published to gh-pages!"
+    # - jdk: openjdk11
+    #   if: tag IS present
+    #   name: Publish-To-Maven-Central
+    #   install: true
+    #   script:
+    #     - build/setupSigning.sh
+    #     - build/setMavenVersion.sh
+    #     - mvn deploy $MVN_ARGS -DskipTests -P central
+    #   after_success:
+    #     - echo "Maven artifacts successfully published to Maven Central!"
