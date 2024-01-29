@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -59,6 +59,8 @@ public class CreateAppOptions extends GenericModel {
   protected Long imagePort;
   protected String imageSecret;
   protected String managedDomainMappings;
+  protected ProbePrototype probeLiveness;
+  protected ProbePrototype probeReadiness;
   protected List<String> runArguments;
   protected Long runAsUser;
   protected List<String> runCommands;
@@ -86,6 +88,8 @@ public class CreateAppOptions extends GenericModel {
     private Long imagePort;
     private String imageSecret;
     private String managedDomainMappings;
+    private ProbePrototype probeLiveness;
+    private ProbePrototype probeReadiness;
     private List<String> runArguments;
     private Long runAsUser;
     private List<String> runCommands;
@@ -115,6 +119,8 @@ public class CreateAppOptions extends GenericModel {
       this.imagePort = createAppOptions.imagePort;
       this.imageSecret = createAppOptions.imageSecret;
       this.managedDomainMappings = createAppOptions.managedDomainMappings;
+      this.probeLiveness = createAppOptions.probeLiveness;
+      this.probeReadiness = createAppOptions.probeReadiness;
       this.runArguments = createAppOptions.runArguments;
       this.runAsUser = createAppOptions.runAsUser;
       this.runCommands = createAppOptions.runCommands;
@@ -288,6 +294,28 @@ public class CreateAppOptions extends GenericModel {
      */
     public Builder managedDomainMappings(String managedDomainMappings) {
       this.managedDomainMappings = managedDomainMappings;
+      return this;
+    }
+
+    /**
+     * Set the probeLiveness.
+     *
+     * @param probeLiveness the probeLiveness
+     * @return the CreateAppOptions builder
+     */
+    public Builder probeLiveness(ProbePrototype probeLiveness) {
+      this.probeLiveness = probeLiveness;
+      return this;
+    }
+
+    /**
+     * Set the probeReadiness.
+     *
+     * @param probeReadiness the probeReadiness
+     * @return the CreateAppOptions builder
+     */
+    public Builder probeReadiness(ProbePrototype probeReadiness) {
+      this.probeReadiness = probeReadiness;
       return this;
     }
 
@@ -487,6 +515,8 @@ public class CreateAppOptions extends GenericModel {
     imagePort = builder.imagePort;
     imageSecret = builder.imageSecret;
     managedDomainMappings = builder.managedDomainMappings;
+    probeLiveness = builder.probeLiveness;
+    probeReadiness = builder.probeReadiness;
     runArguments = builder.runArguments;
     runAsUser = builder.runAsUser;
     runCommands = builder.runCommands;
@@ -586,6 +616,28 @@ public class CreateAppOptions extends GenericModel {
    */
   public String managedDomainMappings() {
     return managedDomainMappings;
+  }
+
+  /**
+   * Gets the probeLiveness.
+   *
+   * Request model for probes.
+   *
+   * @return the probeLiveness
+   */
+  public ProbePrototype probeLiveness() {
+    return probeLiveness;
+  }
+
+  /**
+   * Gets the probeReadiness.
+   *
+   * Request model for probes.
+   *
+   * @return the probeReadiness
+   */
+  public ProbePrototype probeReadiness() {
+    return probeReadiness;
   }
 
   /**

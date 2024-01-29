@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -83,6 +83,7 @@ public class BuildRun extends GenericModel {
   protected String outputSecret;
   @SerializedName("project_id")
   protected String projectId;
+  protected String region;
   @SerializedName("resource_type")
   protected String resourceType;
   @SerializedName("service_account")
@@ -202,6 +203,18 @@ public class BuildRun extends GenericModel {
   }
 
   /**
+   * Gets the region.
+   *
+   * The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
+   * 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
+   *
+   * @return the region
+   */
+  public String getRegion() {
+    return region;
+  }
+
+  /**
    * Gets the resourceType.
    *
    * The type of the build run.
@@ -314,7 +327,7 @@ public class BuildRun extends GenericModel {
    * Gets the strategySize.
    *
    * Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`,
-   * `large`, `xlarge`.
+   * `large`, `xlarge`, `xxlarge`.
    *
    * @return the strategySize
    */

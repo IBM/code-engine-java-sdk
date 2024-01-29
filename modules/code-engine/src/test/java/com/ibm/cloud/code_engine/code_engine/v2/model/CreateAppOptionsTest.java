@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,6 +15,7 @@ package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateAppOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.EnvVarPrototype;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ProbePrototype;
 import com.ibm.cloud.code_engine.code_engine.v2.model.VolumeMountPrototype;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -33,6 +34,23 @@ public class CreateAppOptionsTest {
 
   @Test
   public void testCreateAppOptions() throws Throwable {
+    ProbePrototype probePrototypeModel = new ProbePrototype.Builder()
+      .failureThreshold(Long.valueOf("5"))
+      .initialDelay(Long.valueOf("5"))
+      .interval(Long.valueOf("5"))
+      .path("testString")
+      .port(Long.valueOf("8080"))
+      .timeout(Long.valueOf("300"))
+      .type("tcp")
+      .build();
+    assertEquals(probePrototypeModel.failureThreshold(), Long.valueOf("5"));
+    assertEquals(probePrototypeModel.initialDelay(), Long.valueOf("5"));
+    assertEquals(probePrototypeModel.interval(), Long.valueOf("5"));
+    assertEquals(probePrototypeModel.path(), "testString");
+    assertEquals(probePrototypeModel.port(), Long.valueOf("8080"));
+    assertEquals(probePrototypeModel.timeout(), Long.valueOf("300"));
+    assertEquals(probePrototypeModel.type(), "tcp");
+
     EnvVarPrototype envVarPrototypeModel = new EnvVarPrototype.Builder()
       .key("MY_VARIABLE")
       .name("SOME")
@@ -66,6 +84,8 @@ public class CreateAppOptionsTest {
       .imagePort(Long.valueOf("8080"))
       .imageSecret("my-secret")
       .managedDomainMappings("local_public")
+      .probeLiveness(probePrototypeModel)
+      .probeReadiness(probePrototypeModel)
       .runArguments(java.util.Arrays.asList("testString"))
       .runAsUser(Long.valueOf("1001"))
       .runCommands(java.util.Arrays.asList("testString"))
@@ -89,6 +109,8 @@ public class CreateAppOptionsTest {
     assertEquals(createAppOptionsModel.imagePort(), Long.valueOf("8080"));
     assertEquals(createAppOptionsModel.imageSecret(), "my-secret");
     assertEquals(createAppOptionsModel.managedDomainMappings(), "local_public");
+    assertEquals(createAppOptionsModel.probeLiveness(), probePrototypeModel);
+    assertEquals(createAppOptionsModel.probeReadiness(), probePrototypeModel);
     assertEquals(createAppOptionsModel.runArguments(), java.util.Arrays.asList("testString"));
     assertEquals(createAppOptionsModel.runAsUser(), Long.valueOf("1001"));
     assertEquals(createAppOptionsModel.runCommands(), java.util.Arrays.asList("testString"));

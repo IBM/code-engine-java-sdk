@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,11 +14,13 @@
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateSecretOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.OperatorSecretPrototypeProps;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ResourceKeyRefPrototype;
 import com.ibm.cloud.code_engine.code_engine.v2.model.RoleRefPrototype;
 import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataSSHSecretData;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceAccessSecretPrototypeProps;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceIDRef;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceIDRefPrototype;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceInstanceRefPrototype;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -63,8 +65,10 @@ public class CreateSecretOptionsTest {
 
     ServiceIDRef serviceIdRefModel = new ServiceIDRef.Builder()
       .crn("testString")
+      .id("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637")
       .build();
     assertEquals(serviceIdRefModel.crn(), "testString");
+    assertEquals(serviceIdRefModel.id(), "ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637");
 
     ServiceAccessSecretPrototypeProps serviceAccessSecretPrototypePropsModel = new ServiceAccessSecretPrototypeProps.Builder()
       .resourceKey(resourceKeyRefPrototypeModel)
@@ -77,18 +81,32 @@ public class CreateSecretOptionsTest {
     assertEquals(serviceAccessSecretPrototypePropsModel.serviceInstance(), serviceInstanceRefPrototypeModel);
     assertEquals(serviceAccessSecretPrototypePropsModel.serviceid(), serviceIdRefModel);
 
+    ServiceIDRefPrototype serviceIdRefPrototypeModel = new ServiceIDRefPrototype.Builder()
+      .id("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637")
+      .build();
+    assertEquals(serviceIdRefPrototypeModel.id(), "ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637");
+
+    OperatorSecretPrototypeProps operatorSecretPrototypePropsModel = new OperatorSecretPrototypeProps.Builder()
+      .resourceGroupIds(java.util.Arrays.asList("testString"))
+      .serviceid(serviceIdRefPrototypeModel)
+      .build();
+    assertEquals(operatorSecretPrototypePropsModel.resourceGroupIds(), java.util.Arrays.asList("testString"));
+    assertEquals(operatorSecretPrototypePropsModel.serviceid(), serviceIdRefPrototypeModel);
+
     CreateSecretOptions createSecretOptionsModel = new CreateSecretOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
       .format("generic")
       .name("my-secret")
       .data(secretDataModel)
       .serviceAccess(serviceAccessSecretPrototypePropsModel)
+      .serviceOperator(operatorSecretPrototypePropsModel)
       .build();
     assertEquals(createSecretOptionsModel.projectId(), "15314cc3-85b4-4338-903f-c28cdee6d005");
     assertEquals(createSecretOptionsModel.format(), "generic");
     assertEquals(createSecretOptionsModel.name(), "my-secret");
     assertEquals(createSecretOptionsModel.data(), secretDataModel);
     assertEquals(createSecretOptionsModel.serviceAccess(), serviceAccessSecretPrototypePropsModel);
+    assertEquals(createSecretOptionsModel.serviceOperator(), operatorSecretPrototypePropsModel);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
