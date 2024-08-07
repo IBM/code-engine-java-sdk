@@ -14,7 +14,7 @@
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceSecretOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataSSHSecretData;
+import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataGenericSecretData;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -32,13 +32,9 @@ public class ReplaceSecretOptionsTest {
 
   @Test
   public void testReplaceSecretOptions() throws Throwable {
-    SecretDataSSHSecretData secretDataModel = new SecretDataSSHSecretData.Builder()
-      .sshKey("testString")
-      .knownHosts("testString")
+    SecretDataGenericSecretData secretDataModel = new SecretDataGenericSecretData.Builder()
       .add("foo", "testString")
       .build();
-    assertEquals(secretDataModel.getSshKey(), "testString");
-    assertEquals(secretDataModel.getKnownHosts(), "testString");
     assertEquals(secretDataModel.get("foo"), "testString");
 
     ReplaceSecretOptions replaceSecretOptionsModel = new ReplaceSecretOptions.Builder()

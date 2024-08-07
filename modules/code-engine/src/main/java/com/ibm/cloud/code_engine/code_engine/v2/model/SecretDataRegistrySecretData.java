@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import java.util.HashMap;
@@ -60,13 +61,11 @@ public class SecretDataRegistrySecretData extends SecretData {
      * @param username the username
      * @param password the password
      * @param server the server
-     * @param email the email
      */
-    public Builder(String username, String password, String server, String email) {
+    public Builder(String username, String password, String server) {
       this.username = username;
       this.password = password;
       this.server = server;
-      this.email = email;
     }
 
     /**
@@ -146,8 +145,6 @@ public class SecretDataRegistrySecretData extends SecretData {
       "password cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.server,
       "server cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.email,
-      "email cannot be null");
     username = builder.username;
     password = builder.password;
     server = builder.server;

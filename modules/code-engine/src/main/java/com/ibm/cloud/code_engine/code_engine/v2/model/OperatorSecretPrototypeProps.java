@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Properties for the IBM Cloud Operator Secret Prototype.
+ * Properties for the IBM Cloud Operator Secrets.
  */
 public class OperatorSecretPrototypeProps extends GenericModel {
 
@@ -60,9 +61,9 @@ public class OperatorSecretPrototypeProps extends GenericModel {
     }
 
     /**
-     * Adds an resourceGroupIds to resourceGroupIds.
+     * Adds a new element to resourceGroupIds.
      *
-     * @param resourceGroupIds the new resourceGroupIds
+     * @param resourceGroupIds the new element to be added
      * @return the OperatorSecretPrototypeProps builder
      */
     public Builder addResourceGroupIds(String resourceGroupIds) {

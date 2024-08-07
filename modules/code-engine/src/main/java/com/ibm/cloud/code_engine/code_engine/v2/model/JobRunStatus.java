@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import com.google.gson.annotations.SerializedName;
@@ -23,12 +24,20 @@ public class JobRunStatus extends GenericModel {
   @SerializedName("completion_time")
   protected String completionTime;
   protected Long failed;
+  @SerializedName("failed_indices")
+  protected String failedIndices;
   protected Long pending;
+  @SerializedName("pending_indices")
+  protected String pendingIndices;
   protected Long requested;
   protected Long running;
+  @SerializedName("running_indices")
+  protected String runningIndices;
   @SerializedName("start_time")
   protected String startTime;
   protected Long succeeded;
+  @SerializedName("succeeded_indices")
+  protected String succeededIndices;
   protected Long unknown;
 
   protected JobRunStatus() { }
@@ -56,6 +65,17 @@ public class JobRunStatus extends GenericModel {
   }
 
   /**
+   * Gets the failedIndices.
+   *
+   * List of job run indices that failed.
+   *
+   * @return the failedIndices
+   */
+  public String getFailedIndices() {
+    return failedIndices;
+  }
+
+  /**
    * Gets the pending.
    *
    * Number of pending job run instances.
@@ -64,6 +84,17 @@ public class JobRunStatus extends GenericModel {
    */
   public Long getPending() {
     return pending;
+  }
+
+  /**
+   * Gets the pendingIndices.
+   *
+   * List of job run indices that are pending.
+   *
+   * @return the pendingIndices
+   */
+  public String getPendingIndices() {
+    return pendingIndices;
   }
 
   /**
@@ -89,6 +120,17 @@ public class JobRunStatus extends GenericModel {
   }
 
   /**
+   * Gets the runningIndices.
+   *
+   * List of job run indices that are running.
+   *
+   * @return the runningIndices
+   */
+  public String getRunningIndices() {
+    return runningIndices;
+  }
+
+  /**
    * Gets the startTime.
    *
    * Time the job run started.
@@ -108,6 +150,17 @@ public class JobRunStatus extends GenericModel {
    */
   public Long getSucceeded() {
     return succeeded;
+  }
+
+  /**
+   * Gets the succeededIndices.
+   *
+   * List of job run indices that succeeded.
+   *
+   * @return the succeededIndices
+   */
+  public String getSucceededIndices() {
+    return succeededIndices;
   }
 
   /**

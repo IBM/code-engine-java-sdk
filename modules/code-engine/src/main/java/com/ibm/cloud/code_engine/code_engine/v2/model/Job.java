@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import java.util.List;
@@ -62,6 +63,8 @@ public class Job extends GenericModel {
   protected String build;
   @SerializedName("build_run")
   protected String buildRun;
+  @SerializedName("computed_env_variables")
+  protected List<EnvVar> computedEnvVariables;
   @SerializedName("created_at")
   protected String createdAt;
   @SerializedName("entity_tag")
@@ -121,12 +124,24 @@ public class Job extends GenericModel {
   /**
    * Gets the buildRun.
    *
-   * Reference to a buildrun that is associated with the job.
+   * Reference to a build run that is associated with the job.
    *
    * @return the buildRun
    */
   public String getBuildRun() {
     return buildRun;
+  }
+
+  /**
+   * Gets the computedEnvVariables.
+   *
+   * References to config maps, secrets or literal values, which are defined and set by Code Engine and are exposed as
+   * environment variables in the job run.
+   *
+   * @return the computedEnvVariables
+   */
+  public List<EnvVar> getComputedEnvVariables() {
+    return computedEnvVariables;
   }
 
   /**
@@ -215,7 +230,7 @@ public class Job extends GenericModel {
   /**
    * Gets the projectId.
    *
-   * The ID of the project the resource is located in.
+   * The ID of the project in which the resource is located.
    *
    * @return the projectId
    */
@@ -261,7 +276,7 @@ public class Job extends GenericModel {
   /**
    * Gets the runAsUser.
    *
-   * The user ID (UID) to run the job (e.g., 1001).
+   * The user ID (UID) to run the job.
    *
    * @return the runAsUser
    */
@@ -284,7 +299,8 @@ public class Job extends GenericModel {
   /**
    * Gets the runEnvVariables.
    *
-   * References to config maps, secrets or literal values, which are exposed as environment variables in the job run.
+   * References to config maps, secrets or literal values, which are defined by the function owner and are exposed as
+   * environment variables in the job run.
    *
    * @return the runEnvVariables
    */
@@ -320,7 +336,7 @@ public class Job extends GenericModel {
   /**
    * Gets the runVolumeMounts.
    *
-   * Optional mounts of config maps or a secrets.
+   * Optional mounts of config maps or secrets.
    *
    * @return the runVolumeMounts
    */
@@ -331,9 +347,10 @@ public class Job extends GenericModel {
   /**
    * Gets the scaleArraySpec.
    *
-   * Define a custom set of array indices as comma-separated list containing single values and hyphen-separated ranges
-   * like `5,12-14,23,27`. Each instance can pick up its array index via environment variable `JOB_INDEX`. The number of
-   * unique array indices specified here determines the number of job instances to run.
+   * Define a custom set of array indices as a comma-separated list containing single values and hyphen-separated
+   * ranges, such as  5,12-14,23,27. Each instance gets its array index value from the environment variable JOB_INDEX.
+   * The number of unique array indices that you specify with this parameter determines the number of job instances to
+   * run.
    *
    * @return the scaleArraySpec
    */

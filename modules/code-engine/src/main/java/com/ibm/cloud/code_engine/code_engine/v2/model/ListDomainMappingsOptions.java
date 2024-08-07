@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
@@ -144,7 +145,9 @@ public class ListDomainMappingsOptions extends GenericModel {
   /**
    * Gets the start.
    *
-   * The token to continue traversing paginated list of domain mappings.
+   * An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
+   * results is returned. This value is obtained from the 'start' query parameter in the `next` object of the operation
+   * response.
    *
    * @return the start
    */

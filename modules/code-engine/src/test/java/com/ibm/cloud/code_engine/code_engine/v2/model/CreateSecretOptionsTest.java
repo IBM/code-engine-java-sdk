@@ -17,7 +17,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.CreateSecretOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.OperatorSecretPrototypeProps;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ResourceKeyRefPrototype;
 import com.ibm.cloud.code_engine.code_engine.v2.model.RoleRefPrototype;
-import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataSSHSecretData;
+import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataGenericSecretData;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceAccessSecretPrototypeProps;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceIDRef;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceIDRefPrototype;
@@ -39,13 +39,9 @@ public class CreateSecretOptionsTest {
 
   @Test
   public void testCreateSecretOptions() throws Throwable {
-    SecretDataSSHSecretData secretDataModel = new SecretDataSSHSecretData.Builder()
-      .sshKey("testString")
-      .knownHosts("testString")
+    SecretDataGenericSecretData secretDataModel = new SecretDataGenericSecretData.Builder()
       .add("foo", "testString")
       .build();
-    assertEquals(secretDataModel.getSshKey(), "testString");
-    assertEquals(secretDataModel.getKnownHosts(), "testString");
     assertEquals(secretDataModel.get("foo"), "testString");
 
     ResourceKeyRefPrototype resourceKeyRefPrototypeModel = new ResourceKeyRefPrototype.Builder()

@@ -19,6 +19,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.AppRevisionStatus;
 import com.ibm.cloud.code_engine.code_engine.v2.model.EnvVar;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListFirstMetadata;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListNextMetadata;
+import com.ibm.cloud.code_engine.code_engine.v2.model.Probe;
 import com.ibm.cloud.code_engine.code_engine.v2.model.VolumeMount;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;

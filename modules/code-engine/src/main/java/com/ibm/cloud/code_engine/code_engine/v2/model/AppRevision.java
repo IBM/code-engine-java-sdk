@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import java.util.List;
@@ -63,6 +64,8 @@ public class AppRevision extends GenericModel {
 
   @SerializedName("app_name")
   protected String appName;
+  @SerializedName("computed_env_variables")
+  protected List<EnvVar> computedEnvVariables;
   @SerializedName("created_at")
   protected String createdAt;
   protected String href;
@@ -74,6 +77,10 @@ public class AppRevision extends GenericModel {
   @SerializedName("image_secret")
   protected String imageSecret;
   protected String name;
+  @SerializedName("probe_liveness")
+  protected Probe probeLiveness;
+  @SerializedName("probe_readiness")
+  protected Probe probeReadiness;
   @SerializedName("project_id")
   protected String projectId;
   protected String region;
@@ -126,6 +133,18 @@ public class AppRevision extends GenericModel {
    */
   public String getAppName() {
     return appName;
+  }
+
+  /**
+   * Gets the computedEnvVariables.
+   *
+   * References to config maps, secrets or literal values, which are defined and set by Code Engine and are exposed as
+   * environment variables in the application.
+   *
+   * @return the computedEnvVariables
+   */
+  public List<EnvVar> getComputedEnvVariables() {
+    return computedEnvVariables;
   }
 
   /**
@@ -203,7 +222,7 @@ public class AppRevision extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the app revison.
+   * The name of the app revision.
    *
    * @return the name
    */
@@ -212,9 +231,31 @@ public class AppRevision extends GenericModel {
   }
 
   /**
+   * Gets the probeLiveness.
+   *
+   * Response model for probes.
+   *
+   * @return the probeLiveness
+   */
+  public Probe getProbeLiveness() {
+    return probeLiveness;
+  }
+
+  /**
+   * Gets the probeReadiness.
+   *
+   * Response model for probes.
+   *
+   * @return the probeReadiness
+   */
+  public Probe getProbeReadiness() {
+    return probeReadiness;
+  }
+
+  /**
    * Gets the projectId.
    *
-   * The ID of the project the resource is located in.
+   * The ID of the project in which the resource is located.
    *
    * @return the projectId
    */
@@ -260,7 +301,7 @@ public class AppRevision extends GenericModel {
   /**
    * Gets the runAsUser.
    *
-   * Optional user ID (UID) to run the app (e.g., `1001`).
+   * Optional user ID (UID) to run the app.
    *
    * @return the runAsUser
    */
@@ -283,8 +324,8 @@ public class AppRevision extends GenericModel {
   /**
    * Gets the runEnvVariables.
    *
-   * References to config maps, secrets or literal values, which are exposed as environment variables in the
-   * application.
+   * References to config maps, secrets or literal values, which are defined by the app owner and are exposed as
+   * environment variables in the application.
    *
    * @return the runEnvVariables
    */
@@ -354,7 +395,7 @@ public class AppRevision extends GenericModel {
   /**
    * Gets the scaleDownDelay.
    *
-   * Optional amount of time in seconds that delays the scale down behavior for an app instance.
+   * Optional amount of time in seconds that delays the scale-down behavior for an app instance.
    *
    * @return the scaleDownDelay
    */

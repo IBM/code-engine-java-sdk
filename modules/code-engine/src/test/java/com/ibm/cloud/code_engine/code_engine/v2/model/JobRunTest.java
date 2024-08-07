@@ -35,6 +35,7 @@ public class JobRunTest {
   @Test
   public void testJobRun() throws Throwable {
     JobRun jobRunModel = new JobRun();
+    assertNull(jobRunModel.getComputedEnvVariables());
     assertNull(jobRunModel.getImageReference());
     assertNull(jobRunModel.getImageSecret());
     assertNull(jobRunModel.getJobName());

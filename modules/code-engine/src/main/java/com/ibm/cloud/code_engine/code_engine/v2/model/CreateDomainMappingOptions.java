@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
@@ -182,7 +183,7 @@ public class CreateDomainMappingOptions extends GenericModel {
   /**
    * Gets the tlsSecret.
    *
-   * The name of the TLS secret that holds the certificate and private key of this domain mapping.
+   * The name of the TLS secret that includes the certificate and private key of this domain mapping.
    *
    * @return the tlsSecret
    */

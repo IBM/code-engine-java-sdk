@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
@@ -243,7 +244,7 @@ public class CreateSecretOptions extends GenericModel {
   /**
    * Gets the serviceAccess.
    *
-   * Properties for Service Access Secret Prototypes.
+   * Properties for Service Access Secrets.
    *
    * @return the serviceAccess
    */
@@ -254,7 +255,7 @@ public class CreateSecretOptions extends GenericModel {
   /**
    * Gets the serviceOperator.
    *
-   * Properties for the IBM Cloud Operator Secret Prototype.
+   * Properties for the IBM Cloud Operator Secrets.
    *
    * @return the serviceOperator
    */

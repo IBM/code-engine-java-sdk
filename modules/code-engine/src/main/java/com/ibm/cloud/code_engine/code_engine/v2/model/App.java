@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import java.util.List;
@@ -78,6 +79,8 @@ public class App extends GenericModel {
   protected String build;
   @SerializedName("build_run")
   protected String buildRun;
+  @SerializedName("computed_env_variables")
+  protected List<EnvVar> computedEnvVariables;
   @SerializedName("created_at")
   protected String createdAt;
   protected String endpoint;
@@ -157,12 +160,24 @@ public class App extends GenericModel {
   /**
    * Gets the buildRun.
    *
-   * Reference to a buildrun that is associated with the application.
+   * Reference to a build run that is associated with the application.
    *
    * @return the buildRun
    */
   public String getBuildRun() {
     return buildRun;
+  }
+
+  /**
+   * Gets the computedEnvVariables.
+   *
+   * References to config maps, secrets or literal values, which are defined and set by Code Engine and are exposed as
+   * environment variables in the application.
+   *
+   * @return the computedEnvVariables
+   */
+  public List<EnvVar> getComputedEnvVariables() {
+    return computedEnvVariables;
   }
 
   /**
@@ -179,8 +194,8 @@ public class App extends GenericModel {
   /**
    * Gets the endpoint.
    *
-   * Optional URL to invoke app. Depending on visibility this is accessible publicly or in the private network only.
-   * Empty in case 'managed_domain_mappings' is set to 'local'.
+   * Optional URL to invoke the app. Depending on visibility,  this is accessible publicly or in the private network
+   * only. Empty in case 'managed_domain_mappings' is set to 'local'.
    *
    * @return the endpoint
    */
@@ -191,7 +206,7 @@ public class App extends GenericModel {
   /**
    * Gets the endpointInternal.
    *
-   * URL to app that is only visible within the project.
+   * The URL to the app that is only visible within the project.
    *
    * @return the endpointInternal
    */
@@ -320,7 +335,7 @@ public class App extends GenericModel {
   /**
    * Gets the projectId.
    *
-   * The ID of the project the resource is located in.
+   * The ID of the project in which the resource is located.
    *
    * @return the projectId
    */
@@ -366,7 +381,7 @@ public class App extends GenericModel {
   /**
    * Gets the runAsUser.
    *
-   * Optional user ID (UID) to run the app (e.g., `1001`).
+   * Optional user ID (UID) to run the app.
    *
    * @return the runAsUser
    */
@@ -389,8 +404,8 @@ public class App extends GenericModel {
   /**
    * Gets the runEnvVariables.
    *
-   * References to config maps, secrets or literal values, which are exposed as environment variables in the
-   * application.
+   * References to config maps, secrets or literal values, which are defined by the app owner and are exposed as
+   * environment variables in the application.
    *
    * @return the runEnvVariables
    */
@@ -460,7 +475,7 @@ public class App extends GenericModel {
   /**
    * Gets the scaleDownDelay.
    *
-   * Optional amount of time in seconds that delays the scale down behavior for an app instance.
+   * Optional amount of time in seconds that delays the scale-down behavior for an app instance.
    *
    * @return the scaleDownDelay
    */
