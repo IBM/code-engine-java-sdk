@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import com.google.gson.annotations.SerializedName;
@@ -29,8 +30,8 @@ public class Project extends GenericModel {
   }
 
   /**
-   * The current state of the project. For example, if the project is created and ready to get used, it will return
-   * active.
+   * The current state of the project. For example, when the project is created and is ready for use, the status of the
+   * project is active.
    */
   public interface Status {
     /** active. */
@@ -179,8 +180,8 @@ public class Project extends GenericModel {
   /**
    * Gets the status.
    *
-   * The current state of the project. For example, if the project is created and ready to get used, it will return
-   * active.
+   * The current state of the project. For example, when the project is created and is ready for use, the status of the
+   * project is active.
    *
    * @return the status
    */

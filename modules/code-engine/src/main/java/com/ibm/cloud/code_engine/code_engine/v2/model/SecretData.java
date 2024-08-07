@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import com.google.gson.annotations.SerializedName;
@@ -22,18 +23,14 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  * field can consists of any character and must not exceed a max length of 1048576 characters.
  *
  * Classes which extend this class:
- * - SecretDataSSHSecretData
- * - SecretDataRegistrySecretData
- * - SecretDataTLSSecretData
  * - SecretDataGenericSecretData
  * - SecretDataBasicAuthSecretData
+ * - SecretDataRegistrySecretData
+ * - SecretDataSSHSecretData
+ * - SecretDataTLSSecretData
  */
 public class SecretData extends DynamicModel<String> {
 
-  @SerializedName("ssh_key")
-  protected String sshKey;
-  @SerializedName("known_hosts")
-  protected String knownHosts;
   @SerializedName("username")
   protected String username;
   @SerializedName("password")
@@ -42,6 +39,10 @@ public class SecretData extends DynamicModel<String> {
   protected String server;
   @SerializedName("email")
   protected String email;
+  @SerializedName("ssh_key")
+  protected String sshKey;
+  @SerializedName("known_hosts")
+  protected String knownHosts;
   @SerializedName("tls_cert")
   protected String tlsCert;
   @SerializedName("tls_key")
@@ -52,31 +53,9 @@ public class SecretData extends DynamicModel<String> {
   }
 
   /**
-   * Gets the sshKey.
-   *
-   * SSH key.
-   *
-   * @return the sshKey
-   */
-  public String getSshKey() {
-    return this.sshKey;
-  }
-
-  /**
-   * Gets the knownHosts.
-   *
-   * Known hosts.
-   *
-   * @return the knownHosts
-   */
-  public String getKnownHosts() {
-    return this.knownHosts;
-  }
-
-  /**
    * Gets the username.
    *
-   * Registry username.
+   * Basic auth username.
    *
    * @return the username
    */
@@ -87,7 +66,7 @@ public class SecretData extends DynamicModel<String> {
   /**
    * Gets the password.
    *
-   * Registry password.
+   * Basic auth password.
    *
    * @return the password
    */
@@ -115,6 +94,28 @@ public class SecretData extends DynamicModel<String> {
    */
   public String getEmail() {
     return this.email;
+  }
+
+  /**
+   * Gets the sshKey.
+   *
+   * SSH key.
+   *
+   * @return the sshKey
+   */
+  public String getSshKey() {
+    return this.sshKey;
+  }
+
+  /**
+   * Gets the knownHosts.
+   *
+   * Known hosts.
+   *
+   * @return the knownHosts
+   */
+  public String getKnownHosts() {
+    return this.knownHosts;
   }
 
   /**

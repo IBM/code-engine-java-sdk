@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import com.google.gson.annotations.SerializedName;
@@ -21,7 +22,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class DomainMapping extends GenericModel {
 
   /**
-   * The type of the CE Resource.
+   * The type of the Code Engine resource.
    */
   public interface ResourceType {
     /** domain_mapping_v2. */
@@ -41,7 +42,7 @@ public class DomainMapping extends GenericModel {
   }
 
   /**
-   * Exposes whether the domain mapping is reachable through the public internet, or private IBM network, or only
+   * Specifies whether the domain mapping is reachable through the public internet, or private IBM network, or only
    * through other components within the same Code Engine project.
    */
   public interface Visibility {
@@ -84,8 +85,8 @@ public class DomainMapping extends GenericModel {
   /**
    * Gets the cnameTarget.
    *
-   * Exposes the value of the CNAME record that needs to be configured in the DNS settings of the domain, to route
-   * traffic properly to the target Code Engine region.
+   * The value of the CNAME record that must be configured in the DNS settings of the domain, to route traffic properly
+   * to the target Code Engine region.
    *
    * @return the cnameTarget
    */
@@ -162,7 +163,7 @@ public class DomainMapping extends GenericModel {
   /**
    * Gets the projectId.
    *
-   * The ID of the project the resource is located in.
+   * The ID of the project in which the resource is located.
    *
    * @return the projectId
    */
@@ -185,7 +186,7 @@ public class DomainMapping extends GenericModel {
   /**
    * Gets the resourceType.
    *
-   * The type of the CE Resource.
+   * The type of the Code Engine resource.
    *
    * @return the resourceType
    */
@@ -218,7 +219,7 @@ public class DomainMapping extends GenericModel {
   /**
    * Gets the tlsSecret.
    *
-   * The name of the TLS secret that holds the certificate and private key of this domain mapping.
+   * The name of the TLS secret that includes the certificate and private key of this domain mapping.
    *
    * @return the tlsSecret
    */
@@ -229,7 +230,7 @@ public class DomainMapping extends GenericModel {
   /**
    * Gets the userManaged.
    *
-   * Exposes whether the domain mapping is managed by the user or by Code Engine.
+   * Specifies whether the domain mapping is managed by the user or by Code Engine.
    *
    * @return the userManaged
    */
@@ -240,7 +241,7 @@ public class DomainMapping extends GenericModel {
   /**
    * Gets the visibility.
    *
-   * Exposes whether the domain mapping is reachable through the public internet, or private IBM network, or only
+   * Specifies whether the domain mapping is reachable through the public internet, or private IBM network, or only
    * through other components within the same Code Engine project.
    *
    * @return the visibility

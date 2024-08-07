@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
@@ -20,7 +21,8 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class CreateBuildRunOptions extends GenericModel {
 
   /**
-   * Optional service account which is used for resource control.
+   * Optional service account, which is used for resource control.” or “Optional service account that is used for
+   * resource control.
    */
   public interface ServiceAccount {
     /** default. */
@@ -389,7 +391,8 @@ public class CreateBuildRunOptions extends GenericModel {
   /**
    * Gets the serviceAccount.
    *
-   * Optional service account which is used for resource control.
+   * Optional service account, which is used for resource control.” or “Optional service account that is used for
+   * resource control.
    *
    * @return the serviceAccount
    */
@@ -400,7 +403,7 @@ public class CreateBuildRunOptions extends GenericModel {
   /**
    * Gets the sourceContextDir.
    *
-   * Option directory in the repository that contains the buildpacks file or the Dockerfile.
+   * Optional directory in the repository that contains the buildpacks file or the Dockerfile.
    *
    * @return the sourceContextDir
    */

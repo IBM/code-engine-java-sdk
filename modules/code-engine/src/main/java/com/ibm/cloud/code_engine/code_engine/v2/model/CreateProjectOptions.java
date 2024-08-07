@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import java.util.ArrayList;
@@ -70,9 +71,9 @@ public class CreateProjectOptions extends GenericModel {
     }
 
     /**
-     * Adds an tags to tags.
+     * Adds a new element to tags.
      *
-     * @param tags the new tags
+     * @param tags the new element to be added
      * @return the CreateProjectOptions builder
      */
     public Builder addTags(String tags) {

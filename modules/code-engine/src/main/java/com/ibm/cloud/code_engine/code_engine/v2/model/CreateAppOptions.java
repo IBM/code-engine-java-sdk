@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import java.util.ArrayList;
@@ -168,9 +169,9 @@ public class CreateAppOptions extends GenericModel {
     }
 
     /**
-     * Adds an runArguments to runArguments.
+     * Adds a new element to runArguments.
      *
-     * @param runArguments the new runArguments
+     * @param runArguments the new element to be added
      * @return the CreateAppOptions builder
      */
     public Builder addRunArguments(String runArguments) {
@@ -184,9 +185,9 @@ public class CreateAppOptions extends GenericModel {
     }
 
     /**
-     * Adds an runCommands to runCommands.
+     * Adds a new element to runCommands.
      *
-     * @param runCommands the new runCommands
+     * @param runCommands the new element to be added
      * @return the CreateAppOptions builder
      */
     public Builder addRunCommands(String runCommands) {
@@ -200,9 +201,9 @@ public class CreateAppOptions extends GenericModel {
     }
 
     /**
-     * Adds an runEnvVariables to runEnvVariables.
+     * Adds a new element to runEnvVariables.
      *
-     * @param runEnvVariables the new runEnvVariables
+     * @param runEnvVariables the new element to be added
      * @return the CreateAppOptions builder
      */
     public Builder addRunEnvVariables(EnvVarPrototype runEnvVariables) {
@@ -216,9 +217,9 @@ public class CreateAppOptions extends GenericModel {
     }
 
     /**
-     * Adds an runVolumeMounts to runVolumeMounts.
+     * Adds a new element to runVolumeMounts.
      *
-     * @param runVolumeMounts the new runVolumeMounts
+     * @param runVolumeMounts the new element to be added
      * @return the CreateAppOptions builder
      */
     public Builder addRunVolumeMounts(VolumeMountPrototype runVolumeMounts) {
@@ -655,7 +656,7 @@ public class CreateAppOptions extends GenericModel {
   /**
    * Gets the runAsUser.
    *
-   * Optional user ID (UID) to run the app (e.g., `1001`).
+   * Optional user ID (UID) to run the app.
    *
    * @return the runAsUser
    */
@@ -749,7 +750,7 @@ public class CreateAppOptions extends GenericModel {
   /**
    * Gets the scaleDownDelay.
    *
-   * Optional amount of time in seconds that delays the scale down behavior for an app instance.
+   * Optional amount of time in seconds that delays the scale-down behavior for an app instance.
    *
    * @return the scaleDownDelay
    */

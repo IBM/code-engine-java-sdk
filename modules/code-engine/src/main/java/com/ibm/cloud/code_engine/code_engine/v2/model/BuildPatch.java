@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import java.util.Map;
@@ -280,7 +281,7 @@ public class BuildPatch extends GenericModel {
   /**
    * Gets the sourceContextDir.
    *
-   * Option directory in the repository that contains the buildpacks file or the Dockerfile.
+   * Optional directory in the repository that contains the buildpacks file or the Dockerfile.
    *
    * @return the sourceContextDir
    */
@@ -398,6 +399,5 @@ public class BuildPatch extends GenericModel {
   public Map<String, Object> asPatch() {
     return GsonSingleton.getGson().fromJson(this.toString(), Map.class);
   }
-
 }
 

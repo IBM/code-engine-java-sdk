@@ -34,6 +34,7 @@ public class JobTest {
   @Test
   public void testJob() throws Throwable {
     Job jobModel = new Job();
+    assertNull(jobModel.getComputedEnvVariables());
     assertNull(jobModel.getEntityTag());
     assertNull(jobModel.getImageReference());
     assertNull(jobModel.getImageSecret());

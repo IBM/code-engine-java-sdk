@@ -36,6 +36,7 @@ public class AppTest {
   @Test
   public void testApp() throws Throwable {
     App appModel = new App();
+    assertNull(appModel.getComputedEnvVariables());
     assertNull(appModel.getEntityTag());
     assertNull(appModel.getImagePort());
     assertNull(appModel.getImageReference());

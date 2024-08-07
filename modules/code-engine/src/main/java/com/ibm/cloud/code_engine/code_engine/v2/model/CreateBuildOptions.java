@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
@@ -356,7 +357,7 @@ public class CreateBuildOptions extends GenericModel {
   /**
    * Gets the sourceContextDir.
    *
-   * Option directory in the repository that contains the buildpacks file or the Dockerfile.
+   * Optional directory in the repository that contains the buildpacks file or the Dockerfile.
    *
    * @return the sourceContextDir
    */

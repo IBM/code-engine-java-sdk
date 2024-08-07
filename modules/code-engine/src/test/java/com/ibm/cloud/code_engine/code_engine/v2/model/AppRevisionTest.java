@@ -16,6 +16,7 @@ package com.ibm.cloud.code_engine.code_engine.v2.model;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppRevision;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppRevisionStatus;
 import com.ibm.cloud.code_engine.code_engine.v2.model.EnvVar;
+import com.ibm.cloud.code_engine.code_engine.v2.model.Probe;
 import com.ibm.cloud.code_engine.code_engine.v2.model.VolumeMount;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -36,9 +37,12 @@ public class AppRevisionTest {
   public void testAppRevision() throws Throwable {
     AppRevision appRevisionModel = new AppRevision();
     assertNull(appRevisionModel.getAppName());
+    assertNull(appRevisionModel.getComputedEnvVariables());
     assertNull(appRevisionModel.getImagePort());
     assertNull(appRevisionModel.getImageReference());
     assertNull(appRevisionModel.getImageSecret());
+    assertNull(appRevisionModel.getProbeLiveness());
+    assertNull(appRevisionModel.getProbeReadiness());
     assertNull(appRevisionModel.getRunArguments());
     assertNull(appRevisionModel.getRunAsUser());
     assertNull(appRevisionModel.getRunCommands());

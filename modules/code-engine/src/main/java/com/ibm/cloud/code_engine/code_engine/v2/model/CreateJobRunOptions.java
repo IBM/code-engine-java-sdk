@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import java.util.ArrayList;
@@ -147,9 +148,9 @@ public class CreateJobRunOptions extends GenericModel {
     }
 
     /**
-     * Adds an runArguments to runArguments.
+     * Adds a new element to runArguments.
      *
-     * @param runArguments the new runArguments
+     * @param runArguments the new element to be added
      * @return the CreateJobRunOptions builder
      */
     public Builder addRunArguments(String runArguments) {
@@ -163,9 +164,9 @@ public class CreateJobRunOptions extends GenericModel {
     }
 
     /**
-     * Adds an runCommands to runCommands.
+     * Adds a new element to runCommands.
      *
-     * @param runCommands the new runCommands
+     * @param runCommands the new element to be added
      * @return the CreateJobRunOptions builder
      */
     public Builder addRunCommands(String runCommands) {
@@ -179,9 +180,9 @@ public class CreateJobRunOptions extends GenericModel {
     }
 
     /**
-     * Adds an runEnvVariables to runEnvVariables.
+     * Adds a new element to runEnvVariables.
      *
-     * @param runEnvVariables the new runEnvVariables
+     * @param runEnvVariables the new element to be added
      * @return the CreateJobRunOptions builder
      */
     public Builder addRunEnvVariables(EnvVarPrototype runEnvVariables) {
@@ -195,9 +196,9 @@ public class CreateJobRunOptions extends GenericModel {
     }
 
     /**
-     * Adds an runVolumeMounts to runVolumeMounts.
+     * Adds a new element to runVolumeMounts.
      *
-     * @param runVolumeMounts the new runVolumeMounts
+     * @param runVolumeMounts the new element to be added
      * @return the CreateJobRunOptions builder
      */
     public Builder addRunVolumeMounts(VolumeMountPrototype runVolumeMounts) {
@@ -536,7 +537,7 @@ public class CreateJobRunOptions extends GenericModel {
   /**
    * Gets the runAsUser.
    *
-   * The user ID (UID) to run the job (e.g., 1001).
+   * The user ID (UID) to run the job.
    *
    * @return the runAsUser
    */
@@ -617,9 +618,10 @@ public class CreateJobRunOptions extends GenericModel {
   /**
    * Gets the scaleArraySpec.
    *
-   * Define a custom set of array indices as comma-separated list containing single values and hyphen-separated ranges
-   * like `5,12-14,23,27`. Each instance can pick up its array index via environment variable `JOB_INDEX`. The number of
-   * unique array indices specified here determines the number of job instances to run.
+   * Define a custom set of array indices as a comma-separated list containing single values and hyphen-separated
+   * ranges, such as  5,12-14,23,27. Each instance gets its array index value from the environment variable JOB_INDEX.
+   * The number of unique array indices that you specify with this parameter determines the number of job instances to
+   * run.
    *
    * @return the scaleArraySpec
    */

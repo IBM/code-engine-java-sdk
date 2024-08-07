@@ -12,13 +12,14 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.82.0-2aef8017-20231103-171818
+ * IBM OpenAPI SDK Code Generator Version: 3.92.1-44330004-20240620-143510
  */
 
 package com.ibm.cloud.code_engine.code_engine.v2;
 
 import com.google.gson.JsonObject;
 import com.ibm.cloud.code_engine.code_engine.v2.model.App;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AppInstanceList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppRevision;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppRevisionList;
@@ -36,6 +37,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateConfigMapOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateDomainMappingOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.CreateFunctionOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateJobOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateJobRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateProjectOptions;
@@ -47,12 +49,16 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBuildOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBuildRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteConfigMapOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteDomainMappingOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteFunctionOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteJobOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteJobRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteProjectOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteSecretOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DomainMapping;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DomainMappingList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.Function;
+import com.ibm.cloud.code_engine.code_engine.v2.model.FunctionList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.FunctionRuntimeList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppRevisionOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetBindingOptions;
@@ -60,6 +66,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.GetBuildOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetBuildRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetConfigMapOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetDomainMappingOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetFunctionOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectEgressIpsOptions;
@@ -70,6 +77,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.Job;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobRun;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobRunList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppInstancesOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppRevisionsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListBindingsOptions;
@@ -77,6 +85,8 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.ListBuildRunsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListBuildsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListConfigMapsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListDomainMappingsOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListFunctionRuntimesOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListFunctionsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobRunsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListProjectsOptions;
@@ -92,6 +102,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.SecretList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateAppOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateBuildOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateDomainMappingOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateFunctionOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateJobOptions;
 import com.ibm.cloud.code_engine.common.SdkCommon;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
@@ -121,6 +132,8 @@ public class CodeEngine extends BaseService {
    * Default service endpoint URL.
    */
   public static final String DEFAULT_SERVICE_URL = "https://api.au-syd.codeengine.cloud.ibm.com/v2";
+
+  private String version;
 
  /**
    * Class method which constructs an instance of the `CodeEngine` client.
@@ -156,6 +169,27 @@ public class CodeEngine extends BaseService {
   public CodeEngine(String serviceName, Authenticator authenticator) {
     super(serviceName, authenticator);
     setServiceUrl(DEFAULT_SERVICE_URL);
+  }
+
+  /**
+   * Gets the version.
+   *
+   * The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
+   * `2021-03-31` and `2024-08-04`.
+   *
+   * @return the version
+   */
+  public String getVersion() {
+    return this.version;
+  }
+
+  /**
+   * Sets the version.
+   *
+   * @param version the new version
+   */
+  public void setVersion(final String version) {
+    this.version = version;
   }
 
   /**
@@ -345,6 +379,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     if (listAppsOptions.limit() != null) {
       builder.query("limit", String.valueOf(listAppsOptions.limit()));
     }
@@ -375,6 +412,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("image_reference", createAppOptions.imageReference());
     contentJson.addProperty("name", createAppOptions.name());
@@ -467,6 +507,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     ResponseConverter<App> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<App>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
@@ -490,6 +533,9 @@ public class CodeEngine extends BaseService {
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteApp");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
@@ -518,6 +564,9 @@ public class CodeEngine extends BaseService {
     }
     builder.header("Accept", "application/json");
     builder.header("If-Match", updateAppOptions.ifMatch());
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting().toJson(updateAppOptions.app()), "application/merge-patch+json");
     ResponseConverter<App> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<App>() { }.getType());
@@ -550,6 +599,9 @@ public class CodeEngine extends BaseService {
     if (listAppRevisionsOptions.start() != null) {
       builder.query("start", String.valueOf(listAppRevisionsOptions.start()));
     }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     ResponseConverter<AppRevisionList> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<AppRevisionList>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
@@ -576,6 +628,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     ResponseConverter<AppRevision> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<AppRevision>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
@@ -606,6 +661,37 @@ public class CodeEngine extends BaseService {
   }
 
   /**
+   * List application instances.
+   *
+   * List all instances of an application.
+   *
+   * @param listAppInstancesOptions the {@link ListAppInstancesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link AppInstanceList}
+   */
+  public ServiceCall<AppInstanceList> listAppInstances(ListAppInstancesOptions listAppInstancesOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listAppInstancesOptions,
+      "listAppInstancesOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", listAppInstancesOptions.projectId());
+    pathParamsMap.put("app_name", listAppInstancesOptions.appName());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/apps/{app_name}/instances", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "listAppInstances");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (listAppInstancesOptions.limit() != null) {
+      builder.query("limit", String.valueOf(listAppInstancesOptions.limit()));
+    }
+    if (listAppInstancesOptions.start() != null) {
+      builder.query("start", String.valueOf(listAppInstancesOptions.start()));
+    }
+    ResponseConverter<AppInstanceList> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<AppInstanceList>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * List jobs.
    *
    * List all jobs in a project.
@@ -624,6 +710,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     if (listJobsOptions.limit() != null) {
       builder.query("limit", String.valueOf(listJobsOptions.limit()));
     }
@@ -654,6 +743,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("image_reference", createJobOptions.imageReference());
     contentJson.addProperty("name", createJobOptions.name());
@@ -725,6 +817,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     ResponseConverter<Job> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Job>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
@@ -748,6 +843,9 @@ public class CodeEngine extends BaseService {
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteJob");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
@@ -774,6 +872,9 @@ public class CodeEngine extends BaseService {
     }
     builder.header("Accept", "application/json");
     builder.header("If-Match", updateJobOptions.ifMatch());
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting().toJson(updateJobOptions.job()), "application/merge-patch+json");
     ResponseConverter<Job> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Job>() { }.getType());
@@ -799,6 +900,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     if (listJobRunsOptions.jobName() != null) {
       builder.query("job_name", String.valueOf(listJobRunsOptions.jobName()));
     }
@@ -832,6 +936,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     final JsonObject contentJson = new JsonObject();
     if (createJobRunOptions.imageReference() != null) {
       contentJson.addProperty("image_reference", createJobRunOptions.imageReference());
@@ -913,6 +1020,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     ResponseConverter<JobRun> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<JobRun>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
@@ -938,6 +1048,216 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List the function runtimes.
+   *
+   * List all valid function runtimes.
+   *
+   * @param listFunctionRuntimesOptions the {@link ListFunctionRuntimesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link FunctionRuntimeList}
+   */
+  public ServiceCall<FunctionRuntimeList> listFunctionRuntimes(ListFunctionRuntimesOptions listFunctionRuntimesOptions) {
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/function_runtimes"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "listFunctionRuntimes");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<FunctionRuntimeList> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<FunctionRuntimeList>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List the function runtimes.
+   *
+   * List all valid function runtimes.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link FunctionRuntimeList}
+   */
+  public ServiceCall<FunctionRuntimeList> listFunctionRuntimes() {
+    return listFunctionRuntimes(null);
+  }
+
+  /**
+   * List functions.
+   *
+   * List all functions in a project.
+   *
+   * @param listFunctionsOptions the {@link ListFunctionsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link FunctionList}
+   */
+  public ServiceCall<FunctionList> listFunctions(ListFunctionsOptions listFunctionsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listFunctionsOptions,
+      "listFunctionsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", listFunctionsOptions.projectId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/functions", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "listFunctions");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    if (listFunctionsOptions.limit() != null) {
+      builder.query("limit", String.valueOf(listFunctionsOptions.limit()));
+    }
+    if (listFunctionsOptions.start() != null) {
+      builder.query("start", String.valueOf(listFunctionsOptions.start()));
+    }
+    ResponseConverter<FunctionList> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<FunctionList>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create a function.
+   *
+   * Create a function.
+   *
+   * @param createFunctionOptions the {@link CreateFunctionOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Function}
+   */
+  public ServiceCall<Function> createFunction(CreateFunctionOptions createFunctionOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createFunctionOptions,
+      "createFunctionOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", createFunctionOptions.projectId());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/functions", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "createFunction");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("code_reference", createFunctionOptions.codeReference());
+    contentJson.addProperty("name", createFunctionOptions.name());
+    contentJson.addProperty("runtime", createFunctionOptions.runtime());
+    if (createFunctionOptions.codeBinary() != null) {
+      contentJson.addProperty("code_binary", createFunctionOptions.codeBinary());
+    }
+    if (createFunctionOptions.codeMain() != null) {
+      contentJson.addProperty("code_main", createFunctionOptions.codeMain());
+    }
+    if (createFunctionOptions.codeSecret() != null) {
+      contentJson.addProperty("code_secret", createFunctionOptions.codeSecret());
+    }
+    if (createFunctionOptions.managedDomainMappings() != null) {
+      contentJson.addProperty("managed_domain_mappings", createFunctionOptions.managedDomainMappings());
+    }
+    if (createFunctionOptions.runEnvVariables() != null) {
+      contentJson.add("run_env_variables", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createFunctionOptions.runEnvVariables()));
+    }
+    if (createFunctionOptions.scaleConcurrency() != null) {
+      contentJson.addProperty("scale_concurrency", createFunctionOptions.scaleConcurrency());
+    }
+    if (createFunctionOptions.scaleCpuLimit() != null) {
+      contentJson.addProperty("scale_cpu_limit", createFunctionOptions.scaleCpuLimit());
+    }
+    if (createFunctionOptions.scaleDownDelay() != null) {
+      contentJson.addProperty("scale_down_delay", createFunctionOptions.scaleDownDelay());
+    }
+    if (createFunctionOptions.scaleMaxExecutionTime() != null) {
+      contentJson.addProperty("scale_max_execution_time", createFunctionOptions.scaleMaxExecutionTime());
+    }
+    if (createFunctionOptions.scaleMemoryLimit() != null) {
+      contentJson.addProperty("scale_memory_limit", createFunctionOptions.scaleMemoryLimit());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<Function> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Function>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get a function.
+   *
+   * Display the details of a function.
+   *
+   * @param getFunctionOptions the {@link GetFunctionOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Function}
+   */
+  public ServiceCall<Function> getFunction(GetFunctionOptions getFunctionOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getFunctionOptions,
+      "getFunctionOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", getFunctionOptions.projectId());
+    pathParamsMap.put("name", getFunctionOptions.name());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/functions/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "getFunction");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<Function> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Function>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a function.
+   *
+   * Delete a function.
+   *
+   * @param deleteFunctionOptions the {@link DeleteFunctionOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteFunction(DeleteFunctionOptions deleteFunctionOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteFunctionOptions,
+      "deleteFunctionOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", deleteFunctionOptions.projectId());
+    pathParamsMap.put("name", deleteFunctionOptions.name());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/functions/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteFunction");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update a function.
+   *
+   * Update the given function.
+   *
+   * @param updateFunctionOptions the {@link UpdateFunctionOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Function}
+   */
+  public ServiceCall<Function> updateFunction(UpdateFunctionOptions updateFunctionOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateFunctionOptions,
+      "updateFunctionOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", updateFunctionOptions.projectId());
+    pathParamsMap.put("name", updateFunctionOptions.name());
+    RequestBuilder builder = RequestBuilder.patch(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/functions/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "updateFunction");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.header("If-Match", updateFunctionOptions.ifMatch());
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting().toJson(updateFunctionOptions.function()), "application/merge-patch+json");
+    ResponseConverter<Function> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Function>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -1359,6 +1679,140 @@ public class CodeEngine extends BaseService {
   }
 
   /**
+   * List domain mappings.
+   *
+   * List all domain mappings in a project.
+   *
+   * @param listDomainMappingsOptions the {@link ListDomainMappingsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link DomainMappingList}
+   */
+  public ServiceCall<DomainMappingList> listDomainMappings(ListDomainMappingsOptions listDomainMappingsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listDomainMappingsOptions,
+      "listDomainMappingsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", listDomainMappingsOptions.projectId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/domain_mappings", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "listDomainMappings");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (listDomainMappingsOptions.limit() != null) {
+      builder.query("limit", String.valueOf(listDomainMappingsOptions.limit()));
+    }
+    if (listDomainMappingsOptions.start() != null) {
+      builder.query("start", String.valueOf(listDomainMappingsOptions.start()));
+    }
+    ResponseConverter<DomainMappingList> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DomainMappingList>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create a domain mapping.
+   *
+   * Create a domain mapping.
+   *
+   * @param createDomainMappingOptions the {@link CreateDomainMappingOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link DomainMapping}
+   */
+  public ServiceCall<DomainMapping> createDomainMapping(CreateDomainMappingOptions createDomainMappingOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createDomainMappingOptions,
+      "createDomainMappingOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", createDomainMappingOptions.projectId());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/domain_mappings", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "createDomainMapping");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.add("component", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createDomainMappingOptions.component()));
+    contentJson.addProperty("name", createDomainMappingOptions.name());
+    contentJson.addProperty("tls_secret", createDomainMappingOptions.tlsSecret());
+    builder.bodyJson(contentJson);
+    ResponseConverter<DomainMapping> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DomainMapping>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get a domain mapping.
+   *
+   * Get domain mapping.
+   *
+   * @param getDomainMappingOptions the {@link GetDomainMappingOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link DomainMapping}
+   */
+  public ServiceCall<DomainMapping> getDomainMapping(GetDomainMappingOptions getDomainMappingOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getDomainMappingOptions,
+      "getDomainMappingOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", getDomainMappingOptions.projectId());
+    pathParamsMap.put("name", getDomainMappingOptions.name());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/domain_mappings/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "getDomainMapping");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<DomainMapping> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DomainMapping>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a domain mapping.
+   *
+   * Delete a domain mapping.
+   *
+   * @param deleteDomainMappingOptions the {@link DeleteDomainMappingOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteDomainMapping(DeleteDomainMappingOptions deleteDomainMappingOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteDomainMappingOptions,
+      "deleteDomainMappingOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", deleteDomainMappingOptions.projectId());
+    pathParamsMap.put("name", deleteDomainMappingOptions.name());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/domain_mappings/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteDomainMapping");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update a domain mapping.
+   *
+   * Update a domain mapping.
+   *
+   * @param updateDomainMappingOptions the {@link UpdateDomainMappingOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link DomainMapping}
+   */
+  public ServiceCall<DomainMapping> updateDomainMapping(UpdateDomainMappingOptions updateDomainMappingOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateDomainMappingOptions,
+      "updateDomainMappingOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", updateDomainMappingOptions.projectId());
+    pathParamsMap.put("name", updateDomainMappingOptions.name());
+    RequestBuilder builder = RequestBuilder.patch(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/domain_mappings/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "updateDomainMapping");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.header("If-Match", updateDomainMappingOptions.ifMatch());
+    builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting().toJson(updateDomainMappingOptions.domainMapping()), "application/merge-patch+json");
+    ResponseConverter<DomainMapping> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DomainMapping>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * List config maps.
    *
    * List all config maps in a project.
@@ -1641,140 +2095,6 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * List domain mappings.
-   *
-   * List all domain mappings in a project.
-   *
-   * @param listDomainMappingsOptions the {@link ListDomainMappingsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link DomainMappingList}
-   */
-  public ServiceCall<DomainMappingList> listDomainMappings(ListDomainMappingsOptions listDomainMappingsOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(listDomainMappingsOptions,
-      "listDomainMappingsOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", listDomainMappingsOptions.projectId());
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/domain_mappings", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "listDomainMappings");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (listDomainMappingsOptions.limit() != null) {
-      builder.query("limit", String.valueOf(listDomainMappingsOptions.limit()));
-    }
-    if (listDomainMappingsOptions.start() != null) {
-      builder.query("start", String.valueOf(listDomainMappingsOptions.start()));
-    }
-    ResponseConverter<DomainMappingList> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DomainMappingList>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Create a domain mapping.
-   *
-   * Create a domain mapping.
-   *
-   * @param createDomainMappingOptions the {@link CreateDomainMappingOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link DomainMapping}
-   */
-  public ServiceCall<DomainMapping> createDomainMapping(CreateDomainMappingOptions createDomainMappingOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(createDomainMappingOptions,
-      "createDomainMappingOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", createDomainMappingOptions.projectId());
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/domain_mappings", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "createDomainMapping");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    final JsonObject contentJson = new JsonObject();
-    contentJson.add("component", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createDomainMappingOptions.component()));
-    contentJson.addProperty("name", createDomainMappingOptions.name());
-    contentJson.addProperty("tls_secret", createDomainMappingOptions.tlsSecret());
-    builder.bodyJson(contentJson);
-    ResponseConverter<DomainMapping> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DomainMapping>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Get a domain mapping.
-   *
-   * Get domain mapping.
-   *
-   * @param getDomainMappingOptions the {@link GetDomainMappingOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link DomainMapping}
-   */
-  public ServiceCall<DomainMapping> getDomainMapping(GetDomainMappingOptions getDomainMappingOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(getDomainMappingOptions,
-      "getDomainMappingOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", getDomainMappingOptions.projectId());
-    pathParamsMap.put("name", getDomainMappingOptions.name());
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/domain_mappings/{name}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "getDomainMapping");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    ResponseConverter<DomainMapping> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DomainMapping>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Delete a domain mapping.
-   *
-   * Delete a domain mapping.
-   *
-   * @param deleteDomainMappingOptions the {@link DeleteDomainMappingOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a void result
-   */
-  public ServiceCall<Void> deleteDomainMapping(DeleteDomainMappingOptions deleteDomainMappingOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteDomainMappingOptions,
-      "deleteDomainMappingOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", deleteDomainMappingOptions.projectId());
-    pathParamsMap.put("name", deleteDomainMappingOptions.name());
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/domain_mappings/{name}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteDomainMapping");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Update a domain mapping.
-   *
-   * Update a domain mapping.
-   *
-   * @param updateDomainMappingOptions the {@link UpdateDomainMappingOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link DomainMapping}
-   */
-  public ServiceCall<DomainMapping> updateDomainMapping(UpdateDomainMappingOptions updateDomainMappingOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(updateDomainMappingOptions,
-      "updateDomainMappingOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", updateDomainMappingOptions.projectId());
-    pathParamsMap.put("name", updateDomainMappingOptions.name());
-    RequestBuilder builder = RequestBuilder.patch(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/domain_mappings/{name}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "updateDomainMapping");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    builder.header("If-Match", updateDomainMappingOptions.ifMatch());
-    builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting().toJson(updateDomainMappingOptions.domainMapping()), "application/merge-patch+json");
-    ResponseConverter<DomainMapping> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DomainMapping>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
