@@ -34,5 +34,6 @@ public class ProjectStatusDetailsTest {
     ProjectStatusDetails projectStatusDetailsModel = new ProjectStatusDetails();
     assertNull(projectStatusDetailsModel.getDomain());
     assertNull(projectStatusDetailsModel.getProject());
+    assertNull(projectStatusDetailsModel.isVpeNotEnabled());
   }
 }
