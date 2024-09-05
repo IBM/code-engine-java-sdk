@@ -13,6 +13,7 @@
 
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
@@ -42,6 +43,8 @@ public class ProjectStatusDetails extends GenericModel {
 
   protected String domain;
   protected String project;
+  @SerializedName("vpe_not_enabled")
+  protected Boolean vpeNotEnabled;
 
   protected ProjectStatusDetails() { }
 
@@ -65,6 +68,17 @@ public class ProjectStatusDetails extends GenericModel {
    */
   public String getProject() {
     return project;
+  }
+
+  /**
+   * Gets the vpeNotEnabled.
+   *
+   * Return true when project is not VPE enabled.
+   *
+   * @return the vpeNotEnabled
+   */
+  public Boolean isVpeNotEnabled() {
+    return vpeNotEnabled;
   }
 }
 

@@ -197,7 +197,7 @@ public class CodeEngineTest {
   // Test the getter for the version global parameter
   @Test
   public void testGetVersion() throws Throwable {
-    assertEquals(codeEngineService.getVersion(), "2024-08-04");
+    assertEquals(codeEngineService.getVersion(), "2024-08-30");
   }
 
   // Test the listProjects operation with a valid options model parameter
@@ -518,7 +518,7 @@ public class CodeEngineTest {
   @Test
   public void testGetProjectStatusDetailsWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"domain\": \"unknown\", \"project\": \"enabled\"}";
+    String mockResponseBody = "{\"domain\": \"unknown\", \"project\": \"enabled\", \"vpe_not_enabled\": false}";
     String getProjectStatusDetailsPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/status_details";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -599,7 +599,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-04");
+    assertEquals(query.get("version"), "2024-08-30");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -769,7 +769,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-04");
+    assertEquals(query.get("version"), "2024-08-30");
   }
 
   // Test the createApp operation with and without retries enabled
@@ -822,7 +822,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-04");
+    assertEquals(query.get("version"), "2024-08-30");
   }
 
   // Test the getApp operation with and without retries enabled
@@ -874,7 +874,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-04");
+    assertEquals(query.get("version"), "2024-08-30");
   }
 
   // Test the deleteApp operation with and without retries enabled
@@ -987,7 +987,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-04");
+    assertEquals(query.get("version"), "2024-08-30");
   }
 
   // Test the updateApp operation with and without retries enabled
@@ -1044,7 +1044,7 @@ public class CodeEngineTest {
     assertNotNull(query);
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
-    assertEquals(query.get("version"), "2024-08-04");
+    assertEquals(query.get("version"), "2024-08-30");
   }
 
   // Test the listAppRevisions operation with and without retries enabled
@@ -1164,7 +1164,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-04");
+    assertEquals(query.get("version"), "2024-08-30");
   }
 
   // Test the getAppRevision operation with and without retries enabled
@@ -1392,7 +1392,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-04");
+    assertEquals(query.get("version"), "2024-08-30");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -1544,7 +1544,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-04");
+    assertEquals(query.get("version"), "2024-08-30");
   }
 
   // Test the createJob operation with and without retries enabled
@@ -1597,7 +1597,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-04");
+    assertEquals(query.get("version"), "2024-08-30");
   }
 
   // Test the getJob operation with and without retries enabled
@@ -1649,7 +1649,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-04");
+    assertEquals(query.get("version"), "2024-08-30");
   }
 
   // Test the deleteJob operation with and without retries enabled
@@ -1744,7 +1744,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-04");
+    assertEquals(query.get("version"), "2024-08-30");
   }
 
   // Test the updateJob operation with and without retries enabled
@@ -1799,7 +1799,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-04");
+    assertEquals(query.get("version"), "2024-08-30");
     assertEquals(query.get("job_name"), "my-job");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
@@ -1956,7 +1956,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-04");
+    assertEquals(query.get("version"), "2024-08-30");
   }
 
   // Test the createJobRun operation with and without retries enabled
@@ -2009,7 +2009,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-04");
+    assertEquals(query.get("version"), "2024-08-30");
   }
 
   // Test the getJobRun operation with and without retries enabled
@@ -2156,7 +2156,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-04");
+    assertEquals(query.get("version"), "2024-08-30");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -2297,7 +2297,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-04");
+    assertEquals(query.get("version"), "2024-08-30");
   }
 
   // Test the createFunction operation with and without retries enabled
@@ -2350,7 +2350,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-04");
+    assertEquals(query.get("version"), "2024-08-30");
   }
 
   // Test the getFunction operation with and without retries enabled
@@ -2402,7 +2402,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-04");
+    assertEquals(query.get("version"), "2024-08-30");
   }
 
   // Test the deleteFunction operation with and without retries enabled
@@ -2486,7 +2486,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-04");
+    assertEquals(query.get("version"), "2024-08-30");
   }
 
   // Test the updateFunction operation with and without retries enabled
@@ -4530,7 +4530,7 @@ public class CodeEngineTest {
     System.setProperty("TESTSERVICE_AUTH_TYPE", "noAuth");
     final String serviceName = "testService";
     // set mock values for global params
-    String version = "2024-08-04";
+    String version = "2024-08-30";
 
     codeEngineService = CodeEngine.newInstance(serviceName);
     String url = server.url("/").toString();

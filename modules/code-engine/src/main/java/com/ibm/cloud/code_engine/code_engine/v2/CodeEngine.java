@@ -175,7 +175,7 @@ public class CodeEngine extends BaseService {
    * Gets the version.
    *
    * The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-   * `2021-03-31` and `2024-08-04`.
+   * `2021-03-31` and `2024-08-30`.
    *
    * @return the version
    */
