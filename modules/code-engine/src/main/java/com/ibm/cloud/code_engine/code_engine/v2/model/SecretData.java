@@ -22,6 +22,8 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  * consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max length of 253 characters. Each value
  * field can consists of any character and must not exceed a max length of 1048576 characters.
  *
+ * This type supports additional properties of type String.
+ *
  * Classes which extend this class:
  * - SecretDataGenericSecretData
  * - SecretDataBasicAuthSecretData

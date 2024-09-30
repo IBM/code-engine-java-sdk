@@ -63,9 +63,17 @@ public class BuildRunStatus extends GenericModel {
 
   @SerializedName("completion_time")
   protected String completionTime;
+  @SerializedName("git_branch_name")
+  protected String gitBranchName;
+  @SerializedName("git_commit_author")
+  protected String gitCommitAuthor;
+  @SerializedName("git_commit_sha")
+  protected String gitCommitSha;
   @SerializedName("output_digest")
   protected String outputDigest;
   protected String reason;
+  @SerializedName("source_timestamp")
+  protected String sourceTimestamp;
   @SerializedName("start_time")
   protected String startTime;
 
@@ -80,6 +88,39 @@ public class BuildRunStatus extends GenericModel {
    */
   public String getCompletionTime() {
     return completionTime;
+  }
+
+  /**
+   * Gets the gitBranchName.
+   *
+   * The default branch name of the git source.
+   *
+   * @return the gitBranchName
+   */
+  public String getGitBranchName() {
+    return gitBranchName;
+  }
+
+  /**
+   * Gets the gitCommitAuthor.
+   *
+   * The commit author of a git source.
+   *
+   * @return the gitCommitAuthor
+   */
+  public String getGitCommitAuthor() {
+    return gitCommitAuthor;
+  }
+
+  /**
+   * Gets the gitCommitSha.
+   *
+   * The commit sha of the git source.
+   *
+   * @return the gitCommitSha
+   */
+  public String getGitCommitSha() {
+    return gitCommitSha;
   }
 
   /**
@@ -102,6 +143,17 @@ public class BuildRunStatus extends GenericModel {
    */
   public String getReason() {
     return reason;
+  }
+
+  /**
+   * Gets the sourceTimestamp.
+   *
+   * The timestamp of the source.
+   *
+   * @return the sourceTimestamp
+   */
+  public String getSourceTimestamp() {
+    return sourceTimestamp;
   }
 
   /**

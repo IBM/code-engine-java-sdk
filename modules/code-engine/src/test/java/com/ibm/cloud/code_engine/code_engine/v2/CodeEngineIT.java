@@ -29,105 +29,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.ibm.cloud.code_engine.code_engine.v2.model.*;
+import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.ibm.cloud.code_engine.code_engine.v2.model.App;
-import com.ibm.cloud.code_engine.code_engine.v2.model.AppList;
-import com.ibm.cloud.code_engine.code_engine.v2.model.AppPatch;
-import com.ibm.cloud.code_engine.code_engine.v2.model.AppRevision;
-import com.ibm.cloud.code_engine.code_engine.v2.model.AppRevisionList;
-import com.ibm.cloud.code_engine.code_engine.v2.model.AppRevisionsPager;
-import com.ibm.cloud.code_engine.code_engine.v2.model.AppsPager;
-import com.ibm.cloud.code_engine.code_engine.v2.model.Binding;
-import com.ibm.cloud.code_engine.code_engine.v2.model.BindingList;
-import com.ibm.cloud.code_engine.code_engine.v2.model.Build;
-import com.ibm.cloud.code_engine.code_engine.v2.model.BuildList;
-import com.ibm.cloud.code_engine.code_engine.v2.model.BuildPatch;
-import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRun;
-import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRunList;
-import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRunsPager;
-import com.ibm.cloud.code_engine.code_engine.v2.model.BuildsPager;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ComponentRef;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMap;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMapList;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMapsPager;
-import com.ibm.cloud.code_engine.code_engine.v2.model.CreateAppOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBindingOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildRunOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.CreateConfigMapOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.CreateDomainMappingOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.CreateJobOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.CreateJobRunOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.CreateProjectOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.CreateSecretOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAppOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAppRevisionOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBindingOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBuildOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBuildRunOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteConfigMapOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteDomainMappingOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteJobOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteJobRunOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteProjectOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteSecretOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.DomainMapping;
-import com.ibm.cloud.code_engine.code_engine.v2.model.DomainMappingPatch;
-import com.ibm.cloud.code_engine.code_engine.v2.model.EnvVarPrototype;
-import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppRevisionOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.GetBindingOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.GetBuildOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.GetBuildRunOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.GetConfigMapOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.GetDomainMappingOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobRunOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectEgressIpsOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.GetSecretOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.Job;
-import com.ibm.cloud.code_engine.code_engine.v2.model.JobList;
-import com.ibm.cloud.code_engine.code_engine.v2.model.JobPatch;
-import com.ibm.cloud.code_engine.code_engine.v2.model.JobRun;
-import com.ibm.cloud.code_engine.code_engine.v2.model.JobRunList;
-import com.ibm.cloud.code_engine.code_engine.v2.model.JobRunsPager;
-import com.ibm.cloud.code_engine.code_engine.v2.model.JobsPager;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppRevisionsOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppsOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ListBindingsOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ListBuildRunsOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ListBuildsOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ListConfigMapsOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobRunsOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobsOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ListProjectsOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ListSecretsOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.Project;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectEgressIPAddresses;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectList;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectsPager;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceConfigMapOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceSecretOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ResourceKeyRefPrototype;
-import com.ibm.cloud.code_engine.code_engine.v2.model.Secret;
-import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataBasicAuthSecretData;
-import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataGenericSecretData;
-import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataRegistrySecretData;
-import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataSSHSecretData;
-import com.ibm.cloud.code_engine.code_engine.v2.model.SecretDataTLSSecretData;
-import com.ibm.cloud.code_engine.code_engine.v2.model.SecretList;
-import com.ibm.cloud.code_engine.code_engine.v2.model.SecretsPager;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceAccessSecretPrototypeProps;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceInstanceRefPrototype;
-import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateAppOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateBuildOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateDomainMappingOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateJobOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.VolumeMountPrototype;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.code_engine.test.SdkIntegrationTestBase;
 import com.ibm.cloud.sdk.core.http.Response;
@@ -2062,6 +1969,139 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
     }
 
     @Test(dependsOnMethods = {"testReplaceTLSSecret"})
+    public void testListFunctionRuntimes() throws Exception {
+        try {
+            ListFunctionRuntimesOptions listFunctionRuntimesOptions = new ListFunctionRuntimesOptions();
+            // Invoke operation
+            Response<FunctionRuntimeList> response = service.listFunctionRuntimes(listFunctionRuntimesOptions).execute();
+            // Validate response
+            assertNotNull(response);
+            assertEquals(response.getStatusCode(), 200);
+
+            FunctionRuntimeList functionRuntimeListResult = response.getResult();
+            assertNotNull(functionRuntimeListResult);
+        } catch (ServiceResponseException e) {
+            fail(String.format("Service returned status code %d: %s%nError details: %s",
+                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+        }
+    }
+
+    @Test(dependsOnMethods = {"testListFunctionRuntimes"})
+    public void testListFunctions() throws Exception {
+        try {
+            ListFunctionsOptions listFunctionsOptions = new ListFunctionsOptions.Builder()
+                    .projectId(e2eTestProjectId)
+                    .limit(Long.valueOf("100"))
+                    .build();
+
+            // Invoke operation
+            Response<FunctionList> response = service.listFunctions(listFunctionsOptions).execute();
+            // Validate response
+            assertNotNull(response);
+            assertEquals(response.getStatusCode(), 200);
+
+            FunctionList functionListResult = response.getResult();
+            assertNotNull(functionListResult);
+        } catch (ServiceResponseException e) {
+            fail(String.format("Service returned status code %d: %s%nError details: %s",
+                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+        }
+    }
+
+    @Test(dependsOnMethods = {"testListFunctions"})
+    public void testCreateFunction() throws Exception {
+        try {
+            CreateFunctionOptions createFunctionOptions = new CreateFunctionOptions.Builder()
+                    .projectId(e2eTestProjectId)
+                    .codeReference("data:text/plain;base64,YXN5bmMgZnVuY3Rpb24gbWFpbihwYXJhbXMpIHsKICByZXR1cm4gewogICAgICBzdGF0dXNDb2RlOiAyMDAsCiAgICAgIGhlYWRlcnM6IHsgJ0NvbnRlbnQtVHlwZSc6ICdhcHBsaWNhdGlvbi9qc29uJyB9LAogICAgICBib2R5OiBwYXJhbXMgfTsKfQptb2R1bGUuZXhwb3J0cy5tYWluID0gbWFpbjs=")
+                    .name("my-function")
+                    .runtime("nodejs-20")
+                    .build();
+
+            // Invoke operation
+            Response<Function> response = service.createFunction(createFunctionOptions).execute();
+            // Validate response
+            assertNotNull(response);
+            assertEquals(response.getStatusCode(), 201);
+
+            Function function = response.getResult();
+            assertNotNull(function);
+        } catch (ServiceResponseException e) {
+            fail(String.format("Service returned status code %d: %s%nError details: %s",
+                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+        }
+    }
+
+    @Test(dependsOnMethods = {"testCreateFunction"})
+    public void testGetFunction() throws Exception {
+        try {
+            GetFunctionOptions getFunctionOptions = new GetFunctionOptions.Builder()
+                    .projectId(e2eTestProjectId)
+                    .name("my-function")
+                    .build();
+
+            // Invoke operation
+            Response<Function> response = service.getFunction(getFunctionOptions).execute();
+            // Validate response
+            assertNotNull(response);
+            assertEquals(response.getStatusCode(), 200);
+
+            Function function = response.getResult();
+            assertNotNull(function);
+        } catch (ServiceResponseException e) {
+            fail(String.format("Service returned status code %d: %s%nError details: %s",
+                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+        }
+    }
+
+    @Test(dependsOnMethods = {"testGetFunction"})
+    public void testUpdateFunction() throws Exception {
+        try {
+            FunctionPatch functionPatchModel = new FunctionPatch.Builder()
+                    .scaleMaxExecutionTime(Long.valueOf("30"))
+                    .build();
+            Map<String, Object> functionPatchModelAsPatch = functionPatchModel.asPatch();
+            UpdateFunctionOptions updateFunctionOptions = new UpdateFunctionOptions.Builder()
+                    .projectId(e2eTestProjectId)
+                    .name("my-function")
+                    .ifMatch("*")
+                    .function(functionPatchModelAsPatch)
+                    .build();
+
+            // Invoke operation
+            Response<Function> response = service.updateFunction(updateFunctionOptions).execute();
+            // Validate response
+            assertNotNull(response);
+            assertEquals(response.getStatusCode(), 200);
+
+            Function function = response.getResult();
+            assertNotNull(function);
+        } catch (ServiceResponseException e) {
+            fail(String.format("Service returned status code %d: %s%nError details: %s",
+                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+        }
+    }
+
+    @Test(dependsOnMethods = {"testUpdateFunction"})
+    public void testDeleteFunction() throws Exception {
+        try {
+            DeleteFunctionOptions deleteFunctionOptions = new DeleteFunctionOptions.Builder()
+                    .projectId(e2eTestProjectId)
+                    .name("my-function")
+                    .build();
+
+            // Invoke operation
+            Response<Void> response = service.deleteFunction(deleteFunctionOptions).execute();
+            // Validate response
+            assertNotNull(response);
+            assertEquals(response.getStatusCode(), 202);
+        } catch (ServiceResponseException e) {
+            fail(String.format("Service returned status code %d: %s%nError details: %s",
+                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+        }
+    }
+
+    @Test(dependsOnMethods = {"testDeleteFunction"})
     public void testDeleteTLSSecret() throws Exception {
         try {
             DeleteSecretOptions deleteSecretOptions = new DeleteSecretOptions.Builder()

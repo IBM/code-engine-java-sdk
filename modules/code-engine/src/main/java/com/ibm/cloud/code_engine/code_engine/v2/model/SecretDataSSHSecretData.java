@@ -18,6 +18,8 @@ import java.util.Map;
 
 /**
  * Secret Data field used by SSH secrets.
+ *
+ * This type supports additional properties of type String.
  */
 public class SecretDataSSHSecretData extends SecretData {
 

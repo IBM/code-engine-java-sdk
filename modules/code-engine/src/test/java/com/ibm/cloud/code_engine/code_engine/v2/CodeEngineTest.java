@@ -197,7 +197,7 @@ public class CodeEngineTest {
   // Test the getter for the version global parameter
   @Test
   public void testGetVersion() throws Throwable {
-    assertEquals(codeEngineService.getVersion(), "2024-08-30");
+    assertEquals(codeEngineService.getVersion(), "2024-09-27");
   }
 
   // Test the listProjects operation with a valid options model parameter
@@ -599,7 +599,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-30");
+    assertEquals(query.get("version"), "2024-09-27");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -769,7 +769,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-30");
+    assertEquals(query.get("version"), "2024-09-27");
   }
 
   // Test the createApp operation with and without retries enabled
@@ -822,7 +822,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-30");
+    assertEquals(query.get("version"), "2024-09-27");
   }
 
   // Test the getApp operation with and without retries enabled
@@ -874,7 +874,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-30");
+    assertEquals(query.get("version"), "2024-09-27");
   }
 
   // Test the deleteApp operation with and without retries enabled
@@ -987,7 +987,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-30");
+    assertEquals(query.get("version"), "2024-09-27");
   }
 
   // Test the updateApp operation with and without retries enabled
@@ -1044,7 +1044,7 @@ public class CodeEngineTest {
     assertNotNull(query);
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
-    assertEquals(query.get("version"), "2024-08-30");
+    assertEquals(query.get("version"), "2024-09-27");
   }
 
   // Test the listAppRevisions operation with and without retries enabled
@@ -1164,7 +1164,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-30");
+    assertEquals(query.get("version"), "2024-09-27");
   }
 
   // Test the getAppRevision operation with and without retries enabled
@@ -1392,7 +1392,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-30");
+    assertEquals(query.get("version"), "2024-09-27");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -1544,7 +1544,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-30");
+    assertEquals(query.get("version"), "2024-09-27");
   }
 
   // Test the createJob operation with and without retries enabled
@@ -1597,7 +1597,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-30");
+    assertEquals(query.get("version"), "2024-09-27");
   }
 
   // Test the getJob operation with and without retries enabled
@@ -1649,7 +1649,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-30");
+    assertEquals(query.get("version"), "2024-09-27");
   }
 
   // Test the deleteJob operation with and without retries enabled
@@ -1744,7 +1744,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-30");
+    assertEquals(query.get("version"), "2024-09-27");
   }
 
   // Test the updateJob operation with and without retries enabled
@@ -1799,7 +1799,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-30");
+    assertEquals(query.get("version"), "2024-09-27");
     assertEquals(query.get("job_name"), "my-job");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
@@ -1956,7 +1956,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-30");
+    assertEquals(query.get("version"), "2024-09-27");
   }
 
   // Test the createJobRun operation with and without retries enabled
@@ -2009,7 +2009,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-30");
+    assertEquals(query.get("version"), "2024-09-27");
   }
 
   // Test the getJobRun operation with and without retries enabled
@@ -2156,7 +2156,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-30");
+    assertEquals(query.get("version"), "2024-09-27");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -2297,7 +2297,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-30");
+    assertEquals(query.get("version"), "2024-09-27");
   }
 
   // Test the createFunction operation with and without retries enabled
@@ -2350,7 +2350,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-30");
+    assertEquals(query.get("version"), "2024-09-27");
   }
 
   // Test the getFunction operation with and without retries enabled
@@ -2402,7 +2402,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-30");
+    assertEquals(query.get("version"), "2024-09-27");
   }
 
   // Test the deleteFunction operation with and without retries enabled
@@ -2486,7 +2486,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-08-30");
+    assertEquals(query.get("version"), "2024-09-27");
   }
 
   // Test the updateFunction operation with and without retries enabled
@@ -3149,7 +3149,7 @@ public class CodeEngineTest {
   @Test
   public void testListBuildRunsWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"build_runs\": [{\"build_name\": \"buildName\", \"created_at\": \"2022-09-13T11:41:35+02:00\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-build-run\", \"output_image\": \"private.de.icr.io/icr_namespace/image-name\", \"output_secret\": \"ce-auto-icr-private-eu-de\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"build_run_v2\", \"service_account\": \"default\", \"source_context_dir\": \"some/subfolder\", \"source_revision\": \"main\", \"source_secret\": \"sourceSecret\", \"source_type\": \"git\", \"source_url\": \"https://github.com/IBM/CodeEngine\", \"status\": \"succeeded\", \"status_details\": {\"completion_time\": \"2022-09-22T17:40:00Z\", \"output_digest\": \"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384\", \"reason\": \"succeeded\", \"start_time\": \"2022-09-22T17:34:00Z\"}, \"strategy_size\": \"medium\", \"strategy_spec_file\": \"Dockerfile\", \"strategy_type\": \"dockerfile\", \"timeout\": 600}], \"first\": {\"href\": \"href\"}, \"limit\": 100, \"next\": {\"href\": \"href\", \"start\": \"start\"}}";
+    String mockResponseBody = "{\"build_runs\": [{\"build_name\": \"buildName\", \"created_at\": \"2022-09-13T11:41:35+02:00\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-build-run\", \"output_image\": \"private.de.icr.io/icr_namespace/image-name\", \"output_secret\": \"ce-auto-icr-private-eu-de\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"build_run_v2\", \"service_account\": \"default\", \"source_context_dir\": \"some/subfolder\", \"source_revision\": \"main\", \"source_secret\": \"sourceSecret\", \"source_type\": \"git\", \"source_url\": \"https://github.com/IBM/CodeEngine\", \"status\": \"succeeded\", \"status_details\": {\"completion_time\": \"2022-09-22T17:40:00Z\", \"git_branch_name\": \"main\", \"git_commit_author\": \"John Doe\", \"git_commit_sha\": \"9a3d845c629d2b4a6b271b1d526dfafc1e7d9511\", \"output_digest\": \"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384\", \"reason\": \"succeeded\", \"source_timestamp\": \"2022-09-22T17:34:00Z\", \"start_time\": \"2022-09-22T17:34:00Z\"}, \"strategy_size\": \"medium\", \"strategy_spec_file\": \"Dockerfile\", \"strategy_type\": \"dockerfile\", \"timeout\": 600}], \"first\": {\"href\": \"href\"}, \"limit\": 100, \"next\": {\"href\": \"href\", \"start\": \"start\"}}";
     String listBuildRunsPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -3206,8 +3206,8 @@ public class CodeEngineTest {
   @Test
   public void testListBuildRunsWithPagerGetNext() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"total_count\":2,\"limit\":1,\"build_runs\":[{\"build_name\":\"buildName\",\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-build-run\",\"output_image\":\"private.de.icr.io/icr_namespace/image-name\",\"output_secret\":\"ce-auto-icr-private-eu-de\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"build_run_v2\",\"service_account\":\"default\",\"source_context_dir\":\"some/subfolder\",\"source_revision\":\"main\",\"source_secret\":\"sourceSecret\",\"source_type\":\"git\",\"source_url\":\"https://github.com/IBM/CodeEngine\",\"status\":\"succeeded\",\"status_details\":{\"completion_time\":\"2022-09-22T17:40:00Z\",\"output_digest\":\"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384\",\"reason\":\"succeeded\",\"start_time\":\"2022-09-22T17:34:00Z\"},\"strategy_size\":\"medium\",\"strategy_spec_file\":\"Dockerfile\",\"strategy_type\":\"dockerfile\",\"timeout\":600}]}";
-    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"build_runs\":[{\"build_name\":\"buildName\",\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-build-run\",\"output_image\":\"private.de.icr.io/icr_namespace/image-name\",\"output_secret\":\"ce-auto-icr-private-eu-de\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"build_run_v2\",\"service_account\":\"default\",\"source_context_dir\":\"some/subfolder\",\"source_revision\":\"main\",\"source_secret\":\"sourceSecret\",\"source_type\":\"git\",\"source_url\":\"https://github.com/IBM/CodeEngine\",\"status\":\"succeeded\",\"status_details\":{\"completion_time\":\"2022-09-22T17:40:00Z\",\"output_digest\":\"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384\",\"reason\":\"succeeded\",\"start_time\":\"2022-09-22T17:34:00Z\"},\"strategy_size\":\"medium\",\"strategy_spec_file\":\"Dockerfile\",\"strategy_type\":\"dockerfile\",\"timeout\":600}]}";
+    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"total_count\":2,\"limit\":1,\"build_runs\":[{\"build_name\":\"buildName\",\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-build-run\",\"output_image\":\"private.de.icr.io/icr_namespace/image-name\",\"output_secret\":\"ce-auto-icr-private-eu-de\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"build_run_v2\",\"service_account\":\"default\",\"source_context_dir\":\"some/subfolder\",\"source_revision\":\"main\",\"source_secret\":\"sourceSecret\",\"source_type\":\"git\",\"source_url\":\"https://github.com/IBM/CodeEngine\",\"status\":\"succeeded\",\"status_details\":{\"completion_time\":\"2022-09-22T17:40:00Z\",\"git_branch_name\":\"main\",\"git_commit_author\":\"John Doe\",\"git_commit_sha\":\"9a3d845c629d2b4a6b271b1d526dfafc1e7d9511\",\"output_digest\":\"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384\",\"reason\":\"succeeded\",\"source_timestamp\":\"2022-09-22T17:34:00Z\",\"start_time\":\"2022-09-22T17:34:00Z\"},\"strategy_size\":\"medium\",\"strategy_spec_file\":\"Dockerfile\",\"strategy_type\":\"dockerfile\",\"timeout\":600}]}";
+    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"build_runs\":[{\"build_name\":\"buildName\",\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-build-run\",\"output_image\":\"private.de.icr.io/icr_namespace/image-name\",\"output_secret\":\"ce-auto-icr-private-eu-de\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"build_run_v2\",\"service_account\":\"default\",\"source_context_dir\":\"some/subfolder\",\"source_revision\":\"main\",\"source_secret\":\"sourceSecret\",\"source_type\":\"git\",\"source_url\":\"https://github.com/IBM/CodeEngine\",\"status\":\"succeeded\",\"status_details\":{\"completion_time\":\"2022-09-22T17:40:00Z\",\"git_branch_name\":\"main\",\"git_commit_author\":\"John Doe\",\"git_commit_sha\":\"9a3d845c629d2b4a6b271b1d526dfafc1e7d9511\",\"output_digest\":\"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384\",\"reason\":\"succeeded\",\"source_timestamp\":\"2022-09-22T17:34:00Z\",\"start_time\":\"2022-09-22T17:34:00Z\"},\"strategy_size\":\"medium\",\"strategy_spec_file\":\"Dockerfile\",\"strategy_type\":\"dockerfile\",\"timeout\":600}]}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -3241,8 +3241,8 @@ public class CodeEngineTest {
   @Test
   public void testListBuildRunsWithPagerGetAll() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"total_count\":2,\"limit\":1,\"build_runs\":[{\"build_name\":\"buildName\",\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-build-run\",\"output_image\":\"private.de.icr.io/icr_namespace/image-name\",\"output_secret\":\"ce-auto-icr-private-eu-de\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"build_run_v2\",\"service_account\":\"default\",\"source_context_dir\":\"some/subfolder\",\"source_revision\":\"main\",\"source_secret\":\"sourceSecret\",\"source_type\":\"git\",\"source_url\":\"https://github.com/IBM/CodeEngine\",\"status\":\"succeeded\",\"status_details\":{\"completion_time\":\"2022-09-22T17:40:00Z\",\"output_digest\":\"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384\",\"reason\":\"succeeded\",\"start_time\":\"2022-09-22T17:34:00Z\"},\"strategy_size\":\"medium\",\"strategy_spec_file\":\"Dockerfile\",\"strategy_type\":\"dockerfile\",\"timeout\":600}]}";
-    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"build_runs\":[{\"build_name\":\"buildName\",\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-build-run\",\"output_image\":\"private.de.icr.io/icr_namespace/image-name\",\"output_secret\":\"ce-auto-icr-private-eu-de\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"build_run_v2\",\"service_account\":\"default\",\"source_context_dir\":\"some/subfolder\",\"source_revision\":\"main\",\"source_secret\":\"sourceSecret\",\"source_type\":\"git\",\"source_url\":\"https://github.com/IBM/CodeEngine\",\"status\":\"succeeded\",\"status_details\":{\"completion_time\":\"2022-09-22T17:40:00Z\",\"output_digest\":\"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384\",\"reason\":\"succeeded\",\"start_time\":\"2022-09-22T17:34:00Z\"},\"strategy_size\":\"medium\",\"strategy_spec_file\":\"Dockerfile\",\"strategy_type\":\"dockerfile\",\"timeout\":600}]}";
+    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"total_count\":2,\"limit\":1,\"build_runs\":[{\"build_name\":\"buildName\",\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-build-run\",\"output_image\":\"private.de.icr.io/icr_namespace/image-name\",\"output_secret\":\"ce-auto-icr-private-eu-de\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"build_run_v2\",\"service_account\":\"default\",\"source_context_dir\":\"some/subfolder\",\"source_revision\":\"main\",\"source_secret\":\"sourceSecret\",\"source_type\":\"git\",\"source_url\":\"https://github.com/IBM/CodeEngine\",\"status\":\"succeeded\",\"status_details\":{\"completion_time\":\"2022-09-22T17:40:00Z\",\"git_branch_name\":\"main\",\"git_commit_author\":\"John Doe\",\"git_commit_sha\":\"9a3d845c629d2b4a6b271b1d526dfafc1e7d9511\",\"output_digest\":\"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384\",\"reason\":\"succeeded\",\"source_timestamp\":\"2022-09-22T17:34:00Z\",\"start_time\":\"2022-09-22T17:34:00Z\"},\"strategy_size\":\"medium\",\"strategy_spec_file\":\"Dockerfile\",\"strategy_type\":\"dockerfile\",\"timeout\":600}]}";
+    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"build_runs\":[{\"build_name\":\"buildName\",\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-build-run\",\"output_image\":\"private.de.icr.io/icr_namespace/image-name\",\"output_secret\":\"ce-auto-icr-private-eu-de\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"build_run_v2\",\"service_account\":\"default\",\"source_context_dir\":\"some/subfolder\",\"source_revision\":\"main\",\"source_secret\":\"sourceSecret\",\"source_type\":\"git\",\"source_url\":\"https://github.com/IBM/CodeEngine\",\"status\":\"succeeded\",\"status_details\":{\"completion_time\":\"2022-09-22T17:40:00Z\",\"git_branch_name\":\"main\",\"git_commit_author\":\"John Doe\",\"git_commit_sha\":\"9a3d845c629d2b4a6b271b1d526dfafc1e7d9511\",\"output_digest\":\"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384\",\"reason\":\"succeeded\",\"source_timestamp\":\"2022-09-22T17:34:00Z\",\"start_time\":\"2022-09-22T17:34:00Z\"},\"strategy_size\":\"medium\",\"strategy_spec_file\":\"Dockerfile\",\"strategy_type\":\"dockerfile\",\"timeout\":600}]}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -3272,7 +3272,7 @@ public class CodeEngineTest {
   @Test
   public void testCreateBuildRunWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"build_name\": \"buildName\", \"created_at\": \"2022-09-13T11:41:35+02:00\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-build-run\", \"output_image\": \"private.de.icr.io/icr_namespace/image-name\", \"output_secret\": \"ce-auto-icr-private-eu-de\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"build_run_v2\", \"service_account\": \"default\", \"source_context_dir\": \"some/subfolder\", \"source_revision\": \"main\", \"source_secret\": \"sourceSecret\", \"source_type\": \"git\", \"source_url\": \"https://github.com/IBM/CodeEngine\", \"status\": \"succeeded\", \"status_details\": {\"completion_time\": \"2022-09-22T17:40:00Z\", \"output_digest\": \"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384\", \"reason\": \"succeeded\", \"start_time\": \"2022-09-22T17:34:00Z\"}, \"strategy_size\": \"medium\", \"strategy_spec_file\": \"Dockerfile\", \"strategy_type\": \"dockerfile\", \"timeout\": 600}";
+    String mockResponseBody = "{\"build_name\": \"buildName\", \"created_at\": \"2022-09-13T11:41:35+02:00\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-build-run\", \"output_image\": \"private.de.icr.io/icr_namespace/image-name\", \"output_secret\": \"ce-auto-icr-private-eu-de\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"build_run_v2\", \"service_account\": \"default\", \"source_context_dir\": \"some/subfolder\", \"source_revision\": \"main\", \"source_secret\": \"sourceSecret\", \"source_type\": \"git\", \"source_url\": \"https://github.com/IBM/CodeEngine\", \"status\": \"succeeded\", \"status_details\": {\"completion_time\": \"2022-09-22T17:40:00Z\", \"git_branch_name\": \"main\", \"git_commit_author\": \"John Doe\", \"git_commit_sha\": \"9a3d845c629d2b4a6b271b1d526dfafc1e7d9511\", \"output_digest\": \"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384\", \"reason\": \"succeeded\", \"source_timestamp\": \"2022-09-22T17:34:00Z\", \"start_time\": \"2022-09-22T17:34:00Z\"}, \"strategy_size\": \"medium\", \"strategy_spec_file\": \"Dockerfile\", \"strategy_type\": \"dockerfile\", \"timeout\": 600}";
     String createBuildRunPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -3337,7 +3337,7 @@ public class CodeEngineTest {
   @Test
   public void testGetBuildRunWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"build_name\": \"buildName\", \"created_at\": \"2022-09-13T11:41:35+02:00\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-build-run\", \"output_image\": \"private.de.icr.io/icr_namespace/image-name\", \"output_secret\": \"ce-auto-icr-private-eu-de\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"build_run_v2\", \"service_account\": \"default\", \"source_context_dir\": \"some/subfolder\", \"source_revision\": \"main\", \"source_secret\": \"sourceSecret\", \"source_type\": \"git\", \"source_url\": \"https://github.com/IBM/CodeEngine\", \"status\": \"succeeded\", \"status_details\": {\"completion_time\": \"2022-09-22T17:40:00Z\", \"output_digest\": \"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384\", \"reason\": \"succeeded\", \"start_time\": \"2022-09-22T17:34:00Z\"}, \"strategy_size\": \"medium\", \"strategy_spec_file\": \"Dockerfile\", \"strategy_type\": \"dockerfile\", \"timeout\": 600}";
+    String mockResponseBody = "{\"build_name\": \"buildName\", \"created_at\": \"2022-09-13T11:41:35+02:00\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-build-run\", \"output_image\": \"private.de.icr.io/icr_namespace/image-name\", \"output_secret\": \"ce-auto-icr-private-eu-de\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"build_run_v2\", \"service_account\": \"default\", \"source_context_dir\": \"some/subfolder\", \"source_revision\": \"main\", \"source_secret\": \"sourceSecret\", \"source_type\": \"git\", \"source_url\": \"https://github.com/IBM/CodeEngine\", \"status\": \"succeeded\", \"status_details\": {\"completion_time\": \"2022-09-22T17:40:00Z\", \"git_branch_name\": \"main\", \"git_commit_author\": \"John Doe\", \"git_commit_sha\": \"9a3d845c629d2b4a6b271b1d526dfafc1e7d9511\", \"output_digest\": \"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384\", \"reason\": \"succeeded\", \"source_timestamp\": \"2022-09-22T17:34:00Z\", \"start_time\": \"2022-09-22T17:34:00Z\"}, \"strategy_size\": \"medium\", \"strategy_spec_file\": \"Dockerfile\", \"strategy_type\": \"dockerfile\", \"timeout\": 600}";
     String getBuildRunPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs/my-build-run";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -4530,7 +4530,7 @@ public class CodeEngineTest {
     System.setProperty("TESTSERVICE_AUTH_TYPE", "noAuth");
     final String serviceName = "testService";
     // set mock values for global params
-    String version = "2024-08-30";
+    String version = "2024-09-27";
 
     codeEngineService = CodeEngine.newInstance(serviceName);
     String url = server.url("/").toString();
