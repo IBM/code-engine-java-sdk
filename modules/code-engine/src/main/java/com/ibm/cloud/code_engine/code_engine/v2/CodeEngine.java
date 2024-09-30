@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.92.1-44330004-20240620-143510
+ * IBM OpenAPI SDK Code Generator Version: 3.94.1-71478489-20240820-161623
  */
 
 package com.ibm.cloud.code_engine.code_engine.v2;
@@ -175,7 +175,7 @@ public class CodeEngine extends BaseService {
    * Gets the version.
    *
    * The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-   * `2021-03-31` and `2024-08-30`.
+   * `2021-03-31` and `2024-09-27`.
    *
    * @return the version
    */
@@ -567,7 +567,7 @@ public class CodeEngine extends BaseService {
     if (this.version != null) {
       builder.query("version", String.valueOf(this.version));
     }
-    builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting().toJson(updateAppOptions.app()), "application/merge-patch+json");
+    builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithSerializeNulls().toJson(updateAppOptions.app()), "application/merge-patch+json");
     ResponseConverter<App> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<App>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
@@ -875,7 +875,7 @@ public class CodeEngine extends BaseService {
     if (this.version != null) {
       builder.query("version", String.valueOf(this.version));
     }
-    builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting().toJson(updateJobOptions.job()), "application/merge-patch+json");
+    builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithSerializeNulls().toJson(updateJobOptions.job()), "application/merge-patch+json");
     ResponseConverter<Job> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Job>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
@@ -1255,7 +1255,7 @@ public class CodeEngine extends BaseService {
     if (this.version != null) {
       builder.query("version", String.valueOf(this.version));
     }
-    builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting().toJson(updateFunctionOptions.function()), "application/merge-patch+json");
+    builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithSerializeNulls().toJson(updateFunctionOptions.function()), "application/merge-patch+json");
     ResponseConverter<Function> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Function>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
@@ -1523,7 +1523,7 @@ public class CodeEngine extends BaseService {
     }
     builder.header("Accept", "application/json");
     builder.header("If-Match", updateBuildOptions.ifMatch());
-    builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting().toJson(updateBuildOptions.build()), "application/merge-patch+json");
+    builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithSerializeNulls().toJson(updateBuildOptions.build()), "application/merge-patch+json");
     ResponseConverter<Build> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Build>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
@@ -1806,7 +1806,7 @@ public class CodeEngine extends BaseService {
     }
     builder.header("Accept", "application/json");
     builder.header("If-Match", updateDomainMappingOptions.ifMatch());
-    builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting().toJson(updateDomainMappingOptions.domainMapping()), "application/merge-patch+json");
+    builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithSerializeNulls().toJson(updateDomainMappingOptions.domainMapping()), "application/merge-patch+json");
     ResponseConverter<DomainMapping> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DomainMapping>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);

@@ -18,6 +18,8 @@ import java.util.Map;
 
 /**
  * SecretDataRegistrySecretData.
+ *
+ * This type supports additional properties of type String.
  */
 public class SecretDataRegistrySecretData extends SecretData {
 

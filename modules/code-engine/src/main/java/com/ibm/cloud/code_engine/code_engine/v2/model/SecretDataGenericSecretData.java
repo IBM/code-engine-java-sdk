@@ -20,6 +20,8 @@ import java.util.Map;
  * Data container that allows to specify config parameters and their values as a key-value map. Each key field must
  * consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters. Each value
  * field can consists of any character and must not be exceed a max length of 1048576 characters.
+ *
+ * This type supports additional properties of type String.
  */
 public class SecretDataGenericSecretData extends SecretData {
 
