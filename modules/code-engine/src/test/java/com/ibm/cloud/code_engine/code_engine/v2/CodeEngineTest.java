@@ -14,6 +14,14 @@
 package com.ibm.cloud.code_engine.code_engine.v2;
 
 import com.ibm.cloud.code_engine.code_engine.v2.CodeEngine;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestination;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationCidrBlockData;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationPatch;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationPatchCidrBlockDataPatch;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationPrototype;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype;
 import com.ibm.cloud.code_engine.code_engine.v2.model.App;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppInstance;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppInstanceList;
@@ -44,6 +52,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMapList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMapsPager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ContainerStatus;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ContainerStatusDetails;
+import com.ibm.cloud.code_engine.code_engine.v2.model.CreateAllowedOutboundDestinationOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateAppOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBindingOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildOptions;
@@ -55,6 +64,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.CreateJobOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateJobRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateProjectOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateSecretOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAllowedOutboundDestinationOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAppOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAppRevisionOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBindingOptions;
@@ -81,6 +91,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.FunctionRuntime;
 import com.ibm.cloud.code_engine.code_engine.v2.model.FunctionRuntimeList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.FunctionStatus;
 import com.ibm.cloud.code_engine.code_engine.v2.model.FunctionsPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetAllowedOutboundDestinationOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppRevisionOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetBindingOptions;
@@ -103,6 +114,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.JobRunList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobRunStatus;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobRunsPager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobsPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListAllowedOutboundDestinationOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppInstancesOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppRevisionsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppsOptions;
@@ -149,6 +161,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceIDRef;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceIDRefPrototype;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceInstanceRef;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ServiceInstanceRefPrototype;
+import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateAllowedOutboundDestinationOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateAppOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateBuildOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateDomainMappingOptions;
@@ -197,7 +210,7 @@ public class CodeEngineTest {
   // Test the getter for the version global parameter
   @Test
   public void testGetVersion() throws Throwable {
-    assertEquals(codeEngineService.getVersion(), "2024-09-27");
+    assertEquals(codeEngineService.getVersion(), "2024-11-18");
   }
 
   // Test the listProjects operation with a valid options model parameter
@@ -463,6 +476,354 @@ public class CodeEngineTest {
     codeEngineService.deleteProject(null).execute();
   }
 
+  // Test the listAllowedOutboundDestination operation with a valid options model parameter
+  @Test
+  public void testListAllowedOutboundDestinationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"allowed_outbound_destinations\": [{\"entity_tag\": \"2385407409\", \"type\": \"cidr_block\", \"cidr_block\": \"cidrBlock\", \"name\": \"name\"}], \"first\": {\"href\": \"href\"}, \"limit\": 100, \"next\": {\"href\": \"href\", \"start\": \"start\"}}";
+    String listAllowedOutboundDestinationPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the ListAllowedOutboundDestinationOptions model
+    ListAllowedOutboundDestinationOptions listAllowedOutboundDestinationOptionsModel = new ListAllowedOutboundDestinationOptions.Builder()
+      .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+      .limit(Long.valueOf("100"))
+      .start("testString")
+      .build();
+
+    // Invoke listAllowedOutboundDestination() with a valid options model and verify the result
+    Response<AllowedOutboundDestinationList> response = codeEngineService.listAllowedOutboundDestination(listAllowedOutboundDestinationOptionsModel).execute();
+    assertNotNull(response);
+    AllowedOutboundDestinationList responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listAllowedOutboundDestinationPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
+    assertEquals(query.get("start"), "testString");
+  }
+
+  // Test the listAllowedOutboundDestination operation with and without retries enabled
+  @Test
+  public void testListAllowedOutboundDestinationWRetries() throws Throwable {
+    codeEngineService.enableRetries(4, 30);
+    testListAllowedOutboundDestinationWOptions();
+
+    codeEngineService.disableRetries();
+    testListAllowedOutboundDestinationWOptions();
+  }
+
+  // Test the listAllowedOutboundDestination operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListAllowedOutboundDestinationNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    codeEngineService.listAllowedOutboundDestination(null).execute();
+  }
+
+  // Test the listAllowedOutboundDestination operation using the AllowedOutboundDestinationPager.getNext() method
+  @Test
+  public void testListAllowedOutboundDestinationWithPagerGetNext() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"allowed_outbound_destinations\":[{\"entity_tag\":\"2385407409\",\"type\":\"cidr_block\",\"cidr_block\":\"cidrBlock\",\"name\":\"name\"}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage2 = "{\"allowed_outbound_destinations\":[{\"entity_tag\":\"2385407409\",\"type\":\"cidr_block\",\"cidr_block\":\"cidrBlock\",\"name\":\"name\"}],\"total_count\":2,\"limit\":1}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListAllowedOutboundDestinationOptions listAllowedOutboundDestinationOptions = new ListAllowedOutboundDestinationOptions.Builder()
+      .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+      .limit(Long.valueOf("100"))
+      .build();
+
+    List<AllowedOutboundDestination> allResults = new ArrayList<>();
+    AllowedOutboundDestinationPager pager = new AllowedOutboundDestinationPager(codeEngineService, listAllowedOutboundDestinationOptions);
+    while (pager.hasNext()) {
+      List<AllowedOutboundDestination> nextPage = pager.getNext();
+      assertNotNull(nextPage);
+      allResults.addAll(nextPage);
+    }
+    assertEquals(allResults.size(), 2);
+  }
+  
+  // Test the listAllowedOutboundDestination operation using the AllowedOutboundDestinationPager.getAll() method
+  @Test
+  public void testListAllowedOutboundDestinationWithPagerGetAll() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"allowed_outbound_destinations\":[{\"entity_tag\":\"2385407409\",\"type\":\"cidr_block\",\"cidr_block\":\"cidrBlock\",\"name\":\"name\"}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage2 = "{\"allowed_outbound_destinations\":[{\"entity_tag\":\"2385407409\",\"type\":\"cidr_block\",\"cidr_block\":\"cidrBlock\",\"name\":\"name\"}],\"total_count\":2,\"limit\":1}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListAllowedOutboundDestinationOptions listAllowedOutboundDestinationOptions = new ListAllowedOutboundDestinationOptions.Builder()
+      .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+      .limit(Long.valueOf("100"))
+      .build();
+
+    AllowedOutboundDestinationPager pager = new AllowedOutboundDestinationPager(codeEngineService, listAllowedOutboundDestinationOptions);
+    List<AllowedOutboundDestination> allResults = pager.getAll();
+    assertNotNull(allResults);
+    assertEquals(allResults.size(), 2);
+  }
+  
+  // Test the createAllowedOutboundDestination operation with a valid options model parameter
+  @Test
+  public void testCreateAllowedOutboundDestinationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"entity_tag\": \"2385407409\", \"type\": \"cidr_block\", \"cidr_block\": \"cidrBlock\", \"name\": \"name\"}";
+    String createAllowedOutboundDestinationPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(201)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the AllowedOutboundDestinationPrototypeCidrBlockDataPrototype model
+    AllowedOutboundDestinationPrototypeCidrBlockDataPrototype allowedOutboundDestinationPrototypeModel = new AllowedOutboundDestinationPrototypeCidrBlockDataPrototype.Builder()
+      .type("cidr_block")
+      .cidrBlock("testString")
+      .name("testString")
+      .build();
+
+    // Construct an instance of the CreateAllowedOutboundDestinationOptions model
+    CreateAllowedOutboundDestinationOptions createAllowedOutboundDestinationOptionsModel = new CreateAllowedOutboundDestinationOptions.Builder()
+      .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+      .allowedOutboundDestination(allowedOutboundDestinationPrototypeModel)
+      .build();
+
+    // Invoke createAllowedOutboundDestination() with a valid options model and verify the result
+    Response<AllowedOutboundDestination> response = codeEngineService.createAllowedOutboundDestination(createAllowedOutboundDestinationOptionsModel).execute();
+    assertNotNull(response);
+    AllowedOutboundDestination responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createAllowedOutboundDestinationPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "2024-11-18");
+  }
+
+  // Test the createAllowedOutboundDestination operation with and without retries enabled
+  @Test
+  public void testCreateAllowedOutboundDestinationWRetries() throws Throwable {
+    codeEngineService.enableRetries(4, 30);
+    testCreateAllowedOutboundDestinationWOptions();
+
+    codeEngineService.disableRetries();
+    testCreateAllowedOutboundDestinationWOptions();
+  }
+
+  // Test the createAllowedOutboundDestination operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateAllowedOutboundDestinationNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    codeEngineService.createAllowedOutboundDestination(null).execute();
+  }
+
+  // Test the getAllowedOutboundDestination operation with a valid options model parameter
+  @Test
+  public void testGetAllowedOutboundDestinationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"entity_tag\": \"2385407409\", \"type\": \"cidr_block\", \"cidr_block\": \"cidrBlock\", \"name\": \"name\"}";
+    String getAllowedOutboundDestinationPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations/my-allowed-outbound-destination";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetAllowedOutboundDestinationOptions model
+    GetAllowedOutboundDestinationOptions getAllowedOutboundDestinationOptionsModel = new GetAllowedOutboundDestinationOptions.Builder()
+      .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+      .name("my-allowed-outbound-destination")
+      .build();
+
+    // Invoke getAllowedOutboundDestination() with a valid options model and verify the result
+    Response<AllowedOutboundDestination> response = codeEngineService.getAllowedOutboundDestination(getAllowedOutboundDestinationOptionsModel).execute();
+    assertNotNull(response);
+    AllowedOutboundDestination responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getAllowedOutboundDestinationPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "2024-11-18");
+  }
+
+  // Test the getAllowedOutboundDestination operation with and without retries enabled
+  @Test
+  public void testGetAllowedOutboundDestinationWRetries() throws Throwable {
+    codeEngineService.enableRetries(4, 30);
+    testGetAllowedOutboundDestinationWOptions();
+
+    codeEngineService.disableRetries();
+    testGetAllowedOutboundDestinationWOptions();
+  }
+
+  // Test the getAllowedOutboundDestination operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetAllowedOutboundDestinationNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    codeEngineService.getAllowedOutboundDestination(null).execute();
+  }
+
+  // Test the deleteAllowedOutboundDestination operation with a valid options model parameter
+  @Test
+  public void testDeleteAllowedOutboundDestinationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "";
+    String deleteAllowedOutboundDestinationPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations/my-allowed-outbound-destination";
+    server.enqueue(new MockResponse()
+      .setResponseCode(202)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the DeleteAllowedOutboundDestinationOptions model
+    DeleteAllowedOutboundDestinationOptions deleteAllowedOutboundDestinationOptionsModel = new DeleteAllowedOutboundDestinationOptions.Builder()
+      .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+      .name("my-allowed-outbound-destination")
+      .build();
+
+    // Invoke deleteAllowedOutboundDestination() with a valid options model and verify the result
+    Response<Void> response = codeEngineService.deleteAllowedOutboundDestination(deleteAllowedOutboundDestinationOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    assertNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteAllowedOutboundDestinationPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "2024-11-18");
+  }
+
+  // Test the deleteAllowedOutboundDestination operation with and without retries enabled
+  @Test
+  public void testDeleteAllowedOutboundDestinationWRetries() throws Throwable {
+    codeEngineService.enableRetries(4, 30);
+    testDeleteAllowedOutboundDestinationWOptions();
+
+    codeEngineService.disableRetries();
+    testDeleteAllowedOutboundDestinationWOptions();
+  }
+
+  // Test the deleteAllowedOutboundDestination operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteAllowedOutboundDestinationNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    codeEngineService.deleteAllowedOutboundDestination(null).execute();
+  }
+
+  // Test the updateAllowedOutboundDestination operation with a valid options model parameter
+  @Test
+  public void testUpdateAllowedOutboundDestinationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"entity_tag\": \"2385407409\", \"type\": \"cidr_block\", \"cidr_block\": \"cidrBlock\", \"name\": \"name\"}";
+    String updateAllowedOutboundDestinationPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations/my-allowed-outbound-destination";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the AllowedOutboundDestinationPatchCidrBlockDataPatch model
+    AllowedOutboundDestinationPatchCidrBlockDataPatch allowedOutboundDestinationPatchModel = new AllowedOutboundDestinationPatchCidrBlockDataPatch.Builder()
+      .type("cidr_block")
+      .cidrBlock("testString")
+      .build();
+    Map<String, Object> allowedOutboundDestinationPatchModelAsPatch = allowedOutboundDestinationPatchModel.asPatch();
+
+    // Construct an instance of the UpdateAllowedOutboundDestinationOptions model
+    UpdateAllowedOutboundDestinationOptions updateAllowedOutboundDestinationOptionsModel = new UpdateAllowedOutboundDestinationOptions.Builder()
+      .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+      .name("my-allowed-outbound-destination")
+      .ifMatch("testString")
+      .allowedOutboundDestination(allowedOutboundDestinationPatchModelAsPatch)
+      .build();
+
+    // Invoke updateAllowedOutboundDestination() with a valid options model and verify the result
+    Response<AllowedOutboundDestination> response = codeEngineService.updateAllowedOutboundDestination(updateAllowedOutboundDestinationOptionsModel).execute();
+    assertNotNull(response);
+    AllowedOutboundDestination responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "PATCH");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateAllowedOutboundDestinationPath);
+    // Verify header parameters
+    assertEquals(request.getHeader("If-Match"), "testString");
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "2024-11-18");
+  }
+
+  // Test the updateAllowedOutboundDestination operation with and without retries enabled
+  @Test
+  public void testUpdateAllowedOutboundDestinationWRetries() throws Throwable {
+    codeEngineService.enableRetries(4, 30);
+    testUpdateAllowedOutboundDestinationWOptions();
+
+    codeEngineService.disableRetries();
+    testUpdateAllowedOutboundDestinationWOptions();
+  }
+
+  // Test the updateAllowedOutboundDestination operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateAllowedOutboundDestinationNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    codeEngineService.updateAllowedOutboundDestination(null).execute();
+  }
+
   // Test the getProjectEgressIps operation with a valid options model parameter
   @Test
   public void testGetProjectEgressIpsWOptions() throws Throwable {
@@ -599,7 +960,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-09-27");
+    assertEquals(query.get("version"), "2024-11-18");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -769,7 +1130,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-09-27");
+    assertEquals(query.get("version"), "2024-11-18");
   }
 
   // Test the createApp operation with and without retries enabled
@@ -822,7 +1183,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-09-27");
+    assertEquals(query.get("version"), "2024-11-18");
   }
 
   // Test the getApp operation with and without retries enabled
@@ -874,7 +1235,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-09-27");
+    assertEquals(query.get("version"), "2024-11-18");
   }
 
   // Test the deleteApp operation with and without retries enabled
@@ -987,7 +1348,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-09-27");
+    assertEquals(query.get("version"), "2024-11-18");
   }
 
   // Test the updateApp operation with and without retries enabled
@@ -1044,7 +1405,7 @@ public class CodeEngineTest {
     assertNotNull(query);
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
-    assertEquals(query.get("version"), "2024-09-27");
+    assertEquals(query.get("version"), "2024-11-18");
   }
 
   // Test the listAppRevisions operation with and without retries enabled
@@ -1164,7 +1525,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-09-27");
+    assertEquals(query.get("version"), "2024-11-18");
   }
 
   // Test the getAppRevision operation with and without retries enabled
@@ -1392,7 +1753,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-09-27");
+    assertEquals(query.get("version"), "2024-11-18");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -1544,7 +1905,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-09-27");
+    assertEquals(query.get("version"), "2024-11-18");
   }
 
   // Test the createJob operation with and without retries enabled
@@ -1597,7 +1958,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-09-27");
+    assertEquals(query.get("version"), "2024-11-18");
   }
 
   // Test the getJob operation with and without retries enabled
@@ -1649,7 +2010,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-09-27");
+    assertEquals(query.get("version"), "2024-11-18");
   }
 
   // Test the deleteJob operation with and without retries enabled
@@ -1744,7 +2105,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-09-27");
+    assertEquals(query.get("version"), "2024-11-18");
   }
 
   // Test the updateJob operation with and without retries enabled
@@ -1799,7 +2160,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-09-27");
+    assertEquals(query.get("version"), "2024-11-18");
     assertEquals(query.get("job_name"), "my-job");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
@@ -1956,7 +2317,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-09-27");
+    assertEquals(query.get("version"), "2024-11-18");
   }
 
   // Test the createJobRun operation with and without retries enabled
@@ -2009,7 +2370,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-09-27");
+    assertEquals(query.get("version"), "2024-11-18");
   }
 
   // Test the getJobRun operation with and without retries enabled
@@ -2156,7 +2517,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-09-27");
+    assertEquals(query.get("version"), "2024-11-18");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -2297,7 +2658,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-09-27");
+    assertEquals(query.get("version"), "2024-11-18");
   }
 
   // Test the createFunction operation with and without retries enabled
@@ -2350,7 +2711,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-09-27");
+    assertEquals(query.get("version"), "2024-11-18");
   }
 
   // Test the getFunction operation with and without retries enabled
@@ -2402,7 +2763,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-09-27");
+    assertEquals(query.get("version"), "2024-11-18");
   }
 
   // Test the deleteFunction operation with and without retries enabled
@@ -2486,7 +2847,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-09-27");
+    assertEquals(query.get("version"), "2024-11-18");
   }
 
   // Test the updateFunction operation with and without retries enabled
@@ -4530,7 +4891,7 @@ public class CodeEngineTest {
     System.setProperty("TESTSERVICE_AUTH_TYPE", "noAuth");
     final String serviceName = "testService";
     // set mock values for global params
-    String version = "2024-09-27";
+    String version = "2024-11-18";
 
     codeEngineService = CodeEngine.newInstance(serviceName);
     String url = server.url("/").toString();

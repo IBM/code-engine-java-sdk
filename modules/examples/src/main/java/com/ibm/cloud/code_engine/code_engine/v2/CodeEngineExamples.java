@@ -13,6 +13,10 @@
 
 package com.ibm.cloud.code_engine.code_engine.v2;
 
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestination;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationPatchCidrBlockDataPatch;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype;
 import com.ibm.cloud.code_engine.code_engine.v2.model.App;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppInstance;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppInstancesPager;
@@ -30,6 +34,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.BuildsPager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ComponentRef;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMap;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMapsPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.CreateAllowedOutboundDestinationOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateAppOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBindingOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildOptions;
@@ -41,6 +46,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.CreateJobOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateJobRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateProjectOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateSecretOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAllowedOutboundDestinationOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAppOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAppRevisionOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBindingOptions;
@@ -60,6 +66,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.Function;
 import com.ibm.cloud.code_engine.code_engine.v2.model.FunctionPatch;
 import com.ibm.cloud.code_engine.code_engine.v2.model.FunctionRuntimeList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.FunctionsPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetAllowedOutboundDestinationOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppRevisionOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetBindingOptions;
@@ -79,6 +86,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.JobPatch;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobRun;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobRunsPager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobsPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListAllowedOutboundDestinationOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppInstancesOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppRevisionsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppsOptions;
@@ -101,6 +109,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceConfigMapOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceSecretOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Secret;
 import com.ibm.cloud.code_engine.code_engine.v2.model.SecretsPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateAllowedOutboundDestinationOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateAppOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateBuildOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateDomainMappingOptions;
@@ -200,6 +209,92 @@ public class CodeEngineExamples {
 
       System.out.println(project);
       // end-get_project
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("listAllowedOutboundDestination() result:");
+      // begin-list_allowed_outbound_destination
+      ListAllowedOutboundDestinationOptions listAllowedOutboundDestinationOptions = new ListAllowedOutboundDestinationOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .limit(Long.valueOf("100"))
+        .build();
+
+      AllowedOutboundDestinationPager pager = new AllowedOutboundDestinationPager(codeEngineService, listAllowedOutboundDestinationOptions);
+      List<AllowedOutboundDestination> allResults = new ArrayList<>();
+      while (pager.hasNext()) {
+        List<AllowedOutboundDestination> nextPage = pager.getNext();
+        allResults.addAll(nextPage);
+      }
+
+      System.out.println(GsonSingleton.getGson().toJson(allResults));
+      // end-list_allowed_outbound_destination
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("createAllowedOutboundDestination() result:");
+      // begin-create_allowed_outbound_destination
+      AllowedOutboundDestinationPrototypeCidrBlockDataPrototype allowedOutboundDestinationPrototypeModel = new AllowedOutboundDestinationPrototypeCidrBlockDataPrototype.Builder()
+        .type("cidr_block")
+        .cidrBlock("testString")
+        .name("testString")
+        .build();
+      CreateAllowedOutboundDestinationOptions createAllowedOutboundDestinationOptions = new CreateAllowedOutboundDestinationOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .allowedOutboundDestination(allowedOutboundDestinationPrototypeModel)
+        .build();
+
+      Response<AllowedOutboundDestination> response = codeEngineService.createAllowedOutboundDestination(createAllowedOutboundDestinationOptions).execute();
+      AllowedOutboundDestination allowedOutboundDestination = response.getResult();
+
+      System.out.println(allowedOutboundDestination);
+      // end-create_allowed_outbound_destination
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("getAllowedOutboundDestination() result:");
+      // begin-get_allowed_outbound_destination
+      GetAllowedOutboundDestinationOptions getAllowedOutboundDestinationOptions = new GetAllowedOutboundDestinationOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .name("my-allowed-outbound-destination")
+        .build();
+
+      Response<AllowedOutboundDestination> response = codeEngineService.getAllowedOutboundDestination(getAllowedOutboundDestinationOptions).execute();
+      AllowedOutboundDestination allowedOutboundDestination = response.getResult();
+
+      System.out.println(allowedOutboundDestination);
+      // end-get_allowed_outbound_destination
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("updateAllowedOutboundDestination() result:");
+      // begin-update_allowed_outbound_destination
+      AllowedOutboundDestinationPatchCidrBlockDataPatch allowedOutboundDestinationPatchModel = new AllowedOutboundDestinationPatchCidrBlockDataPatch.Builder()
+        .build();
+      Map<String, Object> allowedOutboundDestinationPatchModelAsPatch = allowedOutboundDestinationPatchModel.asPatch();
+      UpdateAllowedOutboundDestinationOptions updateAllowedOutboundDestinationOptions = new UpdateAllowedOutboundDestinationOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .name("my-allowed-outbound-destination")
+        .ifMatch("testString")
+        .allowedOutboundDestination(allowedOutboundDestinationPatchModelAsPatch)
+        .build();
+
+      Response<AllowedOutboundDestination> response = codeEngineService.updateAllowedOutboundDestination(updateAllowedOutboundDestinationOptions).execute();
+      AllowedOutboundDestination allowedOutboundDestination = response.getResult();
+
+      System.out.println(allowedOutboundDestination);
+      // end-update_allowed_outbound_destination
     } catch (ServiceResponseException e) {
         logger.error(String.format("Service returned status code %s: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -1082,6 +1177,21 @@ public class CodeEngineExamples {
       Response<Void> response = codeEngineService.deleteProject(deleteProjectOptions).execute();
       // end-delete_project
       System.out.printf("deleteProject() response status code: %d%n", response.getStatusCode());
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-delete_allowed_outbound_destination
+      DeleteAllowedOutboundDestinationOptions deleteAllowedOutboundDestinationOptions = new DeleteAllowedOutboundDestinationOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .name("my-allowed-outbound-destination")
+        .build();
+
+      Response<Void> response = codeEngineService.deleteAllowedOutboundDestination(deleteAllowedOutboundDestinationOptions).execute();
+      // end-delete_allowed_outbound_destination
+      System.out.printf("deleteAllowedOutboundDestination() response status code: %d%n", response.getStatusCode());
     } catch (ServiceResponseException e) {
         logger.error(String.format("Service returned status code %s: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
