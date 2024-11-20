@@ -18,6 +18,8 @@
 package com.ibm.cloud.code_engine.code_engine.v2;
 
 import com.google.gson.JsonObject;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestination;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.App;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppInstanceList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppList;
@@ -31,6 +33,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRun;
 import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRunList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMap;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ConfigMapList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.CreateAllowedOutboundDestinationOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateAppOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBindingOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildOptions;
@@ -42,6 +45,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.CreateJobOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateJobRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateProjectOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateSecretOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAllowedOutboundDestinationOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAppOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAppRevisionOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteBindingOptions;
@@ -59,6 +63,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.DomainMappingList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Function;
 import com.ibm.cloud.code_engine.code_engine.v2.model.FunctionList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.FunctionRuntimeList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetAllowedOutboundDestinationOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetAppRevisionOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetBindingOptions;
@@ -77,6 +82,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.Job;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobRun;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobRunList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListAllowedOutboundDestinationOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppInstancesOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppRevisionsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppsOptions;
@@ -99,6 +105,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceConfigMapOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ReplaceSecretOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Secret;
 import com.ibm.cloud.code_engine.code_engine.v2.model.SecretList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateAllowedOutboundDestinationOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateAppOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateBuildOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.UpdateDomainMappingOptions;
@@ -175,7 +182,7 @@ public class CodeEngine extends BaseService {
    * Gets the version.
    *
    * The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-   * `2021-03-31` and `2024-09-27`.
+   * `2021-03-31` and `2024-11-18`.
    *
    * @return the version
    */
@@ -307,6 +314,148 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List allowed outbound destinations.
+   *
+   * List all allowed outbound destinations in a project.
+   *
+   * @param listAllowedOutboundDestinationOptions the {@link ListAllowedOutboundDestinationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link AllowedOutboundDestinationList}
+   */
+  public ServiceCall<AllowedOutboundDestinationList> listAllowedOutboundDestination(ListAllowedOutboundDestinationOptions listAllowedOutboundDestinationOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listAllowedOutboundDestinationOptions,
+      "listAllowedOutboundDestinationOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", listAllowedOutboundDestinationOptions.projectId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/allowed_outbound_destinations", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "listAllowedOutboundDestination");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (listAllowedOutboundDestinationOptions.limit() != null) {
+      builder.query("limit", String.valueOf(listAllowedOutboundDestinationOptions.limit()));
+    }
+    if (listAllowedOutboundDestinationOptions.start() != null) {
+      builder.query("start", String.valueOf(listAllowedOutboundDestinationOptions.start()));
+    }
+    ResponseConverter<AllowedOutboundDestinationList> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<AllowedOutboundDestinationList>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create an allowed outbound destination.
+   *
+   * Create an allowed outbound destination.
+   *
+   * @param createAllowedOutboundDestinationOptions the {@link CreateAllowedOutboundDestinationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link AllowedOutboundDestination}
+   */
+  public ServiceCall<AllowedOutboundDestination> createAllowedOutboundDestination(CreateAllowedOutboundDestinationOptions createAllowedOutboundDestinationOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createAllowedOutboundDestinationOptions,
+      "createAllowedOutboundDestinationOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", createAllowedOutboundDestinationOptions.projectId());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/allowed_outbound_destinations", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "createAllowedOutboundDestination");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting().toJson(createAllowedOutboundDestinationOptions.allowedOutboundDestination()), "application/json");
+    ResponseConverter<AllowedOutboundDestination> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<AllowedOutboundDestination>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get an allowed outbound destination.
+   *
+   * Display the details of an allowed outbound destination.
+   *
+   * @param getAllowedOutboundDestinationOptions the {@link GetAllowedOutboundDestinationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link AllowedOutboundDestination}
+   */
+  public ServiceCall<AllowedOutboundDestination> getAllowedOutboundDestination(GetAllowedOutboundDestinationOptions getAllowedOutboundDestinationOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getAllowedOutboundDestinationOptions,
+      "getAllowedOutboundDestinationOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", getAllowedOutboundDestinationOptions.projectId());
+    pathParamsMap.put("name", getAllowedOutboundDestinationOptions.name());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/allowed_outbound_destinations/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "getAllowedOutboundDestination");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<AllowedOutboundDestination> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<AllowedOutboundDestination>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete an allowed outbound destination.
+   *
+   * Delete an allowed outbound destination.
+   *
+   * @param deleteAllowedOutboundDestinationOptions the {@link DeleteAllowedOutboundDestinationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteAllowedOutboundDestination(DeleteAllowedOutboundDestinationOptions deleteAllowedOutboundDestinationOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteAllowedOutboundDestinationOptions,
+      "deleteAllowedOutboundDestinationOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", deleteAllowedOutboundDestinationOptions.projectId());
+    pathParamsMap.put("name", deleteAllowedOutboundDestinationOptions.name());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/allowed_outbound_destinations/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteAllowedOutboundDestination");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update an allowed outbound destination.
+   *
+   * Update an allowed outbound destination.
+   *
+   * @param updateAllowedOutboundDestinationOptions the {@link UpdateAllowedOutboundDestinationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link AllowedOutboundDestination}
+   */
+  public ServiceCall<AllowedOutboundDestination> updateAllowedOutboundDestination(UpdateAllowedOutboundDestinationOptions updateAllowedOutboundDestinationOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateAllowedOutboundDestinationOptions,
+      "updateAllowedOutboundDestinationOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", updateAllowedOutboundDestinationOptions.projectId());
+    pathParamsMap.put("name", updateAllowedOutboundDestinationOptions.name());
+    RequestBuilder builder = RequestBuilder.patch(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/allowed_outbound_destinations/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "updateAllowedOutboundDestination");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.header("If-Match", updateAllowedOutboundDestinationOptions.ifMatch());
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithSerializeNulls().toJson(updateAllowedOutboundDestinationOptions.allowedOutboundDestination()), "application/merge-patch+json");
+    ResponseConverter<AllowedOutboundDestination> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<AllowedOutboundDestination>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 

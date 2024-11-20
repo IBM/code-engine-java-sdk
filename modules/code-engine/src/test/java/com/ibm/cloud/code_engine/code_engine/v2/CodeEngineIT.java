@@ -31,6 +31,7 @@ import java.util.stream.Collectors;
 
 import com.ibm.cloud.code_engine.code_engine.v2.model.*;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -2370,6 +2371,95 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
     }
 
     @Test(dependsOnMethods = {"testDeleteRegistrySecret"})
+    public void testGetAllowedOutboundDestination() throws Exception {
+        try {
+            // begin-get_allowed_outbound_destination
+            GetAllowedOutboundDestinationOptions getAllowedOutboundDestinationOptions = new GetAllowedOutboundDestinationOptions.Builder()
+                    .projectId(e2eTestProjectId)
+                    .name("allow-all")
+                    .build();
+            Response<AllowedOutboundDestination> allDestResponse = service.getAllowedOutboundDestination(getAllowedOutboundDestinationOptions).execute();
+            AllowedOutboundDestination allowedOutboundDestination = allDestResponse.getResult();
+            assertNotNull(allDestResponse);
+            assertNotNull(allowedOutboundDestination);
+        } catch (ServiceResponseException e) {
+            fail(String.format("Service returned status code %d: %s%nError details: %s",
+                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+        }
+    }
+
+    @Test(dependsOnMethods = {"testGetAllowedOutboundDestination"})
+    public void testPostAllowedOutboundDestination() throws Exception {
+        try {
+            // begin-create_allowed_outbound_destination - first
+            AllowedOutboundDestinationPrototypeCidrBlockDataPrototype allowedOutboundDestinationPrototypeModel = new AllowedOutboundDestinationPrototypeCidrBlockDataPrototype.Builder()
+                    .type("cidr_block")
+                    .cidrBlock("192.68.4.0/24")
+                    .name("my-cidr-block-1")
+                    .build();
+            CreateAllowedOutboundDestinationOptions createAllowedOutboundDestinationOptions = new CreateAllowedOutboundDestinationOptions.Builder()
+                    .projectId(e2eTestProjectId)
+                    .allowedOutboundDestination(allowedOutboundDestinationPrototypeModel)
+                    .build();
+
+            Response<AllowedOutboundDestination> postResponse = service.createAllowedOutboundDestination(createAllowedOutboundDestinationOptions).execute();
+            assertNotNull(postResponse);
+            AllowedOutboundDestination postResponseResult = postResponse.getResult();
+            assertNotNull(postResponseResult);
+            int statusCodeLowerBound = 200;
+            int statusCodeUpperBound = 299;
+            Assert.assertTrue(postResponse.getStatusCode() >= statusCodeLowerBound && postResponse.getStatusCode() <= statusCodeUpperBound,
+                    "Post Response statusCode " + postResponse.getStatusCode() + " is not between " + statusCodeLowerBound + " and " + statusCodeUpperBound);
+        } catch (ServiceResponseException e) {
+            fail(String.format("Service returned status code %d: %s%nError details: %s",
+                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+        }
+    }
+
+    @Test(dependsOnMethods = {"testPostAllowedOutboundDestination"})
+    public void testPatchAllowedOutboundDestination() throws Exception {
+        try {
+            AllowedOutboundDestinationPatchCidrBlockDataPatch allowedOutboundDestinationPatchModel = new AllowedOutboundDestinationPatchCidrBlockDataPatch.Builder()
+                    .build();
+            Map<String, Object> allowedOutboundDestinationPatchModelAsPatch = allowedOutboundDestinationPatchModel.asPatch();
+            allowedOutboundDestinationPatchModelAsPatch.put("cidr_block","192.64.3.0/24");
+            allowedOutboundDestinationPatchModelAsPatch.put("type","cidr_block");
+            UpdateAllowedOutboundDestinationOptions updateAllowedOutboundDestinationOptions = new UpdateAllowedOutboundDestinationOptions.Builder()
+                    .projectId(e2eTestProjectId)
+                    .name("my-cidr-block-1")
+                    .ifMatch("*")
+                    .allowedOutboundDestination(allowedOutboundDestinationPatchModelAsPatch)
+                    .build();
+
+            Response<AllowedOutboundDestination> patchResponse = service.updateAllowedOutboundDestination(updateAllowedOutboundDestinationOptions).execute();
+            AllowedOutboundDestination patchOutBoundDest = patchResponse.getResult();
+            assertEquals(patchOutBoundDest.getCidrBlock(),"192.64.3.0/24");
+
+        } catch (ServiceResponseException e) {
+            fail(String.format("Service returned status code %d: %s%nError details: %s",
+                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+        }
+    }
+
+    @Test(dependsOnMethods = {"testPatchAllowedOutboundDestination"})
+    public void testDeleteAllowedOutboundDestination() throws Exception {
+        try {
+           DeleteAllowedOutboundDestinationOptions deleteAllowedOutboundDestinationOptions = new DeleteAllowedOutboundDestinationOptions.Builder()
+                    .projectId(e2eTestProjectId)
+                    .name("my-cidr-block-1")
+                    .build();
+
+            Response<Void> deleteResponse = service.deleteAllowedOutboundDestination(deleteAllowedOutboundDestinationOptions).execute();
+            assertNotNull(deleteResponse);
+            // end-delete_allowed_outbound_destination
+            assertEquals(deleteResponse.getStatusCode(),202);
+        } catch (ServiceResponseException e) {
+            fail(String.format("Service returned status code %d: %s%nError details: %s",
+                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+        }
+    }
+
+    @Test(dependsOnMethods = {"testDeleteAllowedOutboundDestination"})
     public void testDeleteProject() throws Exception {
         try {
             DeleteProjectOptions deleteProjectOptions = new DeleteProjectOptions.Builder()
