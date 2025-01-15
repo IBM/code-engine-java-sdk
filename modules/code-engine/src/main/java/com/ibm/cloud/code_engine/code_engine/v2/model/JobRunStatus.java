@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,6 +12,8 @@
  */
 
 package com.ibm.cloud.code_engine.code_engine.v2.model;
+
+import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
@@ -26,6 +28,8 @@ public class JobRunStatus extends GenericModel {
   protected Long failed;
   @SerializedName("failed_indices")
   protected String failedIndices;
+  @SerializedName("indices_details")
+  protected Map<String, IndexDetails> indicesDetails;
   protected Long pending;
   @SerializedName("pending_indices")
   protected String pendingIndices;
@@ -73,6 +77,17 @@ public class JobRunStatus extends GenericModel {
    */
   public String getFailedIndices() {
     return failedIndices;
+  }
+
+  /**
+   * Gets the indicesDetails.
+   *
+   * Detailed process information per index.
+   *
+   * @return the indicesDetails
+   */
+  public Map<String, IndexDetails> getIndicesDetails() {
+    return indicesDetails;
   }
 
   /**

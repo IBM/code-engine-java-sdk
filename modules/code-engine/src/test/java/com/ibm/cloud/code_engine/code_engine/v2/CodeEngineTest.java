@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -106,6 +106,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectEgressIpsOptions
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectStatusDetailsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetSecretOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.IndexDetails;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Job;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobPatch;
@@ -210,7 +211,7 @@ public class CodeEngineTest {
   // Test the getter for the version global parameter
   @Test
   public void testGetVersion() throws Throwable {
-    assertEquals(codeEngineService.getVersion(), "2024-11-18");
+    assertEquals(codeEngineService.getVersion(), "2025-01-10");
   }
 
   // Test the listProjects operation with a valid options model parameter
@@ -635,7 +636,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
   }
 
   // Test the createAllowedOutboundDestination operation with and without retries enabled
@@ -688,7 +689,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
   }
 
   // Test the getAllowedOutboundDestination operation with and without retries enabled
@@ -740,7 +741,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
   }
 
   // Test the deleteAllowedOutboundDestination operation with and without retries enabled
@@ -804,7 +805,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
   }
 
   // Test the updateAllowedOutboundDestination operation with and without retries enabled
@@ -960,7 +961,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -1130,7 +1131,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
   }
 
   // Test the createApp operation with and without retries enabled
@@ -1183,7 +1184,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
   }
 
   // Test the getApp operation with and without retries enabled
@@ -1235,7 +1236,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
   }
 
   // Test the deleteApp operation with and without retries enabled
@@ -1348,7 +1349,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
   }
 
   // Test the updateApp operation with and without retries enabled
@@ -1405,7 +1406,7 @@ public class CodeEngineTest {
     assertNotNull(query);
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
   }
 
   // Test the listAppRevisions operation with and without retries enabled
@@ -1525,7 +1526,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
   }
 
   // Test the getAppRevision operation with and without retries enabled
@@ -1753,7 +1754,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -1905,7 +1906,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
   }
 
   // Test the createJob operation with and without retries enabled
@@ -1958,7 +1959,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
   }
 
   // Test the getJob operation with and without retries enabled
@@ -2010,7 +2011,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
   }
 
   // Test the deleteJob operation with and without retries enabled
@@ -2105,7 +2106,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
   }
 
   // Test the updateJob operation with and without retries enabled
@@ -2129,7 +2130,7 @@ public class CodeEngineTest {
   @Test
   public void testListJobRunsWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"first\": {\"href\": \"href\"}, \"job_runs\": [{\"computed_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"created_at\": \"2022-09-13T11:41:35+02:00\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"image_reference\": \"icr.io/codeengine/helloworld\", \"image_secret\": \"my-secret\", \"job_name\": \"my-job\", \"name\": \"my-job-run\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"job_run_v2\", \"run_arguments\": [\"runArguments\"], \"run_as_user\": 1001, \"run_commands\": [\"runCommands\"], \"run_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"run_mode\": \"task\", \"run_service_account\": \"default\", \"run_volume_mounts\": [{\"mount_path\": \"/app\", \"name\": \"codeengine-mount-b69u90\", \"reference\": \"my-secret\", \"type\": \"secret\"}], \"scale_array_size_variable_override\": 2, \"scale_array_spec\": \"1-5,7-8,10\", \"scale_cpu_limit\": \"1\", \"scale_ephemeral_storage_limit\": \"4G\", \"scale_max_execution_time\": 7200, \"scale_memory_limit\": \"4G\", \"scale_retry_limit\": 3, \"status\": \"failed\", \"status_details\": {\"completion_time\": \"2022-09-22T17:40:00Z\", \"failed\": 0, \"failed_indices\": \"1,5\", \"pending\": 0, \"pending_indices\": \"9,12-15\", \"requested\": 0, \"running\": 0, \"running_indices\": \"10-11\", \"start_time\": \"2022-09-22T17:34:00Z\", \"succeeded\": 1, \"succeeded_indices\": \"2-4,6-8\", \"unknown\": 0}}], \"limit\": 100, \"next\": {\"href\": \"href\", \"start\": \"start\"}}";
+    String mockResponseBody = "{\"first\": {\"href\": \"href\"}, \"job_runs\": [{\"computed_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"created_at\": \"2022-09-13T11:41:35+02:00\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"image_reference\": \"icr.io/codeengine/helloworld\", \"image_secret\": \"my-secret\", \"job_name\": \"my-job\", \"name\": \"my-job-run\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"job_run_v2\", \"run_arguments\": [\"runArguments\"], \"run_as_user\": 1001, \"run_commands\": [\"runCommands\"], \"run_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"run_mode\": \"task\", \"run_service_account\": \"default\", \"run_volume_mounts\": [{\"mount_path\": \"/app\", \"name\": \"codeengine-mount-b69u90\", \"reference\": \"my-secret\", \"type\": \"secret\"}], \"scale_array_size_variable_override\": 2, \"scale_array_spec\": \"1-5,7-8,10\", \"scale_cpu_limit\": \"1\", \"scale_ephemeral_storage_limit\": \"4G\", \"scale_max_execution_time\": 7200, \"scale_memory_limit\": \"4G\", \"scale_retry_limit\": 3, \"status\": \"failed\", \"status_details\": {\"completion_time\": \"2022-09-22T17:40:00Z\", \"failed\": 0, \"failed_indices\": \"1,5\", \"indices_details\": {\"mapKey\": {\"finished_at\": \"2024-12-23T16:30:45Z\", \"last_failure_reason\": \"OOMKilled\", \"retries\": 3, \"started_at\": \"2024-12-23T16:20:30Z\", \"status\": \"running\"}}, \"pending\": 0, \"pending_indices\": \"9,12-15\", \"requested\": 0, \"running\": 0, \"running_indices\": \"10-11\", \"start_time\": \"2022-09-22T17:34:00Z\", \"succeeded\": 1, \"succeeded_indices\": \"2-4,6-8\", \"unknown\": 0}}], \"limit\": 100, \"next\": {\"href\": \"href\", \"start\": \"start\"}}";
     String listJobRunsPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2160,7 +2161,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
     assertEquals(query.get("job_name"), "my-job");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
@@ -2187,8 +2188,8 @@ public class CodeEngineTest {
   @Test
   public void testListJobRunsWithPagerGetNext() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"job_runs\":[{\"computed_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"image_reference\":\"icr.io/codeengine/helloworld\",\"image_secret\":\"my-secret\",\"job_name\":\"my-job\",\"name\":\"my-job-run\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"job_run_v2\",\"run_arguments\":[\"runArguments\"],\"run_as_user\":1001,\"run_commands\":[\"runCommands\"],\"run_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"run_mode\":\"task\",\"run_service_account\":\"default\",\"run_volume_mounts\":[{\"mount_path\":\"/app\",\"name\":\"codeengine-mount-b69u90\",\"reference\":\"my-secret\",\"type\":\"secret\"}],\"scale_array_size_variable_override\":2,\"scale_array_spec\":\"1-5,7-8,10\",\"scale_cpu_limit\":\"1\",\"scale_ephemeral_storage_limit\":\"4G\",\"scale_max_execution_time\":7200,\"scale_memory_limit\":\"4G\",\"scale_retry_limit\":3,\"status\":\"failed\",\"status_details\":{\"completion_time\":\"2022-09-22T17:40:00Z\",\"failed\":0,\"failed_indices\":\"1,5\",\"pending\":0,\"pending_indices\":\"9,12-15\",\"requested\":0,\"running\":0,\"running_indices\":\"10-11\",\"start_time\":\"2022-09-22T17:34:00Z\",\"succeeded\":1,\"succeeded_indices\":\"2-4,6-8\",\"unknown\":0}}],\"total_count\":2,\"limit\":1}";
-    String mockResponsePage2 = "{\"job_runs\":[{\"computed_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"image_reference\":\"icr.io/codeengine/helloworld\",\"image_secret\":\"my-secret\",\"job_name\":\"my-job\",\"name\":\"my-job-run\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"job_run_v2\",\"run_arguments\":[\"runArguments\"],\"run_as_user\":1001,\"run_commands\":[\"runCommands\"],\"run_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"run_mode\":\"task\",\"run_service_account\":\"default\",\"run_volume_mounts\":[{\"mount_path\":\"/app\",\"name\":\"codeengine-mount-b69u90\",\"reference\":\"my-secret\",\"type\":\"secret\"}],\"scale_array_size_variable_override\":2,\"scale_array_spec\":\"1-5,7-8,10\",\"scale_cpu_limit\":\"1\",\"scale_ephemeral_storage_limit\":\"4G\",\"scale_max_execution_time\":7200,\"scale_memory_limit\":\"4G\",\"scale_retry_limit\":3,\"status\":\"failed\",\"status_details\":{\"completion_time\":\"2022-09-22T17:40:00Z\",\"failed\":0,\"failed_indices\":\"1,5\",\"pending\":0,\"pending_indices\":\"9,12-15\",\"requested\":0,\"running\":0,\"running_indices\":\"10-11\",\"start_time\":\"2022-09-22T17:34:00Z\",\"succeeded\":1,\"succeeded_indices\":\"2-4,6-8\",\"unknown\":0}}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"job_runs\":[{\"computed_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"image_reference\":\"icr.io/codeengine/helloworld\",\"image_secret\":\"my-secret\",\"job_name\":\"my-job\",\"name\":\"my-job-run\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"job_run_v2\",\"run_arguments\":[\"runArguments\"],\"run_as_user\":1001,\"run_commands\":[\"runCommands\"],\"run_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"run_mode\":\"task\",\"run_service_account\":\"default\",\"run_volume_mounts\":[{\"mount_path\":\"/app\",\"name\":\"codeengine-mount-b69u90\",\"reference\":\"my-secret\",\"type\":\"secret\"}],\"scale_array_size_variable_override\":2,\"scale_array_spec\":\"1-5,7-8,10\",\"scale_cpu_limit\":\"1\",\"scale_ephemeral_storage_limit\":\"4G\",\"scale_max_execution_time\":7200,\"scale_memory_limit\":\"4G\",\"scale_retry_limit\":3,\"status\":\"failed\",\"status_details\":{\"completion_time\":\"2022-09-22T17:40:00Z\",\"failed\":0,\"failed_indices\":\"1,5\",\"indices_details\":{\"mapKey\":{\"finished_at\":\"2024-12-23T16:30:45Z\",\"last_failure_reason\":\"OOMKilled\",\"retries\":3,\"started_at\":\"2024-12-23T16:20:30Z\",\"status\":\"running\"}},\"pending\":0,\"pending_indices\":\"9,12-15\",\"requested\":0,\"running\":0,\"running_indices\":\"10-11\",\"start_time\":\"2022-09-22T17:34:00Z\",\"succeeded\":1,\"succeeded_indices\":\"2-4,6-8\",\"unknown\":0}}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage2 = "{\"job_runs\":[{\"computed_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"image_reference\":\"icr.io/codeengine/helloworld\",\"image_secret\":\"my-secret\",\"job_name\":\"my-job\",\"name\":\"my-job-run\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"job_run_v2\",\"run_arguments\":[\"runArguments\"],\"run_as_user\":1001,\"run_commands\":[\"runCommands\"],\"run_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"run_mode\":\"task\",\"run_service_account\":\"default\",\"run_volume_mounts\":[{\"mount_path\":\"/app\",\"name\":\"codeengine-mount-b69u90\",\"reference\":\"my-secret\",\"type\":\"secret\"}],\"scale_array_size_variable_override\":2,\"scale_array_spec\":\"1-5,7-8,10\",\"scale_cpu_limit\":\"1\",\"scale_ephemeral_storage_limit\":\"4G\",\"scale_max_execution_time\":7200,\"scale_memory_limit\":\"4G\",\"scale_retry_limit\":3,\"status\":\"failed\",\"status_details\":{\"completion_time\":\"2022-09-22T17:40:00Z\",\"failed\":0,\"failed_indices\":\"1,5\",\"indices_details\":{\"mapKey\":{\"finished_at\":\"2024-12-23T16:30:45Z\",\"last_failure_reason\":\"OOMKilled\",\"retries\":3,\"started_at\":\"2024-12-23T16:20:30Z\",\"status\":\"running\"}},\"pending\":0,\"pending_indices\":\"9,12-15\",\"requested\":0,\"running\":0,\"running_indices\":\"10-11\",\"start_time\":\"2022-09-22T17:34:00Z\",\"succeeded\":1,\"succeeded_indices\":\"2-4,6-8\",\"unknown\":0}}],\"total_count\":2,\"limit\":1}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -2222,8 +2223,8 @@ public class CodeEngineTest {
   @Test
   public void testListJobRunsWithPagerGetAll() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"job_runs\":[{\"computed_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"image_reference\":\"icr.io/codeengine/helloworld\",\"image_secret\":\"my-secret\",\"job_name\":\"my-job\",\"name\":\"my-job-run\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"job_run_v2\",\"run_arguments\":[\"runArguments\"],\"run_as_user\":1001,\"run_commands\":[\"runCommands\"],\"run_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"run_mode\":\"task\",\"run_service_account\":\"default\",\"run_volume_mounts\":[{\"mount_path\":\"/app\",\"name\":\"codeengine-mount-b69u90\",\"reference\":\"my-secret\",\"type\":\"secret\"}],\"scale_array_size_variable_override\":2,\"scale_array_spec\":\"1-5,7-8,10\",\"scale_cpu_limit\":\"1\",\"scale_ephemeral_storage_limit\":\"4G\",\"scale_max_execution_time\":7200,\"scale_memory_limit\":\"4G\",\"scale_retry_limit\":3,\"status\":\"failed\",\"status_details\":{\"completion_time\":\"2022-09-22T17:40:00Z\",\"failed\":0,\"failed_indices\":\"1,5\",\"pending\":0,\"pending_indices\":\"9,12-15\",\"requested\":0,\"running\":0,\"running_indices\":\"10-11\",\"start_time\":\"2022-09-22T17:34:00Z\",\"succeeded\":1,\"succeeded_indices\":\"2-4,6-8\",\"unknown\":0}}],\"total_count\":2,\"limit\":1}";
-    String mockResponsePage2 = "{\"job_runs\":[{\"computed_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"image_reference\":\"icr.io/codeengine/helloworld\",\"image_secret\":\"my-secret\",\"job_name\":\"my-job\",\"name\":\"my-job-run\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"job_run_v2\",\"run_arguments\":[\"runArguments\"],\"run_as_user\":1001,\"run_commands\":[\"runCommands\"],\"run_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"run_mode\":\"task\",\"run_service_account\":\"default\",\"run_volume_mounts\":[{\"mount_path\":\"/app\",\"name\":\"codeengine-mount-b69u90\",\"reference\":\"my-secret\",\"type\":\"secret\"}],\"scale_array_size_variable_override\":2,\"scale_array_spec\":\"1-5,7-8,10\",\"scale_cpu_limit\":\"1\",\"scale_ephemeral_storage_limit\":\"4G\",\"scale_max_execution_time\":7200,\"scale_memory_limit\":\"4G\",\"scale_retry_limit\":3,\"status\":\"failed\",\"status_details\":{\"completion_time\":\"2022-09-22T17:40:00Z\",\"failed\":0,\"failed_indices\":\"1,5\",\"pending\":0,\"pending_indices\":\"9,12-15\",\"requested\":0,\"running\":0,\"running_indices\":\"10-11\",\"start_time\":\"2022-09-22T17:34:00Z\",\"succeeded\":1,\"succeeded_indices\":\"2-4,6-8\",\"unknown\":0}}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"job_runs\":[{\"computed_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"image_reference\":\"icr.io/codeengine/helloworld\",\"image_secret\":\"my-secret\",\"job_name\":\"my-job\",\"name\":\"my-job-run\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"job_run_v2\",\"run_arguments\":[\"runArguments\"],\"run_as_user\":1001,\"run_commands\":[\"runCommands\"],\"run_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"run_mode\":\"task\",\"run_service_account\":\"default\",\"run_volume_mounts\":[{\"mount_path\":\"/app\",\"name\":\"codeengine-mount-b69u90\",\"reference\":\"my-secret\",\"type\":\"secret\"}],\"scale_array_size_variable_override\":2,\"scale_array_spec\":\"1-5,7-8,10\",\"scale_cpu_limit\":\"1\",\"scale_ephemeral_storage_limit\":\"4G\",\"scale_max_execution_time\":7200,\"scale_memory_limit\":\"4G\",\"scale_retry_limit\":3,\"status\":\"failed\",\"status_details\":{\"completion_time\":\"2022-09-22T17:40:00Z\",\"failed\":0,\"failed_indices\":\"1,5\",\"indices_details\":{\"mapKey\":{\"finished_at\":\"2024-12-23T16:30:45Z\",\"last_failure_reason\":\"OOMKilled\",\"retries\":3,\"started_at\":\"2024-12-23T16:20:30Z\",\"status\":\"running\"}},\"pending\":0,\"pending_indices\":\"9,12-15\",\"requested\":0,\"running\":0,\"running_indices\":\"10-11\",\"start_time\":\"2022-09-22T17:34:00Z\",\"succeeded\":1,\"succeeded_indices\":\"2-4,6-8\",\"unknown\":0}}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage2 = "{\"job_runs\":[{\"computed_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"image_reference\":\"icr.io/codeengine/helloworld\",\"image_secret\":\"my-secret\",\"job_name\":\"my-job\",\"name\":\"my-job-run\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"job_run_v2\",\"run_arguments\":[\"runArguments\"],\"run_as_user\":1001,\"run_commands\":[\"runCommands\"],\"run_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"run_mode\":\"task\",\"run_service_account\":\"default\",\"run_volume_mounts\":[{\"mount_path\":\"/app\",\"name\":\"codeengine-mount-b69u90\",\"reference\":\"my-secret\",\"type\":\"secret\"}],\"scale_array_size_variable_override\":2,\"scale_array_spec\":\"1-5,7-8,10\",\"scale_cpu_limit\":\"1\",\"scale_ephemeral_storage_limit\":\"4G\",\"scale_max_execution_time\":7200,\"scale_memory_limit\":\"4G\",\"scale_retry_limit\":3,\"status\":\"failed\",\"status_details\":{\"completion_time\":\"2022-09-22T17:40:00Z\",\"failed\":0,\"failed_indices\":\"1,5\",\"indices_details\":{\"mapKey\":{\"finished_at\":\"2024-12-23T16:30:45Z\",\"last_failure_reason\":\"OOMKilled\",\"retries\":3,\"started_at\":\"2024-12-23T16:20:30Z\",\"status\":\"running\"}},\"pending\":0,\"pending_indices\":\"9,12-15\",\"requested\":0,\"running\":0,\"running_indices\":\"10-11\",\"start_time\":\"2022-09-22T17:34:00Z\",\"succeeded\":1,\"succeeded_indices\":\"2-4,6-8\",\"unknown\":0}}],\"total_count\":2,\"limit\":1}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -2253,7 +2254,7 @@ public class CodeEngineTest {
   @Test
   public void testCreateJobRunWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"computed_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"created_at\": \"2022-09-13T11:41:35+02:00\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"image_reference\": \"icr.io/codeengine/helloworld\", \"image_secret\": \"my-secret\", \"job_name\": \"my-job\", \"name\": \"my-job-run\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"job_run_v2\", \"run_arguments\": [\"runArguments\"], \"run_as_user\": 1001, \"run_commands\": [\"runCommands\"], \"run_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"run_mode\": \"task\", \"run_service_account\": \"default\", \"run_volume_mounts\": [{\"mount_path\": \"/app\", \"name\": \"codeengine-mount-b69u90\", \"reference\": \"my-secret\", \"type\": \"secret\"}], \"scale_array_size_variable_override\": 2, \"scale_array_spec\": \"1-5,7-8,10\", \"scale_cpu_limit\": \"1\", \"scale_ephemeral_storage_limit\": \"4G\", \"scale_max_execution_time\": 7200, \"scale_memory_limit\": \"4G\", \"scale_retry_limit\": 3, \"status\": \"failed\", \"status_details\": {\"completion_time\": \"2022-09-22T17:40:00Z\", \"failed\": 0, \"failed_indices\": \"1,5\", \"pending\": 0, \"pending_indices\": \"9,12-15\", \"requested\": 0, \"running\": 0, \"running_indices\": \"10-11\", \"start_time\": \"2022-09-22T17:34:00Z\", \"succeeded\": 1, \"succeeded_indices\": \"2-4,6-8\", \"unknown\": 0}}";
+    String mockResponseBody = "{\"computed_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"created_at\": \"2022-09-13T11:41:35+02:00\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"image_reference\": \"icr.io/codeengine/helloworld\", \"image_secret\": \"my-secret\", \"job_name\": \"my-job\", \"name\": \"my-job-run\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"job_run_v2\", \"run_arguments\": [\"runArguments\"], \"run_as_user\": 1001, \"run_commands\": [\"runCommands\"], \"run_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"run_mode\": \"task\", \"run_service_account\": \"default\", \"run_volume_mounts\": [{\"mount_path\": \"/app\", \"name\": \"codeengine-mount-b69u90\", \"reference\": \"my-secret\", \"type\": \"secret\"}], \"scale_array_size_variable_override\": 2, \"scale_array_spec\": \"1-5,7-8,10\", \"scale_cpu_limit\": \"1\", \"scale_ephemeral_storage_limit\": \"4G\", \"scale_max_execution_time\": 7200, \"scale_memory_limit\": \"4G\", \"scale_retry_limit\": 3, \"status\": \"failed\", \"status_details\": {\"completion_time\": \"2022-09-22T17:40:00Z\", \"failed\": 0, \"failed_indices\": \"1,5\", \"indices_details\": {\"mapKey\": {\"finished_at\": \"2024-12-23T16:30:45Z\", \"last_failure_reason\": \"OOMKilled\", \"retries\": 3, \"started_at\": \"2024-12-23T16:20:30Z\", \"status\": \"running\"}}, \"pending\": 0, \"pending_indices\": \"9,12-15\", \"requested\": 0, \"running\": 0, \"running_indices\": \"10-11\", \"start_time\": \"2022-09-22T17:34:00Z\", \"succeeded\": 1, \"succeeded_indices\": \"2-4,6-8\", \"unknown\": 0}}";
     String createJobRunPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2317,7 +2318,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
   }
 
   // Test the createJobRun operation with and without retries enabled
@@ -2341,7 +2342,7 @@ public class CodeEngineTest {
   @Test
   public void testGetJobRunWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"computed_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"created_at\": \"2022-09-13T11:41:35+02:00\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"image_reference\": \"icr.io/codeengine/helloworld\", \"image_secret\": \"my-secret\", \"job_name\": \"my-job\", \"name\": \"my-job-run\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"job_run_v2\", \"run_arguments\": [\"runArguments\"], \"run_as_user\": 1001, \"run_commands\": [\"runCommands\"], \"run_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"run_mode\": \"task\", \"run_service_account\": \"default\", \"run_volume_mounts\": [{\"mount_path\": \"/app\", \"name\": \"codeengine-mount-b69u90\", \"reference\": \"my-secret\", \"type\": \"secret\"}], \"scale_array_size_variable_override\": 2, \"scale_array_spec\": \"1-5,7-8,10\", \"scale_cpu_limit\": \"1\", \"scale_ephemeral_storage_limit\": \"4G\", \"scale_max_execution_time\": 7200, \"scale_memory_limit\": \"4G\", \"scale_retry_limit\": 3, \"status\": \"failed\", \"status_details\": {\"completion_time\": \"2022-09-22T17:40:00Z\", \"failed\": 0, \"failed_indices\": \"1,5\", \"pending\": 0, \"pending_indices\": \"9,12-15\", \"requested\": 0, \"running\": 0, \"running_indices\": \"10-11\", \"start_time\": \"2022-09-22T17:34:00Z\", \"succeeded\": 1, \"succeeded_indices\": \"2-4,6-8\", \"unknown\": 0}}";
+    String mockResponseBody = "{\"computed_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"created_at\": \"2022-09-13T11:41:35+02:00\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"image_reference\": \"icr.io/codeengine/helloworld\", \"image_secret\": \"my-secret\", \"job_name\": \"my-job\", \"name\": \"my-job-run\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"job_run_v2\", \"run_arguments\": [\"runArguments\"], \"run_as_user\": 1001, \"run_commands\": [\"runCommands\"], \"run_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"run_mode\": \"task\", \"run_service_account\": \"default\", \"run_volume_mounts\": [{\"mount_path\": \"/app\", \"name\": \"codeengine-mount-b69u90\", \"reference\": \"my-secret\", \"type\": \"secret\"}], \"scale_array_size_variable_override\": 2, \"scale_array_spec\": \"1-5,7-8,10\", \"scale_cpu_limit\": \"1\", \"scale_ephemeral_storage_limit\": \"4G\", \"scale_max_execution_time\": 7200, \"scale_memory_limit\": \"4G\", \"scale_retry_limit\": 3, \"status\": \"failed\", \"status_details\": {\"completion_time\": \"2022-09-22T17:40:00Z\", \"failed\": 0, \"failed_indices\": \"1,5\", \"indices_details\": {\"mapKey\": {\"finished_at\": \"2024-12-23T16:30:45Z\", \"last_failure_reason\": \"OOMKilled\", \"retries\": 3, \"started_at\": \"2024-12-23T16:20:30Z\", \"status\": \"running\"}}, \"pending\": 0, \"pending_indices\": \"9,12-15\", \"requested\": 0, \"running\": 0, \"running_indices\": \"10-11\", \"start_time\": \"2022-09-22T17:34:00Z\", \"succeeded\": 1, \"succeeded_indices\": \"2-4,6-8\", \"unknown\": 0}}";
     String getJobRunPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs/my-job-run";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2370,7 +2371,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
   }
 
   // Test the getJobRun operation with and without retries enabled
@@ -2517,7 +2518,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -2658,7 +2659,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
   }
 
   // Test the createFunction operation with and without retries enabled
@@ -2711,7 +2712,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
   }
 
   // Test the getFunction operation with and without retries enabled
@@ -2763,7 +2764,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
   }
 
   // Test the deleteFunction operation with and without retries enabled
@@ -2847,7 +2848,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2024-11-18");
+    assertEquals(query.get("version"), "2025-01-10");
   }
 
   // Test the updateFunction operation with and without retries enabled
@@ -4483,7 +4484,7 @@ public class CodeEngineTest {
   @Test
   public void testListSecretsWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"first\": {\"href\": \"href\"}, \"limit\": 100, \"next\": {\"href\": \"href\", \"start\": \"start\"}, \"secrets\": [{\"created_at\": \"2022-09-13T11:41:35+02:00\", \"data\": {\"mapKey\": \"inner\"}, \"entity_tag\": \"2385407409\", \"format\": \"generic\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-secret\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"resourceType\", \"service_access\": {\"resource_key\": {\"id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"name\": \"name\"}, \"role\": {\"crn\": \"crn:v1:bluemix:public:iam::::serviceRole:Writer\", \"name\": \"Manager\"}, \"service_instance\": {\"id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"type\": \"type\"}, \"serviceid\": {\"crn\": \"crn\", \"id\": \"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}}, \"service_operator\": {\"apikey_id\": \"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b\", \"resource_group_ids\": [\"resourceGroupIds\"], \"serviceid\": {\"crn\": \"crn\", \"id\": \"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}, \"user_managed\": false}}]}";
+    String mockResponseBody = "{\"first\": {\"href\": \"href\"}, \"limit\": 100, \"next\": {\"href\": \"href\", \"start\": \"start\"}, \"secrets\": [{\"created_at\": \"2022-09-13T11:41:35+02:00\", \"data\": {\"mapKey\": \"inner\"}, \"entity_tag\": \"2385407409\", \"format\": \"generic\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-secret\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"secret_v2\", \"service_access\": {\"resource_key\": {\"id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"name\": \"name\"}, \"role\": {\"crn\": \"crn:v1:bluemix:public:iam::::serviceRole:Writer\", \"name\": \"Manager\"}, \"service_instance\": {\"id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"type\": \"type\"}, \"serviceid\": {\"crn\": \"crn\", \"id\": \"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}}, \"service_operator\": {\"apikey_id\": \"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b\", \"resource_group_ids\": [\"resourceGroupIds\"], \"serviceid\": {\"crn\": \"crn\", \"id\": \"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}, \"user_managed\": false}}]}";
     String listSecretsPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -4538,8 +4539,8 @@ public class CodeEngineTest {
   @Test
   public void testListSecretsWithPagerGetNext() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"total_count\":2,\"limit\":1,\"secrets\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"mapKey\":\"inner\"},\"entity_tag\":\"2385407409\",\"format\":\"generic\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-secret\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"resourceType\",\"service_access\":{\"resource_key\":{\"id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"name\":\"name\"},\"role\":{\"crn\":\"crn:v1:bluemix:public:iam::::serviceRole:Writer\",\"name\":\"Manager\"},\"service_instance\":{\"id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"type\":\"type\"},\"serviceid\":{\"crn\":\"crn\",\"id\":\"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}},\"service_operator\":{\"apikey_id\":\"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b\",\"resource_group_ids\":[\"resourceGroupIds\"],\"serviceid\":{\"crn\":\"crn\",\"id\":\"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"},\"user_managed\":false}}]}";
-    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"secrets\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"mapKey\":\"inner\"},\"entity_tag\":\"2385407409\",\"format\":\"generic\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-secret\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"resourceType\",\"service_access\":{\"resource_key\":{\"id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"name\":\"name\"},\"role\":{\"crn\":\"crn:v1:bluemix:public:iam::::serviceRole:Writer\",\"name\":\"Manager\"},\"service_instance\":{\"id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"type\":\"type\"},\"serviceid\":{\"crn\":\"crn\",\"id\":\"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}},\"service_operator\":{\"apikey_id\":\"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b\",\"resource_group_ids\":[\"resourceGroupIds\"],\"serviceid\":{\"crn\":\"crn\",\"id\":\"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"},\"user_managed\":false}}]}";
+    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"total_count\":2,\"limit\":1,\"secrets\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"mapKey\":\"inner\"},\"entity_tag\":\"2385407409\",\"format\":\"generic\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-secret\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"secret_v2\",\"service_access\":{\"resource_key\":{\"id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"name\":\"name\"},\"role\":{\"crn\":\"crn:v1:bluemix:public:iam::::serviceRole:Writer\",\"name\":\"Manager\"},\"service_instance\":{\"id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"type\":\"type\"},\"serviceid\":{\"crn\":\"crn\",\"id\":\"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}},\"service_operator\":{\"apikey_id\":\"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b\",\"resource_group_ids\":[\"resourceGroupIds\"],\"serviceid\":{\"crn\":\"crn\",\"id\":\"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"},\"user_managed\":false}}]}";
+    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"secrets\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"mapKey\":\"inner\"},\"entity_tag\":\"2385407409\",\"format\":\"generic\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-secret\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"secret_v2\",\"service_access\":{\"resource_key\":{\"id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"name\":\"name\"},\"role\":{\"crn\":\"crn:v1:bluemix:public:iam::::serviceRole:Writer\",\"name\":\"Manager\"},\"service_instance\":{\"id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"type\":\"type\"},\"serviceid\":{\"crn\":\"crn\",\"id\":\"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}},\"service_operator\":{\"apikey_id\":\"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b\",\"resource_group_ids\":[\"resourceGroupIds\"],\"serviceid\":{\"crn\":\"crn\",\"id\":\"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"},\"user_managed\":false}}]}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -4572,8 +4573,8 @@ public class CodeEngineTest {
   @Test
   public void testListSecretsWithPagerGetAll() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"total_count\":2,\"limit\":1,\"secrets\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"mapKey\":\"inner\"},\"entity_tag\":\"2385407409\",\"format\":\"generic\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-secret\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"resourceType\",\"service_access\":{\"resource_key\":{\"id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"name\":\"name\"},\"role\":{\"crn\":\"crn:v1:bluemix:public:iam::::serviceRole:Writer\",\"name\":\"Manager\"},\"service_instance\":{\"id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"type\":\"type\"},\"serviceid\":{\"crn\":\"crn\",\"id\":\"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}},\"service_operator\":{\"apikey_id\":\"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b\",\"resource_group_ids\":[\"resourceGroupIds\"],\"serviceid\":{\"crn\":\"crn\",\"id\":\"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"},\"user_managed\":false}}]}";
-    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"secrets\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"mapKey\":\"inner\"},\"entity_tag\":\"2385407409\",\"format\":\"generic\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-secret\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"resourceType\",\"service_access\":{\"resource_key\":{\"id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"name\":\"name\"},\"role\":{\"crn\":\"crn:v1:bluemix:public:iam::::serviceRole:Writer\",\"name\":\"Manager\"},\"service_instance\":{\"id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"type\":\"type\"},\"serviceid\":{\"crn\":\"crn\",\"id\":\"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}},\"service_operator\":{\"apikey_id\":\"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b\",\"resource_group_ids\":[\"resourceGroupIds\"],\"serviceid\":{\"crn\":\"crn\",\"id\":\"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"},\"user_managed\":false}}]}";
+    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"total_count\":2,\"limit\":1,\"secrets\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"mapKey\":\"inner\"},\"entity_tag\":\"2385407409\",\"format\":\"generic\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-secret\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"secret_v2\",\"service_access\":{\"resource_key\":{\"id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"name\":\"name\"},\"role\":{\"crn\":\"crn:v1:bluemix:public:iam::::serviceRole:Writer\",\"name\":\"Manager\"},\"service_instance\":{\"id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"type\":\"type\"},\"serviceid\":{\"crn\":\"crn\",\"id\":\"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}},\"service_operator\":{\"apikey_id\":\"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b\",\"resource_group_ids\":[\"resourceGroupIds\"],\"serviceid\":{\"crn\":\"crn\",\"id\":\"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"},\"user_managed\":false}}]}";
+    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"secrets\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"mapKey\":\"inner\"},\"entity_tag\":\"2385407409\",\"format\":\"generic\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-secret\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"secret_v2\",\"service_access\":{\"resource_key\":{\"id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"name\":\"name\"},\"role\":{\"crn\":\"crn:v1:bluemix:public:iam::::serviceRole:Writer\",\"name\":\"Manager\"},\"service_instance\":{\"id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"type\":\"type\"},\"serviceid\":{\"crn\":\"crn\",\"id\":\"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}},\"service_operator\":{\"apikey_id\":\"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b\",\"resource_group_ids\":[\"resourceGroupIds\"],\"serviceid\":{\"crn\":\"crn\",\"id\":\"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"},\"user_managed\":false}}]}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -4602,7 +4603,7 @@ public class CodeEngineTest {
   @Test
   public void testCreateSecretWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"created_at\": \"2022-09-13T11:41:35+02:00\", \"data\": {\"mapKey\": \"inner\"}, \"entity_tag\": \"2385407409\", \"format\": \"generic\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-secret\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"resourceType\", \"service_access\": {\"resource_key\": {\"id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"name\": \"name\"}, \"role\": {\"crn\": \"crn:v1:bluemix:public:iam::::serviceRole:Writer\", \"name\": \"Manager\"}, \"service_instance\": {\"id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"type\": \"type\"}, \"serviceid\": {\"crn\": \"crn\", \"id\": \"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}}, \"service_operator\": {\"apikey_id\": \"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b\", \"resource_group_ids\": [\"resourceGroupIds\"], \"serviceid\": {\"crn\": \"crn\", \"id\": \"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}, \"user_managed\": false}}";
+    String mockResponseBody = "{\"created_at\": \"2022-09-13T11:41:35+02:00\", \"data\": {\"mapKey\": \"inner\"}, \"entity_tag\": \"2385407409\", \"format\": \"generic\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-secret\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"secret_v2\", \"service_access\": {\"resource_key\": {\"id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"name\": \"name\"}, \"role\": {\"crn\": \"crn:v1:bluemix:public:iam::::serviceRole:Writer\", \"name\": \"Manager\"}, \"service_instance\": {\"id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"type\": \"type\"}, \"serviceid\": {\"crn\": \"crn\", \"id\": \"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}}, \"service_operator\": {\"apikey_id\": \"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b\", \"resource_group_ids\": [\"resourceGroupIds\"], \"serviceid\": {\"crn\": \"crn\", \"id\": \"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}, \"user_managed\": false}}";
     String createSecretPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -4703,7 +4704,7 @@ public class CodeEngineTest {
   @Test
   public void testGetSecretWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"created_at\": \"2022-09-13T11:41:35+02:00\", \"data\": {\"mapKey\": \"inner\"}, \"entity_tag\": \"2385407409\", \"format\": \"generic\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-secret\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"resourceType\", \"service_access\": {\"resource_key\": {\"id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"name\": \"name\"}, \"role\": {\"crn\": \"crn:v1:bluemix:public:iam::::serviceRole:Writer\", \"name\": \"Manager\"}, \"service_instance\": {\"id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"type\": \"type\"}, \"serviceid\": {\"crn\": \"crn\", \"id\": \"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}}, \"service_operator\": {\"apikey_id\": \"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b\", \"resource_group_ids\": [\"resourceGroupIds\"], \"serviceid\": {\"crn\": \"crn\", \"id\": \"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}, \"user_managed\": false}}";
+    String mockResponseBody = "{\"created_at\": \"2022-09-13T11:41:35+02:00\", \"data\": {\"mapKey\": \"inner\"}, \"entity_tag\": \"2385407409\", \"format\": \"generic\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-secret\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"secret_v2\", \"service_access\": {\"resource_key\": {\"id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"name\": \"name\"}, \"role\": {\"crn\": \"crn:v1:bluemix:public:iam::::serviceRole:Writer\", \"name\": \"Manager\"}, \"service_instance\": {\"id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"type\": \"type\"}, \"serviceid\": {\"crn\": \"crn\", \"id\": \"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}}, \"service_operator\": {\"apikey_id\": \"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b\", \"resource_group_ids\": [\"resourceGroupIds\"], \"serviceid\": {\"crn\": \"crn\", \"id\": \"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}, \"user_managed\": false}}";
     String getSecretPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -4755,7 +4756,7 @@ public class CodeEngineTest {
   @Test
   public void testReplaceSecretWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"created_at\": \"2022-09-13T11:41:35+02:00\", \"data\": {\"mapKey\": \"inner\"}, \"entity_tag\": \"2385407409\", \"format\": \"generic\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-secret\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"resourceType\", \"service_access\": {\"resource_key\": {\"id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"name\": \"name\"}, \"role\": {\"crn\": \"crn:v1:bluemix:public:iam::::serviceRole:Writer\", \"name\": \"Manager\"}, \"service_instance\": {\"id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"type\": \"type\"}, \"serviceid\": {\"crn\": \"crn\", \"id\": \"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}}, \"service_operator\": {\"apikey_id\": \"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b\", \"resource_group_ids\": [\"resourceGroupIds\"], \"serviceid\": {\"crn\": \"crn\", \"id\": \"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}, \"user_managed\": false}}";
+    String mockResponseBody = "{\"created_at\": \"2022-09-13T11:41:35+02:00\", \"data\": {\"mapKey\": \"inner\"}, \"entity_tag\": \"2385407409\", \"format\": \"generic\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-secret\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"secret_v2\", \"service_access\": {\"resource_key\": {\"id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"name\": \"name\"}, \"role\": {\"crn\": \"crn:v1:bluemix:public:iam::::serviceRole:Writer\", \"name\": \"Manager\"}, \"service_instance\": {\"id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"type\": \"type\"}, \"serviceid\": {\"crn\": \"crn\", \"id\": \"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}}, \"service_operator\": {\"apikey_id\": \"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b\", \"resource_group_ids\": [\"resourceGroupIds\"], \"serviceid\": {\"crn\": \"crn\", \"id\": \"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637\"}, \"user_managed\": false}}";
     String replaceSecretPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -4891,7 +4892,7 @@ public class CodeEngineTest {
     System.setProperty("TESTSERVICE_AUTH_TYPE", "noAuth");
     final String serviceName = "testService";
     // set mock values for global params
-    String version = "2024-11-18";
+    String version = "2025-01-10";
 
     codeEngineService = CodeEngine.newInstance(serviceName);
     String url = server.url("/").toString();
