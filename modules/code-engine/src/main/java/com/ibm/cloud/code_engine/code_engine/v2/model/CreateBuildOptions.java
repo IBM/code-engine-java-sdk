@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,6 +21,16 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class CreateBuildOptions extends GenericModel {
 
   /**
+   * The strategy to use for building the image.
+   */
+  public interface StrategyType {
+    /** dockerfile. */
+    String DOCKERFILE = "dockerfile";
+    /** buildpacks. */
+    String BUILDPACKS = "buildpacks";
+  }
+
+  /**
    * Specifies the type of source to determine if your build source is in a repository or based on local source code.
    * * local - For builds from local source code.
    * * git - For builds from git version controlled source code.
@@ -30,6 +40,23 @@ public class CreateBuildOptions extends GenericModel {
     String LOCAL = "local";
     /** git. */
     String GIT = "git";
+  }
+
+  /**
+   * Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`,
+   * `large`, `xlarge`, `xxlarge`.
+   */
+  public interface StrategySize {
+    /** small. */
+    String SMALL = "small";
+    /** medium. */
+    String MEDIUM = "medium";
+    /** large. */
+    String LARGE = "large";
+    /** xlarge. */
+    String XLARGE = "xlarge";
+    /** xxlarge. */
+    String XXLARGE = "xxlarge";
   }
 
   protected String projectId;

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -43,6 +43,30 @@ public class Secret extends GenericModel {
     String SERVICE_OPERATOR = "service_operator";
     /** other. */
     String OTHER = "other";
+  }
+
+  /**
+   * The type of the secret.
+   */
+  public interface ResourceType {
+    /** secret_v2. */
+    String SECRET_V2 = "secret_v2";
+    /** secret_auth_ssh_v2. */
+    String SECRET_AUTH_SSH_V2 = "secret_auth_ssh_v2";
+    /** secret_basic_auth_v2. */
+    String SECRET_BASIC_AUTH_V2 = "secret_basic_auth_v2";
+    /** secret_generic_v2. */
+    String SECRET_GENERIC_V2 = "secret_generic_v2";
+    /** secret_operator_v2. */
+    String SECRET_OPERATOR_V2 = "secret_operator_v2";
+    /** secret_other_v2. */
+    String SECRET_OTHER_V2 = "secret_other_v2";
+    /** secret_registry_v2. */
+    String SECRET_REGISTRY_V2 = "secret_registry_v2";
+    /** secret_service_access_v2. */
+    String SECRET_SERVICE_ACCESS_V2 = "secret_service_access_v2";
+    /** secret_tls_v2. */
+    String SECRET_TLS_V2 = "secret_tls_v2";
   }
 
   @SerializedName("created_at")

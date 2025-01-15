@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -70,6 +70,33 @@ public class BuildRun extends GenericModel {
     String PENDING = "pending";
     /** failed. */
     String FAILED = "failed";
+  }
+
+  /**
+   * Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`,
+   * `large`, `xlarge`, `xxlarge`.
+   */
+  public interface StrategySize {
+    /** small. */
+    String SMALL = "small";
+    /** medium. */
+    String MEDIUM = "medium";
+    /** large. */
+    String LARGE = "large";
+    /** xlarge. */
+    String XLARGE = "xlarge";
+    /** xxlarge. */
+    String XXLARGE = "xxlarge";
+  }
+
+  /**
+   * The strategy to use for building the image.
+   */
+  public interface StrategyType {
+    /** dockerfile. */
+    String DOCKERFILE = "dockerfile";
+    /** buildpacks. */
+    String BUILDPACKS = "buildpacks";
   }
 
   @SerializedName("build_name")
