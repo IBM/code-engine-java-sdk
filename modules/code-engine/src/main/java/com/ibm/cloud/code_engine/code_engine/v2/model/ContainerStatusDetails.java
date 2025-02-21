@@ -22,43 +22,15 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class ContainerStatusDetails extends GenericModel {
 
   /**
-   * The reason the container is not yet running or has failed. Only populated in non-running states.
+   * The status of the container.
    */
-  public interface Reason {
-    /** ready. */
-    String READY = "ready";
-    /** waiting. */
-    String WAITING = "waiting";
-    /** deploying. */
-    String DEPLOYING = "deploying";
-    /** deploying_waiting_for_resources. */
-    String DEPLOYING_WAITING_FOR_RESOURCES = "deploying_waiting_for_resources";
-    /** initial_scale_never_achieved. */
-    String INITIAL_SCALE_NEVER_ACHIEVED = "initial_scale_never_achieved";
-    /** fetch_image_failed_unknown_manifest. */
-    String FETCH_IMAGE_FAILED_UNKNOWN_MANIFEST = "fetch_image_failed_unknown_manifest";
-    /** fetch_image_failed_unknown_repository. */
-    String FETCH_IMAGE_FAILED_UNKNOWN_REPOSITORY = "fetch_image_failed_unknown_repository";
-    /** fetch_image_failed_registry_not_found. */
-    String FETCH_IMAGE_FAILED_REGISTRY_NOT_FOUND = "fetch_image_failed_registry_not_found";
-    /** fetch_image_failed_missing_pull_secret. */
-    String FETCH_IMAGE_FAILED_MISSING_PULL_SECRET = "fetch_image_failed_missing_pull_secret";
-    /** fetch_image_failed_wrong_pull_credentials. */
-    String FETCH_IMAGE_FAILED_WRONG_PULL_CREDENTIALS = "fetch_image_failed_wrong_pull_credentials";
-    /** fetch_image_failed_missing_pull_credentials. */
-    String FETCH_IMAGE_FAILED_MISSING_PULL_CREDENTIALS = "fetch_image_failed_missing_pull_credentials";
-    /** container_failed_exit_code_0. */
-    String CONTAINER_FAILED_EXIT_CODE_0 = "container_failed_exit_code_0";
-    /** container_failed_exit_code_1. */
-    String CONTAINER_FAILED_EXIT_CODE_1 = "container_failed_exit_code_1";
-    /** container_failed_exit_code_139. */
-    String CONTAINER_FAILED_EXIT_CODE_139 = "container_failed_exit_code_139";
-    /** container_failed_exit_code_24. */
-    String CONTAINER_FAILED_EXIT_CODE_24 = "container_failed_exit_code_24";
-    /** image_pull_back_off. */
-    String IMAGE_PULL_BACK_OFF = "image_pull_back_off";
-    /** invalid_tar_header_image_pull_err. */
-    String INVALID_TAR_HEADER_IMAGE_PULL_ERR = "invalid_tar_header_image_pull_err";
+  public interface ContainerStatus {
+    /** running. */
+    String RUNNING = "running";
+    /** pending. */
+    String PENDING = "pending";
+    /** terminated. */
+    String TERMINATED = "terminated";
   }
 
   @SerializedName("completed_at")

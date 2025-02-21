@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.94.1-71478489-20240820-161623
+ * IBM OpenAPI SDK Code Generator Version: 3.99.0-d27cee72-20250129-204831
  */
 
 package com.ibm.cloud.code_engine.code_engine.v2;
@@ -182,7 +182,7 @@ public class CodeEngine extends BaseService {
    * Gets the version.
    *
    * The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-   * `2021-03-31` and `2025-01-10`.
+   * `2021-03-31` and `2025-02-20`.
    *
    * @return the version
    */
@@ -1573,6 +1573,9 @@ public class CodeEngine extends BaseService {
     contentJson.addProperty("output_image", createBuildOptions.outputImage());
     contentJson.addProperty("output_secret", createBuildOptions.outputSecret());
     contentJson.addProperty("strategy_type", createBuildOptions.strategyType());
+    if (createBuildOptions.runBuildParams() != null) {
+      contentJson.add("run_build_params", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createBuildOptions.runBuildParams()));
+    }
     if (createBuildOptions.sourceContextDir() != null) {
       contentJson.addProperty("source_context_dir", createBuildOptions.sourceContextDir());
     }
@@ -1742,6 +1745,9 @@ public class CodeEngine extends BaseService {
     }
     if (createBuildRunOptions.outputSecret() != null) {
       contentJson.addProperty("output_secret", createBuildRunOptions.outputSecret());
+    }
+    if (createBuildRunOptions.runBuildParams() != null) {
+      contentJson.add("run_build_params", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createBuildRunOptions.runBuildParams()));
     }
     if (createBuildRunOptions.serviceAccount() != null) {
       contentJson.addProperty("service_account", createBuildRunOptions.serviceAccount());
@@ -2119,6 +2125,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (listSecretsOptions.format() != null) {
+      builder.query("format", String.valueOf(listSecretsOptions.format()));
+    }
     if (listSecretsOptions.limit() != null) {
       builder.query("limit", String.valueOf(listSecretsOptions.limit()));
     }

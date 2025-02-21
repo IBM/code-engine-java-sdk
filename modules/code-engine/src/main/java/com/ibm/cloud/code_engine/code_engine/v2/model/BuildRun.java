@@ -13,6 +13,8 @@
 
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
@@ -115,6 +117,8 @@ public class BuildRun extends GenericModel {
   protected String region;
   @SerializedName("resource_type")
   protected String resourceType;
+  @SerializedName("run_build_params")
+  protected List<BuildParam> runBuildParams;
   @SerializedName("service_account")
   protected String serviceAccount;
   @SerializedName("source_context_dir")
@@ -252,6 +256,18 @@ public class BuildRun extends GenericModel {
    */
   public String getResourceType() {
     return resourceType;
+  }
+
+  /**
+   * Gets the runBuildParams.
+   *
+   * References to config maps and secret keys, or literal values, which are defined by the build owner and are exposed
+   * as build arguments in Docker files.
+   *
+   * @return the runBuildParams
+   */
+  public List<BuildParam> getRunBuildParams() {
+    return runBuildParams;
   }
 
   /**

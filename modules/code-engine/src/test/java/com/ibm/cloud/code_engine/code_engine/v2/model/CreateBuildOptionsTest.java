@@ -13,6 +13,7 @@
 
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
+import com.ibm.cloud.code_engine.code_engine.v2.model.BuildParamPrototype;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -31,12 +32,26 @@ public class CreateBuildOptionsTest {
 
   @Test
   public void testCreateBuildOptions() throws Throwable {
+    BuildParamPrototype buildParamPrototypeModel = new BuildParamPrototype.Builder()
+      .key("MY_VARIABLE")
+      .name("SOME")
+      .reference("my-secret")
+      .type("literal")
+      .value("VALUE")
+      .build();
+    assertEquals(buildParamPrototypeModel.key(), "MY_VARIABLE");
+    assertEquals(buildParamPrototypeModel.name(), "SOME");
+    assertEquals(buildParamPrototypeModel.reference(), "my-secret");
+    assertEquals(buildParamPrototypeModel.type(), "literal");
+    assertEquals(buildParamPrototypeModel.value(), "VALUE");
+
     CreateBuildOptions createBuildOptionsModel = new CreateBuildOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
       .name("my-build")
       .outputImage("private.de.icr.io/icr_namespace/image-name")
       .outputSecret("ce-auto-icr-private-eu-de")
       .strategyType("dockerfile")
+      .runBuildParams(java.util.Arrays.asList(buildParamPrototypeModel))
       .sourceContextDir("some/subfolder")
       .sourceRevision("main")
       .sourceSecret("testString")
@@ -51,6 +66,7 @@ public class CreateBuildOptionsTest {
     assertEquals(createBuildOptionsModel.outputImage(), "private.de.icr.io/icr_namespace/image-name");
     assertEquals(createBuildOptionsModel.outputSecret(), "ce-auto-icr-private-eu-de");
     assertEquals(createBuildOptionsModel.strategyType(), "dockerfile");
+    assertEquals(createBuildOptionsModel.runBuildParams(), java.util.Arrays.asList(buildParamPrototypeModel));
     assertEquals(createBuildOptionsModel.sourceContextDir(), "some/subfolder");
     assertEquals(createBuildOptionsModel.sourceRevision(), "main");
     assertEquals(createBuildOptionsModel.sourceSecret(), "testString");

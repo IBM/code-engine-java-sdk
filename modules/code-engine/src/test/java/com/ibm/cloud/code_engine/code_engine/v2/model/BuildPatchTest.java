@@ -13,6 +13,7 @@
 
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
+import com.ibm.cloud.code_engine.code_engine.v2.model.BuildParamPrototype;
 import com.ibm.cloud.code_engine.code_engine.v2.model.BuildPatch;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -32,9 +33,23 @@ public class BuildPatchTest {
 
   @Test
   public void testBuildPatch() throws Throwable {
+    BuildParamPrototype buildParamPrototypeModel = new BuildParamPrototype.Builder()
+      .key("MY_VARIABLE")
+      .name("SOME")
+      .reference("my-secret")
+      .type("literal")
+      .value("VALUE")
+      .build();
+    assertEquals(buildParamPrototypeModel.key(), "MY_VARIABLE");
+    assertEquals(buildParamPrototypeModel.name(), "SOME");
+    assertEquals(buildParamPrototypeModel.reference(), "my-secret");
+    assertEquals(buildParamPrototypeModel.type(), "literal");
+    assertEquals(buildParamPrototypeModel.value(), "VALUE");
+
     BuildPatch buildPatchModel = new BuildPatch.Builder()
       .outputImage("private.de.icr.io/icr_namespace/image-name")
       .outputSecret("ce-auto-icr-private-eu-de")
+      .runBuildParams(java.util.Arrays.asList(buildParamPrototypeModel))
       .sourceContextDir("some/subfolder")
       .sourceRevision("main")
       .sourceSecret("testString")
@@ -47,6 +62,7 @@ public class BuildPatchTest {
       .build();
     assertEquals(buildPatchModel.outputImage(), "private.de.icr.io/icr_namespace/image-name");
     assertEquals(buildPatchModel.outputSecret(), "ce-auto-icr-private-eu-de");
+    assertEquals(buildPatchModel.runBuildParams(), java.util.Arrays.asList(buildParamPrototypeModel));
     assertEquals(buildPatchModel.sourceContextDir(), "some/subfolder");
     assertEquals(buildPatchModel.sourceRevision(), "main");
     assertEquals(buildPatchModel.sourceSecret(), "testString");
@@ -75,9 +91,18 @@ public class BuildPatchTest {
   }
   @Test
   public void testBuildPatchAsPatch() throws Throwable {
+    BuildParamPrototype buildParamPrototypeModel = new BuildParamPrototype.Builder()
+      .key("MY_VARIABLE")
+      .name("SOME")
+      .reference("my-secret")
+      .type("literal")
+      .value("VALUE")
+      .build();
+
     BuildPatch buildPatchModel = new BuildPatch.Builder()
       .outputImage("private.de.icr.io/icr_namespace/image-name")
       .outputSecret("ce-auto-icr-private-eu-de")
+      .runBuildParams(java.util.Arrays.asList(buildParamPrototypeModel))
       .sourceContextDir("some/subfolder")
       .sourceRevision("main")
       .sourceSecret("testString")
@@ -93,6 +118,7 @@ public class BuildPatchTest {
 
     assertEquals(mergePatch.get("output_image"), "private.de.icr.io/icr_namespace/image-name");
     assertEquals(mergePatch.get("output_secret"), "ce-auto-icr-private-eu-de");
+    assertTrue(mergePatch.containsKey("run_build_params"));
     assertEquals(mergePatch.get("source_context_dir"), "some/subfolder");
     assertEquals(mergePatch.get("source_revision"), "main");
     assertEquals(mergePatch.get("source_secret"), "testString");

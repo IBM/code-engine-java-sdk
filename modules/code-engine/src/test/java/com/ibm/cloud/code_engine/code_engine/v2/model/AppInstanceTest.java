@@ -14,6 +14,7 @@
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppInstance;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AppInstanceStatusDetails;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ContainerStatus;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ContainerStatusDetails;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
@@ -39,7 +40,6 @@ public class AppInstanceTest {
     assertNull(appInstanceModel.getScaleCpuLimit());
     assertNull(appInstanceModel.getScaleEphemeralStorageLimit());
     assertNull(appInstanceModel.getScaleMemoryLimit());
-    assertNull(appInstanceModel.getSystemContainer());
-    assertNull(appInstanceModel.getUserContainer());
+    assertNull(appInstanceModel.getStatusDetails());
   }
 }

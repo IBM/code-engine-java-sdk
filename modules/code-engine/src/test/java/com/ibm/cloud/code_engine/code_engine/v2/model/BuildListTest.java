@@ -15,6 +15,7 @@ package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import com.ibm.cloud.code_engine.code_engine.v2.model.Build;
 import com.ibm.cloud.code_engine.code_engine.v2.model.BuildList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.BuildParam;
 import com.ibm.cloud.code_engine.code_engine.v2.model.BuildStatus;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListFirstMetadata;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListNextMetadata;

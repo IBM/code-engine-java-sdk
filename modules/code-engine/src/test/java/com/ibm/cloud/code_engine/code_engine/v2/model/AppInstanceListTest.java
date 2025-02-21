@@ -15,6 +15,7 @@ package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppInstance;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppInstanceList;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AppInstanceStatusDetails;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ContainerStatus;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ContainerStatusDetails;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListFirstMetadata;

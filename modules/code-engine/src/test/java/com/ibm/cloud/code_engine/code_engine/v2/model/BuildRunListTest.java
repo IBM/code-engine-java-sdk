@@ -13,6 +13,7 @@
 
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
+import com.ibm.cloud.code_engine.code_engine.v2.model.BuildParam;
 import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRun;
 import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRunList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRunStatus;

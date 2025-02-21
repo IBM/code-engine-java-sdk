@@ -924,11 +924,18 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
     @Test(dependsOnMethods = {"testListBuilds"})
     public void testCreateBuild() throws Exception {
         try {
+            BuildParamPrototype buildParamPrototypeModel = new BuildParamPrototype.Builder()
+                    .name("SOME")
+                    .type("literal")
+                    .value("VALUE")
+                    .build();
+
             CreateBuildOptions createBuildOptions = new CreateBuildOptions.Builder()
                     .projectId(e2eTestProjectId)
                     .name("my-build")
                     .outputImage("private.de.icr.io/icr_namespace/image-name")
                     .outputSecret("ce-auto-icr-private-eu-de")
+                    .runBuildParams(java.util.Arrays.asList(buildParamPrototypeModel))
                     .sourceUrl("https://github.com/IBM/CodeEngine")
                     .strategyType("dockerfile")
                     .sourceContextDir("some/subfolder")
@@ -981,9 +988,16 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
     @Test(dependsOnMethods = {"testGetBuild"})
     public void testUpdateBuild() throws Exception {
         try {
+            BuildParamPrototype buildParamPrototypeModel = new BuildParamPrototype.Builder()
+                    .name("ANOTHER")
+                    .type("literal")
+                    .value("ANOTHER_VALUE")
+                    .build();
+
             BuildPatch buildPatchModel = new BuildPatch.Builder()
                     .outputImage("private.de.icr.io/icr_namespace/image-name")
                     .outputSecret("ce-auto-icr-private-eu-de")
+                    .runBuildParams(java.util.Arrays.asList(buildParamPrototypeModel))
                     .sourceContextDir("some/subfolder")
                     .sourceRevision("main")
                     .sourceSecret("my-secret")
@@ -1021,10 +1035,17 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
     @Test(dependsOnMethods = {"testUpdateBuild"})
     public void testCreateBuildRun() throws Exception {
         try {
+            BuildParamPrototype buildParamPrototypeModel = new BuildParamPrototype.Builder()
+                    .name("SOME")
+                    .type("literal")
+                    .value("VALUE")
+                    .build();
+
             CreateBuildRunOptions createBuildRunOptions = new CreateBuildRunOptions.Builder()
                     .projectId(e2eTestProjectId)
                     .buildName("my-build")
                     .name("my-build-run")
+                    .runBuildParams(java.util.Arrays.asList(buildParamPrototypeModel))
                     .outputImage("private.de.icr.io/icr_namespace/image-name")
                     .outputSecret("ce-auto-icr-private-eu-de")
                     .serviceAccount("default")

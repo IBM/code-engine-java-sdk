@@ -20,7 +20,28 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class ListSecretsOptions extends GenericModel {
 
+  /**
+   * Secret format to filter results by.
+   */
+  public interface Format {
+    /** generic. */
+    String GENERIC = "generic";
+    /** ssh_auth. */
+    String SSH_AUTH = "ssh_auth";
+    /** registry. */
+    String REGISTRY = "registry";
+    /** basic_auth. */
+    String BASIC_AUTH = "basic_auth";
+    /** tls. */
+    String TLS = "tls";
+    /** service_access. */
+    String SERVICE_ACCESS = "service_access";
+    /** service_operator. */
+    String SERVICE_OPERATOR = "service_operator";
+  }
+
   protected String projectId;
+  protected String format;
   protected Long limit;
   protected String start;
 
@@ -29,6 +50,7 @@ public class ListSecretsOptions extends GenericModel {
    */
   public static class Builder {
     private String projectId;
+    private String format;
     private Long limit;
     private String start;
 
@@ -39,6 +61,7 @@ public class ListSecretsOptions extends GenericModel {
      */
     private Builder(ListSecretsOptions listSecretsOptions) {
       this.projectId = listSecretsOptions.projectId;
+      this.format = listSecretsOptions.format;
       this.limit = listSecretsOptions.limit;
       this.start = listSecretsOptions.start;
     }
@@ -79,6 +102,17 @@ public class ListSecretsOptions extends GenericModel {
     }
 
     /**
+     * Set the format.
+     *
+     * @param format the format
+     * @return the ListSecretsOptions builder
+     */
+    public Builder format(String format) {
+      this.format = format;
+      return this;
+    }
+
+    /**
      * Set the limit.
      *
      * @param limit the limit
@@ -107,6 +141,7 @@ public class ListSecretsOptions extends GenericModel {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId,
       "projectId cannot be empty");
     projectId = builder.projectId;
+    format = builder.format;
     limit = builder.limit;
     start = builder.start;
   }
@@ -129,6 +164,17 @@ public class ListSecretsOptions extends GenericModel {
    */
   public String projectId() {
     return projectId;
+  }
+
+  /**
+   * Gets the format.
+   *
+   * Secret format to filter results by.
+   *
+   * @return the format
+   */
+  public String format() {
+    return format;
   }
 
   /**
