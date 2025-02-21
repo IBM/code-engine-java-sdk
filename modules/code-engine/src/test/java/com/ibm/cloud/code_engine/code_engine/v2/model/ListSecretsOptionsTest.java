@@ -33,10 +33,12 @@ public class ListSecretsOptionsTest {
   public void testListSecretsOptions() throws Throwable {
     ListSecretsOptions listSecretsOptionsModel = new ListSecretsOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+      .format("ssh_auth")
       .limit(Long.valueOf("100"))
       .start("testString")
       .build();
     assertEquals(listSecretsOptionsModel.projectId(), "15314cc3-85b4-4338-903f-c28cdee6d005");
+    assertEquals(listSecretsOptionsModel.format(), "ssh_auth");
     assertEquals(listSecretsOptionsModel.limit(), Long.valueOf("100"));
     assertEquals(listSecretsOptionsModel.start(), "testString");
   }

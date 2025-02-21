@@ -13,6 +13,7 @@
 
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
+import com.ibm.cloud.code_engine.code_engine.v2.model.BuildParamPrototype;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateBuildRunOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -31,12 +32,26 @@ public class CreateBuildRunOptionsTest {
 
   @Test
   public void testCreateBuildRunOptions() throws Throwable {
+    BuildParamPrototype buildParamPrototypeModel = new BuildParamPrototype.Builder()
+      .key("MY_VARIABLE")
+      .name("SOME")
+      .reference("my-secret")
+      .type("literal")
+      .value("VALUE")
+      .build();
+    assertEquals(buildParamPrototypeModel.key(), "MY_VARIABLE");
+    assertEquals(buildParamPrototypeModel.name(), "SOME");
+    assertEquals(buildParamPrototypeModel.reference(), "my-secret");
+    assertEquals(buildParamPrototypeModel.type(), "literal");
+    assertEquals(buildParamPrototypeModel.value(), "VALUE");
+
     CreateBuildRunOptions createBuildRunOptionsModel = new CreateBuildRunOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
       .buildName("testString")
       .name("testString")
       .outputImage("private.de.icr.io/icr_namespace/image-name")
       .outputSecret("ce-auto-icr-private-eu-de")
+      .runBuildParams(java.util.Arrays.asList(buildParamPrototypeModel))
       .serviceAccount("default")
       .sourceContextDir("some/subfolder")
       .sourceRevision("main")
@@ -53,6 +68,7 @@ public class CreateBuildRunOptionsTest {
     assertEquals(createBuildRunOptionsModel.name(), "testString");
     assertEquals(createBuildRunOptionsModel.outputImage(), "private.de.icr.io/icr_namespace/image-name");
     assertEquals(createBuildRunOptionsModel.outputSecret(), "ce-auto-icr-private-eu-de");
+    assertEquals(createBuildRunOptionsModel.runBuildParams(), java.util.Arrays.asList(buildParamPrototypeModel));
     assertEquals(createBuildRunOptionsModel.serviceAccount(), "default");
     assertEquals(createBuildRunOptionsModel.sourceContextDir(), "some/subfolder");
     assertEquals(createBuildRunOptionsModel.sourceRevision(), "main");

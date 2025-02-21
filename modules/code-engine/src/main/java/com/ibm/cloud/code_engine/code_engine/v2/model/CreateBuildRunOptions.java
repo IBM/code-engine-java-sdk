@@ -13,6 +13,9 @@
 
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
@@ -81,6 +84,7 @@ public class CreateBuildRunOptions extends GenericModel {
   protected String name;
   protected String outputImage;
   protected String outputSecret;
+  protected List<BuildParamPrototype> runBuildParams;
   protected String serviceAccount;
   protected String sourceContextDir;
   protected String sourceRevision;
@@ -101,6 +105,7 @@ public class CreateBuildRunOptions extends GenericModel {
     private String name;
     private String outputImage;
     private String outputSecret;
+    private List<BuildParamPrototype> runBuildParams;
     private String serviceAccount;
     private String sourceContextDir;
     private String sourceRevision;
@@ -123,6 +128,7 @@ public class CreateBuildRunOptions extends GenericModel {
       this.name = createBuildRunOptions.name;
       this.outputImage = createBuildRunOptions.outputImage;
       this.outputSecret = createBuildRunOptions.outputSecret;
+      this.runBuildParams = createBuildRunOptions.runBuildParams;
       this.serviceAccount = createBuildRunOptions.serviceAccount;
       this.sourceContextDir = createBuildRunOptions.sourceContextDir;
       this.sourceRevision = createBuildRunOptions.sourceRevision;
@@ -157,6 +163,22 @@ public class CreateBuildRunOptions extends GenericModel {
      */
     public CreateBuildRunOptions build() {
       return new CreateBuildRunOptions(this);
+    }
+
+    /**
+     * Adds a new element to runBuildParams.
+     *
+     * @param runBuildParams the new element to be added
+     * @return the CreateBuildRunOptions builder
+     */
+    public Builder addRunBuildParams(BuildParamPrototype runBuildParams) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(runBuildParams,
+        "runBuildParams cannot be null");
+      if (this.runBuildParams == null) {
+        this.runBuildParams = new ArrayList<BuildParamPrototype>();
+      }
+      this.runBuildParams.add(runBuildParams);
+      return this;
     }
 
     /**
@@ -211,6 +233,18 @@ public class CreateBuildRunOptions extends GenericModel {
      */
     public Builder outputSecret(String outputSecret) {
       this.outputSecret = outputSecret;
+      return this;
+    }
+
+    /**
+     * Set the runBuildParams.
+     * Existing runBuildParams will be replaced.
+     *
+     * @param runBuildParams the runBuildParams
+     * @return the CreateBuildRunOptions builder
+     */
+    public Builder runBuildParams(List<BuildParamPrototype> runBuildParams) {
+      this.runBuildParams = runBuildParams;
       return this;
     }
 
@@ -335,6 +369,7 @@ public class CreateBuildRunOptions extends GenericModel {
     name = builder.name;
     outputImage = builder.outputImage;
     outputSecret = builder.outputSecret;
+    runBuildParams = builder.runBuildParams;
     serviceAccount = builder.serviceAccount;
     sourceContextDir = builder.sourceContextDir;
     sourceRevision = builder.sourceRevision;
@@ -413,6 +448,18 @@ public class CreateBuildRunOptions extends GenericModel {
    */
   public String outputSecret() {
     return outputSecret;
+  }
+
+  /**
+   * Gets the runBuildParams.
+   *
+   * Optional references to config maps and secret keys, or literal values that are exposed as build arguments within
+   * the Docker file.
+   *
+   * @return the runBuildParams
+   */
+  public List<BuildParamPrototype> runBuildParams() {
+    return runBuildParams;
   }
 
   /**

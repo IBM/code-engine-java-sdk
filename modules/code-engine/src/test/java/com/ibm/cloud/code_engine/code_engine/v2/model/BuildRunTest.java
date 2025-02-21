@@ -13,6 +13,7 @@
 
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
+import com.ibm.cloud.code_engine.code_engine.v2.model.BuildParam;
 import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRun;
 import com.ibm.cloud.code_engine.code_engine.v2.model.BuildRunStatus;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
@@ -37,6 +38,7 @@ public class BuildRunTest {
     assertNull(buildRunModel.getName());
     assertNull(buildRunModel.getOutputImage());
     assertNull(buildRunModel.getOutputSecret());
+    assertNull(buildRunModel.getRunBuildParams());
     assertNull(buildRunModel.getServiceAccount());
     assertNull(buildRunModel.getSourceContextDir());
     assertNull(buildRunModel.getSourceRevision());

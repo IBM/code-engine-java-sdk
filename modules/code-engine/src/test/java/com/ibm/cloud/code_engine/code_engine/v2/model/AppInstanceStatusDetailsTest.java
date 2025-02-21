@@ -13,12 +13,9 @@
 
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
-import com.ibm.cloud.code_engine.code_engine.v2.model.Build;
-import com.ibm.cloud.code_engine.code_engine.v2.model.BuildList;
-import com.ibm.cloud.code_engine.code_engine.v2.model.BuildParam;
-import com.ibm.cloud.code_engine.code_engine.v2.model.BuildStatus;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ListFirstMetadata;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ListNextMetadata;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AppInstanceStatusDetails;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ContainerStatus;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ContainerStatusDetails;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -28,18 +25,16 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the BuildList model.
+ * Unit test class for the AppInstanceStatusDetails model.
  */
-public class BuildListTest {
+public class AppInstanceStatusDetailsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testBuildList() throws Throwable {
-    BuildList buildListModel = new BuildList();
-    assertNull(buildListModel.getBuilds());
-    assertNull(buildListModel.getFirst());
-    assertNull(buildListModel.getLimit());
-    assertNull(buildListModel.getNext());
+  public void testAppInstanceStatusDetails() throws Throwable {
+    AppInstanceStatusDetails appInstanceStatusDetailsModel = new AppInstanceStatusDetails();
+    assertNull(appInstanceStatusDetailsModel.getSystemContainer());
+    assertNull(appInstanceStatusDetailsModel.getUserContainer());
   }
 }

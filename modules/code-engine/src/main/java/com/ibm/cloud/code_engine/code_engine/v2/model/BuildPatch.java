@@ -13,6 +13,8 @@
 
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
@@ -67,6 +69,8 @@ public class BuildPatch extends GenericModel {
   protected String outputImage;
   @SerializedName("output_secret")
   protected String outputSecret;
+  @SerializedName("run_build_params")
+  protected List<BuildParamPrototype> runBuildParams;
   @SerializedName("source_context_dir")
   protected String sourceContextDir;
   @SerializedName("source_revision")
@@ -91,6 +95,7 @@ public class BuildPatch extends GenericModel {
   public static class Builder {
     private String outputImage;
     private String outputSecret;
+    private List<BuildParamPrototype> runBuildParams;
     private String sourceContextDir;
     private String sourceRevision;
     private String sourceSecret;
@@ -109,6 +114,7 @@ public class BuildPatch extends GenericModel {
     private Builder(BuildPatch buildPatch) {
       this.outputImage = buildPatch.outputImage;
       this.outputSecret = buildPatch.outputSecret;
+      this.runBuildParams = buildPatch.runBuildParams;
       this.sourceContextDir = buildPatch.sourceContextDir;
       this.sourceRevision = buildPatch.sourceRevision;
       this.sourceSecret = buildPatch.sourceSecret;
@@ -136,6 +142,22 @@ public class BuildPatch extends GenericModel {
     }
 
     /**
+     * Adds a new element to runBuildParams.
+     *
+     * @param runBuildParams the new element to be added
+     * @return the BuildPatch builder
+     */
+    public Builder addRunBuildParams(BuildParamPrototype runBuildParams) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(runBuildParams,
+        "runBuildParams cannot be null");
+      if (this.runBuildParams == null) {
+        this.runBuildParams = new ArrayList<BuildParamPrototype>();
+      }
+      this.runBuildParams.add(runBuildParams);
+      return this;
+    }
+
+    /**
      * Set the outputImage.
      *
      * @param outputImage the outputImage
@@ -154,6 +176,18 @@ public class BuildPatch extends GenericModel {
      */
     public Builder outputSecret(String outputSecret) {
       this.outputSecret = outputSecret;
+      return this;
+    }
+
+    /**
+     * Set the runBuildParams.
+     * Existing runBuildParams will be replaced.
+     *
+     * @param runBuildParams the runBuildParams
+     * @return the BuildPatch builder
+     */
+    public Builder runBuildParams(List<BuildParamPrototype> runBuildParams) {
+      this.runBuildParams = runBuildParams;
       return this;
     }
 
@@ -262,6 +296,7 @@ public class BuildPatch extends GenericModel {
   protected BuildPatch(Builder builder) {
     outputImage = builder.outputImage;
     outputSecret = builder.outputSecret;
+    runBuildParams = builder.runBuildParams;
     sourceContextDir = builder.sourceContextDir;
     sourceRevision = builder.sourceRevision;
     sourceSecret = builder.sourceSecret;
@@ -303,6 +338,18 @@ public class BuildPatch extends GenericModel {
    */
   public String outputSecret() {
     return outputSecret;
+  }
+
+  /**
+   * Gets the runBuildParams.
+   *
+   * Optional references to config maps and secret keys, or literal values that are exposed as build arguments within
+   * the Docker file.
+   *
+   * @return the runBuildParams
+   */
+  public List<BuildParamPrototype> runBuildParams() {
+    return runBuildParams;
   }
 
   /**

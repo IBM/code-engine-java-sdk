@@ -17,10 +17,10 @@
             of the SDK generator used to generate your SDK code.
             See this link for details: https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Compatibility-Chart
         -->
-        <sdk-core-version>9.22.0</sdk-core-version>
+        <sdk-core-version>9.22.2</sdk-core-version>
         <git-repository-name>code-engine-java-sdk</git-repository-name>
 
-        <testng-version>7.10.2</testng-version>
+        <testng-version>7.11.0</testng-version>
         <okhttp3-version>4.12.0</okhttp3-version>
         <surefire-version>3.5.2</surefire-version>
         <jacoco-plugin-version>0.8.12</jacoco-plugin-version>
@@ -34,7 +34,7 @@
         <maven-compiler-plugin-version>3.10.1</maven-compiler-plugin-version>
         <maven-site-plugin-version>3.21.0</maven-site-plugin-version>
         <maven-checkstyle-plugin-version>3.6.0</maven-checkstyle-plugin-version>
-        <checkstyle-version>10.21.1</checkstyle-version>
+        <checkstyle-version>10.21.2</checkstyle-version>
         <maven-reports-plugin-version>3.8.0</maven-reports-plugin-version>
         <maven-failsafe-plugin-version>3.5.2</maven-failsafe-plugin-version>
         <maven-buildnumber-plugin-version>3.2.1</maven-buildnumber-plugin-version>

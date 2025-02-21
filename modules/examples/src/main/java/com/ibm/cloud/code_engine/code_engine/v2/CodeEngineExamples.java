@@ -1094,6 +1094,7 @@ public class CodeEngineExamples {
       // begin-list_secrets
       ListSecretsOptions listSecretsOptions = new ListSecretsOptions.Builder()
         .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .format("ssh_auth")
         .limit(Long.valueOf("100"))
         .build();
 

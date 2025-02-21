@@ -14,6 +14,7 @@
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import com.ibm.cloud.code_engine.code_engine.v2.model.Build;
+import com.ibm.cloud.code_engine.code_engine.v2.model.BuildParam;
 import com.ibm.cloud.code_engine.code_engine.v2.model.BuildStatus;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -37,6 +38,7 @@ public class BuildTest {
     assertNull(buildModel.getName());
     assertNull(buildModel.getOutputImage());
     assertNull(buildModel.getOutputSecret());
+    assertNull(buildModel.getRunBuildParams());
     assertNull(buildModel.getSourceContextDir());
     assertNull(buildModel.getSourceRevision());
     assertNull(buildModel.getSourceSecret());

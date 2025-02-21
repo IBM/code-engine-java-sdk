@@ -55,7 +55,6 @@ public class AppInstance extends GenericModel {
   protected String region;
   @SerializedName("resource_type")
   protected String resourceType;
-  protected Long restarts;
   @SerializedName("revision_name")
   protected String revisionName;
   @SerializedName("scale_cpu_limit")
@@ -65,10 +64,8 @@ public class AppInstance extends GenericModel {
   @SerializedName("scale_memory_limit")
   protected String scaleMemoryLimit;
   protected String status;
-  @SerializedName("system_container")
-  protected ContainerStatus systemContainer;
-  @SerializedName("user_container")
-  protected ContainerStatus userContainer;
+  @SerializedName("status_details")
+  protected AppInstanceStatusDetails statusDetails;
 
   protected AppInstance() { }
 
@@ -162,17 +159,6 @@ public class AppInstance extends GenericModel {
   }
 
   /**
-   * Gets the restarts.
-   *
-   * The number of restarts of the app instance.
-   *
-   * @return the restarts
-   */
-  public Long getRestarts() {
-    return restarts;
-  }
-
-  /**
    * Gets the revisionName.
    *
    * The name of the revision that is associated with this instance.
@@ -236,25 +222,14 @@ public class AppInstance extends GenericModel {
   }
 
   /**
-   * Gets the systemContainer.
+   * Gets the statusDetails.
    *
-   * The status of a container.
+   * The status of the pod and it's containers.
    *
-   * @return the systemContainer
+   * @return the statusDetails
    */
-  public ContainerStatus getSystemContainer() {
-    return systemContainer;
-  }
-
-  /**
-   * Gets the userContainer.
-   *
-   * The status of a container.
-   *
-   * @return the userContainer
-   */
-  public ContainerStatus getUserContainer() {
-    return userContainer;
+  public AppInstanceStatusDetails getStatusDetails() {
+    return statusDetails;
   }
 }
 
