@@ -65,6 +65,7 @@ public class CreateAppOptions extends GenericModel {
   protected List<String> runArguments;
   protected Long runAsUser;
   protected List<String> runCommands;
+  protected Boolean runComputeResourceTokenEnabled;
   protected List<EnvVarPrototype> runEnvVariables;
   protected String runServiceAccount;
   protected List<VolumeMountPrototype> runVolumeMounts;
@@ -94,6 +95,7 @@ public class CreateAppOptions extends GenericModel {
     private List<String> runArguments;
     private Long runAsUser;
     private List<String> runCommands;
+    private Boolean runComputeResourceTokenEnabled;
     private List<EnvVarPrototype> runEnvVariables;
     private String runServiceAccount;
     private List<VolumeMountPrototype> runVolumeMounts;
@@ -125,6 +127,7 @@ public class CreateAppOptions extends GenericModel {
       this.runArguments = createAppOptions.runArguments;
       this.runAsUser = createAppOptions.runAsUser;
       this.runCommands = createAppOptions.runCommands;
+      this.runComputeResourceTokenEnabled = createAppOptions.runComputeResourceTokenEnabled;
       this.runEnvVariables = createAppOptions.runEnvVariables;
       this.runServiceAccount = createAppOptions.runServiceAccount;
       this.runVolumeMounts = createAppOptions.runVolumeMounts;
@@ -356,6 +359,17 @@ public class CreateAppOptions extends GenericModel {
     }
 
     /**
+     * Set the runComputeResourceTokenEnabled.
+     *
+     * @param runComputeResourceTokenEnabled the runComputeResourceTokenEnabled
+     * @return the CreateAppOptions builder
+     */
+    public Builder runComputeResourceTokenEnabled(Boolean runComputeResourceTokenEnabled) {
+      this.runComputeResourceTokenEnabled = runComputeResourceTokenEnabled;
+      return this;
+    }
+
+    /**
      * Set the runEnvVariables.
      * Existing runEnvVariables will be replaced.
      *
@@ -521,6 +535,7 @@ public class CreateAppOptions extends GenericModel {
     runArguments = builder.runArguments;
     runAsUser = builder.runAsUser;
     runCommands = builder.runCommands;
+    runComputeResourceTokenEnabled = builder.runComputeResourceTokenEnabled;
     runEnvVariables = builder.runEnvVariables;
     runServiceAccount = builder.runServiceAccount;
     runVolumeMounts = builder.runVolumeMounts;
@@ -674,6 +689,17 @@ public class CreateAppOptions extends GenericModel {
    */
   public List<String> runCommands() {
     return runCommands;
+  }
+
+  /**
+   * Gets the runComputeResourceTokenEnabled.
+   *
+   * Optional flag to enable the use of a compute resource token mounted to the container file system.
+   *
+   * @return the runComputeResourceTokenEnabled
+   */
+  public Boolean runComputeResourceTokenEnabled() {
+    return runComputeResourceTokenEnabled;
   }
 
   /**

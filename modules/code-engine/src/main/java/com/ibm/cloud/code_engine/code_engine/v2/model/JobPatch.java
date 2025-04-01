@@ -65,6 +65,8 @@ public class JobPatch extends GenericModel {
   protected Long runAsUser;
   @SerializedName("run_commands")
   protected List<String> runCommands;
+  @SerializedName("run_compute_resource_token_enabled")
+  protected Boolean runComputeResourceTokenEnabled;
   @SerializedName("run_env_variables")
   protected List<EnvVarPrototype> runEnvVariables;
   @SerializedName("run_mode")
@@ -95,6 +97,7 @@ public class JobPatch extends GenericModel {
     private List<String> runArguments;
     private Long runAsUser;
     private List<String> runCommands;
+    private Boolean runComputeResourceTokenEnabled;
     private List<EnvVarPrototype> runEnvVariables;
     private String runMode;
     private String runServiceAccount;
@@ -117,6 +120,7 @@ public class JobPatch extends GenericModel {
       this.runArguments = jobPatch.runArguments;
       this.runAsUser = jobPatch.runAsUser;
       this.runCommands = jobPatch.runCommands;
+      this.runComputeResourceTokenEnabled = jobPatch.runComputeResourceTokenEnabled;
       this.runEnvVariables = jobPatch.runEnvVariables;
       this.runMode = jobPatch.runMode;
       this.runServiceAccount = jobPatch.runServiceAccount;
@@ -266,6 +270,17 @@ public class JobPatch extends GenericModel {
     }
 
     /**
+     * Set the runComputeResourceTokenEnabled.
+     *
+     * @param runComputeResourceTokenEnabled the runComputeResourceTokenEnabled
+     * @return the JobPatch builder
+     */
+    public Builder runComputeResourceTokenEnabled(Boolean runComputeResourceTokenEnabled) {
+      this.runComputeResourceTokenEnabled = runComputeResourceTokenEnabled;
+      return this;
+    }
+
+    /**
      * Set the runEnvVariables.
      * Existing runEnvVariables will be replaced.
      *
@@ -386,6 +401,7 @@ public class JobPatch extends GenericModel {
     runArguments = builder.runArguments;
     runAsUser = builder.runAsUser;
     runCommands = builder.runCommands;
+    runComputeResourceTokenEnabled = builder.runComputeResourceTokenEnabled;
     runEnvVariables = builder.runEnvVariables;
     runMode = builder.runMode;
     runServiceAccount = builder.runServiceAccount;
@@ -468,6 +484,17 @@ public class JobPatch extends GenericModel {
    */
   public List<String> runCommands() {
     return runCommands;
+  }
+
+  /**
+   * Gets the runComputeResourceTokenEnabled.
+   *
+   * Optional flag to enable the use of a compute resource token mounted to the container file system.
+   *
+   * @return the runComputeResourceTokenEnabled
+   */
+  public Boolean runComputeResourceTokenEnabled() {
+    return runComputeResourceTokenEnabled;
   }
 
   /**

@@ -114,6 +114,8 @@ public class App extends GenericModel {
   protected Long runAsUser;
   @SerializedName("run_commands")
   protected List<String> runCommands;
+  @SerializedName("run_compute_resource_token_enabled")
+  protected Boolean runComputeResourceTokenEnabled;
   @SerializedName("run_env_variables")
   protected List<EnvVar> runEnvVariables;
   @SerializedName("run_service_account")
@@ -399,6 +401,17 @@ public class App extends GenericModel {
    */
   public List<String> getRunCommands() {
     return runCommands;
+  }
+
+  /**
+   * Gets the runComputeResourceTokenEnabled.
+   *
+   * Optional flag to enable the use of a compute resource token mounted to the container file system.
+   *
+   * @return the runComputeResourceTokenEnabled
+   */
+  public Boolean isRunComputeResourceTokenEnabled() {
+    return runComputeResourceTokenEnabled;
   }
 
   /**

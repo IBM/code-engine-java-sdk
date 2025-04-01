@@ -66,6 +66,7 @@ public class JobPatchTest {
       .runArguments(java.util.Arrays.asList("testString"))
       .runAsUser(Long.valueOf("1001"))
       .runCommands(java.util.Arrays.asList("testString"))
+      .runComputeResourceTokenEnabled(true)
       .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
       .runMode("task")
       .runServiceAccount("default")
@@ -82,6 +83,7 @@ public class JobPatchTest {
     assertEquals(jobPatchModel.runArguments(), java.util.Arrays.asList("testString"));
     assertEquals(jobPatchModel.runAsUser(), Long.valueOf("1001"));
     assertEquals(jobPatchModel.runCommands(), java.util.Arrays.asList("testString"));
+    assertEquals(jobPatchModel.runComputeResourceTokenEnabled(), Boolean.valueOf(true));
     assertEquals(jobPatchModel.runEnvVariables(), java.util.Arrays.asList(envVarPrototypeModel));
     assertEquals(jobPatchModel.runMode(), "task");
     assertEquals(jobPatchModel.runServiceAccount(), "default");
@@ -100,6 +102,7 @@ public class JobPatchTest {
     assertEquals(jobPatchModelNew.imageReference(), "icr.io/codeengine/helloworld");
     assertEquals(jobPatchModelNew.imageSecret(), "my-secret");
     assertEquals(jobPatchModelNew.runAsUser(), Long.valueOf("1001"));
+    assertEquals(jobPatchModelNew.runComputeResourceTokenEnabled(), Boolean.valueOf(true));
     assertEquals(jobPatchModelNew.runMode(), "task");
     assertEquals(jobPatchModelNew.runServiceAccount(), "default");
     assertEquals(jobPatchModelNew.scaleArraySpec(), "1-5,7-8,10");
@@ -133,6 +136,7 @@ public class JobPatchTest {
       .runArguments(java.util.Arrays.asList("testString"))
       .runAsUser(Long.valueOf("1001"))
       .runCommands(java.util.Arrays.asList("testString"))
+      .runComputeResourceTokenEnabled(true)
       .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
       .runMode("task")
       .runServiceAccount("default")
@@ -152,6 +156,7 @@ public class JobPatchTest {
     assertTrue(mergePatch.containsKey("run_arguments"));
     assertTrue(mergePatch.containsKey("run_as_user"));
     assertTrue(mergePatch.containsKey("run_commands"));
+    assertTrue(mergePatch.containsKey("run_compute_resource_token_enabled"));
     assertTrue(mergePatch.containsKey("run_env_variables"));
     assertEquals(mergePatch.get("run_mode"), "task");
     assertEquals(mergePatch.get("run_service_account"), "default");

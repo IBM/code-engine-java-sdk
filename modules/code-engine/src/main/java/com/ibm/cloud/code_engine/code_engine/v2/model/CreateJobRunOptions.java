@@ -60,6 +60,7 @@ public class CreateJobRunOptions extends GenericModel {
   protected List<String> runArguments;
   protected Long runAsUser;
   protected List<String> runCommands;
+  protected Boolean runComputeResourceTokenEnabled;
   protected List<EnvVarPrototype> runEnvVariables;
   protected String runMode;
   protected String runServiceAccount;
@@ -84,6 +85,7 @@ public class CreateJobRunOptions extends GenericModel {
     private List<String> runArguments;
     private Long runAsUser;
     private List<String> runCommands;
+    private Boolean runComputeResourceTokenEnabled;
     private List<EnvVarPrototype> runEnvVariables;
     private String runMode;
     private String runServiceAccount;
@@ -110,6 +112,7 @@ public class CreateJobRunOptions extends GenericModel {
       this.runArguments = createJobRunOptions.runArguments;
       this.runAsUser = createJobRunOptions.runAsUser;
       this.runCommands = createJobRunOptions.runCommands;
+      this.runComputeResourceTokenEnabled = createJobRunOptions.runComputeResourceTokenEnabled;
       this.runEnvVariables = createJobRunOptions.runEnvVariables;
       this.runMode = createJobRunOptions.runMode;
       this.runServiceAccount = createJobRunOptions.runServiceAccount;
@@ -302,6 +305,17 @@ public class CreateJobRunOptions extends GenericModel {
     }
 
     /**
+     * Set the runComputeResourceTokenEnabled.
+     *
+     * @param runComputeResourceTokenEnabled the runComputeResourceTokenEnabled
+     * @return the CreateJobRunOptions builder
+     */
+    public Builder runComputeResourceTokenEnabled(Boolean runComputeResourceTokenEnabled) {
+      this.runComputeResourceTokenEnabled = runComputeResourceTokenEnabled;
+      return this;
+    }
+
+    /**
      * Set the runEnvVariables.
      * Existing runEnvVariables will be replaced.
      *
@@ -438,6 +452,7 @@ public class CreateJobRunOptions extends GenericModel {
     runArguments = builder.runArguments;
     runAsUser = builder.runAsUser;
     runCommands = builder.runCommands;
+    runComputeResourceTokenEnabled = builder.runComputeResourceTokenEnabled;
     runEnvVariables = builder.runEnvVariables;
     runMode = builder.runMode;
     runServiceAccount = builder.runServiceAccount;
@@ -555,6 +570,17 @@ public class CreateJobRunOptions extends GenericModel {
    */
   public List<String> runCommands() {
     return runCommands;
+  }
+
+  /**
+   * Gets the runComputeResourceTokenEnabled.
+   *
+   * Optional flag to enable the use of a compute resource token mounted to the container file system.
+   *
+   * @return the runComputeResourceTokenEnabled
+   */
+  public Boolean runComputeResourceTokenEnabled() {
+    return runComputeResourceTokenEnabled;
   }
 
   /**

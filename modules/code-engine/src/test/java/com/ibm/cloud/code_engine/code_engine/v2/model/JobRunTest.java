@@ -44,6 +44,7 @@ public class JobRunTest {
     assertNull(jobRunModel.getRunArguments());
     assertNull(jobRunModel.getRunAsUser());
     assertNull(jobRunModel.getRunCommands());
+    assertNull(jobRunModel.isRunComputeResourceTokenEnabled());
     assertNull(jobRunModel.getRunEnvVariables());
     assertNull(jobRunModel.getRunMode());
     assertNull(jobRunModel.getRunServiceAccount());

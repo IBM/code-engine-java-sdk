@@ -86,6 +86,8 @@ public class Function extends GenericModel {
   protected String region;
   @SerializedName("resource_type")
   protected String resourceType;
+  @SerializedName("run_compute_resource_token_enabled")
+  protected Boolean runComputeResourceTokenEnabled;
   @SerializedName("run_env_variables")
   protected List<EnvVar> runEnvVariables;
   protected String runtime;
@@ -287,6 +289,17 @@ public class Function extends GenericModel {
    */
   public String getResourceType() {
     return resourceType;
+  }
+
+  /**
+   * Gets the runComputeResourceTokenEnabled.
+   *
+   * Optional flag to enable the use of a compute resource token mounted to the container file system.
+   *
+   * @return the runComputeResourceTokenEnabled
+   */
+  public Boolean isRunComputeResourceTokenEnabled() {
+    return runComputeResourceTokenEnabled;
   }
 
   /**

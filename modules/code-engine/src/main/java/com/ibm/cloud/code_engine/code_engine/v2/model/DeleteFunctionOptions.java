@@ -22,6 +22,7 @@ public class DeleteFunctionOptions extends GenericModel {
 
   protected String projectId;
   protected String name;
+  protected Boolean keepServiceAccess;
 
   /**
    * Builder.
@@ -29,6 +30,7 @@ public class DeleteFunctionOptions extends GenericModel {
   public static class Builder {
     private String projectId;
     private String name;
+    private Boolean keepServiceAccess;
 
     /**
      * Instantiates a new Builder from an existing DeleteFunctionOptions instance.
@@ -38,6 +40,7 @@ public class DeleteFunctionOptions extends GenericModel {
     private Builder(DeleteFunctionOptions deleteFunctionOptions) {
       this.projectId = deleteFunctionOptions.projectId;
       this.name = deleteFunctionOptions.name;
+      this.keepServiceAccess = deleteFunctionOptions.keepServiceAccess;
     }
 
     /**
@@ -87,6 +90,17 @@ public class DeleteFunctionOptions extends GenericModel {
       this.name = name;
       return this;
     }
+
+    /**
+     * Set the keepServiceAccess.
+     *
+     * @param keepServiceAccess the keepServiceAccess
+     * @return the DeleteFunctionOptions builder
+     */
+    public Builder keepServiceAccess(Boolean keepServiceAccess) {
+      this.keepServiceAccess = keepServiceAccess;
+      return this;
+    }
   }
 
   protected DeleteFunctionOptions() { }
@@ -98,6 +112,7 @@ public class DeleteFunctionOptions extends GenericModel {
       "name cannot be empty");
     projectId = builder.projectId;
     name = builder.name;
+    keepServiceAccess = builder.keepServiceAccess;
   }
 
   /**
@@ -129,6 +144,17 @@ public class DeleteFunctionOptions extends GenericModel {
    */
   public String name() {
     return name;
+  }
+
+  /**
+   * Gets the keepServiceAccess.
+   *
+   * Determines if connected service access secrets remain intact after function deletion.
+   *
+   * @return the keepServiceAccess
+   */
+  public Boolean keepServiceAccess() {
+    return keepServiceAccess;
   }
 }
 

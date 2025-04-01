@@ -67,6 +67,7 @@ public class CreateJobOptionsTest {
       .runArguments(java.util.Arrays.asList("testString"))
       .runAsUser(Long.valueOf("1001"))
       .runCommands(java.util.Arrays.asList("testString"))
+      .runComputeResourceTokenEnabled(true)
       .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
       .runMode("task")
       .runServiceAccount("default")
@@ -85,6 +86,7 @@ public class CreateJobOptionsTest {
     assertEquals(createJobOptionsModel.runArguments(), java.util.Arrays.asList("testString"));
     assertEquals(createJobOptionsModel.runAsUser(), Long.valueOf("1001"));
     assertEquals(createJobOptionsModel.runCommands(), java.util.Arrays.asList("testString"));
+    assertEquals(createJobOptionsModel.runComputeResourceTokenEnabled(), Boolean.valueOf(true));
     assertEquals(createJobOptionsModel.runEnvVariables(), java.util.Arrays.asList(envVarPrototypeModel));
     assertEquals(createJobOptionsModel.runMode(), "task");
     assertEquals(createJobOptionsModel.runServiceAccount(), "default");

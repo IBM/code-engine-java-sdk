@@ -34,9 +34,11 @@ public class DeleteAppOptionsTest {
     DeleteAppOptions deleteAppOptionsModel = new DeleteAppOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
       .name("my-app")
+      .keepServiceAccess(false)
       .build();
     assertEquals(deleteAppOptionsModel.projectId(), "15314cc3-85b4-4338-903f-c28cdee6d005");
     assertEquals(deleteAppOptionsModel.name(), "my-app");
+    assertEquals(deleteAppOptionsModel.keepServiceAccess(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

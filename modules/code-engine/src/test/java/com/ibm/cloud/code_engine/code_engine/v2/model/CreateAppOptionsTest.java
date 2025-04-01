@@ -89,6 +89,7 @@ public class CreateAppOptionsTest {
       .runArguments(java.util.Arrays.asList("testString"))
       .runAsUser(Long.valueOf("1001"))
       .runCommands(java.util.Arrays.asList("testString"))
+      .runComputeResourceTokenEnabled(true)
       .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
       .runServiceAccount("default")
       .runVolumeMounts(java.util.Arrays.asList(volumeMountPrototypeModel))
@@ -114,6 +115,7 @@ public class CreateAppOptionsTest {
     assertEquals(createAppOptionsModel.runArguments(), java.util.Arrays.asList("testString"));
     assertEquals(createAppOptionsModel.runAsUser(), Long.valueOf("1001"));
     assertEquals(createAppOptionsModel.runCommands(), java.util.Arrays.asList("testString"));
+    assertEquals(createAppOptionsModel.runComputeResourceTokenEnabled(), Boolean.valueOf(true));
     assertEquals(createAppOptionsModel.runEnvVariables(), java.util.Arrays.asList(envVarPrototypeModel));
     assertEquals(createAppOptionsModel.runServiceAccount(), "default");
     assertEquals(createAppOptionsModel.runVolumeMounts(), java.util.Arrays.asList(volumeMountPrototypeModel));

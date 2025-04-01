@@ -34,9 +34,11 @@ public class DeleteFunctionOptionsTest {
     DeleteFunctionOptions deleteFunctionOptionsModel = new DeleteFunctionOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
       .name("my-function")
+      .keepServiceAccess(false)
       .build();
     assertEquals(deleteFunctionOptionsModel.projectId(), "15314cc3-85b4-4338-903f-c28cdee6d005");
     assertEquals(deleteFunctionOptionsModel.name(), "my-function");
+    assertEquals(deleteFunctionOptionsModel.keepServiceAccess(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

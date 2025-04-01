@@ -32,6 +32,8 @@ public class ListSecretsOptions extends GenericModel {
     String REGISTRY = "registry";
     /** basic_auth. */
     String BASIC_AUTH = "basic_auth";
+    /** hmac_auth. */
+    String HMAC_AUTH = "hmac_auth";
     /** tls. */
     String TLS = "tls";
     /** service_access. */

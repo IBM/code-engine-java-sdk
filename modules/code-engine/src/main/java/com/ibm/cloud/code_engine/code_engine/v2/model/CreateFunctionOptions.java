@@ -45,6 +45,7 @@ public class CreateFunctionOptions extends GenericModel {
   protected String codeMain;
   protected String codeSecret;
   protected String managedDomainMappings;
+  protected Boolean runComputeResourceTokenEnabled;
   protected List<EnvVarPrototype> runEnvVariables;
   protected Long scaleConcurrency;
   protected String scaleCpuLimit;
@@ -64,6 +65,7 @@ public class CreateFunctionOptions extends GenericModel {
     private String codeMain;
     private String codeSecret;
     private String managedDomainMappings;
+    private Boolean runComputeResourceTokenEnabled;
     private List<EnvVarPrototype> runEnvVariables;
     private Long scaleConcurrency;
     private String scaleCpuLimit;
@@ -85,6 +87,7 @@ public class CreateFunctionOptions extends GenericModel {
       this.codeMain = createFunctionOptions.codeMain;
       this.codeSecret = createFunctionOptions.codeSecret;
       this.managedDomainMappings = createFunctionOptions.managedDomainMappings;
+      this.runComputeResourceTokenEnabled = createFunctionOptions.runComputeResourceTokenEnabled;
       this.runEnvVariables = createFunctionOptions.runEnvVariables;
       this.scaleConcurrency = createFunctionOptions.scaleConcurrency;
       this.scaleCpuLimit = createFunctionOptions.scaleCpuLimit;
@@ -228,6 +231,17 @@ public class CreateFunctionOptions extends GenericModel {
     }
 
     /**
+     * Set the runComputeResourceTokenEnabled.
+     *
+     * @param runComputeResourceTokenEnabled the runComputeResourceTokenEnabled
+     * @return the CreateFunctionOptions builder
+     */
+    public Builder runComputeResourceTokenEnabled(Boolean runComputeResourceTokenEnabled) {
+      this.runComputeResourceTokenEnabled = runComputeResourceTokenEnabled;
+      return this;
+    }
+
+    /**
      * Set the runEnvVariables.
      * Existing runEnvVariables will be replaced.
      *
@@ -314,6 +328,7 @@ public class CreateFunctionOptions extends GenericModel {
     codeMain = builder.codeMain;
     codeSecret = builder.codeSecret;
     managedDomainMappings = builder.managedDomainMappings;
+    runComputeResourceTokenEnabled = builder.runComputeResourceTokenEnabled;
     runEnvVariables = builder.runEnvVariables;
     scaleConcurrency = builder.scaleConcurrency;
     scaleCpuLimit = builder.scaleCpuLimit;
@@ -423,6 +438,17 @@ public class CreateFunctionOptions extends GenericModel {
    */
   public String managedDomainMappings() {
     return managedDomainMappings;
+  }
+
+  /**
+   * Gets the runComputeResourceTokenEnabled.
+   *
+   * Optional flag to enable the use of a compute resource token mounted to the container file system.
+   *
+   * @return the runComputeResourceTokenEnabled
+   */
+  public Boolean runComputeResourceTokenEnabled() {
+    return runComputeResourceTokenEnabled;
   }
 
   /**

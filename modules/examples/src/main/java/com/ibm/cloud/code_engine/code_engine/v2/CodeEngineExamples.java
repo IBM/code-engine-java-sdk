@@ -665,7 +665,7 @@ public class CodeEngineExamples {
         .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
         .codeReference("data:text/plain;base64,<base64encoded-source-code>")
         .name("my-function")
-        .runtime("nodejs-18")
+        .runtime("nodejs-20")
         .build();
 
       Response<Function> response = codeEngineService.createFunction(createFunctionOptions).execute();

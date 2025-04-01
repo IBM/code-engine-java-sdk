@@ -88,6 +88,7 @@ public class AppPatchTest {
       .runArguments(java.util.Arrays.asList("testString"))
       .runAsUser(Long.valueOf("1001"))
       .runCommands(java.util.Arrays.asList("testString"))
+      .runComputeResourceTokenEnabled(true)
       .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
       .runServiceAccount("default")
       .runVolumeMounts(java.util.Arrays.asList(volumeMountPrototypeModel))
@@ -111,6 +112,7 @@ public class AppPatchTest {
     assertEquals(appPatchModel.runArguments(), java.util.Arrays.asList("testString"));
     assertEquals(appPatchModel.runAsUser(), Long.valueOf("1001"));
     assertEquals(appPatchModel.runCommands(), java.util.Arrays.asList("testString"));
+    assertEquals(appPatchModel.runComputeResourceTokenEnabled(), Boolean.valueOf(true));
     assertEquals(appPatchModel.runEnvVariables(), java.util.Arrays.asList(envVarPrototypeModel));
     assertEquals(appPatchModel.runServiceAccount(), "default");
     assertEquals(appPatchModel.runVolumeMounts(), java.util.Arrays.asList(volumeMountPrototypeModel));
@@ -136,6 +138,7 @@ public class AppPatchTest {
     assertEquals(appPatchModelNew.probeLiveness().toString(), probePrototypeModel.toString());
     assertEquals(appPatchModelNew.probeReadiness().toString(), probePrototypeModel.toString());
     assertEquals(appPatchModelNew.runAsUser(), Long.valueOf("1001"));
+    assertEquals(appPatchModelNew.runComputeResourceTokenEnabled(), Boolean.valueOf(true));
     assertEquals(appPatchModelNew.runServiceAccount(), "default");
     assertEquals(appPatchModelNew.scaleConcurrency(), Long.valueOf("100"));
     assertEquals(appPatchModelNew.scaleConcurrencyTarget(), Long.valueOf("80"));
@@ -186,6 +189,7 @@ public class AppPatchTest {
       .runArguments(java.util.Arrays.asList("testString"))
       .runAsUser(Long.valueOf("1001"))
       .runCommands(java.util.Arrays.asList("testString"))
+      .runComputeResourceTokenEnabled(true)
       .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
       .runServiceAccount("default")
       .runVolumeMounts(java.util.Arrays.asList(volumeMountPrototypeModel))
@@ -212,6 +216,7 @@ public class AppPatchTest {
     assertTrue(mergePatch.containsKey("run_arguments"));
     assertTrue(mergePatch.containsKey("run_as_user"));
     assertTrue(mergePatch.containsKey("run_commands"));
+    assertTrue(mergePatch.containsKey("run_compute_resource_token_enabled"));
     assertTrue(mergePatch.containsKey("run_env_variables"));
     assertEquals(mergePatch.get("run_service_account"), "default");
     assertTrue(mergePatch.containsKey("run_volume_mounts"));

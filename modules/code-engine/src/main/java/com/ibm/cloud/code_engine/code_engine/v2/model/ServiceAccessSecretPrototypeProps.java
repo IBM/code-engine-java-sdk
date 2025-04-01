@@ -58,11 +58,9 @@ public class ServiceAccessSecretPrototypeProps extends GenericModel {
     /**
      * Instantiates a new builder with required properties.
      *
-     * @param resourceKey the resourceKey
      * @param serviceInstance the serviceInstance
      */
-    public Builder(ResourceKeyRefPrototype resourceKey, ServiceInstanceRefPrototype serviceInstance) {
-      this.resourceKey = resourceKey;
+    public Builder(ServiceInstanceRefPrototype serviceInstance) {
       this.serviceInstance = serviceInstance;
     }
 
@@ -123,8 +121,6 @@ public class ServiceAccessSecretPrototypeProps extends GenericModel {
   protected ServiceAccessSecretPrototypeProps() { }
 
   protected ServiceAccessSecretPrototypeProps(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.resourceKey,
-      "resourceKey cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.serviceInstance,
       "serviceInstance cannot be null");
     resourceKey = builder.resourceKey;

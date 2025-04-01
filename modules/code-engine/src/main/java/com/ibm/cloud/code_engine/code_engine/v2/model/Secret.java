@@ -33,6 +33,8 @@ public class Secret extends GenericModel {
     String SSH_AUTH = "ssh_auth";
     /** basic_auth. */
     String BASIC_AUTH = "basic_auth";
+    /** hmac_auth. */
+    String HMAC_AUTH = "hmac_auth";
     /** tls. */
     String TLS = "tls";
     /** service_access. */
@@ -43,6 +45,16 @@ public class Secret extends GenericModel {
     String SERVICE_OPERATOR = "service_operator";
     /** other. */
     String OTHER = "other";
+  }
+
+  /**
+   * Specifies whether the secret is user generated.
+   */
+  public interface GeneratedBy {
+    /** user. */
+    String USER = "user";
+    /** system. */
+    String SYSTEM = "system";
   }
 
   /**
@@ -67,6 +79,8 @@ public class Secret extends GenericModel {
     String SECRET_SERVICE_ACCESS_V2 = "secret_service_access_v2";
     /** secret_tls_v2. */
     String SECRET_TLS_V2 = "secret_tls_v2";
+    /** secret_hmac_auth_v2. */
+    String SECRET_HMAC_AUTH_V2 = "secret_hmac_auth_v2";
   }
 
   @SerializedName("created_at")
@@ -75,6 +89,8 @@ public class Secret extends GenericModel {
   @SerializedName("entity_tag")
   protected String entityTag;
   protected String format;
+  @SerializedName("generated_by")
+  protected String generatedBy;
   protected String href;
   protected String id;
   protected String name;
@@ -134,6 +150,17 @@ public class Secret extends GenericModel {
    */
   public String getFormat() {
     return format;
+  }
+
+  /**
+   * Gets the generatedBy.
+   *
+   * Specifies whether the secret is user generated.
+   *
+   * @return the generatedBy
+   */
+  public String getGeneratedBy() {
+    return generatedBy;
   }
 
   /**
