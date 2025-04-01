@@ -42,6 +42,7 @@ public class JobTest {
     assertNull(jobModel.getRunArguments());
     assertNull(jobModel.getRunAsUser());
     assertNull(jobModel.getRunCommands());
+    assertNull(jobModel.isRunComputeResourceTokenEnabled());
     assertNull(jobModel.getRunEnvVariables());
     assertNull(jobModel.getRunMode());
     assertNull(jobModel.getRunServiceAccount());

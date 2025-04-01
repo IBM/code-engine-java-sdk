@@ -34,9 +34,11 @@ public class DeleteJobOptionsTest {
     DeleteJobOptions deleteJobOptionsModel = new DeleteJobOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
       .name("my-job")
+      .keepServiceAccess(false)
       .build();
     assertEquals(deleteJobOptionsModel.projectId(), "15314cc3-85b4-4338-903f-c28cdee6d005");
     assertEquals(deleteJobOptionsModel.name(), "my-job");
+    assertEquals(deleteJobOptionsModel.keepServiceAccess(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

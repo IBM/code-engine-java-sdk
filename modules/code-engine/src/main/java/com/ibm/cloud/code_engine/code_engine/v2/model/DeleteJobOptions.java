@@ -22,6 +22,7 @@ public class DeleteJobOptions extends GenericModel {
 
   protected String projectId;
   protected String name;
+  protected Boolean keepServiceAccess;
 
   /**
    * Builder.
@@ -29,6 +30,7 @@ public class DeleteJobOptions extends GenericModel {
   public static class Builder {
     private String projectId;
     private String name;
+    private Boolean keepServiceAccess;
 
     /**
      * Instantiates a new Builder from an existing DeleteJobOptions instance.
@@ -38,6 +40,7 @@ public class DeleteJobOptions extends GenericModel {
     private Builder(DeleteJobOptions deleteJobOptions) {
       this.projectId = deleteJobOptions.projectId;
       this.name = deleteJobOptions.name;
+      this.keepServiceAccess = deleteJobOptions.keepServiceAccess;
     }
 
     /**
@@ -87,6 +90,17 @@ public class DeleteJobOptions extends GenericModel {
       this.name = name;
       return this;
     }
+
+    /**
+     * Set the keepServiceAccess.
+     *
+     * @param keepServiceAccess the keepServiceAccess
+     * @return the DeleteJobOptions builder
+     */
+    public Builder keepServiceAccess(Boolean keepServiceAccess) {
+      this.keepServiceAccess = keepServiceAccess;
+      return this;
+    }
   }
 
   protected DeleteJobOptions() { }
@@ -98,6 +112,7 @@ public class DeleteJobOptions extends GenericModel {
       "name cannot be empty");
     projectId = builder.projectId;
     name = builder.name;
+    keepServiceAccess = builder.keepServiceAccess;
   }
 
   /**
@@ -129,6 +144,17 @@ public class DeleteJobOptions extends GenericModel {
    */
   public String name() {
     return name;
+  }
+
+  /**
+   * Gets the keepServiceAccess.
+   *
+   * Determines if connected service access secrets remain intact after job deletion.
+   *
+   * @return the keepServiceAccess
+   */
+  public Boolean keepServiceAccess() {
+    return keepServiceAccess;
   }
 }
 

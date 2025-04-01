@@ -46,6 +46,7 @@ public class AppRevisionTest {
     assertNull(appRevisionModel.getRunArguments());
     assertNull(appRevisionModel.getRunAsUser());
     assertNull(appRevisionModel.getRunCommands());
+    assertNull(appRevisionModel.isRunComputeResourceTokenEnabled());
     assertNull(appRevisionModel.getRunEnvVariables());
     assertNull(appRevisionModel.getRunServiceAccount());
     assertNull(appRevisionModel.getRunVolumeMounts());

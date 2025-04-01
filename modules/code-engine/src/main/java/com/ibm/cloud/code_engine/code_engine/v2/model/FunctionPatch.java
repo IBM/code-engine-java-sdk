@@ -50,6 +50,8 @@ public class FunctionPatch extends GenericModel {
   protected String codeSecret;
   @SerializedName("managed_domain_mappings")
   protected String managedDomainMappings;
+  @SerializedName("run_compute_resource_token_enabled")
+  protected Boolean runComputeResourceTokenEnabled;
   @SerializedName("run_env_variables")
   protected List<EnvVarPrototype> runEnvVariables;
   protected String runtime;
@@ -73,6 +75,7 @@ public class FunctionPatch extends GenericModel {
     private String codeReference;
     private String codeSecret;
     private String managedDomainMappings;
+    private Boolean runComputeResourceTokenEnabled;
     private List<EnvVarPrototype> runEnvVariables;
     private String runtime;
     private Long scaleConcurrency;
@@ -92,6 +95,7 @@ public class FunctionPatch extends GenericModel {
       this.codeReference = functionPatch.codeReference;
       this.codeSecret = functionPatch.codeSecret;
       this.managedDomainMappings = functionPatch.managedDomainMappings;
+      this.runComputeResourceTokenEnabled = functionPatch.runComputeResourceTokenEnabled;
       this.runEnvVariables = functionPatch.runEnvVariables;
       this.runtime = functionPatch.runtime;
       this.scaleConcurrency = functionPatch.scaleConcurrency;
@@ -188,6 +192,17 @@ public class FunctionPatch extends GenericModel {
     }
 
     /**
+     * Set the runComputeResourceTokenEnabled.
+     *
+     * @param runComputeResourceTokenEnabled the runComputeResourceTokenEnabled
+     * @return the FunctionPatch builder
+     */
+    public Builder runComputeResourceTokenEnabled(Boolean runComputeResourceTokenEnabled) {
+      this.runComputeResourceTokenEnabled = runComputeResourceTokenEnabled;
+      return this;
+    }
+
+    /**
      * Set the runEnvVariables.
      * Existing runEnvVariables will be replaced.
      *
@@ -274,6 +289,7 @@ public class FunctionPatch extends GenericModel {
     codeReference = builder.codeReference;
     codeSecret = builder.codeSecret;
     managedDomainMappings = builder.managedDomainMappings;
+    runComputeResourceTokenEnabled = builder.runComputeResourceTokenEnabled;
     runEnvVariables = builder.runEnvVariables;
     runtime = builder.runtime;
     scaleConcurrency = builder.scaleConcurrency;
@@ -351,6 +367,17 @@ public class FunctionPatch extends GenericModel {
    */
   public String managedDomainMappings() {
     return managedDomainMappings;
+  }
+
+  /**
+   * Gets the runComputeResourceTokenEnabled.
+   *
+   * Optional flag to enable the use of a compute resource token mounted to the container file system.
+   *
+   * @return the runComputeResourceTokenEnabled
+   */
+  public Boolean runComputeResourceTokenEnabled() {
+    return runComputeResourceTokenEnabled;
   }
 
   /**

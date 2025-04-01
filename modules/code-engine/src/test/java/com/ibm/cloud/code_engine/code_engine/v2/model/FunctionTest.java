@@ -42,6 +42,7 @@ public class FunctionTest {
     assertNull(functionModel.getEntityTag());
     assertNull(functionModel.getManagedDomainMappings());
     assertNull(functionModel.getName());
+    assertNull(functionModel.isRunComputeResourceTokenEnabled());
     assertNull(functionModel.getRunEnvVariables());
     assertNull(functionModel.getRuntime());
     assertNull(functionModel.getScaleConcurrency());

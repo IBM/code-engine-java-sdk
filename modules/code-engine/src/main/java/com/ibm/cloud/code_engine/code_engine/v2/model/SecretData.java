@@ -29,6 +29,7 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  * - SecretDataBasicAuthSecretData
  * - SecretDataRegistrySecretData
  * - SecretDataSSHSecretData
+ * - SecretDataHMACAuthSecretData
  * - SecretDataTLSSecretData
  */
 public class SecretData extends DynamicModel<String> {
@@ -45,6 +46,10 @@ public class SecretData extends DynamicModel<String> {
   protected String sshKey;
   @SerializedName("known_hosts")
   protected String knownHosts;
+  @SerializedName("access_key_id")
+  protected String accessKeyId;
+  @SerializedName("secret_access_key")
+  protected String secretAccessKey;
   @SerializedName("tls_cert")
   protected String tlsCert;
   @SerializedName("tls_key")
@@ -118,6 +123,28 @@ public class SecretData extends DynamicModel<String> {
    */
   public String getKnownHosts() {
     return this.knownHosts;
+  }
+
+  /**
+   * Gets the accessKeyId.
+   *
+   * HMAC access key id.
+   *
+   * @return the accessKeyId
+   */
+  public String getAccessKeyId() {
+    return this.accessKeyId;
+  }
+
+  /**
+   * Gets the secretAccessKey.
+   *
+   * HMAC secret access key.
+   *
+   * @return the secretAccessKey
+   */
+  public String getSecretAccessKey() {
+    return this.secretAccessKey;
   }
 
   /**

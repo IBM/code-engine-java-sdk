@@ -182,7 +182,7 @@ public class CodeEngine extends BaseService {
    * Gets the version.
    *
    * The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-   * `2021-03-31` and `2025-02-20`.
+   * `2021-03-31` and `2025-03-29`.
    *
    * @return the version
    */
@@ -217,6 +217,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     if (listProjectsOptions.limit() != null) {
       builder.query("limit", String.valueOf(listProjectsOptions.limit()));
     }
@@ -257,6 +260,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("name", createProjectOptions.name());
     if (createProjectOptions.resourceGroupId() != null) {
@@ -290,6 +296,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     ResponseConverter<Project> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Project>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
@@ -312,6 +321,9 @@ public class CodeEngine extends BaseService {
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteProject");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
@@ -480,6 +492,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     ResponseConverter<ProjectEgressIPAddresses> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ProjectEgressIPAddresses>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
@@ -504,6 +519,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     ResponseConverter<ProjectStatusDetails> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ProjectStatusDetails>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
@@ -590,6 +608,9 @@ public class CodeEngine extends BaseService {
     }
     if (createAppOptions.runCommands() != null) {
       contentJson.add("run_commands", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createAppOptions.runCommands()));
+    }
+    if (createAppOptions.runComputeResourceTokenEnabled() != null) {
+      contentJson.addProperty("run_compute_resource_token_enabled", createAppOptions.runComputeResourceTokenEnabled());
     }
     if (createAppOptions.runEnvVariables() != null) {
       contentJson.add("run_env_variables", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createAppOptions.runEnvVariables()));
@@ -685,6 +706,9 @@ public class CodeEngine extends BaseService {
     }
     if (this.version != null) {
       builder.query("version", String.valueOf(this.version));
+    }
+    if (deleteAppOptions.keepServiceAccess() != null) {
+      builder.query("keep_service_access", String.valueOf(deleteAppOptions.keepServiceAccess()));
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
@@ -805,6 +829,9 @@ public class CodeEngine extends BaseService {
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -834,6 +861,9 @@ public class CodeEngine extends BaseService {
     }
     if (listAppInstancesOptions.start() != null) {
       builder.query("start", String.valueOf(listAppInstancesOptions.start()));
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
     }
     ResponseConverter<AppInstanceList> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<AppInstanceList>() { }.getType());
@@ -909,6 +939,9 @@ public class CodeEngine extends BaseService {
     }
     if (createJobOptions.runCommands() != null) {
       contentJson.add("run_commands", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createJobOptions.runCommands()));
+    }
+    if (createJobOptions.runComputeResourceTokenEnabled() != null) {
+      contentJson.addProperty("run_compute_resource_token_enabled", createJobOptions.runComputeResourceTokenEnabled());
     }
     if (createJobOptions.runEnvVariables() != null) {
       contentJson.add("run_env_variables", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createJobOptions.runEnvVariables()));
@@ -995,6 +1028,9 @@ public class CodeEngine extends BaseService {
     }
     if (this.version != null) {
       builder.query("version", String.valueOf(this.version));
+    }
+    if (deleteJobOptions.keepServiceAccess() != null) {
+      builder.query("keep_service_access", String.valueOf(deleteJobOptions.keepServiceAccess()));
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
@@ -1110,6 +1146,9 @@ public class CodeEngine extends BaseService {
     if (createJobRunOptions.runCommands() != null) {
       contentJson.add("run_commands", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createJobRunOptions.runCommands()));
     }
+    if (createJobRunOptions.runComputeResourceTokenEnabled() != null) {
+      contentJson.addProperty("run_compute_resource_token_enabled", createJobRunOptions.runComputeResourceTokenEnabled());
+    }
     if (createJobRunOptions.runEnvVariables() != null) {
       contentJson.add("run_env_variables", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createJobRunOptions.runEnvVariables()));
     }
@@ -1195,6 +1234,9 @@ public class CodeEngine extends BaseService {
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteJobRun");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
@@ -1302,6 +1344,9 @@ public class CodeEngine extends BaseService {
     if (createFunctionOptions.managedDomainMappings() != null) {
       contentJson.addProperty("managed_domain_mappings", createFunctionOptions.managedDomainMappings());
     }
+    if (createFunctionOptions.runComputeResourceTokenEnabled() != null) {
+      contentJson.addProperty("run_compute_resource_token_enabled", createFunctionOptions.runComputeResourceTokenEnabled());
+    }
     if (createFunctionOptions.runEnvVariables() != null) {
       contentJson.add("run_env_variables", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createFunctionOptions.runEnvVariables()));
     }
@@ -1376,6 +1421,9 @@ public class CodeEngine extends BaseService {
     if (this.version != null) {
       builder.query("version", String.valueOf(this.version));
     }
+    if (deleteFunctionOptions.keepServiceAccess() != null) {
+      builder.query("keep_service_access", String.valueOf(deleteFunctionOptions.keepServiceAccess()));
+    }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1429,6 +1477,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     if (listBindingsOptions.limit() != null) {
       builder.query("limit", String.valueOf(listBindingsOptions.limit()));
     }
@@ -1461,6 +1512,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     final JsonObject contentJson = new JsonObject();
     contentJson.add("component", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createBindingOptions.component()));
     contentJson.addProperty("prefix", createBindingOptions.prefix());
@@ -1491,6 +1545,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     ResponseConverter<Binding> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Binding>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
@@ -1515,6 +1572,9 @@ public class CodeEngine extends BaseService {
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1538,6 +1598,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     if (listBuildsOptions.limit() != null) {
       builder.query("limit", String.valueOf(listBuildsOptions.limit()));
     }
@@ -1568,6 +1631,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("name", createBuildOptions.name());
     contentJson.addProperty("output_image", createBuildOptions.outputImage());
@@ -1626,6 +1692,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     ResponseConverter<Build> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Build>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
@@ -1649,6 +1718,9 @@ public class CodeEngine extends BaseService {
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteBuild");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
@@ -1675,6 +1747,9 @@ public class CodeEngine extends BaseService {
     }
     builder.header("Accept", "application/json");
     builder.header("If-Match", updateBuildOptions.ifMatch());
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithSerializeNulls().toJson(updateBuildOptions.build()), "application/merge-patch+json");
     ResponseConverter<Build> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Build>() { }.getType());
@@ -1700,6 +1775,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     if (listBuildRunsOptions.buildName() != null) {
       builder.query("build_name", String.valueOf(listBuildRunsOptions.buildName()));
     }
@@ -1733,6 +1811,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     final JsonObject contentJson = new JsonObject();
     if (createBuildRunOptions.buildName() != null) {
       contentJson.addProperty("build_name", createBuildRunOptions.buildName());
@@ -1805,6 +1886,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     ResponseConverter<BuildRun> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<BuildRun>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
@@ -1829,6 +1913,9 @@ public class CodeEngine extends BaseService {
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1852,6 +1939,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     if (listDomainMappingsOptions.limit() != null) {
       builder.query("limit", String.valueOf(listDomainMappingsOptions.limit()));
     }
@@ -1882,6 +1972,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     final JsonObject contentJson = new JsonObject();
     contentJson.add("component", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createDomainMappingOptions.component()));
     contentJson.addProperty("name", createDomainMappingOptions.name());
@@ -1912,6 +2005,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     ResponseConverter<DomainMapping> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DomainMapping>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
@@ -1935,6 +2031,9 @@ public class CodeEngine extends BaseService {
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteDomainMapping");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
@@ -1961,6 +2060,9 @@ public class CodeEngine extends BaseService {
     }
     builder.header("Accept", "application/json");
     builder.header("If-Match", updateDomainMappingOptions.ifMatch());
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithSerializeNulls().toJson(updateDomainMappingOptions.domainMapping()), "application/merge-patch+json");
     ResponseConverter<DomainMapping> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DomainMapping>() { }.getType());
@@ -1986,6 +2088,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     if (listConfigMapsOptions.limit() != null) {
       builder.query("limit", String.valueOf(listConfigMapsOptions.limit()));
     }
@@ -2016,6 +2121,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("name", createConfigMapOptions.name());
     if (createConfigMapOptions.data() != null) {
@@ -2047,6 +2155,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     ResponseConverter<ConfigMap> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ConfigMap>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
@@ -2073,6 +2184,9 @@ public class CodeEngine extends BaseService {
     }
     builder.header("Accept", "application/json");
     builder.header("If-Match", replaceConfigMapOptions.ifMatch());
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     final JsonObject contentJson = new JsonObject();
     if (replaceConfigMapOptions.data() != null) {
       contentJson.add("data", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(replaceConfigMapOptions.data()));
@@ -2102,6 +2216,9 @@ public class CodeEngine extends BaseService {
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -2125,6 +2242,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     if (listSecretsOptions.format() != null) {
       builder.query("format", String.valueOf(listSecretsOptions.format()));
     }
@@ -2158,6 +2278,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("format", createSecretOptions.format());
     contentJson.addProperty("name", createSecretOptions.name());
@@ -2196,6 +2319,9 @@ public class CodeEngine extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     ResponseConverter<Secret> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Secret>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
@@ -2222,6 +2348,9 @@ public class CodeEngine extends BaseService {
     }
     builder.header("Accept", "application/json");
     builder.header("If-Match", replaceSecretOptions.ifMatch());
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("format", replaceSecretOptions.format());
     if (replaceSecretOptions.data() != null) {
@@ -2251,6 +2380,9 @@ public class CodeEngine extends BaseService {
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteSecret");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);

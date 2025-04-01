@@ -75,6 +75,8 @@ public class AppPatch extends GenericModel {
   protected Long runAsUser;
   @SerializedName("run_commands")
   protected List<String> runCommands;
+  @SerializedName("run_compute_resource_token_enabled")
+  protected Boolean runComputeResourceTokenEnabled;
   @SerializedName("run_env_variables")
   protected List<EnvVarPrototype> runEnvVariables;
   @SerializedName("run_service_account")
@@ -115,6 +117,7 @@ public class AppPatch extends GenericModel {
     private List<String> runArguments;
     private Long runAsUser;
     private List<String> runCommands;
+    private Boolean runComputeResourceTokenEnabled;
     private List<EnvVarPrototype> runEnvVariables;
     private String runServiceAccount;
     private List<VolumeMountPrototype> runVolumeMounts;
@@ -144,6 +147,7 @@ public class AppPatch extends GenericModel {
       this.runArguments = appPatch.runArguments;
       this.runAsUser = appPatch.runAsUser;
       this.runCommands = appPatch.runCommands;
+      this.runComputeResourceTokenEnabled = appPatch.runComputeResourceTokenEnabled;
       this.runEnvVariables = appPatch.runEnvVariables;
       this.runServiceAccount = appPatch.runServiceAccount;
       this.runVolumeMounts = appPatch.runVolumeMounts;
@@ -340,6 +344,17 @@ public class AppPatch extends GenericModel {
     }
 
     /**
+     * Set the runComputeResourceTokenEnabled.
+     *
+     * @param runComputeResourceTokenEnabled the runComputeResourceTokenEnabled
+     * @return the AppPatch builder
+     */
+    public Builder runComputeResourceTokenEnabled(Boolean runComputeResourceTokenEnabled) {
+      this.runComputeResourceTokenEnabled = runComputeResourceTokenEnabled;
+      return this;
+    }
+
+    /**
      * Set the runEnvVariables.
      * Existing runEnvVariables will be replaced.
      *
@@ -497,6 +512,7 @@ public class AppPatch extends GenericModel {
     runArguments = builder.runArguments;
     runAsUser = builder.runAsUser;
     runCommands = builder.runCommands;
+    runComputeResourceTokenEnabled = builder.runComputeResourceTokenEnabled;
     runEnvVariables = builder.runEnvVariables;
     runServiceAccount = builder.runServiceAccount;
     runVolumeMounts = builder.runVolumeMounts;
@@ -628,6 +644,17 @@ public class AppPatch extends GenericModel {
    */
   public List<String> runCommands() {
     return runCommands;
+  }
+
+  /**
+   * Gets the runComputeResourceTokenEnabled.
+   *
+   * Optional flag to enable the use of a compute resource token mounted to the container file system.
+   *
+   * @return the runComputeResourceTokenEnabled
+   */
+  public Boolean runComputeResourceTokenEnabled() {
+    return runComputeResourceTokenEnabled;
   }
 
   /**

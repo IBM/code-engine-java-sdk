@@ -48,6 +48,7 @@ public class AppTest {
     assertNull(appModel.getRunArguments());
     assertNull(appModel.getRunAsUser());
     assertNull(appModel.getRunCommands());
+    assertNull(appModel.isRunComputeResourceTokenEnabled());
     assertNull(appModel.getRunEnvVariables());
     assertNull(appModel.getRunServiceAccount());
     assertNull(appModel.getRunVolumeMounts());

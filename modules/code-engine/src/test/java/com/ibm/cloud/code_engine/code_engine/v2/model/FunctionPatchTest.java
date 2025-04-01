@@ -54,8 +54,9 @@ public class FunctionPatchTest {
       .codeReference("data:text/plain;base64,<base64encoded-source-code>")
       .codeSecret("my-secret")
       .managedDomainMappings("local_public")
+      .runComputeResourceTokenEnabled(true)
       .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
-      .runtime("nodejs-18")
+      .runtime("nodejs-20")
       .scaleConcurrency(Long.valueOf("1"))
       .scaleCpuLimit("1")
       .scaleDownDelay(Long.valueOf("300"))
@@ -67,8 +68,9 @@ public class FunctionPatchTest {
     assertEquals(functionPatchModel.codeReference(), "data:text/plain;base64,<base64encoded-source-code>");
     assertEquals(functionPatchModel.codeSecret(), "my-secret");
     assertEquals(functionPatchModel.managedDomainMappings(), "local_public");
+    assertEquals(functionPatchModel.runComputeResourceTokenEnabled(), Boolean.valueOf(true));
     assertEquals(functionPatchModel.runEnvVariables(), java.util.Arrays.asList(envVarPrototypeModel));
-    assertEquals(functionPatchModel.runtime(), "nodejs-18");
+    assertEquals(functionPatchModel.runtime(), "nodejs-20");
     assertEquals(functionPatchModel.scaleConcurrency(), Long.valueOf("1"));
     assertEquals(functionPatchModel.scaleCpuLimit(), "1");
     assertEquals(functionPatchModel.scaleDownDelay(), Long.valueOf("300"));
@@ -84,7 +86,8 @@ public class FunctionPatchTest {
     assertEquals(functionPatchModelNew.codeReference(), "data:text/plain;base64,<base64encoded-source-code>");
     assertEquals(functionPatchModelNew.codeSecret(), "my-secret");
     assertEquals(functionPatchModelNew.managedDomainMappings(), "local_public");
-    assertEquals(functionPatchModelNew.runtime(), "nodejs-18");
+    assertEquals(functionPatchModelNew.runComputeResourceTokenEnabled(), Boolean.valueOf(true));
+    assertEquals(functionPatchModelNew.runtime(), "nodejs-20");
     assertEquals(functionPatchModelNew.scaleConcurrency(), Long.valueOf("1"));
     assertEquals(functionPatchModelNew.scaleCpuLimit(), "1");
     assertEquals(functionPatchModelNew.scaleDownDelay(), Long.valueOf("300"));
@@ -108,8 +111,9 @@ public class FunctionPatchTest {
       .codeReference("data:text/plain;base64,<base64encoded-source-code>")
       .codeSecret("my-secret")
       .managedDomainMappings("local_public")
+      .runComputeResourceTokenEnabled(true)
       .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
-      .runtime("nodejs-18")
+      .runtime("nodejs-20")
       .scaleConcurrency(Long.valueOf("1"))
       .scaleCpuLimit("1")
       .scaleDownDelay(Long.valueOf("300"))
@@ -124,8 +128,9 @@ public class FunctionPatchTest {
     assertEquals(mergePatch.get("code_reference"), "data:text/plain;base64,<base64encoded-source-code>");
     assertEquals(mergePatch.get("code_secret"), "my-secret");
     assertEquals(mergePatch.get("managed_domain_mappings"), "local_public");
+    assertTrue(mergePatch.containsKey("run_compute_resource_token_enabled"));
     assertTrue(mergePatch.containsKey("run_env_variables"));
-    assertEquals(mergePatch.get("runtime"), "nodejs-18");
+    assertEquals(mergePatch.get("runtime"), "nodejs-20");
     assertTrue(mergePatch.containsKey("scale_concurrency"));
     assertEquals(mergePatch.get("scale_cpu_limit"), "1");
     assertTrue(mergePatch.containsKey("scale_down_delay"));

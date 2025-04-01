@@ -1420,6 +1420,34 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
     }
 
     @Test(dependsOnMethods = {"testCreateBasicAuthSecret"})
+    public void testCreateHMACAuthSecret() throws Exception {
+        try {
+            SecretDataHMACAuthSecretData HMACAuthSecretData = new SecretDataHMACAuthSecretData();
+            HMACAuthSecretData.setAccessKeyId("access-key-id");
+            HMACAuthSecretData.setSecretAccessKey("secret-access-key");
+            CreateSecretOptions createSecretOptions = new CreateSecretOptions.Builder()
+                    .projectId(e2eTestProjectId)
+                    .format("hmac_auth")
+                    .name("my-hmac-auth-secret")
+                    .data(HMACAuthSecretData)
+                    .build();
+
+            // Invoke operation
+            Response<Secret> response = service.createSecret(createSecretOptions).execute();
+            // Validate response
+            assertNotNull(response);
+            assertEquals(response.getStatusCode(), 201);
+
+            Secret secretResult = response.getResult();
+
+            assertNotNull(secretResult);
+        } catch (ServiceResponseException e) {
+            fail(String.format("Service returned status code %d: %s%nError details: %s",
+                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+        }
+    }
+
+    @Test(dependsOnMethods = {"testCreateHMACAuthSecret"})
     public void testCreateRegistrySecret() throws Exception {
         try {
             SecretDataRegistrySecretData RegistrySecretData = new SecretDataRegistrySecretData();
@@ -1519,6 +1547,29 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
     }
 
     @Test(dependsOnMethods = {"testGetBasicAuthSecret"})
+    public void testGetHMACAuthSecret() throws Exception {
+        try {
+            GetSecretOptions getSecretOptions = new GetSecretOptions.Builder()
+                    .projectId(e2eTestProjectId)
+                    .name("my-hmac-auth-secret")
+                    .build();
+
+            // Invoke operation
+            Response<Secret> response = service.getSecret(getSecretOptions).execute();
+            // Validate response
+            assertNotNull(response);
+            assertEquals(response.getStatusCode(), 200);
+
+            Secret secretResult = response.getResult();
+
+            assertNotNull(secretResult);
+        } catch (ServiceResponseException e) {
+            fail(String.format("Service returned status code %d: %s%nError details: %s",
+                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+        }
+    }
+
+    @Test(dependsOnMethods = {"testGetHMACAuthSecret"})
     public void testGetRegistrySecret() throws Exception {
         try {
             GetSecretOptions getSecretOptions = new GetSecretOptions.Builder()
@@ -1627,6 +1678,35 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
     }
 
     @Test(dependsOnMethods = {"testReplaceBasicAuthSecret"})
+    public void testReplaceHMACAuthSecret() throws Exception {
+        try {
+            SecretDataHMACAuthSecretData HMACAuthSecretData = new SecretDataHMACAuthSecretData();
+            HMACAuthSecretData.setAccessKeyId("access-key-id-2");
+            HMACAuthSecretData.setSecretAccessKey("secret-access-key-2");
+            ReplaceSecretOptions replaceSecretOptions = new ReplaceSecretOptions.Builder()
+                    .projectId(e2eTestProjectId)
+                    .name("my-hmac-auth-secret")
+                    .ifMatch("*")
+                    .data(HMACAuthSecretData)
+                    .format("hmac_auth")
+                    .build();
+
+            // Invoke operation
+            Response<Secret> response = service.replaceSecret(replaceSecretOptions).execute();
+            // Validate response
+            assertNotNull(response);
+            assertEquals(response.getStatusCode(), 200);
+
+            Secret secretResult = response.getResult();
+
+            assertNotNull(secretResult);
+        } catch (ServiceResponseException e) {
+            fail(String.format("Service returned status code %d: %s%nError details: %s",
+                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+        }
+    }
+
+    @Test(dependsOnMethods = {"testReplaceHMACAuthSecret"})
     public void testReplaceRegistrySecret() throws Exception {
         try {
             SecretDataRegistrySecretData RegistrySecretData = new SecretDataRegistrySecretData();
@@ -2373,6 +2453,25 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
     }
 
     @Test(dependsOnMethods = {"testDeleteBasicAuthSecret"})
+    public void testDeleteHMACAuthSecret() throws Exception {
+        try {
+            DeleteSecretOptions deleteSecretOptions = new DeleteSecretOptions.Builder()
+                    .projectId(e2eTestProjectId)
+                    .name("my-hmac-auth-secret")
+                    .build();
+
+            // Invoke operation
+            Response<Void> response = service.deleteSecret(deleteSecretOptions).execute();
+            // Validate response
+            assertNotNull(response);
+            assertEquals(response.getStatusCode(), 202);
+        } catch (ServiceResponseException e) {
+            fail(String.format("Service returned status code %d: %s%nError details: %s",
+                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+        }
+    }
+
+    @Test(dependsOnMethods = {"testDeleteHMACAuthSecret"})
     public void testDeleteRegistrySecret() throws Exception {
         try {
             DeleteSecretOptions deleteSecretOptions = new DeleteSecretOptions.Builder()
