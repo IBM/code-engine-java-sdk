@@ -17,7 +17,7 @@
             of the SDK generator used to generate your SDK code.
             See this link for details: https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Compatibility-Chart
         -->
-        <sdk-core-version>9.23.0</sdk-core-version>
+        <sdk-core-version>9.24.1</sdk-core-version>
         <git-repository-name>code-engine-java-sdk</git-repository-name>
 
         <testng-version>7.11.0</testng-version>
@@ -34,7 +34,7 @@
         <maven-compiler-plugin-version>3.10.1</maven-compiler-plugin-version>
         <maven-site-plugin-version>3.21.0</maven-site-plugin-version>
         <maven-checkstyle-plugin-version>3.6.0</maven-checkstyle-plugin-version>
-        <checkstyle-version>10.23.0</checkstyle-version>
+        <checkstyle-version>10.25.0</checkstyle-version>
         <maven-reports-plugin-version>3.9.0</maven-reports-plugin-version>
         <maven-failsafe-plugin-version>3.5.3</maven-failsafe-plugin-version>
         <maven-buildnumber-plugin-version>3.2.1</maven-buildnumber-plugin-version>
@@ -486,14 +486,15 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.7.0</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                            <keepStagingRepositoryOnCloseRuleFailure>true</keepStagingRepositoryOnCloseRuleFailure>
+                            <publishingServerId>central-staging</publishingServerId>
+                            <centralBaseUrl>https://central.sonatype.com</centralBaseUrl>
+                            <autoPublish>true</autoPublish>
+                            <waitUntil>published</waitUntil>
                         </configuration>
                     </plugin>
                     <plugin>
