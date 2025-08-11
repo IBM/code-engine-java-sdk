@@ -20,12 +20,12 @@ if [[ ! $1 =~ ^[0-9] ]]; then
 fi
 
 # Check env variables
-if [ -z ${OSSRH_USERNAME+x} ]; then 
-    echo "Abort. This script assumes that the following env var is set: 'OSSRH_USERNAME'"
+if [ -z ${MAVEN_USERNAME+x} ]; then 
+    echo "Abort. This script assumes that the following env var is set: 'MAVEN_USERNAME'"
     exit 1
 fi
-if [ -z ${OSSRH_PASSWORD+x} ]; then 
-    echo "Abort. This script assumes that the following env var is set: 'OSSRH_PASSWORD'"
+if [ -z ${MAVEN_PASSWORD+x} ]; then 
+    echo "Abort. This script assumes that the following env var is set: 'MAVEN_PASSWORD'"
     exit 1
 fi
 if [ -z ${GPG_KEYNAME+x} ]; then 
