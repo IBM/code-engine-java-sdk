@@ -43,6 +43,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.CreateDomainMappingOptions
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateFunctionOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateJobOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateJobRunOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.CreatePersistentDataStoreOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateProjectOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateSecretOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAllowedOutboundDestinationOptions;
@@ -56,6 +57,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteDomainMappingOptions
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteFunctionOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteJobOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteJobRunOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DeletePersistentDataStoreOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteProjectOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteSecretOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DomainMapping;
@@ -74,6 +76,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.GetDomainMappingOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetFunctionOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobRunOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetPersistentDataStoreOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectEgressIpsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectStatusDetailsOptions;
@@ -95,8 +98,11 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.ListFunctionRuntimesOption
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListFunctionsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobRunsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobsOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListPersistentDataStoreOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListProjectsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListSecretsOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.PersistentDataStore;
+import com.ibm.cloud.code_engine.code_engine.v2.model.PersistentDataStoreList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Project;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectEgressIPAddresses;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectList;
@@ -182,7 +188,7 @@ public class CodeEngine extends BaseService {
    * Gets the version.
    *
    * The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-   * `2021-03-31` and `2025-03-29`.
+   * `2021-03-31` and `2025-08-27`.
    *
    * @return the version
    */
@@ -278,6 +284,31 @@ public class CodeEngine extends BaseService {
   }
 
   /**
+   * Delete a project.
+   *
+   * Delete a project.
+   *
+   * @param deleteProjectOptions the {@link DeleteProjectOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteProject(DeleteProjectOptions deleteProjectOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteProjectOptions,
+      "deleteProjectOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("id", deleteProjectOptions.id());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteProject");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Get a project.
    *
    * Display the details of a single project.
@@ -301,31 +332,6 @@ public class CodeEngine extends BaseService {
     }
     ResponseConverter<Project> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Project>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Delete a project.
-   *
-   * Delete a project.
-   *
-   * @param deleteProjectOptions the {@link DeleteProjectOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a void result
-   */
-  public ServiceCall<Void> deleteProject(DeleteProjectOptions deleteProjectOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteProjectOptions,
-      "deleteProjectOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("id", deleteProjectOptions.id());
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{id}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteProject");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -388,6 +394,32 @@ public class CodeEngine extends BaseService {
   }
 
   /**
+   * Delete an allowed outbound destination.
+   *
+   * Delete an allowed outbound destination.
+   *
+   * @param deleteAllowedOutboundDestinationOptions the {@link DeleteAllowedOutboundDestinationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteAllowedOutboundDestination(DeleteAllowedOutboundDestinationOptions deleteAllowedOutboundDestinationOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteAllowedOutboundDestinationOptions,
+      "deleteAllowedOutboundDestinationOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", deleteAllowedOutboundDestinationOptions.projectId());
+    pathParamsMap.put("name", deleteAllowedOutboundDestinationOptions.name());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/allowed_outbound_destinations/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteAllowedOutboundDestination");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Get an allowed outbound destination.
    *
    * Display the details of an allowed outbound destination.
@@ -412,32 +444,6 @@ public class CodeEngine extends BaseService {
     }
     ResponseConverter<AllowedOutboundDestination> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<AllowedOutboundDestination>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Delete an allowed outbound destination.
-   *
-   * Delete an allowed outbound destination.
-   *
-   * @param deleteAllowedOutboundDestinationOptions the {@link DeleteAllowedOutboundDestinationOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a void result
-   */
-  public ServiceCall<Void> deleteAllowedOutboundDestination(DeleteAllowedOutboundDestinationOptions deleteAllowedOutboundDestinationOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteAllowedOutboundDestinationOptions,
-      "deleteAllowedOutboundDestinationOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", deleteAllowedOutboundDestinationOptions.projectId());
-    pathParamsMap.put("name", deleteAllowedOutboundDestinationOptions.name());
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/allowed_outbound_destinations/{name}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteAllowedOutboundDestination");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -658,34 +664,6 @@ public class CodeEngine extends BaseService {
   }
 
   /**
-   * Get an application.
-   *
-   * Display the details of an application.
-   *
-   * @param getAppOptions the {@link GetAppOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link App}
-   */
-  public ServiceCall<App> getApp(GetAppOptions getAppOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(getAppOptions,
-      "getAppOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", getAppOptions.projectId());
-    pathParamsMap.put("name", getAppOptions.name());
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/apps/{name}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "getApp");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    ResponseConverter<App> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<App>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
    * Delete an application.
    *
    * Delete an application.
@@ -711,6 +689,34 @@ public class CodeEngine extends BaseService {
       builder.query("keep_service_access", String.valueOf(deleteAppOptions.keepServiceAccess()));
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get an application.
+   *
+   * Display the details of an application.
+   *
+   * @param getAppOptions the {@link GetAppOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link App}
+   */
+  public ServiceCall<App> getApp(GetAppOptions getAppOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getAppOptions,
+      "getAppOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", getAppOptions.projectId());
+    pathParamsMap.put("name", getAppOptions.name());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/apps/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "getApp");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<App> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<App>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -781,6 +787,33 @@ public class CodeEngine extends BaseService {
   }
 
   /**
+   * Delete an application revision.
+   *
+   * Delete an application revision.
+   *
+   * @param deleteAppRevisionOptions the {@link DeleteAppRevisionOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteAppRevision(DeleteAppRevisionOptions deleteAppRevisionOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteAppRevisionOptions,
+      "deleteAppRevisionOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", deleteAppRevisionOptions.projectId());
+    pathParamsMap.put("app_name", deleteAppRevisionOptions.appName());
+    pathParamsMap.put("name", deleteAppRevisionOptions.name());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/apps/{app_name}/revisions/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteAppRevision");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Get an application revision.
    *
    * Display the details of an application revision.
@@ -806,33 +839,6 @@ public class CodeEngine extends BaseService {
     }
     ResponseConverter<AppRevision> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<AppRevision>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Delete an application revision.
-   *
-   * Delete an application revision.
-   *
-   * @param deleteAppRevisionOptions the {@link DeleteAppRevisionOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a void result
-   */
-  public ServiceCall<Void> deleteAppRevision(DeleteAppRevisionOptions deleteAppRevisionOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteAppRevisionOptions,
-      "deleteAppRevisionOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", deleteAppRevisionOptions.projectId());
-    pathParamsMap.put("app_name", deleteAppRevisionOptions.appName());
-    pathParamsMap.put("name", deleteAppRevisionOptions.name());
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/apps/{app_name}/revisions/{name}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteAppRevision");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -980,34 +986,6 @@ public class CodeEngine extends BaseService {
   }
 
   /**
-   * Get a job.
-   *
-   * Display the details of a job.
-   *
-   * @param getJobOptions the {@link GetJobOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link Job}
-   */
-  public ServiceCall<Job> getJob(GetJobOptions getJobOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(getJobOptions,
-      "getJobOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", getJobOptions.projectId());
-    pathParamsMap.put("name", getJobOptions.name());
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/jobs/{name}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "getJob");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    ResponseConverter<Job> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Job>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
    * Delete a job.
    *
    * Delete a job.
@@ -1033,6 +1011,34 @@ public class CodeEngine extends BaseService {
       builder.query("keep_service_access", String.valueOf(deleteJobOptions.keepServiceAccess()));
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get a job.
+   *
+   * Display the details of a job.
+   *
+   * @param getJobOptions the {@link GetJobOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Job}
+   */
+  public ServiceCall<Job> getJob(GetJobOptions getJobOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getJobOptions,
+      "getJobOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", getJobOptions.projectId());
+    pathParamsMap.put("name", getJobOptions.name());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/jobs/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "getJob");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<Job> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Job>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -1189,6 +1195,32 @@ public class CodeEngine extends BaseService {
   }
 
   /**
+   * Delete a job run.
+   *
+   * Delete a job run.
+   *
+   * @param deleteJobRunOptions the {@link DeleteJobRunOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteJobRun(DeleteJobRunOptions deleteJobRunOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteJobRunOptions,
+      "deleteJobRunOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", deleteJobRunOptions.projectId());
+    pathParamsMap.put("name", deleteJobRunOptions.name());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/job_runs/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteJobRun");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Get a job run.
    *
    * Display the details of a job run.
@@ -1213,32 +1245,6 @@ public class CodeEngine extends BaseService {
     }
     ResponseConverter<JobRun> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<JobRun>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Delete a job run.
-   *
-   * Delete a job run.
-   *
-   * @param deleteJobRunOptions the {@link DeleteJobRunOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a void result
-   */
-  public ServiceCall<Void> deleteJobRun(DeleteJobRunOptions deleteJobRunOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteJobRunOptions,
-      "deleteJobRunOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", deleteJobRunOptions.projectId());
-    pathParamsMap.put("name", deleteJobRunOptions.name());
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/job_runs/{name}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteJobRun");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -1372,34 +1378,6 @@ public class CodeEngine extends BaseService {
   }
 
   /**
-   * Get a function.
-   *
-   * Display the details of a function.
-   *
-   * @param getFunctionOptions the {@link GetFunctionOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link Function}
-   */
-  public ServiceCall<Function> getFunction(GetFunctionOptions getFunctionOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(getFunctionOptions,
-      "getFunctionOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", getFunctionOptions.projectId());
-    pathParamsMap.put("name", getFunctionOptions.name());
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/functions/{name}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "getFunction");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    ResponseConverter<Function> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Function>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
    * Delete a function.
    *
    * Delete a function.
@@ -1425,6 +1403,34 @@ public class CodeEngine extends BaseService {
       builder.query("keep_service_access", String.valueOf(deleteFunctionOptions.keepServiceAccess()));
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get a function.
+   *
+   * Display the details of a function.
+   *
+   * @param getFunctionOptions the {@link GetFunctionOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Function}
+   */
+  public ServiceCall<Function> getFunction(GetFunctionOptions getFunctionOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getFunctionOptions,
+      "getFunctionOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", getFunctionOptions.projectId());
+    pathParamsMap.put("name", getFunctionOptions.name());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/functions/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "getFunction");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<Function> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Function>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -1526,6 +1532,32 @@ public class CodeEngine extends BaseService {
   }
 
   /**
+   * Delete a binding.
+   *
+   * Delete a binding.
+   *
+   * @param deleteBindingOptions the {@link DeleteBindingOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteBinding(DeleteBindingOptions deleteBindingOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteBindingOptions,
+      "deleteBindingOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", deleteBindingOptions.projectId());
+    pathParamsMap.put("id", deleteBindingOptions.id());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/bindings/{id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteBinding");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Get a binding.
    *
    * Display the details of a binding.
@@ -1550,32 +1582,6 @@ public class CodeEngine extends BaseService {
     }
     ResponseConverter<Binding> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Binding>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Delete a binding.
-   *
-   * Delete a binding.
-   *
-   * @param deleteBindingOptions the {@link DeleteBindingOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a void result
-   */
-  public ServiceCall<Void> deleteBinding(DeleteBindingOptions deleteBindingOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteBindingOptions,
-      "deleteBindingOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", deleteBindingOptions.projectId());
-    pathParamsMap.put("id", deleteBindingOptions.id());
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/bindings/{id}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteBinding");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -1673,6 +1679,32 @@ public class CodeEngine extends BaseService {
   }
 
   /**
+   * Delete a build.
+   *
+   * Delete a build.
+   *
+   * @param deleteBuildOptions the {@link DeleteBuildOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteBuild(DeleteBuildOptions deleteBuildOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteBuildOptions,
+      "deleteBuildOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", deleteBuildOptions.projectId());
+    pathParamsMap.put("name", deleteBuildOptions.name());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/builds/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteBuild");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Get a build.
    *
    * Display the details of a build.
@@ -1697,32 +1729,6 @@ public class CodeEngine extends BaseService {
     }
     ResponseConverter<Build> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Build>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Delete a build.
-   *
-   * Delete a build.
-   *
-   * @param deleteBuildOptions the {@link DeleteBuildOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a void result
-   */
-  public ServiceCall<Void> deleteBuild(DeleteBuildOptions deleteBuildOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteBuildOptions,
-      "deleteBuildOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", deleteBuildOptions.projectId());
-    pathParamsMap.put("name", deleteBuildOptions.name());
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/builds/{name}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteBuild");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -1867,6 +1873,32 @@ public class CodeEngine extends BaseService {
   }
 
   /**
+   * Delete a build run.
+   *
+   * Delete a build run.
+   *
+   * @param deleteBuildRunOptions the {@link DeleteBuildRunOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteBuildRun(DeleteBuildRunOptions deleteBuildRunOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteBuildRunOptions,
+      "deleteBuildRunOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", deleteBuildRunOptions.projectId());
+    pathParamsMap.put("name", deleteBuildRunOptions.name());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/build_runs/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteBuildRun");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Get a build run.
    *
    * Display the details of a build run.
@@ -1891,32 +1923,6 @@ public class CodeEngine extends BaseService {
     }
     ResponseConverter<BuildRun> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<BuildRun>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Delete a build run.
-   *
-   * Delete a build run.
-   *
-   * @param deleteBuildRunOptions the {@link DeleteBuildRunOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a void result
-   */
-  public ServiceCall<Void> deleteBuildRun(DeleteBuildRunOptions deleteBuildRunOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteBuildRunOptions,
-      "deleteBuildRunOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", deleteBuildRunOptions.projectId());
-    pathParamsMap.put("name", deleteBuildRunOptions.name());
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/build_runs/{name}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteBuildRun");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -1986,6 +1992,32 @@ public class CodeEngine extends BaseService {
   }
 
   /**
+   * Delete a domain mapping.
+   *
+   * Delete a domain mapping.
+   *
+   * @param deleteDomainMappingOptions the {@link DeleteDomainMappingOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteDomainMapping(DeleteDomainMappingOptions deleteDomainMappingOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteDomainMappingOptions,
+      "deleteDomainMappingOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", deleteDomainMappingOptions.projectId());
+    pathParamsMap.put("name", deleteDomainMappingOptions.name());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/domain_mappings/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteDomainMapping");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Get a domain mapping.
    *
    * Get domain mapping.
@@ -2010,32 +2042,6 @@ public class CodeEngine extends BaseService {
     }
     ResponseConverter<DomainMapping> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DomainMapping>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Delete a domain mapping.
-   *
-   * Delete a domain mapping.
-   *
-   * @param deleteDomainMappingOptions the {@link DeleteDomainMappingOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a void result
-   */
-  public ServiceCall<Void> deleteDomainMapping(DeleteDomainMappingOptions deleteDomainMappingOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteDomainMappingOptions,
-      "deleteDomainMappingOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", deleteDomainMappingOptions.projectId());
-    pathParamsMap.put("name", deleteDomainMappingOptions.name());
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/domain_mappings/{name}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteDomainMapping");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -2136,6 +2142,32 @@ public class CodeEngine extends BaseService {
   }
 
   /**
+   * Delete a config map.
+   *
+   * Delete a config map.
+   *
+   * @param deleteConfigMapOptions the {@link DeleteConfigMapOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteConfigMap(DeleteConfigMapOptions deleteConfigMapOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteConfigMapOptions,
+      "deleteConfigMapOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", deleteConfigMapOptions.projectId());
+    pathParamsMap.put("name", deleteConfigMapOptions.name());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/config_maps/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteConfigMap");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Get a config map.
    *
    * Display the details of a config map.
@@ -2194,32 +2226,6 @@ public class CodeEngine extends BaseService {
     builder.bodyJson(contentJson);
     ResponseConverter<ConfigMap> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ConfigMap>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Delete a config map.
-   *
-   * Delete a config map.
-   *
-   * @param deleteConfigMapOptions the {@link DeleteConfigMapOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a void result
-   */
-  public ServiceCall<Void> deleteConfigMap(DeleteConfigMapOptions deleteConfigMapOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteConfigMapOptions,
-      "deleteConfigMapOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", deleteConfigMapOptions.projectId());
-    pathParamsMap.put("name", deleteConfigMapOptions.name());
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/config_maps/{name}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteConfigMap");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -2300,6 +2306,32 @@ public class CodeEngine extends BaseService {
   }
 
   /**
+   * Delete a secret.
+   *
+   * Delete a secret.
+   *
+   * @param deleteSecretOptions the {@link DeleteSecretOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteSecret(DeleteSecretOptions deleteSecretOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteSecretOptions,
+      "deleteSecretOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", deleteSecretOptions.projectId());
+    pathParamsMap.put("name", deleteSecretOptions.name());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/secrets/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteSecret");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Get a secret.
    *
    * Get a secret.
@@ -2363,21 +2395,88 @@ public class CodeEngine extends BaseService {
   }
 
   /**
-   * Delete a secret.
+   * List persistent data stores.
    *
-   * Delete a secret.
+   * List all persistent data stores in a project.
    *
-   * @param deleteSecretOptions the {@link DeleteSecretOptions} containing the options for the call
+   * @param listPersistentDataStoreOptions the {@link ListPersistentDataStoreOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link PersistentDataStoreList}
+   */
+  public ServiceCall<PersistentDataStoreList> listPersistentDataStore(ListPersistentDataStoreOptions listPersistentDataStoreOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listPersistentDataStoreOptions,
+      "listPersistentDataStoreOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", listPersistentDataStoreOptions.projectId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/persistent_data_stores", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "listPersistentDataStore");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    if (listPersistentDataStoreOptions.limit() != null) {
+      builder.query("limit", String.valueOf(listPersistentDataStoreOptions.limit()));
+    }
+    if (listPersistentDataStoreOptions.start() != null) {
+      builder.query("start", String.valueOf(listPersistentDataStoreOptions.start()));
+    }
+    ResponseConverter<PersistentDataStoreList> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<PersistentDataStoreList>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create a persistent data store.
+   *
+   * Create a persistent data store.
+   *
+   * @param createPersistentDataStoreOptions the {@link CreatePersistentDataStoreOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link PersistentDataStore}
+   */
+  public ServiceCall<PersistentDataStore> createPersistentDataStore(CreatePersistentDataStoreOptions createPersistentDataStoreOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createPersistentDataStoreOptions,
+      "createPersistentDataStoreOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", createPersistentDataStoreOptions.projectId());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/persistent_data_stores", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "createPersistentDataStore");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("name", createPersistentDataStoreOptions.name());
+    contentJson.addProperty("storage_type", createPersistentDataStoreOptions.storageType());
+    if (createPersistentDataStoreOptions.data() != null) {
+      contentJson.add("data", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createPersistentDataStoreOptions.data()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<PersistentDataStore> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<PersistentDataStore>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a persistent data store.
+   *
+   * Delete a persistent data store.
+   *
+   * @param deletePersistentDataStoreOptions the {@link DeletePersistentDataStoreOptions} containing the options for the call
    * @return a {@link ServiceCall} with a void result
    */
-  public ServiceCall<Void> deleteSecret(DeleteSecretOptions deleteSecretOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteSecretOptions,
-      "deleteSecretOptions cannot be null");
+  public ServiceCall<Void> deletePersistentDataStore(DeletePersistentDataStoreOptions deletePersistentDataStoreOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deletePersistentDataStoreOptions,
+      "deletePersistentDataStoreOptions cannot be null");
     Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", deleteSecretOptions.projectId());
-    pathParamsMap.put("name", deleteSecretOptions.name());
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/secrets/{name}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteSecret");
+    pathParamsMap.put("project_id", deletePersistentDataStoreOptions.projectId());
+    pathParamsMap.put("name", deletePersistentDataStoreOptions.name());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/persistent_data_stores/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deletePersistentDataStore");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -2385,6 +2484,34 @@ public class CodeEngine extends BaseService {
       builder.query("version", String.valueOf(this.version));
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get a persistent data store.
+   *
+   * Get a persistent data store.
+   *
+   * @param getPersistentDataStoreOptions the {@link GetPersistentDataStoreOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link PersistentDataStore}
+   */
+  public ServiceCall<PersistentDataStore> getPersistentDataStore(GetPersistentDataStoreOptions getPersistentDataStoreOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getPersistentDataStoreOptions,
+      "getPersistentDataStoreOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", getPersistentDataStoreOptions.projectId());
+    pathParamsMap.put("name", getPersistentDataStoreOptions.name());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/persistent_data_stores/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "getPersistentDataStore");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<PersistentDataStore> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<PersistentDataStore>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 

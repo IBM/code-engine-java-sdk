@@ -13,9 +13,7 @@
 
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
-import com.ibm.cloud.code_engine.code_engine.v2.model.CbrStatus;
-import com.ibm.cloud.code_engine.code_engine.v2.model.EnforcementStatus;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectStatusDetails;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetPersistentDataStoreOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -25,19 +23,25 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the ProjectStatusDetails model.
+ * Unit test class for the GetPersistentDataStoreOptions model.
  */
-public class ProjectStatusDetailsTest {
+public class GetPersistentDataStoreOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testProjectStatusDetails() throws Throwable {
-    ProjectStatusDetails projectStatusDetailsModel = new ProjectStatusDetails();
-    assertNull(projectStatusDetailsModel.getCbr());
-    assertNull(projectStatusDetailsModel.getDomain());
-    assertNull(projectStatusDetailsModel.getProject());
-    assertNull(projectStatusDetailsModel.getVpe());
-    assertNull(projectStatusDetailsModel.isVpeNotEnabled());
+  public void testGetPersistentDataStoreOptions() throws Throwable {
+    GetPersistentDataStoreOptions getPersistentDataStoreOptionsModel = new GetPersistentDataStoreOptions.Builder()
+      .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+      .name("my-persistent-data-store")
+      .build();
+    assertEquals(getPersistentDataStoreOptionsModel.projectId(), "15314cc3-85b4-4338-903f-c28cdee6d005");
+    assertEquals(getPersistentDataStoreOptionsModel.name(), "my-persistent-data-store");
   }
+
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetPersistentDataStoreOptionsError() throws Throwable {
+    new GetPersistentDataStoreOptions.Builder().build();
+  }
+
 }

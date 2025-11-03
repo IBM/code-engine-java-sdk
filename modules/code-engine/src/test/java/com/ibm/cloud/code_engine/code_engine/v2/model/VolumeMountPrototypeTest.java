@@ -34,12 +34,16 @@ public class VolumeMountPrototypeTest {
     VolumeMountPrototype volumeMountPrototypeModel = new VolumeMountPrototype.Builder()
       .mountPath("/app")
       .name("codeengine-mount-b69u90")
+      .readOnly(true)
       .reference("my-secret")
+      .subPath("some-path")
       .type("secret")
       .build();
     assertEquals(volumeMountPrototypeModel.mountPath(), "/app");
     assertEquals(volumeMountPrototypeModel.name(), "codeengine-mount-b69u90");
+    assertEquals(volumeMountPrototypeModel.readOnly(), Boolean.valueOf(true));
     assertEquals(volumeMountPrototypeModel.reference(), "my-secret");
+    assertEquals(volumeMountPrototypeModel.subPath(), "some-path");
     assertEquals(volumeMountPrototypeModel.type(), "secret");
 
     String json = TestUtilities.serialize(volumeMountPrototypeModel);
@@ -48,7 +52,9 @@ public class VolumeMountPrototypeTest {
     assertTrue(volumeMountPrototypeModelNew instanceof VolumeMountPrototype);
     assertEquals(volumeMountPrototypeModelNew.mountPath(), "/app");
     assertEquals(volumeMountPrototypeModelNew.name(), "codeengine-mount-b69u90");
+    assertEquals(volumeMountPrototypeModelNew.readOnly(), Boolean.valueOf(true));
     assertEquals(volumeMountPrototypeModelNew.reference(), "my-secret");
+    assertEquals(volumeMountPrototypeModelNew.subPath(), "some-path");
     assertEquals(volumeMountPrototypeModelNew.type(), "secret");
   }
 

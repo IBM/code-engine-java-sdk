@@ -41,12 +41,35 @@ public class ProjectStatusDetails extends GenericModel {
     String DISABLED = "disabled";
   }
 
+  /**
+   * Status of the Virtual Private Endpoint that exposes the project on the IBM Cloud private network.
+   */
+  public interface Vpe {
+    /** ready. */
+    String READY = "ready";
+    /** unknown. */
+    String UNKNOWN = "unknown";
+  }
+
+  protected CbrStatus cbr;
   protected String domain;
   protected String project;
+  protected String vpe;
   @SerializedName("vpe_not_enabled")
   protected Boolean vpeNotEnabled;
 
   protected ProjectStatusDetails() { }
+
+  /**
+   * Gets the cbr.
+   *
+   * Status of the Context-based-restriction configuration applicable for this project.
+   *
+   * @return the cbr
+   */
+  public CbrStatus getCbr() {
+    return cbr;
+  }
 
   /**
    * Gets the domain.
@@ -68,6 +91,17 @@ public class ProjectStatusDetails extends GenericModel {
    */
   public String getProject() {
     return project;
+  }
+
+  /**
+   * Gets the vpe.
+   *
+   * Status of the Virtual Private Endpoint that exposes the project on the IBM Cloud private network.
+   *
+   * @return the vpe
+   */
+  public String getVpe() {
+    return vpe;
   }
 
   /**

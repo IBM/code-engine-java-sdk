@@ -13,9 +13,8 @@
 
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
-import com.ibm.cloud.code_engine.code_engine.v2.model.CbrStatus;
-import com.ibm.cloud.code_engine.code_engine.v2.model.EnforcementStatus;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectStatusDetails;
+import com.ibm.cloud.code_engine.code_engine.v2.model.PersistentDataStore;
+import com.ibm.cloud.code_engine.code_engine.v2.model.StorageDataObjectStorageData;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -25,19 +24,18 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the ProjectStatusDetails model.
+ * Unit test class for the PersistentDataStore model.
  */
-public class ProjectStatusDetailsTest {
+public class PersistentDataStoreTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testProjectStatusDetails() throws Throwable {
-    ProjectStatusDetails projectStatusDetailsModel = new ProjectStatusDetails();
-    assertNull(projectStatusDetailsModel.getCbr());
-    assertNull(projectStatusDetailsModel.getDomain());
-    assertNull(projectStatusDetailsModel.getProject());
-    assertNull(projectStatusDetailsModel.getVpe());
-    assertNull(projectStatusDetailsModel.isVpeNotEnabled());
+  public void testPersistentDataStore() throws Throwable {
+    PersistentDataStore persistentDataStoreModel = new PersistentDataStore();
+    assertNull(persistentDataStoreModel.getData());
+    assertNull(persistentDataStoreModel.getEntityTag());
+    assertNull(persistentDataStoreModel.getName());
+    assertNull(persistentDataStoreModel.getStorageType());
   }
 }

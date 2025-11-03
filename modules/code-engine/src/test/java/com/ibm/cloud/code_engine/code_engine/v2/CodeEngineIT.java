@@ -1423,12 +1423,12 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
     public void testCreateHMACAuthSecret() throws Exception {
         try {
             SecretDataHMACAuthSecretData HMACAuthSecretData = new SecretDataHMACAuthSecretData();
-            HMACAuthSecretData.setAccessKeyId("access-key-id");
-            HMACAuthSecretData.setSecretAccessKey("secret-access-key");
+            HMACAuthSecretData.setAccessKeyId(System.getenv("COS_ACCESS_KEY_ID"));
+            HMACAuthSecretData.setSecretAccessKey(System.getenv("COS_SECRET_ACCESS_KEY"));
             CreateSecretOptions createSecretOptions = new CreateSecretOptions.Builder()
                     .projectId(e2eTestProjectId)
                     .format("hmac_auth")
-                    .name("my-hmac-auth-secret")
+                    .name("ce-api-int-test-hmac-secret")
                     .data(HMACAuthSecretData)
                     .build();
 
@@ -1551,7 +1551,7 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
         try {
             GetSecretOptions getSecretOptions = new GetSecretOptions.Builder()
                     .projectId(e2eTestProjectId)
-                    .name("my-hmac-auth-secret")
+                    .name("ce-api-int-test-hmac-secret")
                     .build();
 
             // Invoke operation
@@ -1678,35 +1678,6 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
     }
 
     @Test(dependsOnMethods = {"testReplaceBasicAuthSecret"})
-    public void testReplaceHMACAuthSecret() throws Exception {
-        try {
-            SecretDataHMACAuthSecretData HMACAuthSecretData = new SecretDataHMACAuthSecretData();
-            HMACAuthSecretData.setAccessKeyId("access-key-id-2");
-            HMACAuthSecretData.setSecretAccessKey("secret-access-key-2");
-            ReplaceSecretOptions replaceSecretOptions = new ReplaceSecretOptions.Builder()
-                    .projectId(e2eTestProjectId)
-                    .name("my-hmac-auth-secret")
-                    .ifMatch("*")
-                    .data(HMACAuthSecretData)
-                    .format("hmac_auth")
-                    .build();
-
-            // Invoke operation
-            Response<Secret> response = service.replaceSecret(replaceSecretOptions).execute();
-            // Validate response
-            assertNotNull(response);
-            assertEquals(response.getStatusCode(), 200);
-
-            Secret secretResult = response.getResult();
-
-            assertNotNull(secretResult);
-        } catch (ServiceResponseException e) {
-            fail(String.format("Service returned status code %d: %s%nError details: %s",
-                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-        }
-    }
-
-    @Test(dependsOnMethods = {"testReplaceHMACAuthSecret"})
     public void testReplaceRegistrySecret() throws Exception {
         try {
             SecretDataRegistrySecretData RegistrySecretData = new SecretDataRegistrySecretData();
@@ -1791,6 +1762,142 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
     }
 
     @Test(dependsOnMethods = {"testGetServiceAccessSecret"})
+    public void testCreatePersistentDataStore() throws Exception {
+        try {
+            StorageDataObjectStorageData storageData = new StorageDataObjectStorageData();
+            storageData.setBucketLocation("eu-de");
+            storageData.setBucketName("e2e-api-bucket-eu-de");
+            storageData.setSecretName("ce-api-int-test-hmac-secret");
+            CreatePersistentDataStoreOptions createPersistentDataStoreOptions = new CreatePersistentDataStoreOptions.Builder()
+                    .projectId(e2eTestProjectId)
+                    .name("my-persistent-data-store")
+                    .storageType("object_storage")
+                    .data(storageData)
+                    .build();
+
+            // Invoke operation
+            Response<PersistentDataStore> response = service.createPersistentDataStore(createPersistentDataStoreOptions).execute();
+            // Validate response
+            assertNotNull(response);
+            assertEquals(response.getStatusCode(), 201);
+
+            PersistentDataStore persistentDataStoreResult = response.getResult();
+
+            assertNotNull(persistentDataStoreResult);
+        } catch (ServiceResponseException e) {
+            fail(String.format("Service returned status code %d: %s%nError details: %s",
+                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+        }
+    }
+
+    @Test(dependsOnMethods = {"testCreatePersistentDataStore"})
+    public void testListPersistentDataStores() throws Exception {
+        try {
+            ListPersistentDataStoreOptions listPersistentDataStoreOptions = new ListPersistentDataStoreOptions.Builder()
+                    .projectId(e2eTestProjectId)
+                    .limit(Long.valueOf("100"))
+                    .build();
+
+            // Invoke operation
+            Response<PersistentDataStoreList> response = service.listPersistentDataStore(listPersistentDataStoreOptions).execute();
+            // Validate response
+            assertNotNull(response);
+            assertEquals(response.getStatusCode(), 200);
+
+            PersistentDataStoreList persistentDataStoreListResult = response.getResult();
+
+            assertNotNull(persistentDataStoreListResult);
+        } catch (ServiceResponseException e) {
+            fail(String.format("Service returned status code %d: %s%nError details: %s",
+                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+        }
+    }
+
+    @Test(dependsOnMethods = {"testListPersistentDataStores"})
+    public void testListPersistentDataStoreWithPager() throws Exception {
+        try {
+            ListPersistentDataStoreOptions options = new ListPersistentDataStoreOptions.Builder()
+                    .projectId(e2eTestProjectId)
+                    .limit(Long.valueOf("100"))
+                    .build();
+
+            // Test getNext().
+            List<PersistentDataStore> allResults = new ArrayList<>();
+            PersistentDataStorePager pager = new PersistentDataStorePager(service, options);
+            while (pager.hasNext()) {
+                List<PersistentDataStore> nextPage = pager.getNext();
+                assertNotNull(nextPage);
+                allResults.addAll(nextPage);
+            }
+            assertFalse(allResults.isEmpty());
+
+            // Test getAll();
+            pager = new PersistentDataStorePager(service, options);
+            List<PersistentDataStore> allItems = pager.getAll();
+            assertNotNull(allItems);
+            assertFalse(allItems.isEmpty());
+
+            assertEquals(allItems.size(), allResults.size());
+            System.out.println(String.format("Retrieved a total of %d item(s) with pagination.", allResults.size()));
+        } catch (ServiceResponseException e) {
+            fail(String.format("Service returned status code %d: %s%nError details: %s",
+                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+        }
+    }
+
+    @Test(dependsOnMethods = {"testListPersistentDataStoreWithPager"})
+    public void testGetPersistentDataStore() throws Exception {
+        try {
+            GetPersistentDataStoreOptions getPersistentDataStoreOptions = new GetPersistentDataStoreOptions.Builder()
+                    .projectId(e2eTestProjectId)
+                    .name("my-persistent-data-store")
+                    .build();
+
+            // Invoke operation
+            Response<PersistentDataStore> response = service.getPersistentDataStore(getPersistentDataStoreOptions).execute();
+            // Validate response
+            assertNotNull(response);
+            assertEquals(response.getStatusCode(), 200);
+
+            PersistentDataStore persistentDataStoreResult = response.getResult();
+
+            assertNotNull(persistentDataStoreResult);
+        } catch (ServiceResponseException e) {
+            fail(String.format("Service returned status code %d: %s%nError details: %s",
+                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+        }
+    }
+
+    @Test(dependsOnMethods = {"testGetPersistentDataStore"})
+    public void testReplaceHMACAuthSecret() throws Exception {
+        try {
+            SecretDataHMACAuthSecretData HMACAuthSecretData = new SecretDataHMACAuthSecretData();
+            HMACAuthSecretData.setAccessKeyId("access-key-id-2");
+            HMACAuthSecretData.setSecretAccessKey("secret-access-key-2");
+            ReplaceSecretOptions replaceSecretOptions = new ReplaceSecretOptions.Builder()
+                    .projectId(e2eTestProjectId)
+                    .name("ce-api-int-test-hmac-secret")
+                    .ifMatch("*")
+                    .data(HMACAuthSecretData)
+                    .format("hmac_auth")
+                    .build();
+
+            // Invoke operation
+            Response<Secret> response = service.replaceSecret(replaceSecretOptions).execute();
+            // Validate response
+            assertNotNull(response);
+            assertEquals(response.getStatusCode(), 200);
+
+            Secret secretResult = response.getResult();
+
+            assertNotNull(secretResult);
+        } catch (ServiceResponseException e) {
+            fail(String.format("Service returned status code %d: %s%nError details: %s",
+                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+        }
+    }
+
+    @Test(dependsOnMethods = {"testReplaceHMACAuthSecret"})
     public void testCreateBinding() throws Exception {
         try {
             ComponentRef component = new ComponentRef.Builder()
@@ -2248,7 +2355,7 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
             DeleteAppRevisionOptions deleteAppRevisionOptions = new DeleteAppRevisionOptions.Builder()
                     .projectId(e2eTestProjectId)
                     .appName("my-app")
-                    .name("my-app-00003")
+                    .name("my-app-00002")
                     .build();
 
             // Invoke operation
@@ -2358,6 +2465,25 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
     }
 
     @Test(dependsOnMethods = {"testDeleteBuild"})
+    public void testDeletePersistentDataStore() throws Exception {
+        try {
+            DeletePersistentDataStoreOptions deletePersistentDataStoreOptions = new DeletePersistentDataStoreOptions.Builder()
+                    .projectId(e2eTestProjectId)
+                    .name("my-persistent-data-store")
+                    .build();
+
+            // Invoke operation
+            Response<Void> response = service.deletePersistentDataStore(deletePersistentDataStoreOptions).execute();
+            // Validate response
+            assertNotNull(response);
+            assertEquals(response.getStatusCode(), 202);
+        } catch (ServiceResponseException e) {
+            fail(String.format("Service returned status code %d: %s%nError details: %s",
+                    e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+        }
+    }
+
+    @Test(dependsOnMethods = {"testDeletePersistentDataStore"})
     public void testDeleteConfigMap() throws Exception {
         try {
             DeleteConfigMapOptions deleteConfigMapOptions = new DeleteConfigMapOptions.Builder()
@@ -2457,7 +2583,7 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
         try {
             DeleteSecretOptions deleteSecretOptions = new DeleteSecretOptions.Builder()
                     .projectId(e2eTestProjectId)
-                    .name("my-hmac-auth-secret")
+                    .name("ce-api-int-test-hmac-secret")
                     .build();
 
             // Invoke operation
