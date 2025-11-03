@@ -13,6 +13,8 @@
 
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
+import com.ibm.cloud.code_engine.code_engine.v2.model.CbrStatus;
+import com.ibm.cloud.code_engine.code_engine.v2.model.EnforcementStatus;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectStatusDetails;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -32,8 +34,10 @@ public class ProjectStatusDetailsTest {
   @Test
   public void testProjectStatusDetails() throws Throwable {
     ProjectStatusDetails projectStatusDetailsModel = new ProjectStatusDetails();
+    assertNull(projectStatusDetailsModel.getCbr());
     assertNull(projectStatusDetailsModel.getDomain());
     assertNull(projectStatusDetailsModel.getProject());
+    assertNull(projectStatusDetailsModel.getVpe());
     assertNull(projectStatusDetailsModel.isVpeNotEnabled());
   }
 }

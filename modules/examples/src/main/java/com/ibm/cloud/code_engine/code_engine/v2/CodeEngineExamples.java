@@ -44,6 +44,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.CreateDomainMappingOptions
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateFunctionOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateJobOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateJobRunOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.CreatePersistentDataStoreOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateProjectOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.CreateSecretOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteAllowedOutboundDestinationOptions;
@@ -57,6 +58,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteDomainMappingOptions
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteFunctionOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteJobOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteJobRunOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.DeletePersistentDataStoreOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteProjectOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DeleteSecretOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DomainMapping;
@@ -77,6 +79,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.GetDomainMappingOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetFunctionOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetJobRunOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.GetPersistentDataStoreOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectEgressIpsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.GetProjectStatusDetailsOptions;
@@ -99,8 +102,11 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.ListFunctionRuntimesOption
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListFunctionsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobRunsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobsOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListPersistentDataStoreOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListProjectsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListSecretsOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.PersistentDataStore;
+import com.ibm.cloud.code_engine.code_engine.v2.model.PersistentDataStorePager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Project;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectEgressIPAddresses;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectStatusDetails;
@@ -1170,6 +1176,65 @@ public class CodeEngineExamples {
     }
 
     try {
+      System.out.println("listPersistentDataStore() result:");
+      // begin-list_persistent_data_store
+      ListPersistentDataStoreOptions listPersistentDataStoreOptions = new ListPersistentDataStoreOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .limit(Long.valueOf("100"))
+        .build();
+
+      PersistentDataStorePager pager = new PersistentDataStorePager(codeEngineService, listPersistentDataStoreOptions);
+      List<PersistentDataStore> allResults = new ArrayList<>();
+      while (pager.hasNext()) {
+        List<PersistentDataStore> nextPage = pager.getNext();
+        allResults.addAll(nextPage);
+      }
+
+      System.out.println(GsonSingleton.getGson().toJson(allResults));
+      // end-list_persistent_data_store
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("createPersistentDataStore() result:");
+      // begin-create_persistent_data_store
+      CreatePersistentDataStoreOptions createPersistentDataStoreOptions = new CreatePersistentDataStoreOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .name("my-persistent-data-store")
+        .storageType("object_storage")
+        .build();
+
+      Response<PersistentDataStore> response = codeEngineService.createPersistentDataStore(createPersistentDataStoreOptions).execute();
+      PersistentDataStore persistentDataStore = response.getResult();
+
+      System.out.println(persistentDataStore);
+      // end-create_persistent_data_store
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("getPersistentDataStore() result:");
+      // begin-get_persistent_data_store
+      GetPersistentDataStoreOptions getPersistentDataStoreOptions = new GetPersistentDataStoreOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .name("my-persistent-data-store")
+        .build();
+
+      Response<PersistentDataStore> response = codeEngineService.getPersistentDataStore(getPersistentDataStoreOptions).execute();
+      PersistentDataStore persistentDataStore = response.getResult();
+
+      System.out.println(persistentDataStore);
+      // end-get_persistent_data_store
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
       // begin-delete_project
       DeleteProjectOptions deleteProjectOptions = new DeleteProjectOptions.Builder()
         .id("15314cc3-85b4-4338-903f-c28cdee6d005")
@@ -1359,6 +1424,21 @@ public class CodeEngineExamples {
       Response<Void> response = codeEngineService.deleteSecret(deleteSecretOptions).execute();
       // end-delete_secret
       System.out.printf("deleteSecret() response status code: %d%n", response.getStatusCode());
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-delete_persistent_data_store
+      DeletePersistentDataStoreOptions deletePersistentDataStoreOptions = new DeletePersistentDataStoreOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .name("my-persistent-data-store")
+        .build();
+
+      Response<Void> response = codeEngineService.deletePersistentDataStore(deletePersistentDataStoreOptions).execute();
+      // end-delete_persistent_data_store
+      System.out.printf("deletePersistentDataStore() response status code: %d%n", response.getStatusCode());
     } catch (ServiceResponseException e) {
         logger.error(String.format("Service returned status code %s: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);

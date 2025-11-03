@@ -22,11 +22,13 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class VolumeMount extends GenericModel {
 
   /**
-   * Specify the type of the volume mount. Allowed types are: 'config_map', 'secret'.
+   * Specify the type of the volume mount. Allowed types are: 'config_map', 'persistent_data_store', 'secret'.
    */
   public interface Type {
     /** config_map. */
     String CONFIG_MAP = "config_map";
+    /** persistent_data_store. */
+    String PERSISTENT_DATA_STORE = "persistent_data_store";
     /** secret. */
     String SECRET = "secret";
   }
@@ -34,7 +36,11 @@ public class VolumeMount extends GenericModel {
   @SerializedName("mount_path")
   protected String mountPath;
   protected String name;
+  @SerializedName("read_only")
+  protected Boolean readOnly;
   protected String reference;
+  @SerializedName("sub_path")
+  protected String subPath;
   protected String type;
 
   protected VolumeMount() { }
@@ -62,9 +68,20 @@ public class VolumeMount extends GenericModel {
   }
 
   /**
+   * Gets the readOnly.
+   *
+   * Optional flag to specify if the volume mount is read only.
+   *
+   * @return the readOnly
+   */
+  public Boolean isReadOnly() {
+    return readOnly;
+  }
+
+  /**
    * Gets the reference.
    *
-   * The name of the referenced secret or config map.
+   * The name of the referenced secret, config map, or persistent data store.
    *
    * @return the reference
    */
@@ -73,9 +90,20 @@ public class VolumeMount extends GenericModel {
   }
 
   /**
+   * Gets the subPath.
+   *
+   * The path mounted at the mount path.
+   *
+   * @return the subPath
+   */
+  public String getSubPath() {
+    return subPath;
+  }
+
+  /**
    * Gets the type.
    *
-   * Specify the type of the volume mount. Allowed types are: 'config_map', 'secret'.
+   * Specify the type of the volume mount. Allowed types are: 'config_map', 'persistent_data_store', 'secret'.
    *
    * @return the type
    */

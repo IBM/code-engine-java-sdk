@@ -22,11 +22,13 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class VolumeMountPrototype extends GenericModel {
 
   /**
-   * Specify the type of the volume mount. Allowed types are: 'config_map', 'secret'.
+   * Specify the type of the volume mount. Allowed types are: 'config_map', 'persistent_data_store', 'secret'.
    */
   public interface Type {
     /** config_map. */
     String CONFIG_MAP = "config_map";
+    /** persistent_data_store. */
+    String PERSISTENT_DATA_STORE = "persistent_data_store";
     /** secret. */
     String SECRET = "secret";
   }
@@ -34,7 +36,11 @@ public class VolumeMountPrototype extends GenericModel {
   @SerializedName("mount_path")
   protected String mountPath;
   protected String name;
+  @SerializedName("read_only")
+  protected Boolean readOnly;
   protected String reference;
+  @SerializedName("sub_path")
+  protected String subPath;
   protected String type;
 
   /**
@@ -43,7 +49,9 @@ public class VolumeMountPrototype extends GenericModel {
   public static class Builder {
     private String mountPath;
     private String name;
+    private Boolean readOnly;
     private String reference;
+    private String subPath;
     private String type;
 
     /**
@@ -54,7 +62,9 @@ public class VolumeMountPrototype extends GenericModel {
     private Builder(VolumeMountPrototype volumeMountPrototype) {
       this.mountPath = volumeMountPrototype.mountPath;
       this.name = volumeMountPrototype.name;
+      this.readOnly = volumeMountPrototype.readOnly;
       this.reference = volumeMountPrototype.reference;
+      this.subPath = volumeMountPrototype.subPath;
       this.type = volumeMountPrototype.type;
     }
 
@@ -109,6 +119,17 @@ public class VolumeMountPrototype extends GenericModel {
     }
 
     /**
+     * Set the readOnly.
+     *
+     * @param readOnly the readOnly
+     * @return the VolumeMountPrototype builder
+     */
+    public Builder readOnly(Boolean readOnly) {
+      this.readOnly = readOnly;
+      return this;
+    }
+
+    /**
      * Set the reference.
      *
      * @param reference the reference
@@ -116,6 +137,17 @@ public class VolumeMountPrototype extends GenericModel {
      */
     public Builder reference(String reference) {
       this.reference = reference;
+      return this;
+    }
+
+    /**
+     * Set the subPath.
+     *
+     * @param subPath the subPath
+     * @return the VolumeMountPrototype builder
+     */
+    public Builder subPath(String subPath) {
+      this.subPath = subPath;
       return this;
     }
 
@@ -142,7 +174,9 @@ public class VolumeMountPrototype extends GenericModel {
       "type cannot be null");
     mountPath = builder.mountPath;
     name = builder.name;
+    readOnly = builder.readOnly;
     reference = builder.reference;
+    subPath = builder.subPath;
     type = builder.type;
   }
 
@@ -179,9 +213,20 @@ public class VolumeMountPrototype extends GenericModel {
   }
 
   /**
+   * Gets the readOnly.
+   *
+   * Optional flag to specify if the volume mount is read only.
+   *
+   * @return the readOnly
+   */
+  public Boolean readOnly() {
+    return readOnly;
+  }
+
+  /**
    * Gets the reference.
    *
-   * The name of the referenced secret or config map.
+   * The name of the referenced secret, config map, or persistent data store.
    *
    * @return the reference
    */
@@ -190,9 +235,20 @@ public class VolumeMountPrototype extends GenericModel {
   }
 
   /**
+   * Gets the subPath.
+   *
+   * The path mounted at the mount path.
+   *
+   * @return the subPath
+   */
+  public String subPath() {
+    return subPath;
+  }
+
+  /**
    * Gets the type.
    *
-   * Specify the type of the volume mount. Allowed types are: 'config_map', 'secret'.
+   * Specify the type of the volume mount. Allowed types are: 'config_map', 'persistent_data_store', 'secret'.
    *
    * @return the type
    */
