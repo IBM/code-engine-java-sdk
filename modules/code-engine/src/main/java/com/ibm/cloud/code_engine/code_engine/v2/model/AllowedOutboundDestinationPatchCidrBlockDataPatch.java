@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,20 +22,11 @@ import com.ibm.cloud.sdk.core.util.GsonSingleton;
  */
 public class AllowedOutboundDestinationPatchCidrBlockDataPatch extends AllowedOutboundDestinationPatch {
 
-  /**
-   * Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
-   */
-  public interface Type {
-    /** cidr_block. */
-    String CIDR_BLOCK = "cidr_block";
-  }
-
 
   /**
    * Builder.
    */
   public static class Builder {
-    private String type;
     private String cidrBlock;
 
     /**
@@ -44,7 +35,6 @@ public class AllowedOutboundDestinationPatchCidrBlockDataPatch extends AllowedOu
      * @param allowedOutboundDestinationPatchCidrBlockDataPatch the instance to initialize the Builder with
      */
     public Builder(AllowedOutboundDestinationPatch allowedOutboundDestinationPatchCidrBlockDataPatch) {
-      this.type = allowedOutboundDestinationPatchCidrBlockDataPatch.type;
       this.cidrBlock = allowedOutboundDestinationPatchCidrBlockDataPatch.cidrBlock;
     }
 
@@ -64,17 +54,6 @@ public class AllowedOutboundDestinationPatchCidrBlockDataPatch extends AllowedOu
     }
 
     /**
-     * Set the type.
-     *
-     * @param type the type
-     * @return the AllowedOutboundDestinationPatchCidrBlockDataPatch builder
-     */
-    public Builder type(String type) {
-      this.type = type;
-      return this;
-    }
-
-    /**
      * Set the cidrBlock.
      *
      * @param cidrBlock the cidrBlock
@@ -89,7 +68,6 @@ public class AllowedOutboundDestinationPatchCidrBlockDataPatch extends AllowedOu
   protected AllowedOutboundDestinationPatchCidrBlockDataPatch() { }
 
   protected AllowedOutboundDestinationPatchCidrBlockDataPatch(Builder builder) {
-    type = builder.type;
     cidrBlock = builder.cidrBlock;
   }
 

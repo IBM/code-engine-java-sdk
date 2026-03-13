@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,37 +20,33 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 
 /**
- * AllowedOutboundDestinationPatch is the request model for allowed outbound destination update operations.
+ * The request model for allowed outbound destination update operations.
  *
  * Classes which extend this class:
  * - AllowedOutboundDestinationPatchCidrBlockDataPatch
+ * - AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch
  */
 public class AllowedOutboundDestinationPatch extends GenericModel {
 
   /**
-   * Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+   * Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other
+   * projects within the same account or enterprise account family can connect to Private Path service, too. If set to
+   * `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy
+   * will be set to `shared`.
    */
-  public interface Type {
-    /** cidr_block. */
-    String CIDR_BLOCK = "cidr_block";
+  public interface IsolationPolicy {
+    /** shared. */
+    String SHARED = "shared";
+    /** dedicated. */
+    String DEDICATED = "dedicated";
   }
 
-  protected String type;
   @SerializedName("cidr_block")
   protected String cidrBlock;
+  @SerializedName("isolation_policy")
+  protected String isolationPolicy;
 
   protected AllowedOutboundDestinationPatch() { }
-
-  /**
-   * Gets the type.
-   *
-   * Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
-   *
-   * @return the type
-   */
-  public String type() {
-    return type;
-  }
 
   /**
    * Gets the cidrBlock.
@@ -61,6 +57,20 @@ public class AllowedOutboundDestinationPatch extends GenericModel {
    */
   public String cidrBlock() {
     return cidrBlock;
+  }
+
+  /**
+   * Gets the isolationPolicy.
+   *
+   * Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other
+   * projects within the same account or enterprise account family can connect to Private Path service, too. If set to
+   * `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy
+   * will be set to `shared`.
+   *
+   * @return the isolationPolicy
+   */
+  public String isolationPolicy() {
+    return isolationPolicy;
   }
 
   /**

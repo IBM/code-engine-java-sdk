@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,29 +33,24 @@ public class AllowedOutboundDestinationPatchCidrBlockDataPatchTest {
   @Test
   public void testAllowedOutboundDestinationPatchCidrBlockDataPatch() throws Throwable {
     AllowedOutboundDestinationPatchCidrBlockDataPatch allowedOutboundDestinationPatchCidrBlockDataPatchModel = new AllowedOutboundDestinationPatchCidrBlockDataPatch.Builder()
-      .type("cidr_block")
       .cidrBlock("testString")
       .build();
-    assertEquals(allowedOutboundDestinationPatchCidrBlockDataPatchModel.type(), "cidr_block");
     assertEquals(allowedOutboundDestinationPatchCidrBlockDataPatchModel.cidrBlock(), "testString");
 
     String json = TestUtilities.serialize(allowedOutboundDestinationPatchCidrBlockDataPatchModel);
 
     AllowedOutboundDestinationPatchCidrBlockDataPatch allowedOutboundDestinationPatchCidrBlockDataPatchModelNew = TestUtilities.deserialize(json, AllowedOutboundDestinationPatchCidrBlockDataPatch.class);
     assertTrue(allowedOutboundDestinationPatchCidrBlockDataPatchModelNew instanceof AllowedOutboundDestinationPatchCidrBlockDataPatch);
-    assertEquals(allowedOutboundDestinationPatchCidrBlockDataPatchModelNew.type(), "cidr_block");
     assertEquals(allowedOutboundDestinationPatchCidrBlockDataPatchModelNew.cidrBlock(), "testString");
   }
   @Test
   public void testAllowedOutboundDestinationPatchCidrBlockDataPatchAsPatch() throws Throwable {
     AllowedOutboundDestinationPatchCidrBlockDataPatch allowedOutboundDestinationPatchCidrBlockDataPatchModel = new AllowedOutboundDestinationPatchCidrBlockDataPatch.Builder()
-      .type("cidr_block")
       .cidrBlock("testString")
       .build();
 
     Map<String, Object> mergePatch = allowedOutboundDestinationPatchCidrBlockDataPatchModel.asPatch();
 
-    assertEquals(mergePatch.get("type"), "cidr_block");
     assertEquals(mergePatch.get("cidr_block"), "testString");
   }
 

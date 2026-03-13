@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -203,8 +203,8 @@ public class VolumeMountPrototype extends GenericModel {
   /**
    * Gets the name.
    *
-   * Optional name of the mount. If not set, it will be generated based on the `ref` and a random ID. In case the `ref`
-   * is longer than 58 characters, it will be cut off.
+   * Optional name of the mount. If not set, it will be generated based on the `reference` and a random ID. In case the
+   * `reference` is longer than 58 characters, it will be cut off.
    *
    * @return the name
    */
@@ -215,7 +215,7 @@ public class VolumeMountPrototype extends GenericModel {
   /**
    * Gets the readOnly.
    *
-   * Optional flag to specify if the volume mount is read only.
+   * Optional flag for a volume mount of type 'persistent_data_store' to specify whether it is read-only.
    *
    * @return the readOnly
    */

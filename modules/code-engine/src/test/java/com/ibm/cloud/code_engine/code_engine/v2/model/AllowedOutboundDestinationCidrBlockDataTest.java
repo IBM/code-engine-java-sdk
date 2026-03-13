@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,6 +14,9 @@
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationCidrBlockData;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails;
+import com.ibm.cloud.code_engine.code_engine.v2.model.EndpointGatewayDetails;
+import com.ibm.cloud.code_engine.code_engine.v2.model.PrivatePathServiceGatewayDetails;
 import com.ibm.cloud.code_engine.code_engine.v2.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -33,8 +36,9 @@ public class AllowedOutboundDestinationCidrBlockDataTest {
   public void testAllowedOutboundDestinationCidrBlockData() throws Throwable {
     AllowedOutboundDestinationCidrBlockData allowedOutboundDestinationCidrBlockDataModel = new AllowedOutboundDestinationCidrBlockData();
     assertNull(allowedOutboundDestinationCidrBlockDataModel.getEntityTag());
+    assertNull(allowedOutboundDestinationCidrBlockDataModel.getName());
+    assertNull(allowedOutboundDestinationCidrBlockDataModel.getStatusDetails());
     assertNull(allowedOutboundDestinationCidrBlockDataModel.getType());
     assertNull(allowedOutboundDestinationCidrBlockDataModel.getCidrBlock());
-    assertNull(allowedOutboundDestinationCidrBlockDataModel.getName());
   }
 }

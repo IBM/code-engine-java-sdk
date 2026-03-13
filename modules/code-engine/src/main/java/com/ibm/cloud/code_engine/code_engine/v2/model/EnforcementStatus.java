@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,6 +21,9 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class EnforcementStatus extends GenericModel {
 
+  /**
+   * Detailed information on the condition of the CBR enforcement.
+   */
   public interface Enforcement {
     /** applied. */
     String APPLIED = "applied";
@@ -41,6 +44,8 @@ public class EnforcementStatus extends GenericModel {
   /**
    * Gets the enforcement.
    *
+   * Detailed information on the condition of the CBR enforcement.
+   *
    * @return the enforcement
    */
   public String getEnforcement() {
@@ -49,6 +54,8 @@ public class EnforcementStatus extends GenericModel {
 
   /**
    * Gets the lastSyncedAt.
+   *
+   * Date time information specifying when the last synchronization happened.
    *
    * @return the lastSyncedAt
    */

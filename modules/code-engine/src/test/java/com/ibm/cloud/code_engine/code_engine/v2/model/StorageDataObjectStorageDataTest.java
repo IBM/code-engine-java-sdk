@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,12 +32,12 @@ public class StorageDataObjectStorageDataTest {
   @Test
   public void testStorageDataObjectStorageData() throws Throwable {
     StorageDataObjectStorageData storageDataObjectStorageDataModel = new StorageDataObjectStorageData.Builder()
-      .bucketLocation("testString")
+      .bucketLocation("au-syd")
       .bucketName("testString")
       .secretName("testString")
       .add("foo", "testString")
       .build();
-    assertEquals(storageDataObjectStorageDataModel.getBucketLocation(), "testString");
+    assertEquals(storageDataObjectStorageDataModel.getBucketLocation(), "au-syd");
     assertEquals(storageDataObjectStorageDataModel.getBucketName(), "testString");
     assertEquals(storageDataObjectStorageDataModel.getSecretName(), "testString");
     assertEquals(storageDataObjectStorageDataModel.get("foo"), "testString");
@@ -46,7 +46,7 @@ public class StorageDataObjectStorageDataTest {
 
     StorageDataObjectStorageData storageDataObjectStorageDataModelNew = TestUtilities.deserialize(json, StorageDataObjectStorageData.class);
     assertTrue(storageDataObjectStorageDataModelNew instanceof StorageDataObjectStorageData);
-    assertEquals(storageDataObjectStorageDataModelNew.getBucketLocation(), "testString");
+    assertEquals(storageDataObjectStorageDataModelNew.getBucketLocation(), "au-syd");
     assertEquals(storageDataObjectStorageDataModelNew.getBucketName(), "testString");
     assertEquals(storageDataObjectStorageDataModelNew.getSecretName(), "testString");
     assertEquals(storageDataObjectStorageDataModelNew.get("foo"), "testString");

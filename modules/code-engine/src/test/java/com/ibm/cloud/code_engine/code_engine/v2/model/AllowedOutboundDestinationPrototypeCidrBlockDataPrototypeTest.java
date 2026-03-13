@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,20 +33,20 @@ public class AllowedOutboundDestinationPrototypeCidrBlockDataPrototypeTest {
   public void testAllowedOutboundDestinationPrototypeCidrBlockDataPrototype() throws Throwable {
     AllowedOutboundDestinationPrototypeCidrBlockDataPrototype allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModel = new AllowedOutboundDestinationPrototypeCidrBlockDataPrototype.Builder()
       .type("cidr_block")
+      .name("allow-all")
       .cidrBlock("testString")
-      .name("testString")
       .build();
     assertEquals(allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModel.type(), "cidr_block");
+    assertEquals(allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModel.name(), "allow-all");
     assertEquals(allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModel.cidrBlock(), "testString");
-    assertEquals(allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModel.name(), "testString");
 
     String json = TestUtilities.serialize(allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModel);
 
     AllowedOutboundDestinationPrototypeCidrBlockDataPrototype allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModelNew = TestUtilities.deserialize(json, AllowedOutboundDestinationPrototypeCidrBlockDataPrototype.class);
     assertTrue(allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModelNew instanceof AllowedOutboundDestinationPrototypeCidrBlockDataPrototype);
     assertEquals(allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModelNew.type(), "cidr_block");
+    assertEquals(allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModelNew.name(), "allow-all");
     assertEquals(allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModelNew.cidrBlock(), "testString");
-    assertEquals(allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModelNew.name(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
