@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,9 +14,9 @@
 package com.ibm.cloud.code_engine.code_engine.v2;
 
 import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestination;
-import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationPager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationPatchCidrBlockDataPatch;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationsPager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.App;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppInstance;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppInstancesPager;
@@ -89,7 +89,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.JobPatch;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobRun;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobRunsPager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobsPager;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ListAllowedOutboundDestinationOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListAllowedOutboundDestinationsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppInstancesOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppRevisionsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppsOptions;
@@ -102,11 +102,11 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.ListFunctionRuntimesOption
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListFunctionsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobRunsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobsOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ListPersistentDataStoreOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListPersistentDataStoresOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListProjectsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListSecretsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.PersistentDataStore;
-import com.ibm.cloud.code_engine.code_engine.v2.model.PersistentDataStorePager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.PersistentDataStoresPager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Project;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectEgressIPAddresses;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ProjectStatusDetails;
@@ -221,14 +221,14 @@ public class CodeEngineExamples {
     }
 
     try {
-      System.out.println("listAllowedOutboundDestination() result:");
-      // begin-list_allowed_outbound_destination
-      ListAllowedOutboundDestinationOptions listAllowedOutboundDestinationOptions = new ListAllowedOutboundDestinationOptions.Builder()
+      System.out.println("listAllowedOutboundDestinations() result:");
+      // begin-list_allowed_outbound_destinations
+      ListAllowedOutboundDestinationsOptions listAllowedOutboundDestinationsOptions = new ListAllowedOutboundDestinationsOptions.Builder()
         .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
         .limit(Long.valueOf("100"))
         .build();
 
-      AllowedOutboundDestinationPager pager = new AllowedOutboundDestinationPager(codeEngineService, listAllowedOutboundDestinationOptions);
+      AllowedOutboundDestinationsPager pager = new AllowedOutboundDestinationsPager(codeEngineService, listAllowedOutboundDestinationsOptions);
       List<AllowedOutboundDestination> allResults = new ArrayList<>();
       while (pager.hasNext()) {
         List<AllowedOutboundDestination> nextPage = pager.getNext();
@@ -236,7 +236,7 @@ public class CodeEngineExamples {
       }
 
       System.out.println(GsonSingleton.getGson().toJson(allResults));
-      // end-list_allowed_outbound_destination
+      // end-list_allowed_outbound_destinations
     } catch (ServiceResponseException e) {
         logger.error(String.format("Service returned status code %s: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -247,8 +247,8 @@ public class CodeEngineExamples {
       // begin-create_allowed_outbound_destination
       AllowedOutboundDestinationPrototypeCidrBlockDataPrototype allowedOutboundDestinationPrototypeModel = new AllowedOutboundDestinationPrototypeCidrBlockDataPrototype.Builder()
         .type("cidr_block")
+        .name("allow-all")
         .cidrBlock("testString")
-        .name("testString")
         .build();
       CreateAllowedOutboundDestinationOptions createAllowedOutboundDestinationOptions = new CreateAllowedOutboundDestinationOptions.Builder()
         .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
@@ -1176,14 +1176,14 @@ public class CodeEngineExamples {
     }
 
     try {
-      System.out.println("listPersistentDataStore() result:");
-      // begin-list_persistent_data_store
-      ListPersistentDataStoreOptions listPersistentDataStoreOptions = new ListPersistentDataStoreOptions.Builder()
+      System.out.println("listPersistentDataStores() result:");
+      // begin-list_persistent_data_stores
+      ListPersistentDataStoresOptions listPersistentDataStoresOptions = new ListPersistentDataStoresOptions.Builder()
         .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
         .limit(Long.valueOf("100"))
         .build();
 
-      PersistentDataStorePager pager = new PersistentDataStorePager(codeEngineService, listPersistentDataStoreOptions);
+      PersistentDataStoresPager pager = new PersistentDataStoresPager(codeEngineService, listPersistentDataStoresOptions);
       List<PersistentDataStore> allResults = new ArrayList<>();
       while (pager.hasNext()) {
         List<PersistentDataStore> nextPage = pager.getNext();
@@ -1191,7 +1191,7 @@ public class CodeEngineExamples {
       }
 
       System.out.println(GsonSingleton.getGson().toJson(allResults));
-      // end-list_persistent_data_store
+      // end-list_persistent_data_stores
     } catch (ServiceResponseException e) {
         logger.error(String.format("Service returned status code %s: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -17,11 +17,16 @@ import com.ibm.cloud.code_engine.code_engine.v2.CodeEngine;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestination;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationCidrBlockData;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationList;
-import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationPager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationPatch;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationPatchCidrBlockDataPatch;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationPrivatePathServiceGatewayData;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationPrototype;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationsPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundStatusDetails;
+import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails;
 import com.ibm.cloud.code_engine.code_engine.v2.model.App;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppInstance;
 import com.ibm.cloud.code_engine.code_engine.v2.model.AppInstanceList;
@@ -88,6 +93,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.DomainMappingList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DomainMappingPatch;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DomainMappingStatus;
 import com.ibm.cloud.code_engine.code_engine.v2.model.DomainMappingsPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.EndpointGatewayDetails;
 import com.ibm.cloud.code_engine.code_engine.v2.model.EnforcementStatus;
 import com.ibm.cloud.code_engine.code_engine.v2.model.EnvVar;
 import com.ibm.cloud.code_engine.code_engine.v2.model.EnvVarPrototype;
@@ -123,7 +129,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.JobRunList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobRunStatus;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobRunsPager;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobsPager;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ListAllowedOutboundDestinationOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListAllowedOutboundDestinationsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppInstancesOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppRevisionsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppsOptions;
@@ -138,14 +144,15 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.ListFunctionsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobRunsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListNextMetadata;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ListPersistentDataStoreOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListPersistentDataStoresOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListProjectsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListSecretsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.OperatorSecretProps;
 import com.ibm.cloud.code_engine.code_engine.v2.model.OperatorSecretPrototypeProps;
 import com.ibm.cloud.code_engine.code_engine.v2.model.PersistentDataStore;
 import com.ibm.cloud.code_engine.code_engine.v2.model.PersistentDataStoreList;
-import com.ibm.cloud.code_engine.code_engine.v2.model.PersistentDataStorePager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.PersistentDataStoresPager;
+import com.ibm.cloud.code_engine.code_engine.v2.model.PrivatePathServiceGatewayDetails;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Probe;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ProbePrototype;
 import com.ibm.cloud.code_engine.code_engine.v2.model.Project;
@@ -226,7 +233,7 @@ public class CodeEngineTest {
   // Test the getter for the version global parameter
   @Test
   public void testGetVersion() throws Throwable {
-    assertEquals(codeEngineService.getVersion(), "2025-08-27");
+    assertEquals(codeEngineService.getVersion(), "2026-02-23");
   }
 
   // Test the listProjects operation with a valid options model parameter
@@ -262,7 +269,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -373,7 +380,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the createProject operation with and without retries enabled
@@ -424,7 +431,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the deleteProject operation with and without retries enabled
@@ -476,7 +483,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the getProject operation with and without retries enabled
@@ -496,26 +503,26 @@ public class CodeEngineTest {
     codeEngineService.getProject(null).execute();
   }
 
-  // Test the listAllowedOutboundDestination operation with a valid options model parameter
+  // Test the listAllowedOutboundDestinations operation with a valid options model parameter
   @Test
-  public void testListAllowedOutboundDestinationWOptions() throws Throwable {
+  public void testListAllowedOutboundDestinationsWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"allowed_outbound_destinations\": [{\"entity_tag\": \"2385407409\", \"type\": \"cidr_block\", \"cidr_block\": \"cidrBlock\", \"name\": \"name\"}], \"first\": {\"href\": \"href\"}, \"limit\": 100, \"next\": {\"href\": \"href\", \"start\": \"start\"}}";
-    String listAllowedOutboundDestinationPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations";
+    String mockResponseBody = "{\"allowed_outbound_destinations\": [{\"entity_tag\": \"2385407409\", \"name\": \"allow-all\", \"status\": \"ready\", \"status_details\": {\"endpoint_gateway\": {\"account_id\": \"accountId\", \"created_at\": \"2025-09-13T11:41:35+02:00\", \"ips\": [\"ips\"], \"name\": \"my-endpoint-gateway\"}, \"private_path_service_gateway\": {\"id\": \"r006-7268d425-59b7-48fd-9735-81a7271657d5\", \"name\": \"my-private-path-service-gateway\", \"service_endpoints\": [\"serviceEndpoints\"]}, \"reason\": \"ready\"}, \"type\": \"cidr_block\", \"cidr_block\": \"cidrBlock\"}], \"first\": {\"href\": \"href\"}, \"limit\": 100, \"next\": {\"href\": \"href\", \"start\": \"start\"}}";
+    String listAllowedOutboundDestinationsPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
       .setBody(mockResponseBody));
 
-    // Construct an instance of the ListAllowedOutboundDestinationOptions model
-    ListAllowedOutboundDestinationOptions listAllowedOutboundDestinationOptionsModel = new ListAllowedOutboundDestinationOptions.Builder()
+    // Construct an instance of the ListAllowedOutboundDestinationsOptions model
+    ListAllowedOutboundDestinationsOptions listAllowedOutboundDestinationsOptionsModel = new ListAllowedOutboundDestinationsOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
       .limit(Long.valueOf("100"))
       .start("testString")
       .build();
 
-    // Invoke listAllowedOutboundDestination() with a valid options model and verify the result
-    Response<AllowedOutboundDestinationList> response = codeEngineService.listAllowedOutboundDestination(listAllowedOutboundDestinationOptionsModel).execute();
+    // Invoke listAllowedOutboundDestinations() with a valid options model and verify the result
+    Response<AllowedOutboundDestinationList> response = codeEngineService.listAllowedOutboundDestinations(listAllowedOutboundDestinationsOptionsModel).execute();
     assertNotNull(response);
     AllowedOutboundDestinationList responseObj = response.getResult();
     assertNotNull(responseObj);
@@ -526,7 +533,7 @@ public class CodeEngineTest {
     assertEquals(request.getMethod(), "GET");
     // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, listAllowedOutboundDestinationPath);
+    assertEquals(parsedPath, listAllowedOutboundDestinationsPath);
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
@@ -534,29 +541,29 @@ public class CodeEngineTest {
     assertEquals(query.get("start"), "testString");
   }
 
-  // Test the listAllowedOutboundDestination operation with and without retries enabled
+  // Test the listAllowedOutboundDestinations operation with and without retries enabled
   @Test
-  public void testListAllowedOutboundDestinationWRetries() throws Throwable {
+  public void testListAllowedOutboundDestinationsWRetries() throws Throwable {
     codeEngineService.enableRetries(4, 30);
-    testListAllowedOutboundDestinationWOptions();
+    testListAllowedOutboundDestinationsWOptions();
 
     codeEngineService.disableRetries();
-    testListAllowedOutboundDestinationWOptions();
+    testListAllowedOutboundDestinationsWOptions();
   }
 
-  // Test the listAllowedOutboundDestination operation with a null options model (negative test)
+  // Test the listAllowedOutboundDestinations operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testListAllowedOutboundDestinationNoOptions() throws Throwable {
+  public void testListAllowedOutboundDestinationsNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
-    codeEngineService.listAllowedOutboundDestination(null).execute();
+    codeEngineService.listAllowedOutboundDestinations(null).execute();
   }
 
-  // Test the listAllowedOutboundDestination operation using the AllowedOutboundDestinationPager.getNext() method
+  // Test the listAllowedOutboundDestinations operation using the AllowedOutboundDestinationsPager.getNext() method
   @Test
-  public void testListAllowedOutboundDestinationWithPagerGetNext() throws Throwable {
+  public void testListAllowedOutboundDestinationsWithPagerGetNext() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"allowed_outbound_destinations\":[{\"entity_tag\":\"2385407409\",\"type\":\"cidr_block\",\"cidr_block\":\"cidrBlock\",\"name\":\"name\"}],\"total_count\":2,\"limit\":1}";
-    String mockResponsePage2 = "{\"allowed_outbound_destinations\":[{\"entity_tag\":\"2385407409\",\"type\":\"cidr_block\",\"cidr_block\":\"cidrBlock\",\"name\":\"name\"}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"allowed_outbound_destinations\":[{\"entity_tag\":\"2385407409\",\"name\":\"allow-all\",\"status\":\"ready\",\"status_details\":{\"endpoint_gateway\":{\"account_id\":\"accountId\",\"created_at\":\"2025-09-13T11:41:35+02:00\",\"ips\":[\"ips\"],\"name\":\"my-endpoint-gateway\"},\"private_path_service_gateway\":{\"id\":\"r006-7268d425-59b7-48fd-9735-81a7271657d5\",\"name\":\"my-private-path-service-gateway\",\"service_endpoints\":[\"serviceEndpoints\"]},\"reason\":\"ready\"},\"type\":\"cidr_block\",\"cidr_block\":\"cidrBlock\"}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage2 = "{\"allowed_outbound_destinations\":[{\"entity_tag\":\"2385407409\",\"name\":\"allow-all\",\"status\":\"ready\",\"status_details\":{\"endpoint_gateway\":{\"account_id\":\"accountId\",\"created_at\":\"2025-09-13T11:41:35+02:00\",\"ips\":[\"ips\"],\"name\":\"my-endpoint-gateway\"},\"private_path_service_gateway\":{\"id\":\"r006-7268d425-59b7-48fd-9735-81a7271657d5\",\"name\":\"my-private-path-service-gateway\",\"service_endpoints\":[\"serviceEndpoints\"]},\"reason\":\"ready\"},\"type\":\"cidr_block\",\"cidr_block\":\"cidrBlock\"}],\"total_count\":2,\"limit\":1}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -570,13 +577,13 @@ public class CodeEngineTest {
       .setResponseCode(400)
       .setBody("{\"message\": \"No more results available!\"}"));
 
-    ListAllowedOutboundDestinationOptions listAllowedOutboundDestinationOptions = new ListAllowedOutboundDestinationOptions.Builder()
+    ListAllowedOutboundDestinationsOptions listAllowedOutboundDestinationsOptions = new ListAllowedOutboundDestinationsOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
       .limit(Long.valueOf("100"))
       .build();
 
     List<AllowedOutboundDestination> allResults = new ArrayList<>();
-    AllowedOutboundDestinationPager pager = new AllowedOutboundDestinationPager(codeEngineService, listAllowedOutboundDestinationOptions);
+    AllowedOutboundDestinationsPager pager = new AllowedOutboundDestinationsPager(codeEngineService, listAllowedOutboundDestinationsOptions);
     while (pager.hasNext()) {
       List<AllowedOutboundDestination> nextPage = pager.getNext();
       assertNotNull(nextPage);
@@ -585,12 +592,12 @@ public class CodeEngineTest {
     assertEquals(allResults.size(), 2);
   }
   
-  // Test the listAllowedOutboundDestination operation using the AllowedOutboundDestinationPager.getAll() method
+  // Test the listAllowedOutboundDestinations operation using the AllowedOutboundDestinationsPager.getAll() method
   @Test
-  public void testListAllowedOutboundDestinationWithPagerGetAll() throws Throwable {
+  public void testListAllowedOutboundDestinationsWithPagerGetAll() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"allowed_outbound_destinations\":[{\"entity_tag\":\"2385407409\",\"type\":\"cidr_block\",\"cidr_block\":\"cidrBlock\",\"name\":\"name\"}],\"total_count\":2,\"limit\":1}";
-    String mockResponsePage2 = "{\"allowed_outbound_destinations\":[{\"entity_tag\":\"2385407409\",\"type\":\"cidr_block\",\"cidr_block\":\"cidrBlock\",\"name\":\"name\"}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"allowed_outbound_destinations\":[{\"entity_tag\":\"2385407409\",\"name\":\"allow-all\",\"status\":\"ready\",\"status_details\":{\"endpoint_gateway\":{\"account_id\":\"accountId\",\"created_at\":\"2025-09-13T11:41:35+02:00\",\"ips\":[\"ips\"],\"name\":\"my-endpoint-gateway\"},\"private_path_service_gateway\":{\"id\":\"r006-7268d425-59b7-48fd-9735-81a7271657d5\",\"name\":\"my-private-path-service-gateway\",\"service_endpoints\":[\"serviceEndpoints\"]},\"reason\":\"ready\"},\"type\":\"cidr_block\",\"cidr_block\":\"cidrBlock\"}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage2 = "{\"allowed_outbound_destinations\":[{\"entity_tag\":\"2385407409\",\"name\":\"allow-all\",\"status\":\"ready\",\"status_details\":{\"endpoint_gateway\":{\"account_id\":\"accountId\",\"created_at\":\"2025-09-13T11:41:35+02:00\",\"ips\":[\"ips\"],\"name\":\"my-endpoint-gateway\"},\"private_path_service_gateway\":{\"id\":\"r006-7268d425-59b7-48fd-9735-81a7271657d5\",\"name\":\"my-private-path-service-gateway\",\"service_endpoints\":[\"serviceEndpoints\"]},\"reason\":\"ready\"},\"type\":\"cidr_block\",\"cidr_block\":\"cidrBlock\"}],\"total_count\":2,\"limit\":1}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -604,12 +611,12 @@ public class CodeEngineTest {
       .setResponseCode(400)
       .setBody("{\"message\": \"No more results available!\"}"));
 
-    ListAllowedOutboundDestinationOptions listAllowedOutboundDestinationOptions = new ListAllowedOutboundDestinationOptions.Builder()
+    ListAllowedOutboundDestinationsOptions listAllowedOutboundDestinationsOptions = new ListAllowedOutboundDestinationsOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
       .limit(Long.valueOf("100"))
       .build();
 
-    AllowedOutboundDestinationPager pager = new AllowedOutboundDestinationPager(codeEngineService, listAllowedOutboundDestinationOptions);
+    AllowedOutboundDestinationsPager pager = new AllowedOutboundDestinationsPager(codeEngineService, listAllowedOutboundDestinationsOptions);
     List<AllowedOutboundDestination> allResults = pager.getAll();
     assertNotNull(allResults);
     assertEquals(allResults.size(), 2);
@@ -619,7 +626,7 @@ public class CodeEngineTest {
   @Test
   public void testCreateAllowedOutboundDestinationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"entity_tag\": \"2385407409\", \"type\": \"cidr_block\", \"cidr_block\": \"cidrBlock\", \"name\": \"name\"}";
+    String mockResponseBody = "{\"entity_tag\": \"2385407409\", \"name\": \"allow-all\", \"status\": \"ready\", \"status_details\": {\"endpoint_gateway\": {\"account_id\": \"accountId\", \"created_at\": \"2025-09-13T11:41:35+02:00\", \"ips\": [\"ips\"], \"name\": \"my-endpoint-gateway\"}, \"private_path_service_gateway\": {\"id\": \"r006-7268d425-59b7-48fd-9735-81a7271657d5\", \"name\": \"my-private-path-service-gateway\", \"service_endpoints\": [\"serviceEndpoints\"]}, \"reason\": \"ready\"}, \"type\": \"cidr_block\", \"cidr_block\": \"cidrBlock\"}";
     String createAllowedOutboundDestinationPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -629,8 +636,8 @@ public class CodeEngineTest {
     // Construct an instance of the AllowedOutboundDestinationPrototypeCidrBlockDataPrototype model
     AllowedOutboundDestinationPrototypeCidrBlockDataPrototype allowedOutboundDestinationPrototypeModel = new AllowedOutboundDestinationPrototypeCidrBlockDataPrototype.Builder()
       .type("cidr_block")
+      .name("allow-all")
       .cidrBlock("testString")
-      .name("testString")
       .build();
 
     // Construct an instance of the CreateAllowedOutboundDestinationOptions model
@@ -655,7 +662,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the createAllowedOutboundDestination operation with and without retries enabled
@@ -707,7 +714,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the deleteAllowedOutboundDestination operation with and without retries enabled
@@ -731,7 +738,7 @@ public class CodeEngineTest {
   @Test
   public void testGetAllowedOutboundDestinationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"entity_tag\": \"2385407409\", \"type\": \"cidr_block\", \"cidr_block\": \"cidrBlock\", \"name\": \"name\"}";
+    String mockResponseBody = "{\"entity_tag\": \"2385407409\", \"name\": \"allow-all\", \"status\": \"ready\", \"status_details\": {\"endpoint_gateway\": {\"account_id\": \"accountId\", \"created_at\": \"2025-09-13T11:41:35+02:00\", \"ips\": [\"ips\"], \"name\": \"my-endpoint-gateway\"}, \"private_path_service_gateway\": {\"id\": \"r006-7268d425-59b7-48fd-9735-81a7271657d5\", \"name\": \"my-private-path-service-gateway\", \"service_endpoints\": [\"serviceEndpoints\"]}, \"reason\": \"ready\"}, \"type\": \"cidr_block\", \"cidr_block\": \"cidrBlock\"}";
     String getAllowedOutboundDestinationPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations/my-allowed-outbound-destination";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -760,7 +767,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the getAllowedOutboundDestination operation with and without retries enabled
@@ -784,7 +791,7 @@ public class CodeEngineTest {
   @Test
   public void testUpdateAllowedOutboundDestinationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"entity_tag\": \"2385407409\", \"type\": \"cidr_block\", \"cidr_block\": \"cidrBlock\", \"name\": \"name\"}";
+    String mockResponseBody = "{\"entity_tag\": \"2385407409\", \"name\": \"allow-all\", \"status\": \"ready\", \"status_details\": {\"endpoint_gateway\": {\"account_id\": \"accountId\", \"created_at\": \"2025-09-13T11:41:35+02:00\", \"ips\": [\"ips\"], \"name\": \"my-endpoint-gateway\"}, \"private_path_service_gateway\": {\"id\": \"r006-7268d425-59b7-48fd-9735-81a7271657d5\", \"name\": \"my-private-path-service-gateway\", \"service_endpoints\": [\"serviceEndpoints\"]}, \"reason\": \"ready\"}, \"type\": \"cidr_block\", \"cidr_block\": \"cidrBlock\"}";
     String updateAllowedOutboundDestinationPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations/my-allowed-outbound-destination";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -793,7 +800,6 @@ public class CodeEngineTest {
 
     // Construct an instance of the AllowedOutboundDestinationPatchCidrBlockDataPatch model
     AllowedOutboundDestinationPatchCidrBlockDataPatch allowedOutboundDestinationPatchModel = new AllowedOutboundDestinationPatchCidrBlockDataPatch.Builder()
-      .type("cidr_block")
       .cidrBlock("testString")
       .build();
     Map<String, Object> allowedOutboundDestinationPatchModelAsPatch = allowedOutboundDestinationPatchModel.asPatch();
@@ -824,7 +830,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the updateAllowedOutboundDestination operation with and without retries enabled
@@ -876,7 +882,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the getProjectEgressIps operation with and without retries enabled
@@ -928,7 +934,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the getProjectStatusDetails operation with and without retries enabled
@@ -982,7 +988,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -1155,7 +1161,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the createApp operation with and without retries enabled
@@ -1208,7 +1214,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
     assertEquals(Boolean.valueOf(query.get("keep_service_access")), Boolean.valueOf(false));
   }
 
@@ -1262,7 +1268,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the getApp operation with and without retries enabled
@@ -1378,7 +1384,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the updateApp operation with and without retries enabled
@@ -1435,7 +1441,7 @@ public class CodeEngineTest {
     assertNotNull(query);
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the listAppRevisions operation with and without retries enabled
@@ -1554,7 +1560,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the deleteAppRevision operation with and without retries enabled
@@ -1608,7 +1614,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the getAppRevision operation with and without retries enabled
@@ -1632,7 +1638,7 @@ public class CodeEngineTest {
   @Test
   public void testListAppInstancesWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"first\": {\"href\": \"href\"}, \"instances\": [{\"app_name\": \"my-app\", \"created_at\": \"2022-09-13T11:41:35+02:00\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-app-00001-deployment-6c9b5cf966-wjs44\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"app_instance_v2\", \"revision_name\": \"my-app\", \"scale_cpu_limit\": \"1\", \"scale_ephemeral_storage_limit\": \"4G\", \"scale_memory_limit\": \"4G\", \"status\": \"pending\", \"status_details\": {\"restarts\": 4, \"system_container\": {\"current_state\": {\"completed_at\": \"2022-09-22T17:40:00Z\", \"container_status\": \"running\", \"exit_code\": 100, \"reason\": \"some_error_reason\", \"started_at\": \"2022-09-22T17:34:00Z\"}, \"last_observed_state\": {\"completed_at\": \"2022-09-22T17:40:00Z\", \"container_status\": \"running\", \"exit_code\": 100, \"reason\": \"some_error_reason\", \"started_at\": \"2022-09-22T17:34:00Z\"}}, \"user_container\": {\"current_state\": {\"completed_at\": \"2022-09-22T17:40:00Z\", \"container_status\": \"running\", \"exit_code\": 100, \"reason\": \"some_error_reason\", \"started_at\": \"2022-09-22T17:34:00Z\"}, \"last_observed_state\": {\"completed_at\": \"2022-09-22T17:40:00Z\", \"container_status\": \"running\", \"exit_code\": 100, \"reason\": \"some_error_reason\", \"started_at\": \"2022-09-22T17:34:00Z\"}}}}], \"limit\": 100, \"next\": {\"href\": \"href\", \"start\": \"start\"}}";
+    String mockResponseBody = "{\"first\": {\"href\": \"href\"}, \"instances\": [{\"app_name\": \"my-app\", \"created_at\": \"2022-09-13T11:41:35+02:00\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-app-00001-deployment-6c9b5cf966-wjs44\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"app_instance_v2\", \"revision_name\": \"my-app\", \"scale_cpu_limit\": \"1\", \"scale_ephemeral_storage_limit\": \"4G\", \"scale_memory_limit\": \"4G\", \"status\": \"pending\", \"status_details\": {\"restarts\": 4, \"system_container\": {\"current_state\": {\"completed_at\": \"2022-09-22T17:40:00Z\", \"container_status\": \"running\", \"exit_code\": 0, \"reason\": \"some_error_reason\", \"started_at\": \"2022-09-22T17:34:00Z\"}, \"last_observed_state\": {\"completed_at\": \"2022-09-22T17:40:00Z\", \"container_status\": \"running\", \"exit_code\": 0, \"reason\": \"some_error_reason\", \"started_at\": \"2022-09-22T17:34:00Z\"}}, \"user_container\": {\"current_state\": {\"completed_at\": \"2022-09-22T17:40:00Z\", \"container_status\": \"running\", \"exit_code\": 0, \"reason\": \"some_error_reason\", \"started_at\": \"2022-09-22T17:34:00Z\"}, \"last_observed_state\": {\"completed_at\": \"2022-09-22T17:40:00Z\", \"container_status\": \"running\", \"exit_code\": 0, \"reason\": \"some_error_reason\", \"started_at\": \"2022-09-22T17:34:00Z\"}}}}], \"limit\": 100, \"next\": {\"href\": \"href\", \"start\": \"start\"}}";
     String listAppInstancesPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/instances";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1665,7 +1671,7 @@ public class CodeEngineTest {
     assertNotNull(query);
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the listAppInstances operation with and without retries enabled
@@ -1689,8 +1695,8 @@ public class CodeEngineTest {
   @Test
   public void testListAppInstancesWithPagerGetNext() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"instances\":[{\"app_name\":\"my-app\",\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-app-00001-deployment-6c9b5cf966-wjs44\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"app_instance_v2\",\"revision_name\":\"my-app\",\"scale_cpu_limit\":\"1\",\"scale_ephemeral_storage_limit\":\"4G\",\"scale_memory_limit\":\"4G\",\"status\":\"pending\",\"status_details\":{\"restarts\":4,\"system_container\":{\"current_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":100,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"},\"last_observed_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":100,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"}},\"user_container\":{\"current_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":100,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"},\"last_observed_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":100,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"}}}}],\"total_count\":2,\"limit\":1}";
-    String mockResponsePage2 = "{\"instances\":[{\"app_name\":\"my-app\",\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-app-00001-deployment-6c9b5cf966-wjs44\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"app_instance_v2\",\"revision_name\":\"my-app\",\"scale_cpu_limit\":\"1\",\"scale_ephemeral_storage_limit\":\"4G\",\"scale_memory_limit\":\"4G\",\"status\":\"pending\",\"status_details\":{\"restarts\":4,\"system_container\":{\"current_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":100,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"},\"last_observed_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":100,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"}},\"user_container\":{\"current_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":100,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"},\"last_observed_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":100,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"}}}}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"instances\":[{\"app_name\":\"my-app\",\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-app-00001-deployment-6c9b5cf966-wjs44\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"app_instance_v2\",\"revision_name\":\"my-app\",\"scale_cpu_limit\":\"1\",\"scale_ephemeral_storage_limit\":\"4G\",\"scale_memory_limit\":\"4G\",\"status\":\"pending\",\"status_details\":{\"restarts\":4,\"system_container\":{\"current_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":0,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"},\"last_observed_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":0,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"}},\"user_container\":{\"current_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":0,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"},\"last_observed_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":0,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"}}}}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage2 = "{\"instances\":[{\"app_name\":\"my-app\",\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-app-00001-deployment-6c9b5cf966-wjs44\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"app_instance_v2\",\"revision_name\":\"my-app\",\"scale_cpu_limit\":\"1\",\"scale_ephemeral_storage_limit\":\"4G\",\"scale_memory_limit\":\"4G\",\"status\":\"pending\",\"status_details\":{\"restarts\":4,\"system_container\":{\"current_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":0,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"},\"last_observed_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":0,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"}},\"user_container\":{\"current_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":0,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"},\"last_observed_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":0,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"}}}}],\"total_count\":2,\"limit\":1}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -1724,8 +1730,8 @@ public class CodeEngineTest {
   @Test
   public void testListAppInstancesWithPagerGetAll() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"instances\":[{\"app_name\":\"my-app\",\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-app-00001-deployment-6c9b5cf966-wjs44\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"app_instance_v2\",\"revision_name\":\"my-app\",\"scale_cpu_limit\":\"1\",\"scale_ephemeral_storage_limit\":\"4G\",\"scale_memory_limit\":\"4G\",\"status\":\"pending\",\"status_details\":{\"restarts\":4,\"system_container\":{\"current_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":100,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"},\"last_observed_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":100,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"}},\"user_container\":{\"current_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":100,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"},\"last_observed_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":100,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"}}}}],\"total_count\":2,\"limit\":1}";
-    String mockResponsePage2 = "{\"instances\":[{\"app_name\":\"my-app\",\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-app-00001-deployment-6c9b5cf966-wjs44\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"app_instance_v2\",\"revision_name\":\"my-app\",\"scale_cpu_limit\":\"1\",\"scale_ephemeral_storage_limit\":\"4G\",\"scale_memory_limit\":\"4G\",\"status\":\"pending\",\"status_details\":{\"restarts\":4,\"system_container\":{\"current_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":100,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"},\"last_observed_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":100,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"}},\"user_container\":{\"current_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":100,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"},\"last_observed_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":100,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"}}}}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"instances\":[{\"app_name\":\"my-app\",\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-app-00001-deployment-6c9b5cf966-wjs44\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"app_instance_v2\",\"revision_name\":\"my-app\",\"scale_cpu_limit\":\"1\",\"scale_ephemeral_storage_limit\":\"4G\",\"scale_memory_limit\":\"4G\",\"status\":\"pending\",\"status_details\":{\"restarts\":4,\"system_container\":{\"current_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":0,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"},\"last_observed_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":0,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"}},\"user_container\":{\"current_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":0,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"},\"last_observed_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":0,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"}}}}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage2 = "{\"instances\":[{\"app_name\":\"my-app\",\"created_at\":\"2022-09-13T11:41:35+02:00\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-app-00001-deployment-6c9b5cf966-wjs44\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"app_instance_v2\",\"revision_name\":\"my-app\",\"scale_cpu_limit\":\"1\",\"scale_ephemeral_storage_limit\":\"4G\",\"scale_memory_limit\":\"4G\",\"status\":\"pending\",\"status_details\":{\"restarts\":4,\"system_container\":{\"current_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":0,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"},\"last_observed_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":0,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"}},\"user_container\":{\"current_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":0,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"},\"last_observed_state\":{\"completed_at\":\"2022-09-22T17:40:00Z\",\"container_status\":\"running\",\"exit_code\":0,\"reason\":\"some_error_reason\",\"started_at\":\"2022-09-22T17:34:00Z\"}}}}],\"total_count\":2,\"limit\":1}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -1785,7 +1791,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -1940,7 +1946,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the createJob operation with and without retries enabled
@@ -1993,7 +1999,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
     assertEquals(Boolean.valueOf(query.get("keep_service_access")), Boolean.valueOf(false));
   }
 
@@ -2047,7 +2053,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the getJob operation with and without retries enabled
@@ -2145,7 +2151,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the updateJob operation with and without retries enabled
@@ -2200,7 +2206,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
     assertEquals(query.get("job_name"), "my-job");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
@@ -2360,7 +2366,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the createJobRun operation with and without retries enabled
@@ -2412,7 +2418,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the deleteJobRun operation with and without retries enabled
@@ -2465,7 +2471,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the getJobRun operation with and without retries enabled
@@ -2561,7 +2567,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -2703,7 +2709,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the createFunction operation with and without retries enabled
@@ -2756,7 +2762,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
     assertEquals(Boolean.valueOf(query.get("keep_service_access")), Boolean.valueOf(false));
   }
 
@@ -2810,7 +2816,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the getFunction operation with and without retries enabled
@@ -2895,7 +2901,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the updateFunction operation with and without retries enabled
@@ -2949,7 +2955,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -3076,7 +3082,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the createBinding operation with and without retries enabled
@@ -3128,7 +3134,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the deleteBinding operation with and without retries enabled
@@ -3181,7 +3187,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the getBinding operation with and without retries enabled
@@ -3235,7 +3241,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -3375,7 +3381,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the createBuild operation with and without retries enabled
@@ -3427,7 +3433,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the deleteBuild operation with and without retries enabled
@@ -3480,7 +3486,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the getBuild operation with and without retries enabled
@@ -3563,7 +3569,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the updateBuild operation with and without retries enabled
@@ -3618,7 +3624,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
     assertEquals(query.get("build_name"), "my-build");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
@@ -3763,7 +3769,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the createBuildRun operation with and without retries enabled
@@ -3815,7 +3821,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the deleteBuildRun operation with and without retries enabled
@@ -3868,7 +3874,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the getBuildRun operation with and without retries enabled
@@ -3922,7 +3928,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -4049,7 +4055,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the createDomainMapping operation with and without retries enabled
@@ -4101,7 +4107,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the deleteDomainMapping operation with and without retries enabled
@@ -4154,7 +4160,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the getDomainMapping operation with and without retries enabled
@@ -4224,7 +4230,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the updateDomainMapping operation with and without retries enabled
@@ -4278,7 +4284,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -4398,7 +4404,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the createConfigMap operation with and without retries enabled
@@ -4450,7 +4456,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the deleteConfigMap operation with and without retries enabled
@@ -4503,7 +4509,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the getConfigMap operation with and without retries enabled
@@ -4560,7 +4566,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the replaceConfigMap operation with and without retries enabled
@@ -4615,7 +4621,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
     assertEquals(query.get("format"), "ssh_auth");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
@@ -4786,7 +4792,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the createSecret operation with and without retries enabled
@@ -4838,7 +4844,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the deleteSecret operation with and without retries enabled
@@ -4891,7 +4897,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the getSecret operation with and without retries enabled
@@ -4954,7 +4960,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the replaceSecret operation with and without retries enabled
@@ -4974,26 +4980,26 @@ public class CodeEngineTest {
     codeEngineService.replaceSecret(null).execute();
   }
 
-  // Test the listPersistentDataStore operation with a valid options model parameter
+  // Test the listPersistentDataStores operation with a valid options model parameter
   @Test
-  public void testListPersistentDataStoreWOptions() throws Throwable {
+  public void testListPersistentDataStoresWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"first\": {\"href\": \"href\"}, \"limit\": 100, \"next\": {\"href\": \"href\", \"start\": \"start\"}, \"persistent_data_stores\": [{\"created_at\": \"2022-09-13T11:41:35+02:00\", \"data\": {\"bucket_location\": \"bucketLocation\", \"bucket_name\": \"bucketName\", \"secret_name\": \"secretName\"}, \"entity_tag\": \"2385407409\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-persistent-data-store\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"storage_type\": \"object_storage\"}]}";
-    String listPersistentDataStorePath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/persistent_data_stores";
+    String mockResponseBody = "{\"first\": {\"href\": \"href\"}, \"limit\": 100, \"next\": {\"href\": \"href\", \"start\": \"start\"}, \"persistent_data_stores\": [{\"created_at\": \"2022-09-13T11:41:35+02:00\", \"data\": {\"bucket_location\": \"au-syd\", \"bucket_name\": \"bucketName\", \"secret_name\": \"secretName\"}, \"entity_tag\": \"2385407409\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-persistent-data-store\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"storage_type\": \"object_storage\"}]}";
+    String listPersistentDataStoresPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/persistent_data_stores";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
       .setBody(mockResponseBody));
 
-    // Construct an instance of the ListPersistentDataStoreOptions model
-    ListPersistentDataStoreOptions listPersistentDataStoreOptionsModel = new ListPersistentDataStoreOptions.Builder()
+    // Construct an instance of the ListPersistentDataStoresOptions model
+    ListPersistentDataStoresOptions listPersistentDataStoresOptionsModel = new ListPersistentDataStoresOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
       .limit(Long.valueOf("100"))
       .start("testString")
       .build();
 
-    // Invoke listPersistentDataStore() with a valid options model and verify the result
-    Response<PersistentDataStoreList> response = codeEngineService.listPersistentDataStore(listPersistentDataStoreOptionsModel).execute();
+    // Invoke listPersistentDataStores() with a valid options model and verify the result
+    Response<PersistentDataStoreList> response = codeEngineService.listPersistentDataStores(listPersistentDataStoresOptionsModel).execute();
     assertNotNull(response);
     PersistentDataStoreList responseObj = response.getResult();
     assertNotNull(responseObj);
@@ -5004,38 +5010,38 @@ public class CodeEngineTest {
     assertEquals(request.getMethod(), "GET");
     // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, listPersistentDataStorePath);
+    assertEquals(parsedPath, listPersistentDataStoresPath);
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
 
-  // Test the listPersistentDataStore operation with and without retries enabled
+  // Test the listPersistentDataStores operation with and without retries enabled
   @Test
-  public void testListPersistentDataStoreWRetries() throws Throwable {
+  public void testListPersistentDataStoresWRetries() throws Throwable {
     codeEngineService.enableRetries(4, 30);
-    testListPersistentDataStoreWOptions();
+    testListPersistentDataStoresWOptions();
 
     codeEngineService.disableRetries();
-    testListPersistentDataStoreWOptions();
+    testListPersistentDataStoresWOptions();
   }
 
-  // Test the listPersistentDataStore operation with a null options model (negative test)
+  // Test the listPersistentDataStores operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testListPersistentDataStoreNoOptions() throws Throwable {
+  public void testListPersistentDataStoresNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
-    codeEngineService.listPersistentDataStore(null).execute();
+    codeEngineService.listPersistentDataStores(null).execute();
   }
 
-  // Test the listPersistentDataStore operation using the PersistentDataStorePager.getNext() method
+  // Test the listPersistentDataStores operation using the PersistentDataStoresPager.getNext() method
   @Test
-  public void testListPersistentDataStoreWithPagerGetNext() throws Throwable {
+  public void testListPersistentDataStoresWithPagerGetNext() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"persistent_data_stores\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"bucket_location\":\"bucketLocation\",\"bucket_name\":\"bucketName\",\"secret_name\":\"secretName\"},\"entity_tag\":\"2385407409\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-persistent-data-store\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"storage_type\":\"object_storage\"}],\"total_count\":2,\"limit\":1}";
-    String mockResponsePage2 = "{\"persistent_data_stores\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"bucket_location\":\"bucketLocation\",\"bucket_name\":\"bucketName\",\"secret_name\":\"secretName\"},\"entity_tag\":\"2385407409\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-persistent-data-store\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"storage_type\":\"object_storage\"}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"persistent_data_stores\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"bucket_location\":\"au-syd\",\"bucket_name\":\"bucketName\",\"secret_name\":\"secretName\"},\"entity_tag\":\"2385407409\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-persistent-data-store\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"storage_type\":\"object_storage\"}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage2 = "{\"persistent_data_stores\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"bucket_location\":\"au-syd\",\"bucket_name\":\"bucketName\",\"secret_name\":\"secretName\"},\"entity_tag\":\"2385407409\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-persistent-data-store\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"storage_type\":\"object_storage\"}],\"total_count\":2,\"limit\":1}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -5049,13 +5055,13 @@ public class CodeEngineTest {
       .setResponseCode(400)
       .setBody("{\"message\": \"No more results available!\"}"));
 
-    ListPersistentDataStoreOptions listPersistentDataStoreOptions = new ListPersistentDataStoreOptions.Builder()
+    ListPersistentDataStoresOptions listPersistentDataStoresOptions = new ListPersistentDataStoresOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
       .limit(Long.valueOf("100"))
       .build();
 
     List<PersistentDataStore> allResults = new ArrayList<>();
-    PersistentDataStorePager pager = new PersistentDataStorePager(codeEngineService, listPersistentDataStoreOptions);
+    PersistentDataStoresPager pager = new PersistentDataStoresPager(codeEngineService, listPersistentDataStoresOptions);
     while (pager.hasNext()) {
       List<PersistentDataStore> nextPage = pager.getNext();
       assertNotNull(nextPage);
@@ -5064,12 +5070,12 @@ public class CodeEngineTest {
     assertEquals(allResults.size(), 2);
   }
   
-  // Test the listPersistentDataStore operation using the PersistentDataStorePager.getAll() method
+  // Test the listPersistentDataStores operation using the PersistentDataStoresPager.getAll() method
   @Test
-  public void testListPersistentDataStoreWithPagerGetAll() throws Throwable {
+  public void testListPersistentDataStoresWithPagerGetAll() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"persistent_data_stores\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"bucket_location\":\"bucketLocation\",\"bucket_name\":\"bucketName\",\"secret_name\":\"secretName\"},\"entity_tag\":\"2385407409\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-persistent-data-store\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"storage_type\":\"object_storage\"}],\"total_count\":2,\"limit\":1}";
-    String mockResponsePage2 = "{\"persistent_data_stores\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"bucket_location\":\"bucketLocation\",\"bucket_name\":\"bucketName\",\"secret_name\":\"secretName\"},\"entity_tag\":\"2385407409\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-persistent-data-store\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"storage_type\":\"object_storage\"}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"persistent_data_stores\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"bucket_location\":\"au-syd\",\"bucket_name\":\"bucketName\",\"secret_name\":\"secretName\"},\"entity_tag\":\"2385407409\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-persistent-data-store\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"storage_type\":\"object_storage\"}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage2 = "{\"persistent_data_stores\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"bucket_location\":\"au-syd\",\"bucket_name\":\"bucketName\",\"secret_name\":\"secretName\"},\"entity_tag\":\"2385407409\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-persistent-data-store\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"storage_type\":\"object_storage\"}],\"total_count\":2,\"limit\":1}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -5083,12 +5089,12 @@ public class CodeEngineTest {
       .setResponseCode(400)
       .setBody("{\"message\": \"No more results available!\"}"));
 
-    ListPersistentDataStoreOptions listPersistentDataStoreOptions = new ListPersistentDataStoreOptions.Builder()
+    ListPersistentDataStoresOptions listPersistentDataStoresOptions = new ListPersistentDataStoresOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
       .limit(Long.valueOf("100"))
       .build();
 
-    PersistentDataStorePager pager = new PersistentDataStorePager(codeEngineService, listPersistentDataStoreOptions);
+    PersistentDataStoresPager pager = new PersistentDataStoresPager(codeEngineService, listPersistentDataStoresOptions);
     List<PersistentDataStore> allResults = pager.getAll();
     assertNotNull(allResults);
     assertEquals(allResults.size(), 2);
@@ -5098,7 +5104,7 @@ public class CodeEngineTest {
   @Test
   public void testCreatePersistentDataStoreWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"created_at\": \"2022-09-13T11:41:35+02:00\", \"data\": {\"bucket_location\": \"bucketLocation\", \"bucket_name\": \"bucketName\", \"secret_name\": \"secretName\"}, \"entity_tag\": \"2385407409\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-persistent-data-store\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"storage_type\": \"object_storage\"}";
+    String mockResponseBody = "{\"created_at\": \"2022-09-13T11:41:35+02:00\", \"data\": {\"bucket_location\": \"au-syd\", \"bucket_name\": \"bucketName\", \"secret_name\": \"secretName\"}, \"entity_tag\": \"2385407409\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-persistent-data-store\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"storage_type\": \"object_storage\"}";
     String createPersistentDataStorePath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/persistent_data_stores";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -5107,7 +5113,7 @@ public class CodeEngineTest {
 
     // Construct an instance of the StorageDataObjectStorageData model
     StorageDataObjectStorageData storageDataModel = new StorageDataObjectStorageData.Builder()
-      .bucketLocation("testString")
+      .bucketLocation("au-syd")
       .bucketName("testString")
       .secretName("testString")
       .add("foo", "testString")
@@ -5137,7 +5143,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the createPersistentDataStore operation with and without retries enabled
@@ -5189,7 +5195,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the deletePersistentDataStore operation with and without retries enabled
@@ -5213,7 +5219,7 @@ public class CodeEngineTest {
   @Test
   public void testGetPersistentDataStoreWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"created_at\": \"2022-09-13T11:41:35+02:00\", \"data\": {\"bucket_location\": \"bucketLocation\", \"bucket_name\": \"bucketName\", \"secret_name\": \"secretName\"}, \"entity_tag\": \"2385407409\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-persistent-data-store\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"storage_type\": \"object_storage\"}";
+    String mockResponseBody = "{\"created_at\": \"2022-09-13T11:41:35+02:00\", \"data\": {\"bucket_location\": \"au-syd\", \"bucket_name\": \"bucketName\", \"secret_name\": \"secretName\"}, \"entity_tag\": \"2385407409\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-persistent-data-store\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"storage_type\": \"object_storage\"}";
     String getPersistentDataStorePath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/persistent_data_stores/my-persistent-data-store";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -5242,7 +5248,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2025-08-27");
+    assertEquals(query.get("version"), "2026-02-23");
   }
 
   // Test the getPersistentDataStore operation with and without retries enabled
@@ -5289,7 +5295,7 @@ public class CodeEngineTest {
     System.setProperty("TESTSERVICE_AUTH_TYPE", "noAuth");
     final String serviceName = "testService";
     // set mock values for global params
-    String version = "2025-08-27";
+    String version = "2026-02-23";
 
     codeEngineService = CodeEngine.newInstance(serviceName);
     String url = server.url("/").toString();

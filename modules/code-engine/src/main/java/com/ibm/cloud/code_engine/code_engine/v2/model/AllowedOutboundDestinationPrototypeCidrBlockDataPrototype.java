@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,11 +19,14 @@ package com.ibm.cloud.code_engine.code_engine.v2.model;
 public class AllowedOutboundDestinationPrototypeCidrBlockDataPrototype extends AllowedOutboundDestinationPrototype {
 
   /**
-   * Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+   * Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
+   * `private_path_service_gateway`.
    */
   public interface Type {
     /** cidr_block. */
     String CIDR_BLOCK = "cidr_block";
+    /** private_path_service_gateway. */
+    String PRIVATE_PATH_SERVICE_GATEWAY = "private_path_service_gateway";
   }
 
 
@@ -32,8 +35,8 @@ public class AllowedOutboundDestinationPrototypeCidrBlockDataPrototype extends A
    */
   public static class Builder {
     private String type;
-    private String cidrBlock;
     private String name;
+    private String cidrBlock;
 
     /**
      * Instantiates a new Builder from an existing AllowedOutboundDestinationPrototypeCidrBlockDataPrototype instance.
@@ -42,8 +45,8 @@ public class AllowedOutboundDestinationPrototypeCidrBlockDataPrototype extends A
      */
     public Builder(AllowedOutboundDestinationPrototype allowedOutboundDestinationPrototypeCidrBlockDataPrototype) {
       this.type = allowedOutboundDestinationPrototypeCidrBlockDataPrototype.type;
-      this.cidrBlock = allowedOutboundDestinationPrototypeCidrBlockDataPrototype.cidrBlock;
       this.name = allowedOutboundDestinationPrototypeCidrBlockDataPrototype.name;
+      this.cidrBlock = allowedOutboundDestinationPrototypeCidrBlockDataPrototype.cidrBlock;
     }
 
     /**
@@ -56,13 +59,13 @@ public class AllowedOutboundDestinationPrototypeCidrBlockDataPrototype extends A
      * Instantiates a new builder with required properties.
      *
      * @param type the type
-     * @param cidrBlock the cidrBlock
      * @param name the name
+     * @param cidrBlock the cidrBlock
      */
-    public Builder(String type, String cidrBlock, String name) {
+    public Builder(String type, String name, String cidrBlock) {
       this.type = type;
-      this.cidrBlock = cidrBlock;
       this.name = name;
+      this.cidrBlock = cidrBlock;
     }
 
     /**
@@ -86,17 +89,6 @@ public class AllowedOutboundDestinationPrototypeCidrBlockDataPrototype extends A
     }
 
     /**
-     * Set the cidrBlock.
-     *
-     * @param cidrBlock the cidrBlock
-     * @return the AllowedOutboundDestinationPrototypeCidrBlockDataPrototype builder
-     */
-    public Builder cidrBlock(String cidrBlock) {
-      this.cidrBlock = cidrBlock;
-      return this;
-    }
-
-    /**
      * Set the name.
      *
      * @param name the name
@@ -106,6 +98,17 @@ public class AllowedOutboundDestinationPrototypeCidrBlockDataPrototype extends A
       this.name = name;
       return this;
     }
+
+    /**
+     * Set the cidrBlock.
+     *
+     * @param cidrBlock the cidrBlock
+     * @return the AllowedOutboundDestinationPrototypeCidrBlockDataPrototype builder
+     */
+    public Builder cidrBlock(String cidrBlock) {
+      this.cidrBlock = cidrBlock;
+      return this;
+    }
   }
 
   protected AllowedOutboundDestinationPrototypeCidrBlockDataPrototype() { }
@@ -113,13 +116,13 @@ public class AllowedOutboundDestinationPrototypeCidrBlockDataPrototype extends A
   protected AllowedOutboundDestinationPrototypeCidrBlockDataPrototype(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.type,
       "type cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.cidrBlock,
-      "cidrBlock cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
       "name cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.cidrBlock,
+      "cidrBlock cannot be null");
     type = builder.type;
-    cidrBlock = builder.cidrBlock;
     name = builder.name;
+    cidrBlock = builder.cidrBlock;
   }
 
   /**

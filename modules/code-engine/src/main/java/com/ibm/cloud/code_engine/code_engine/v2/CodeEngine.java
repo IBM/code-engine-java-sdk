@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -85,7 +85,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.Job;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobList;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobRun;
 import com.ibm.cloud.code_engine.code_engine.v2.model.JobRunList;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ListAllowedOutboundDestinationOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListAllowedOutboundDestinationsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppInstancesOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppRevisionsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListAppsOptions;
@@ -98,7 +98,7 @@ import com.ibm.cloud.code_engine.code_engine.v2.model.ListFunctionRuntimesOption
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListFunctionsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobRunsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListJobsOptions;
-import com.ibm.cloud.code_engine.code_engine.v2.model.ListPersistentDataStoreOptions;
+import com.ibm.cloud.code_engine.code_engine.v2.model.ListPersistentDataStoresOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListProjectsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.ListSecretsOptions;
 import com.ibm.cloud.code_engine.code_engine.v2.model.PersistentDataStore;
@@ -188,7 +188,7 @@ public class CodeEngine extends BaseService {
    * Gets the version.
    *
    * The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-   * `2021-03-31` and `2025-08-27`.
+   * `2021-03-31` and `2026-02-23`.
    *
    * @return the version
    */
@@ -340,25 +340,25 @@ public class CodeEngine extends BaseService {
    *
    * List all allowed outbound destinations in a project.
    *
-   * @param listAllowedOutboundDestinationOptions the {@link ListAllowedOutboundDestinationOptions} containing the options for the call
+   * @param listAllowedOutboundDestinationsOptions the {@link ListAllowedOutboundDestinationsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link AllowedOutboundDestinationList}
    */
-  public ServiceCall<AllowedOutboundDestinationList> listAllowedOutboundDestination(ListAllowedOutboundDestinationOptions listAllowedOutboundDestinationOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(listAllowedOutboundDestinationOptions,
-      "listAllowedOutboundDestinationOptions cannot be null");
+  public ServiceCall<AllowedOutboundDestinationList> listAllowedOutboundDestinations(ListAllowedOutboundDestinationsOptions listAllowedOutboundDestinationsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listAllowedOutboundDestinationsOptions,
+      "listAllowedOutboundDestinationsOptions cannot be null");
     Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", listAllowedOutboundDestinationOptions.projectId());
+    pathParamsMap.put("project_id", listAllowedOutboundDestinationsOptions.projectId());
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/allowed_outbound_destinations", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "listAllowedOutboundDestination");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "listAllowedOutboundDestinations");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (listAllowedOutboundDestinationOptions.limit() != null) {
-      builder.query("limit", String.valueOf(listAllowedOutboundDestinationOptions.limit()));
+    if (listAllowedOutboundDestinationsOptions.limit() != null) {
+      builder.query("limit", String.valueOf(listAllowedOutboundDestinationsOptions.limit()));
     }
-    if (listAllowedOutboundDestinationOptions.start() != null) {
-      builder.query("start", String.valueOf(listAllowedOutboundDestinationOptions.start()));
+    if (listAllowedOutboundDestinationsOptions.start() != null) {
+      builder.query("start", String.valueOf(listAllowedOutboundDestinationsOptions.start()));
     }
     ResponseConverter<AllowedOutboundDestinationList> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<AllowedOutboundDestinationList>() { }.getType());
@@ -1502,7 +1502,7 @@ public class CodeEngine extends BaseService {
    *
    * Create a binding. Creating a service binding with a Code Engine app will update the app, creating a new revision.
    * For more information see the
-   * [documentaion](https://cloud.ibm.com/docs/codeengine?topic=codeengine-service-binding).
+   * [documentation](https://cloud.ibm.com/docs/codeengine?topic=codeengine-service-binding).
    *
    * @param createBindingOptions the {@link CreateBindingOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link Binding}
@@ -2399,16 +2399,16 @@ public class CodeEngine extends BaseService {
    *
    * List all persistent data stores in a project.
    *
-   * @param listPersistentDataStoreOptions the {@link ListPersistentDataStoreOptions} containing the options for the call
+   * @param listPersistentDataStoresOptions the {@link ListPersistentDataStoresOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link PersistentDataStoreList}
    */
-  public ServiceCall<PersistentDataStoreList> listPersistentDataStore(ListPersistentDataStoreOptions listPersistentDataStoreOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(listPersistentDataStoreOptions,
-      "listPersistentDataStoreOptions cannot be null");
+  public ServiceCall<PersistentDataStoreList> listPersistentDataStores(ListPersistentDataStoresOptions listPersistentDataStoresOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listPersistentDataStoresOptions,
+      "listPersistentDataStoresOptions cannot be null");
     Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", listPersistentDataStoreOptions.projectId());
+    pathParamsMap.put("project_id", listPersistentDataStoresOptions.projectId());
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/persistent_data_stores", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "listPersistentDataStore");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "listPersistentDataStores");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -2416,11 +2416,11 @@ public class CodeEngine extends BaseService {
     if (this.version != null) {
       builder.query("version", String.valueOf(this.version));
     }
-    if (listPersistentDataStoreOptions.limit() != null) {
-      builder.query("limit", String.valueOf(listPersistentDataStoreOptions.limit()));
+    if (listPersistentDataStoresOptions.limit() != null) {
+      builder.query("limit", String.valueOf(listPersistentDataStoresOptions.limit()));
     }
-    if (listPersistentDataStoreOptions.start() != null) {
-      builder.query("start", String.valueOf(listPersistentDataStoreOptions.start()));
+    if (listPersistentDataStoresOptions.start() != null) {
+      builder.query("start", String.valueOf(listPersistentDataStoresOptions.start()));
     }
     ResponseConverter<PersistentDataStoreList> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<PersistentDataStoreList>() { }.getType());

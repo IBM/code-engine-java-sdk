@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,16 +14,31 @@
 package com.ibm.cloud.code_engine.code_engine.v2.model;
 
 /**
- * Allowed outbound destination CIDR block.
+ * Allowed outbound destination of type CIDR block.
  */
 public class AllowedOutboundDestinationCidrBlockData extends AllowedOutboundDestination {
 
   /**
-   * Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+   * The current status of the outbound destination.
+   */
+  public interface Status {
+    /** ready. */
+    String READY = "ready";
+    /** failed. */
+    String FAILED = "failed";
+    /** deploying. */
+    String DEPLOYING = "deploying";
+  }
+
+  /**
+   * Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
+   * `private_path_service_gateway`.
    */
   public interface Type {
     /** cidr_block. */
     String CIDR_BLOCK = "cidr_block";
+    /** private_path_service_gateway. */
+    String PRIVATE_PATH_SERVICE_GATEWAY = "private_path_service_gateway";
   }
 
 

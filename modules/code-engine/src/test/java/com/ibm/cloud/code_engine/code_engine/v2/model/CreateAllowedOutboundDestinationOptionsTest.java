@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,12 +34,12 @@ public class CreateAllowedOutboundDestinationOptionsTest {
   public void testCreateAllowedOutboundDestinationOptions() throws Throwable {
     AllowedOutboundDestinationPrototypeCidrBlockDataPrototype allowedOutboundDestinationPrototypeModel = new AllowedOutboundDestinationPrototypeCidrBlockDataPrototype.Builder()
       .type("cidr_block")
+      .name("allow-all")
       .cidrBlock("testString")
-      .name("testString")
       .build();
     assertEquals(allowedOutboundDestinationPrototypeModel.type(), "cidr_block");
+    assertEquals(allowedOutboundDestinationPrototypeModel.name(), "allow-all");
     assertEquals(allowedOutboundDestinationPrototypeModel.cidrBlock(), "testString");
-    assertEquals(allowedOutboundDestinationPrototypeModel.name(), "testString");
 
     CreateAllowedOutboundDestinationOptions createAllowedOutboundDestinationOptionsModel = new CreateAllowedOutboundDestinationOptions.Builder()
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")

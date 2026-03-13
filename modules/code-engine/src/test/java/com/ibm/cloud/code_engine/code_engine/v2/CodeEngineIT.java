@@ -1793,13 +1793,13 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
     @Test(dependsOnMethods = {"testCreatePersistentDataStore"})
     public void testListPersistentDataStores() throws Exception {
         try {
-            ListPersistentDataStoreOptions listPersistentDataStoreOptions = new ListPersistentDataStoreOptions.Builder()
+            ListPersistentDataStoresOptions ListPersistentDataStoresOptions = new ListPersistentDataStoresOptions.Builder()
                     .projectId(e2eTestProjectId)
                     .limit(Long.valueOf("100"))
                     .build();
 
             // Invoke operation
-            Response<PersistentDataStoreList> response = service.listPersistentDataStore(listPersistentDataStoreOptions).execute();
+            Response<PersistentDataStoreList> response = service.listPersistentDataStores(ListPersistentDataStoresOptions).execute();
             // Validate response
             assertNotNull(response);
             assertEquals(response.getStatusCode(), 200);
@@ -1816,14 +1816,14 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
     @Test(dependsOnMethods = {"testListPersistentDataStores"})
     public void testListPersistentDataStoreWithPager() throws Exception {
         try {
-            ListPersistentDataStoreOptions options = new ListPersistentDataStoreOptions.Builder()
+            ListPersistentDataStoresOptions options = new ListPersistentDataStoresOptions.Builder()
                     .projectId(e2eTestProjectId)
                     .limit(Long.valueOf("100"))
                     .build();
 
             // Test getNext().
             List<PersistentDataStore> allResults = new ArrayList<>();
-            PersistentDataStorePager pager = new PersistentDataStorePager(service, options);
+            PersistentDataStoresPager pager = new PersistentDataStoresPager(service, options);
             while (pager.hasNext()) {
                 List<PersistentDataStore> nextPage = pager.getNext();
                 assertNotNull(nextPage);
@@ -1832,7 +1832,7 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
             assertFalse(allResults.isEmpty());
 
             // Test getAll();
-            pager = new PersistentDataStorePager(service, options);
+            pager = new PersistentDataStoresPager(service, options);
             List<PersistentDataStore> allItems = pager.getAll();
             assertNotNull(allItems);
             assertFalse(allItems.isEmpty());

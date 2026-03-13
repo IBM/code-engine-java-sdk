@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,33 +21,66 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  *
  * Classes which extend this class:
  * - AllowedOutboundDestinationPrototypeCidrBlockDataPrototype
+ * - AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype
  */
 public class AllowedOutboundDestinationPrototype extends GenericModel {
 
   /**
-   * Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+   * Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
+   * `private_path_service_gateway`.
    */
   public interface Type {
     /** cidr_block. */
     String CIDR_BLOCK = "cidr_block";
+    /** private_path_service_gateway. */
+    String PRIVATE_PATH_SERVICE_GATEWAY = "private_path_service_gateway";
+  }
+
+  /**
+   * Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other
+   * projects within the same account or enterprise account family can connect to Private Path service, too. If set to
+   * `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy
+   * will be set to `shared`.
+   */
+  public interface IsolationPolicy {
+    /** shared. */
+    String SHARED = "shared";
+    /** dedicated. */
+    String DEDICATED = "dedicated";
   }
 
   protected String type;
+  protected String name;
   @SerializedName("cidr_block")
   protected String cidrBlock;
-  protected String name;
+  @SerializedName("private_path_service_gateway_crn")
+  protected String privatePathServiceGatewayCrn;
+  @SerializedName("isolation_policy")
+  protected String isolationPolicy;
 
   protected AllowedOutboundDestinationPrototype() { }
 
   /**
    * Gets the type.
    *
-   * Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+   * Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
+   * `private_path_service_gateway`.
    *
    * @return the type
    */
   public String type() {
     return type;
+  }
+
+  /**
+   * Gets the name.
+   *
+   * The name of the allowed outbound destination.
+   *
+   * @return the name
+   */
+  public String name() {
+    return name;
   }
 
   /**
@@ -62,14 +95,29 @@ public class AllowedOutboundDestinationPrototype extends GenericModel {
   }
 
   /**
-   * Gets the name.
+   * Gets the privatePathServiceGatewayCrn.
    *
-   * The name of the CIDR block.
+   * The CRN of the Private Path service. The CRN can be obtained in the resource details of the target Private Path
+   * service. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-pps-ui-communicate).
    *
-   * @return the name
+   * @return the privatePathServiceGatewayCrn
    */
-  public String name() {
-    return name;
+  public String privatePathServiceGatewayCrn() {
+    return privatePathServiceGatewayCrn;
+  }
+
+  /**
+   * Gets the isolationPolicy.
+   *
+   * Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other
+   * projects within the same account or enterprise account family can connect to Private Path service, too. If set to
+   * `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy
+   * will be set to `shared`.
+   *
+   * @return the isolationPolicy
+   */
+  public String isolationPolicy() {
+    return isolationPolicy;
   }
 }
 

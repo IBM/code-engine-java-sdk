@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/IBM/code-engine-java-sdk.svg?branch=main)](https://travis-ci.com/IBM/code-engine-java-sdk)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-# IBM Cloud Code Engine Java SDK Version 4.30.0
+# IBM Cloud Code Engine Java SDK Version 5.0.0
 
 Java client library to interact with the [Code Engine API](https://cloud.ibm.com/apidocs/codeengine).
 
@@ -25,6 +25,7 @@ Java client library to interact with the [Code Engine API](https://cloud.ibm.com
   * [Maven](#maven)
   * [Gradle](#gradle)
 - [Using the SDK](#using-the-sdk)
+- [Breaking Changes (March 2026)](#breaking-changes-march-2026)
 - [Questions](#questions)
 - [Issues](#issues)
 - [Open source @ IBM](#open-source--ibm)
@@ -39,19 +40,19 @@ The IBM Cloud Code Engine Java SDK allows developers to programmatically interac
 
 Service Name | Artifact Coordinates
 --- | ---
-[Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v2.0.0) | com.ibm.cloud.code-engine:4.30.0
+[Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v2.0.0) | com.ibm.cloud.code-engine:5.0.0
 
 ## Prerequisites
 
 [ibm-cloud-onboarding]: https://cloud.ibm.com/registration
 
-* An [IBM Cloud][ibm-cloud-onboarding] account.
-* An IAM API key to allow the SDK to access your account. Create one [here](https://cloud.ibm.com/iam/apikeys).
-* Java 8 or above.
+- An [IBM Cloud][ibm-cloud-onboarding] account.
+- An IAM API key to allow the SDK to access your account. Create one [here](https://cloud.ibm.com/iam/apikeys).
+- Java 8 or above.
 
 ## Installation
 
-The current version of this SDK is: 4.30.0
+The current version of this SDK is: 5.0.0
 
 Each service's artifact coordinates are listed in the table above.
 
@@ -70,14 +71,14 @@ Here are examples for maven and gradle:
 <dependency>
     <groupId>com.ibm.cloud</groupId>
     <artifactId>code-engine</artifactId>
-    <version>4.30.0</version>
+    <version>5.0.0</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```gradle
-compile 'com.ibm.cloud:code-engine:4.30.0'
+compile 'com.ibm.cloud:code-engine:5.0.0'
 ```
 
 ## Using the SDK
@@ -85,6 +86,187 @@ compile 'com.ibm.cloud:code-engine:4.30.0'
 Examples and a demo are available in the [module examples](/modules/examples) folder.
 
 For general SDK usage information, please see [this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md)
+
+## Breaking Changes (March 2026)
+
+- **Method renames (pluralization) in `CodeEngine` service**
+    Update list calls and their option types:
+
+    ```java
+    // before
+    ServiceCall<AllowedOutboundDestinationList> call = codeEngine.listAllowedOutboundDestination(new ListAllowedOutboundDestinationOptions.Builder(projectId).build());
+
+    // after
+    ServiceCall<AllowedOutboundDestinationList> call = codeEngine.listAllowedOutboundDestinations(new ListAllowedOutboundDestinationsOptions.Builder(projectId).build());
+    ```
+
+    ```java
+    // before
+    ServiceCall<PersistentDataStoreList> call = codeEngine.listPersistentDataStore(new ListPersistentDataStoreOptions.Builder(projectId).build());
+
+    // after
+    ServiceCall<PersistentDataStoreList> call = codeEngine.listPersistentDataStores(new ListPersistentDataStoresOptions.Builder(projectId).build());
+    ```
+
+- **Options classes renamed**
+    Replace imports and usage:
+
+    ```java
+    // before
+    import com.ibm.cloud.code_engine.code_engine.v2.model.ListAllowedOutboundDestinationOptions;
+    ListAllowedOutboundDestinationOptions opts =
+        new ListAllowedOutboundDestinationOptions.Builder(projectId)
+            .limit(100)
+            .start("token")
+            .build();
+
+    // after
+    import com.ibm.cloud.code_engine.code_engine.v2.model.ListAllowedOutboundDestinationsOptions;
+    ListAllowedOutboundDestinationsOptions opts =
+        new ListAllowedOutboundDestinationsOptions.Builder(projectId)
+            .limit(100)
+            .start("token")
+            .build();
+    ```
+
+    ```java
+    // before
+    import com.ibm.cloud.code_engine.code_engine.v2.model.ListPersistentDataStoreOptions;
+    ListPersistentDataStoreOptions opts =
+        new ListPersistentDataStoreOptions.Builder(projectId)
+            .limit(100)
+            .start("token")
+            .build();
+
+    // after
+    import com.ibm.cloud.code_engine.code_engine.v2.model.ListPersistentDataStoresOptions;
+    ListPersistentDataStoresOptions opts =
+        new ListPersistentDataStoresOptions.Builder(projectId)
+            .limit(100)
+            .start("token")
+            .build();
+    ```
+
+- **Pager classes renamed**
+    Switch to the new pager types and constructors:
+
+    ```java
+    // before
+    import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationPager;
+    AllowedOutboundDestinationPager pager = new AllowedOutboundDestinationPager(codeEngine, oldOpts);
+
+    // after
+    import com.ibm.cloud.code_engine.code_engine.v2.model.AllowedOutboundDestinationsPager;
+    AllowedOutboundDestinationsPager pager = new AllowedOutboundDestinationsPager(codeEngine, newOpts);
+    ```
+
+    ```java
+    // before
+    import com.ibm.cloud.code_engine.code_engine.v2.model.PersistentDataStorePager;
+    PersistentDataStorePager pager = new PersistentDataStorePager(codeEngine, oldOpts);
+
+    // after
+    import com.ibm.cloud.code_engine.code_engine.v2.model.PersistentDataStoresPager;
+    PersistentDataStoresPager pager = new PersistentDataStoresPager(codeEngine, newOpts);
+    ```
+
+- **Builder parameter order changed for CIDR prototype**
+    `AllowedOutboundDestinationPrototypeCidrBlockDataPrototype.Builder` required-args constructor signature changed:
+
+    ```java
+    // before: Builder(String type, String cidrBlock, String name)
+    var proto = new AllowedOutboundDestinationPrototypeCidrBlockDataPrototype.Builder(
+        "cidr_block", "10.0.0.0/24", "allow-egress"
+    ).build();
+
+    // after: Builder(String type, String name, String cidrBlock)
+    var proto = new AllowedOutboundDestinationPrototypeCidrBlockDataPrototype.Builder(
+        "cidr_block", "allow-egress", "10.0.0.0/24"
+    ).build();
+    ```
+
+    > Also note: `name` is now treated as required at the base prototype level and is explicitly present on the CIDR builder.
+
+- **Patch model changes (remove `type`, new patch for Private Path)**
+    Do **not** set `type` in patch payloads; the field and its builder setter were removed from CIDR patch:
+
+    ```java
+    // CIDR patch
+    var patch = new AllowedOutboundDestinationPatchCidrBlockDataPatch.Builder()
+        .cidrBlock("10.0.1.0/24")
+        .build();
+    ```
+
+    New patch class for Private Path properties:
+
+    ```java
+    var ppPatch = new AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch.Builder()
+        .isolationPolicy(AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch.IsolationPolicy.DEDICATED)
+        .build();
+    ```
+
+- **New prototype to create Private Path destinations**
+    Use the new prototype when creating an allowed outbound destination that connects to a VPC Private Path service:
+
+    ```java
+    var ppProto =
+        new AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype.Builder(
+            AllowedOutboundDestinationPrototype.Type.PRIVATE_PATH_SERVICE_GATEWAY,
+            "pps-to-service-x",
+            "<private-path-service-gateway-crn>"
+        )
+        .isolationPolicy(AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype.IsolationPolicy.SHARED)
+        .build();
+    ```
+
+    > Ensure your code handles both types: `"cidr_block"` and `"private_path_service_gateway"`.
+
+- **Model/enums additions affecting branching/validation**
+    If your client code switches on type/status/isolation policy strings, update cases to include the new values:
+
+    ```java
+    // AllowedOutboundDestination.Type
+    CIDR_BLOCK
+    PRIVATE_PATH_SERVICE_GATEWAY
+
+    // AllowedOutboundDestination.Status
+    READY
+    FAILED
+    DEPLOYING
+
+    // AllowedOutboundDestination.IsolationPolicy
+    SHARED
+    DEDICATED
+    ```
+
+    New fields were added to `AllowedOutboundDestination`:
+
+  - `name`
+  - `status`
+  - `statusDetails` (with types `AllowedOutboundStatusDetails`, `AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails`)
+  - `privatePathServiceGatewayCrn`
+  - `isolationPolicy`
+
+    And new helper models:
+
+  - `EndpointGatewayDetails`
+  - `PrivatePathServiceGatewayDetails`
+
+- **Examples updated (if you copy/paste from `CodeEngineExamples`)**
+  - Method usage and region tags renamed:
+    - `listAllowedOutboundDestination` → `listAllowedOutboundDestinations` (and `begin/end` tags)
+    - `listPersistentDataStore` → `listPersistentDataStores` (and `begin/end` tags)
+  - Pager classes updated to plural forms.
+  - CIDR prototype builder now sets `.name(..)` before `.cidrBlock(..)` and matches the new constructor order.
+
+> **Action checklist:**
+>
+> - [ ] Rename service methods: `listAllowedOutboundDestinations`, `listPersistentDataStores`.
+> - [ ] Replace options classes and imports with pluralized names.
+> - [ ] Replace pager classes with pluralized versions and update example region tags if referenced.
+> - [ ] Adjust CIDR prototype builder constructor order to `(type, name, cidrBlock)`.
+> - [ ] Remove any `type` usage from patch builders; use CIDR or Private Path patch models as appropriate.
+> - [ ] Use the new Private Path prototype for creating Private Path destinations; add handling for new enums (`PRIVATE_PATH_SERVICE_GATEWAY`, status, isolation policy).
 
 ## Questions
 
@@ -109,4 +291,4 @@ See [CONTRIBUTING](CONTRIBUTING.md).
 ## License
 
 The IBM Cloud Code Engine Java SDK is released under the Apache 2.0 license.
-The license's full text can be found in [LICENSE](LICENSE). 
+The license's full text can be found in [LICENSE](LICENSE).

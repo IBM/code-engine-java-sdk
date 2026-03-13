@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,8 +32,7 @@ public class BuildRun extends GenericModel {
   }
 
   /**
-   * Optional service account, which is used for resource control.” or “Optional service account that is used for
-   * resource control.
+   * Optional service account, which is used for resource control.
    */
   public interface ServiceAccount {
     /** default. */
@@ -273,8 +272,7 @@ public class BuildRun extends GenericModel {
   /**
    * Gets the serviceAccount.
    *
-   * Optional service account, which is used for resource control.” or “Optional service account that is used for
-   * resource control.
+   * Optional service account, which is used for resource control.
    *
    * @return the serviceAccount
    */
