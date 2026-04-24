@@ -29,54 +29,6 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  */
 public class StorageData extends DynamicModel<String> {
 
-  /**
-   * Specify the location of the bucket.
-   */
-  public interface BucketLocation {
-    /** au-syd. */
-    String AU_SYD = "au-syd";
-    /** br-sao. */
-    String BR_SAO = "br-sao";
-    /** ca-mon. */
-    String CA_MON = "ca-mon";
-    /** ca-tor. */
-    String CA_TOR = "ca-tor";
-    /** eu-de. */
-    String EU_DE = "eu-de";
-    /** eu-es. */
-    String EU_ES = "eu-es";
-    /** eu-gb. */
-    String EU_GB = "eu-gb";
-    /** jp-osa. */
-    String JP_OSA = "jp-osa";
-    /** jp-tok. */
-    String JP_TOK = "jp-tok";
-    /** us-east. */
-    String US_EAST = "us-east";
-    /** us-south. */
-    String US_SOUTH = "us-south";
-    /** ap. */
-    String AP = "ap";
-    /** eu. */
-    String EU = "eu";
-    /** us. */
-    String US = "us";
-    /** ams03. */
-    String AMS03 = "ams03";
-    /** che01. */
-    String CHE01 = "che01";
-    /** mil01. */
-    String MIL01 = "mil01";
-    /** mon01. */
-    String MON01 = "mon01";
-    /** par01. */
-    String PAR01 = "par01";
-    /** sjc04. */
-    String SJC04 = "sjc04";
-    /** sng01. */
-    String SNG01 = "sng01";
-  }
-
   @SerializedName("bucket_location")
   protected String bucketLocation;
   @SerializedName("bucket_name")

@@ -32,12 +32,12 @@ public class StorageDataObjectStorageDataTest {
   @Test
   public void testStorageDataObjectStorageData() throws Throwable {
     StorageDataObjectStorageData storageDataObjectStorageDataModel = new StorageDataObjectStorageData.Builder()
-      .bucketLocation("au-syd")
+      .bucketLocation("testString")
       .bucketName("testString")
       .secretName("testString")
       .add("foo", "testString")
       .build();
-    assertEquals(storageDataObjectStorageDataModel.getBucketLocation(), "au-syd");
+    assertEquals(storageDataObjectStorageDataModel.getBucketLocation(), "testString");
     assertEquals(storageDataObjectStorageDataModel.getBucketName(), "testString");
     assertEquals(storageDataObjectStorageDataModel.getSecretName(), "testString");
     assertEquals(storageDataObjectStorageDataModel.get("foo"), "testString");
@@ -46,7 +46,7 @@ public class StorageDataObjectStorageDataTest {
 
     StorageDataObjectStorageData storageDataObjectStorageDataModelNew = TestUtilities.deserialize(json, StorageDataObjectStorageData.class);
     assertTrue(storageDataObjectStorageDataModelNew instanceof StorageDataObjectStorageData);
-    assertEquals(storageDataObjectStorageDataModelNew.getBucketLocation(), "au-syd");
+    assertEquals(storageDataObjectStorageDataModelNew.getBucketLocation(), "testString");
     assertEquals(storageDataObjectStorageDataModelNew.getBucketName(), "testString");
     assertEquals(storageDataObjectStorageDataModelNew.getSecretName(), "testString");
     assertEquals(storageDataObjectStorageDataModelNew.get("foo"), "testString");

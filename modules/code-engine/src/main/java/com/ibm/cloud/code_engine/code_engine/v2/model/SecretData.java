@@ -34,18 +34,18 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  */
 public class SecretData extends DynamicModel<String> {
 
-  @SerializedName("username")
-  protected String username;
   @SerializedName("password")
   protected String password;
-  @SerializedName("server")
-  protected String server;
+  @SerializedName("username")
+  protected String username;
   @SerializedName("email")
   protected String email;
-  @SerializedName("ssh_key")
-  protected String sshKey;
+  @SerializedName("server")
+  protected String server;
   @SerializedName("known_hosts")
   protected String knownHosts;
+  @SerializedName("ssh_key")
+  protected String sshKey;
   @SerializedName("access_key_id")
   protected String accessKeyId;
   @SerializedName("secret_access_key")
@@ -60,17 +60,6 @@ public class SecretData extends DynamicModel<String> {
   }
 
   /**
-   * Gets the username.
-   *
-   * Basic auth username.
-   *
-   * @return the username
-   */
-  public String getUsername() {
-    return this.username;
-  }
-
-  /**
    * Gets the password.
    *
    * Basic auth password.
@@ -82,14 +71,14 @@ public class SecretData extends DynamicModel<String> {
   }
 
   /**
-   * Gets the server.
+   * Gets the username.
    *
-   * Registry server.
+   * Basic auth username.
    *
-   * @return the server
+   * @return the username
    */
-  public String getServer() {
-    return this.server;
+  public String getUsername() {
+    return this.username;
   }
 
   /**
@@ -104,14 +93,14 @@ public class SecretData extends DynamicModel<String> {
   }
 
   /**
-   * Gets the sshKey.
+   * Gets the server.
    *
-   * SSH key.
+   * Registry server.
    *
-   * @return the sshKey
+   * @return the server
    */
-  public String getSshKey() {
-    return this.sshKey;
+  public String getServer() {
+    return this.server;
   }
 
   /**
@@ -123,6 +112,17 @@ public class SecretData extends DynamicModel<String> {
    */
   public String getKnownHosts() {
     return this.knownHosts;
+  }
+
+  /**
+   * Gets the sshKey.
+   *
+   * SSH key.
+   *
+   * @return the sshKey
+   */
+  public String getSshKey() {
+    return this.sshKey;
   }
 
   /**

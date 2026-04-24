@@ -32,20 +32,20 @@ public class AllowedOutboundDestinationPrototypeCidrBlockDataPrototypeTest {
   @Test
   public void testAllowedOutboundDestinationPrototypeCidrBlockDataPrototype() throws Throwable {
     AllowedOutboundDestinationPrototypeCidrBlockDataPrototype allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModel = new AllowedOutboundDestinationPrototypeCidrBlockDataPrototype.Builder()
-      .type("cidr_block")
       .name("allow-all")
+      .type("cidr_block")
       .cidrBlock("testString")
       .build();
-    assertEquals(allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModel.type(), "cidr_block");
     assertEquals(allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModel.name(), "allow-all");
+    assertEquals(allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModel.type(), "cidr_block");
     assertEquals(allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModel.cidrBlock(), "testString");
 
     String json = TestUtilities.serialize(allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModel);
 
     AllowedOutboundDestinationPrototypeCidrBlockDataPrototype allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModelNew = TestUtilities.deserialize(json, AllowedOutboundDestinationPrototypeCidrBlockDataPrototype.class);
     assertTrue(allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModelNew instanceof AllowedOutboundDestinationPrototypeCidrBlockDataPrototype);
-    assertEquals(allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModelNew.type(), "cidr_block");
     assertEquals(allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModelNew.name(), "allow-all");
+    assertEquals(allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModelNew.type(), "cidr_block");
     assertEquals(allowedOutboundDestinationPrototypeCidrBlockDataPrototypeModelNew.cidrBlock(), "testString");
   }
 

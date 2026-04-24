@@ -329,7 +329,6 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
 
             VolumeMountPrototype volumeMountPrototypeModel = new VolumeMountPrototype.Builder()
                     .mountPath("/app")
-                    .name("codeengine-mount-b69u90")
                     .reference("my-secret")
                     .type("secret")
                     .build();
@@ -410,7 +409,6 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
 
             VolumeMountPrototype volumeMountPrototypeModel = new VolumeMountPrototype.Builder()
                     .mountPath("/app")
-                    .name("codeengine-mount-b69u90")
                     .reference("my-secret")
                     .type("secret")
                     .build();
@@ -610,7 +608,6 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
 
             VolumeMountPrototype volumeMountPrototypeModel = new VolumeMountPrototype.Builder()
                     .mountPath("/app")
-                    .name("codeengine-mount-b69u90")
                     .reference("my-secret")
                     .type("secret")
                     .build();
@@ -687,7 +684,6 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
 
             VolumeMountPrototype volumeMountPrototypeModel = new VolumeMountPrototype.Builder()
                     .mountPath("/app")
-                    .name("codeengine-mount-b69u90")
                     .reference("my-secret")
                     .type("secret")
                     .build();
@@ -804,7 +800,6 @@ public class CodeEngineIT extends SdkIntegrationTestBase {
 
             VolumeMountPrototype volumeMountPrototypeModel = new VolumeMountPrototype.Builder()
                     .mountPath("/app")
-                    .name("codeengine-mount-b69u90")
                     .reference("my-secret")
                     .type("secret")
                     .build();

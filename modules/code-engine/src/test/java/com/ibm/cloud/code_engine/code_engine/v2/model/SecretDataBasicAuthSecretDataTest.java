@@ -32,20 +32,20 @@ public class SecretDataBasicAuthSecretDataTest {
   @Test
   public void testSecretDataBasicAuthSecretData() throws Throwable {
     SecretDataBasicAuthSecretData secretDataBasicAuthSecretDataModel = new SecretDataBasicAuthSecretData.Builder()
-      .username("testString")
       .password("testString")
+      .username("testString")
       .add("foo", "testString")
       .build();
-    assertEquals(secretDataBasicAuthSecretDataModel.getUsername(), "testString");
     assertEquals(secretDataBasicAuthSecretDataModel.getPassword(), "testString");
+    assertEquals(secretDataBasicAuthSecretDataModel.getUsername(), "testString");
     assertEquals(secretDataBasicAuthSecretDataModel.get("foo"), "testString");
 
     String json = TestUtilities.serialize(secretDataBasicAuthSecretDataModel);
 
     SecretDataBasicAuthSecretData secretDataBasicAuthSecretDataModelNew = TestUtilities.deserialize(json, SecretDataBasicAuthSecretData.class);
     assertTrue(secretDataBasicAuthSecretDataModelNew instanceof SecretDataBasicAuthSecretData);
-    assertEquals(secretDataBasicAuthSecretDataModelNew.getUsername(), "testString");
     assertEquals(secretDataBasicAuthSecretDataModelNew.getPassword(), "testString");
+    assertEquals(secretDataBasicAuthSecretDataModelNew.getUsername(), "testString");
     assertEquals(secretDataBasicAuthSecretDataModelNew.get("foo"), "testString");
   }
 

@@ -33,12 +33,12 @@ public class CreateAllowedOutboundDestinationOptionsTest {
   @Test
   public void testCreateAllowedOutboundDestinationOptions() throws Throwable {
     AllowedOutboundDestinationPrototypeCidrBlockDataPrototype allowedOutboundDestinationPrototypeModel = new AllowedOutboundDestinationPrototypeCidrBlockDataPrototype.Builder()
-      .type("cidr_block")
       .name("allow-all")
+      .type("cidr_block")
       .cidrBlock("testString")
       .build();
-    assertEquals(allowedOutboundDestinationPrototypeModel.type(), "cidr_block");
     assertEquals(allowedOutboundDestinationPrototypeModel.name(), "allow-all");
+    assertEquals(allowedOutboundDestinationPrototypeModel.type(), "cidr_block");
     assertEquals(allowedOutboundDestinationPrototypeModel.cidrBlock(), "testString");
 
     CreateAllowedOutboundDestinationOptions createAllowedOutboundDestinationOptionsModel = new CreateAllowedOutboundDestinationOptions.Builder()

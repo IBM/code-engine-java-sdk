@@ -80,7 +80,7 @@ public class Project extends GenericModel {
   /**
    * Gets the accountId.
    *
-   * An alphanumeric value identifying the account ID.
+   * The ID of the account of the project, e.g. 4329073d16d2f3663f74bfa955259139.
    *
    * @return the accountId
    */

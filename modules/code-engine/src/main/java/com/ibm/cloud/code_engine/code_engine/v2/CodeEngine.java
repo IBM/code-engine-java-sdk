@@ -188,7 +188,7 @@ public class CodeEngine extends BaseService {
    * Gets the version.
    *
    * The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-   * `2021-03-31` and `2026-02-23`.
+   * `2021-03-31` and `2026-03-27`.
    *
    * @return the version
    */
@@ -664,91 +664,36 @@ public class CodeEngine extends BaseService {
   }
 
   /**
-   * Delete an application.
+   * List application instances.
    *
-   * Delete an application.
+   * List all instances of an application.
    *
-   * @param deleteAppOptions the {@link DeleteAppOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a void result
+   * @param listAppInstancesOptions the {@link ListAppInstancesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link AppInstanceList}
    */
-  public ServiceCall<Void> deleteApp(DeleteAppOptions deleteAppOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteAppOptions,
-      "deleteAppOptions cannot be null");
+  public ServiceCall<AppInstanceList> listAppInstances(ListAppInstancesOptions listAppInstancesOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listAppInstancesOptions,
+      "listAppInstancesOptions cannot be null");
     Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", deleteAppOptions.projectId());
-    pathParamsMap.put("name", deleteAppOptions.name());
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/apps/{name}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteApp");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    if (deleteAppOptions.keepServiceAccess() != null) {
-      builder.query("keep_service_access", String.valueOf(deleteAppOptions.keepServiceAccess()));
-    }
-    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Get an application.
-   *
-   * Display the details of an application.
-   *
-   * @param getAppOptions the {@link GetAppOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link App}
-   */
-  public ServiceCall<App> getApp(GetAppOptions getAppOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(getAppOptions,
-      "getAppOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", getAppOptions.projectId());
-    pathParamsMap.put("name", getAppOptions.name());
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/apps/{name}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "getApp");
+    pathParamsMap.put("project_id", listAppInstancesOptions.projectId());
+    pathParamsMap.put("app_name", listAppInstancesOptions.appName());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/apps/{app_name}/instances", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "listAppInstances");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (listAppInstancesOptions.limit() != null) {
+      builder.query("limit", String.valueOf(listAppInstancesOptions.limit()));
+    }
+    if (listAppInstancesOptions.start() != null) {
+      builder.query("start", String.valueOf(listAppInstancesOptions.start()));
+    }
     if (this.version != null) {
       builder.query("version", String.valueOf(this.version));
     }
-    ResponseConverter<App> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<App>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Update an application.
-   *
-   * An application contains one or more revisions. A revision represents an immutable version of the configuration
-   * properties of the application. Each update of an application configuration property creates a new revision of the
-   * application. [Learn more](https://cloud.ibm.com/docs/codeengine?topic=codeengine-update-app).
-   *
-   * @param updateAppOptions the {@link UpdateAppOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link App}
-   */
-  public ServiceCall<App> updateApp(UpdateAppOptions updateAppOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(updateAppOptions,
-      "updateAppOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", updateAppOptions.projectId());
-    pathParamsMap.put("name", updateAppOptions.name());
-    RequestBuilder builder = RequestBuilder.patch(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/apps/{name}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "updateApp");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    builder.header("If-Match", updateAppOptions.ifMatch());
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithSerializeNulls().toJson(updateAppOptions.app()), "application/merge-patch+json");
-    ResponseConverter<App> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<App>() { }.getType());
+    ResponseConverter<AppInstanceList> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<AppInstanceList>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -843,36 +788,267 @@ public class CodeEngine extends BaseService {
   }
 
   /**
-   * List application instances.
+   * Delete an application.
    *
-   * List all instances of an application.
+   * Delete an application.
    *
-   * @param listAppInstancesOptions the {@link ListAppInstancesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link AppInstanceList}
+   * @param deleteAppOptions the {@link DeleteAppOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
    */
-  public ServiceCall<AppInstanceList> listAppInstances(ListAppInstancesOptions listAppInstancesOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(listAppInstancesOptions,
-      "listAppInstancesOptions cannot be null");
+  public ServiceCall<Void> deleteApp(DeleteAppOptions deleteAppOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteAppOptions,
+      "deleteAppOptions cannot be null");
     Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", listAppInstancesOptions.projectId());
-    pathParamsMap.put("app_name", listAppInstancesOptions.appName());
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/apps/{app_name}/instances", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "listAppInstances");
+    pathParamsMap.put("project_id", deleteAppOptions.projectId());
+    pathParamsMap.put("name", deleteAppOptions.name());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/apps/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteApp");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (listAppInstancesOptions.limit() != null) {
-      builder.query("limit", String.valueOf(listAppInstancesOptions.limit()));
-    }
-    if (listAppInstancesOptions.start() != null) {
-      builder.query("start", String.valueOf(listAppInstancesOptions.start()));
     }
     if (this.version != null) {
       builder.query("version", String.valueOf(this.version));
     }
-    ResponseConverter<AppInstanceList> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<AppInstanceList>() { }.getType());
+    if (deleteAppOptions.keepServiceAccess() != null) {
+      builder.query("keep_service_access", String.valueOf(deleteAppOptions.keepServiceAccess()));
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get an application.
+   *
+   * Display the details of an application.
+   *
+   * @param getAppOptions the {@link GetAppOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link App}
+   */
+  public ServiceCall<App> getApp(GetAppOptions getAppOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getAppOptions,
+      "getAppOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", getAppOptions.projectId());
+    pathParamsMap.put("name", getAppOptions.name());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/apps/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "getApp");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<App> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<App>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update an application.
+   *
+   * An application contains one or more revisions. A revision represents an immutable version of the configuration
+   * properties of the application. Each update of an application configuration property creates a new revision of the
+   * application. [Learn more](https://cloud.ibm.com/docs/codeengine?topic=codeengine-update-app).
+   *
+   * @param updateAppOptions the {@link UpdateAppOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link App}
+   */
+  public ServiceCall<App> updateApp(UpdateAppOptions updateAppOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateAppOptions,
+      "updateAppOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", updateAppOptions.projectId());
+    pathParamsMap.put("name", updateAppOptions.name());
+    RequestBuilder builder = RequestBuilder.patch(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/apps/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "updateApp");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.header("If-Match", updateAppOptions.ifMatch());
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithSerializeNulls().toJson(updateAppOptions.app()), "application/merge-patch+json");
+    ResponseConverter<App> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<App>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List job runs.
+   *
+   * List all job runs in a project.
+   *
+   * @param listJobRunsOptions the {@link ListJobRunsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link JobRunList}
+   */
+  public ServiceCall<JobRunList> listJobRuns(ListJobRunsOptions listJobRunsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listJobRunsOptions,
+      "listJobRunsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", listJobRunsOptions.projectId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/job_runs", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "listJobRuns");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    if (listJobRunsOptions.jobName() != null) {
+      builder.query("job_name", String.valueOf(listJobRunsOptions.jobName()));
+    }
+    if (listJobRunsOptions.limit() != null) {
+      builder.query("limit", String.valueOf(listJobRunsOptions.limit()));
+    }
+    if (listJobRunsOptions.start() != null) {
+      builder.query("start", String.valueOf(listJobRunsOptions.start()));
+    }
+    ResponseConverter<JobRunList> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<JobRunList>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create a job run.
+   *
+   * Create an job run.
+   *
+   * @param createJobRunOptions the {@link CreateJobRunOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link JobRun}
+   */
+  public ServiceCall<JobRun> createJobRun(CreateJobRunOptions createJobRunOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createJobRunOptions,
+      "createJobRunOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", createJobRunOptions.projectId());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/job_runs", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "createJobRun");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    final JsonObject contentJson = new JsonObject();
+    if (createJobRunOptions.imageReference() != null) {
+      contentJson.addProperty("image_reference", createJobRunOptions.imageReference());
+    }
+    if (createJobRunOptions.imageSecret() != null) {
+      contentJson.addProperty("image_secret", createJobRunOptions.imageSecret());
+    }
+    if (createJobRunOptions.jobName() != null) {
+      contentJson.addProperty("job_name", createJobRunOptions.jobName());
+    }
+    if (createJobRunOptions.name() != null) {
+      contentJson.addProperty("name", createJobRunOptions.name());
+    }
+    if (createJobRunOptions.runArguments() != null) {
+      contentJson.add("run_arguments", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createJobRunOptions.runArguments()));
+    }
+    if (createJobRunOptions.runAsUser() != null) {
+      contentJson.addProperty("run_as_user", createJobRunOptions.runAsUser());
+    }
+    if (createJobRunOptions.runCommands() != null) {
+      contentJson.add("run_commands", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createJobRunOptions.runCommands()));
+    }
+    if (createJobRunOptions.runComputeResourceTokenEnabled() != null) {
+      contentJson.addProperty("run_compute_resource_token_enabled", createJobRunOptions.runComputeResourceTokenEnabled());
+    }
+    if (createJobRunOptions.runEnvVariables() != null) {
+      contentJson.add("run_env_variables", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createJobRunOptions.runEnvVariables()));
+    }
+    if (createJobRunOptions.runMode() != null) {
+      contentJson.addProperty("run_mode", createJobRunOptions.runMode());
+    }
+    if (createJobRunOptions.runServiceAccount() != null) {
+      contentJson.addProperty("run_service_account", createJobRunOptions.runServiceAccount());
+    }
+    if (createJobRunOptions.runVolumeMounts() != null) {
+      contentJson.add("run_volume_mounts", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createJobRunOptions.runVolumeMounts()));
+    }
+    if (createJobRunOptions.scaleArraySizeVariableOverride() != null) {
+      contentJson.addProperty("scale_array_size_variable_override", createJobRunOptions.scaleArraySizeVariableOverride());
+    }
+    if (createJobRunOptions.scaleArraySpec() != null) {
+      contentJson.addProperty("scale_array_spec", createJobRunOptions.scaleArraySpec());
+    }
+    if (createJobRunOptions.scaleCpuLimit() != null) {
+      contentJson.addProperty("scale_cpu_limit", createJobRunOptions.scaleCpuLimit());
+    }
+    if (createJobRunOptions.scaleEphemeralStorageLimit() != null) {
+      contentJson.addProperty("scale_ephemeral_storage_limit", createJobRunOptions.scaleEphemeralStorageLimit());
+    }
+    if (createJobRunOptions.scaleMaxExecutionTime() != null) {
+      contentJson.addProperty("scale_max_execution_time", createJobRunOptions.scaleMaxExecutionTime());
+    }
+    if (createJobRunOptions.scaleMemoryLimit() != null) {
+      contentJson.addProperty("scale_memory_limit", createJobRunOptions.scaleMemoryLimit());
+    }
+    if (createJobRunOptions.scaleRetryLimit() != null) {
+      contentJson.addProperty("scale_retry_limit", createJobRunOptions.scaleRetryLimit());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<JobRun> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<JobRun>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a job run.
+   *
+   * Delete a job run.
+   *
+   * @param deleteJobRunOptions the {@link DeleteJobRunOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteJobRun(DeleteJobRunOptions deleteJobRunOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteJobRunOptions,
+      "deleteJobRunOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", deleteJobRunOptions.projectId());
+    pathParamsMap.put("name", deleteJobRunOptions.name());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/job_runs/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteJobRun");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get a job run.
+   *
+   * Display the details of a job run.
+   *
+   * @param getJobRunOptions the {@link GetJobRunOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link JobRun}
+   */
+  public ServiceCall<JobRun> getJobRun(GetJobRunOptions getJobRunOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getJobRunOptions,
+      "getJobRunOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", getJobRunOptions.projectId());
+    pathParamsMap.put("name", getJobRunOptions.name());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/job_runs/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "getJobRun");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<JobRun> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<JobRun>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -1069,182 +1245,6 @@ public class CodeEngine extends BaseService {
     builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithSerializeNulls().toJson(updateJobOptions.job()), "application/merge-patch+json");
     ResponseConverter<Job> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Job>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * List job runs.
-   *
-   * List all job runs in a project.
-   *
-   * @param listJobRunsOptions the {@link ListJobRunsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link JobRunList}
-   */
-  public ServiceCall<JobRunList> listJobRuns(ListJobRunsOptions listJobRunsOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(listJobRunsOptions,
-      "listJobRunsOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", listJobRunsOptions.projectId());
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/job_runs", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "listJobRuns");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    if (listJobRunsOptions.jobName() != null) {
-      builder.query("job_name", String.valueOf(listJobRunsOptions.jobName()));
-    }
-    if (listJobRunsOptions.limit() != null) {
-      builder.query("limit", String.valueOf(listJobRunsOptions.limit()));
-    }
-    if (listJobRunsOptions.start() != null) {
-      builder.query("start", String.valueOf(listJobRunsOptions.start()));
-    }
-    ResponseConverter<JobRunList> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<JobRunList>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Create a job run.
-   *
-   * Create an job run.
-   *
-   * @param createJobRunOptions the {@link CreateJobRunOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link JobRun}
-   */
-  public ServiceCall<JobRun> createJobRun(CreateJobRunOptions createJobRunOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(createJobRunOptions,
-      "createJobRunOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", createJobRunOptions.projectId());
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/job_runs", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "createJobRun");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    final JsonObject contentJson = new JsonObject();
-    if (createJobRunOptions.imageReference() != null) {
-      contentJson.addProperty("image_reference", createJobRunOptions.imageReference());
-    }
-    if (createJobRunOptions.imageSecret() != null) {
-      contentJson.addProperty("image_secret", createJobRunOptions.imageSecret());
-    }
-    if (createJobRunOptions.jobName() != null) {
-      contentJson.addProperty("job_name", createJobRunOptions.jobName());
-    }
-    if (createJobRunOptions.name() != null) {
-      contentJson.addProperty("name", createJobRunOptions.name());
-    }
-    if (createJobRunOptions.runArguments() != null) {
-      contentJson.add("run_arguments", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createJobRunOptions.runArguments()));
-    }
-    if (createJobRunOptions.runAsUser() != null) {
-      contentJson.addProperty("run_as_user", createJobRunOptions.runAsUser());
-    }
-    if (createJobRunOptions.runCommands() != null) {
-      contentJson.add("run_commands", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createJobRunOptions.runCommands()));
-    }
-    if (createJobRunOptions.runComputeResourceTokenEnabled() != null) {
-      contentJson.addProperty("run_compute_resource_token_enabled", createJobRunOptions.runComputeResourceTokenEnabled());
-    }
-    if (createJobRunOptions.runEnvVariables() != null) {
-      contentJson.add("run_env_variables", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createJobRunOptions.runEnvVariables()));
-    }
-    if (createJobRunOptions.runMode() != null) {
-      contentJson.addProperty("run_mode", createJobRunOptions.runMode());
-    }
-    if (createJobRunOptions.runServiceAccount() != null) {
-      contentJson.addProperty("run_service_account", createJobRunOptions.runServiceAccount());
-    }
-    if (createJobRunOptions.runVolumeMounts() != null) {
-      contentJson.add("run_volume_mounts", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createJobRunOptions.runVolumeMounts()));
-    }
-    if (createJobRunOptions.scaleArraySizeVariableOverride() != null) {
-      contentJson.addProperty("scale_array_size_variable_override", createJobRunOptions.scaleArraySizeVariableOverride());
-    }
-    if (createJobRunOptions.scaleArraySpec() != null) {
-      contentJson.addProperty("scale_array_spec", createJobRunOptions.scaleArraySpec());
-    }
-    if (createJobRunOptions.scaleCpuLimit() != null) {
-      contentJson.addProperty("scale_cpu_limit", createJobRunOptions.scaleCpuLimit());
-    }
-    if (createJobRunOptions.scaleEphemeralStorageLimit() != null) {
-      contentJson.addProperty("scale_ephemeral_storage_limit", createJobRunOptions.scaleEphemeralStorageLimit());
-    }
-    if (createJobRunOptions.scaleMaxExecutionTime() != null) {
-      contentJson.addProperty("scale_max_execution_time", createJobRunOptions.scaleMaxExecutionTime());
-    }
-    if (createJobRunOptions.scaleMemoryLimit() != null) {
-      contentJson.addProperty("scale_memory_limit", createJobRunOptions.scaleMemoryLimit());
-    }
-    if (createJobRunOptions.scaleRetryLimit() != null) {
-      contentJson.addProperty("scale_retry_limit", createJobRunOptions.scaleRetryLimit());
-    }
-    builder.bodyJson(contentJson);
-    ResponseConverter<JobRun> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<JobRun>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Delete a job run.
-   *
-   * Delete a job run.
-   *
-   * @param deleteJobRunOptions the {@link DeleteJobRunOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a void result
-   */
-  public ServiceCall<Void> deleteJobRun(DeleteJobRunOptions deleteJobRunOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteJobRunOptions,
-      "deleteJobRunOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", deleteJobRunOptions.projectId());
-    pathParamsMap.put("name", deleteJobRunOptions.name());
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/job_runs/{name}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteJobRun");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Get a job run.
-   *
-   * Display the details of a job run.
-   *
-   * @param getJobRunOptions the {@link GetJobRunOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link JobRun}
-   */
-  public ServiceCall<JobRun> getJobRun(GetJobRunOptions getJobRunOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(getJobRunOptions,
-      "getJobRunOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", getJobRunOptions.projectId());
-    pathParamsMap.put("name", getJobRunOptions.name());
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/job_runs/{name}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "getJobRun");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    ResponseConverter<JobRun> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<JobRun>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -1586,6 +1586,170 @@ public class CodeEngine extends BaseService {
   }
 
   /**
+   * List build runs.
+   *
+   * List all build runs in a project.
+   *
+   * @param listBuildRunsOptions the {@link ListBuildRunsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link BuildRunList}
+   */
+  public ServiceCall<BuildRunList> listBuildRuns(ListBuildRunsOptions listBuildRunsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listBuildRunsOptions,
+      "listBuildRunsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", listBuildRunsOptions.projectId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/build_runs", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "listBuildRuns");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    if (listBuildRunsOptions.buildName() != null) {
+      builder.query("build_name", String.valueOf(listBuildRunsOptions.buildName()));
+    }
+    if (listBuildRunsOptions.limit() != null) {
+      builder.query("limit", String.valueOf(listBuildRunsOptions.limit()));
+    }
+    if (listBuildRunsOptions.start() != null) {
+      builder.query("start", String.valueOf(listBuildRunsOptions.start()));
+    }
+    ResponseConverter<BuildRunList> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<BuildRunList>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create a build run.
+   *
+   * Create a build run.
+   *
+   * @param createBuildRunOptions the {@link CreateBuildRunOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link BuildRun}
+   */
+  public ServiceCall<BuildRun> createBuildRun(CreateBuildRunOptions createBuildRunOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createBuildRunOptions,
+      "createBuildRunOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", createBuildRunOptions.projectId());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/build_runs", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "createBuildRun");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    final JsonObject contentJson = new JsonObject();
+    if (createBuildRunOptions.buildName() != null) {
+      contentJson.addProperty("build_name", createBuildRunOptions.buildName());
+    }
+    if (createBuildRunOptions.name() != null) {
+      contentJson.addProperty("name", createBuildRunOptions.name());
+    }
+    if (createBuildRunOptions.outputImage() != null) {
+      contentJson.addProperty("output_image", createBuildRunOptions.outputImage());
+    }
+    if (createBuildRunOptions.outputSecret() != null) {
+      contentJson.addProperty("output_secret", createBuildRunOptions.outputSecret());
+    }
+    if (createBuildRunOptions.runBuildParams() != null) {
+      contentJson.add("run_build_params", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createBuildRunOptions.runBuildParams()));
+    }
+    if (createBuildRunOptions.serviceAccount() != null) {
+      contentJson.addProperty("service_account", createBuildRunOptions.serviceAccount());
+    }
+    if (createBuildRunOptions.sourceContextDir() != null) {
+      contentJson.addProperty("source_context_dir", createBuildRunOptions.sourceContextDir());
+    }
+    if (createBuildRunOptions.sourceRevision() != null) {
+      contentJson.addProperty("source_revision", createBuildRunOptions.sourceRevision());
+    }
+    if (createBuildRunOptions.sourceSecret() != null) {
+      contentJson.addProperty("source_secret", createBuildRunOptions.sourceSecret());
+    }
+    if (createBuildRunOptions.sourceType() != null) {
+      contentJson.addProperty("source_type", createBuildRunOptions.sourceType());
+    }
+    if (createBuildRunOptions.sourceUrl() != null) {
+      contentJson.addProperty("source_url", createBuildRunOptions.sourceUrl());
+    }
+    if (createBuildRunOptions.strategySize() != null) {
+      contentJson.addProperty("strategy_size", createBuildRunOptions.strategySize());
+    }
+    if (createBuildRunOptions.strategySpecFile() != null) {
+      contentJson.addProperty("strategy_spec_file", createBuildRunOptions.strategySpecFile());
+    }
+    if (createBuildRunOptions.strategyType() != null) {
+      contentJson.addProperty("strategy_type", createBuildRunOptions.strategyType());
+    }
+    if (createBuildRunOptions.timeout() != null) {
+      contentJson.addProperty("timeout", createBuildRunOptions.timeout());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<BuildRun> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<BuildRun>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a build run.
+   *
+   * Delete a build run.
+   *
+   * @param deleteBuildRunOptions the {@link DeleteBuildRunOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteBuildRun(DeleteBuildRunOptions deleteBuildRunOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteBuildRunOptions,
+      "deleteBuildRunOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", deleteBuildRunOptions.projectId());
+    pathParamsMap.put("name", deleteBuildRunOptions.name());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/build_runs/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteBuildRun");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get a build run.
+   *
+   * Display the details of a build run.
+   *
+   * @param getBuildRunOptions the {@link GetBuildRunOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link BuildRun}
+   */
+  public ServiceCall<BuildRun> getBuildRun(GetBuildRunOptions getBuildRunOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getBuildRunOptions,
+      "getBuildRunOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", getBuildRunOptions.projectId());
+    pathParamsMap.put("name", getBuildRunOptions.name());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/build_runs/{name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "getBuildRun");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (this.version != null) {
+      builder.query("version", String.valueOf(this.version));
+    }
+    ResponseConverter<BuildRun> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<BuildRun>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * List builds.
    *
    * List all builds in a project.
@@ -1759,170 +1923,6 @@ public class CodeEngine extends BaseService {
     builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithSerializeNulls().toJson(updateBuildOptions.build()), "application/merge-patch+json");
     ResponseConverter<Build> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Build>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * List build runs.
-   *
-   * List all build runs in a project.
-   *
-   * @param listBuildRunsOptions the {@link ListBuildRunsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link BuildRunList}
-   */
-  public ServiceCall<BuildRunList> listBuildRuns(ListBuildRunsOptions listBuildRunsOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(listBuildRunsOptions,
-      "listBuildRunsOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", listBuildRunsOptions.projectId());
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/build_runs", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "listBuildRuns");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    if (listBuildRunsOptions.buildName() != null) {
-      builder.query("build_name", String.valueOf(listBuildRunsOptions.buildName()));
-    }
-    if (listBuildRunsOptions.limit() != null) {
-      builder.query("limit", String.valueOf(listBuildRunsOptions.limit()));
-    }
-    if (listBuildRunsOptions.start() != null) {
-      builder.query("start", String.valueOf(listBuildRunsOptions.start()));
-    }
-    ResponseConverter<BuildRunList> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<BuildRunList>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Create a build run.
-   *
-   * Create a build run.
-   *
-   * @param createBuildRunOptions the {@link CreateBuildRunOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link BuildRun}
-   */
-  public ServiceCall<BuildRun> createBuildRun(CreateBuildRunOptions createBuildRunOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(createBuildRunOptions,
-      "createBuildRunOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", createBuildRunOptions.projectId());
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/build_runs", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "createBuildRun");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    final JsonObject contentJson = new JsonObject();
-    if (createBuildRunOptions.buildName() != null) {
-      contentJson.addProperty("build_name", createBuildRunOptions.buildName());
-    }
-    if (createBuildRunOptions.name() != null) {
-      contentJson.addProperty("name", createBuildRunOptions.name());
-    }
-    if (createBuildRunOptions.outputImage() != null) {
-      contentJson.addProperty("output_image", createBuildRunOptions.outputImage());
-    }
-    if (createBuildRunOptions.outputSecret() != null) {
-      contentJson.addProperty("output_secret", createBuildRunOptions.outputSecret());
-    }
-    if (createBuildRunOptions.runBuildParams() != null) {
-      contentJson.add("run_build_params", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createBuildRunOptions.runBuildParams()));
-    }
-    if (createBuildRunOptions.serviceAccount() != null) {
-      contentJson.addProperty("service_account", createBuildRunOptions.serviceAccount());
-    }
-    if (createBuildRunOptions.sourceContextDir() != null) {
-      contentJson.addProperty("source_context_dir", createBuildRunOptions.sourceContextDir());
-    }
-    if (createBuildRunOptions.sourceRevision() != null) {
-      contentJson.addProperty("source_revision", createBuildRunOptions.sourceRevision());
-    }
-    if (createBuildRunOptions.sourceSecret() != null) {
-      contentJson.addProperty("source_secret", createBuildRunOptions.sourceSecret());
-    }
-    if (createBuildRunOptions.sourceType() != null) {
-      contentJson.addProperty("source_type", createBuildRunOptions.sourceType());
-    }
-    if (createBuildRunOptions.sourceUrl() != null) {
-      contentJson.addProperty("source_url", createBuildRunOptions.sourceUrl());
-    }
-    if (createBuildRunOptions.strategySize() != null) {
-      contentJson.addProperty("strategy_size", createBuildRunOptions.strategySize());
-    }
-    if (createBuildRunOptions.strategySpecFile() != null) {
-      contentJson.addProperty("strategy_spec_file", createBuildRunOptions.strategySpecFile());
-    }
-    if (createBuildRunOptions.strategyType() != null) {
-      contentJson.addProperty("strategy_type", createBuildRunOptions.strategyType());
-    }
-    if (createBuildRunOptions.timeout() != null) {
-      contentJson.addProperty("timeout", createBuildRunOptions.timeout());
-    }
-    builder.bodyJson(contentJson);
-    ResponseConverter<BuildRun> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<BuildRun>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Delete a build run.
-   *
-   * Delete a build run.
-   *
-   * @param deleteBuildRunOptions the {@link DeleteBuildRunOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a void result
-   */
-  public ServiceCall<Void> deleteBuildRun(DeleteBuildRunOptions deleteBuildRunOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteBuildRunOptions,
-      "deleteBuildRunOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", deleteBuildRunOptions.projectId());
-    pathParamsMap.put("name", deleteBuildRunOptions.name());
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/build_runs/{name}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "deleteBuildRun");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Get a build run.
-   *
-   * Display the details of a build run.
-   *
-   * @param getBuildRunOptions the {@link GetBuildRunOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link BuildRun}
-   */
-  public ServiceCall<BuildRun> getBuildRun(GetBuildRunOptions getBuildRunOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(getBuildRunOptions,
-      "getBuildRunOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", getBuildRunOptions.projectId());
-    pathParamsMap.put("name", getBuildRunOptions.name());
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/projects/{project_id}/build_runs/{name}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("code_engine", "v2", "getBuildRun");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (this.version != null) {
-      builder.query("version", String.valueOf(this.version));
-    }
-    ResponseConverter<BuildRun> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<BuildRun>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 

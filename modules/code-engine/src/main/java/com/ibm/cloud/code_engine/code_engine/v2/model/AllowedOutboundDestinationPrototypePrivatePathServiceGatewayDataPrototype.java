@@ -47,10 +47,10 @@ public class AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPro
    * Builder.
    */
   public static class Builder {
-    private String type;
     private String name;
-    private String privatePathServiceGatewayCrn;
+    private String type;
     private String isolationPolicy;
+    private String privatePathServiceGatewayCrn;
 
     /**
      * Instantiates a new Builder from an existing AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype instance.
@@ -58,10 +58,10 @@ public class AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPro
      * @param allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype the instance to initialize the Builder with
      */
     public Builder(AllowedOutboundDestinationPrototype allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype) {
-      this.type = allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype.type;
       this.name = allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype.name;
-      this.privatePathServiceGatewayCrn = allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype.privatePathServiceGatewayCrn;
+      this.type = allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype.type;
       this.isolationPolicy = allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype.isolationPolicy;
+      this.privatePathServiceGatewayCrn = allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype.privatePathServiceGatewayCrn;
     }
 
     /**
@@ -73,13 +73,13 @@ public class AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPro
     /**
      * Instantiates a new builder with required properties.
      *
-     * @param type the type
      * @param name the name
+     * @param type the type
      * @param privatePathServiceGatewayCrn the privatePathServiceGatewayCrn
      */
-    public Builder(String type, String name, String privatePathServiceGatewayCrn) {
-      this.type = type;
+    public Builder(String name, String type, String privatePathServiceGatewayCrn) {
       this.name = name;
+      this.type = type;
       this.privatePathServiceGatewayCrn = privatePathServiceGatewayCrn;
     }
 
@@ -90,17 +90,6 @@ public class AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPro
      */
     public AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype build() {
       return new AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype(this);
-    }
-
-    /**
-     * Set the type.
-     *
-     * @param type the type
-     * @return the AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype builder
-     */
-    public Builder type(String type) {
-      this.type = type;
-      return this;
     }
 
     /**
@@ -115,13 +104,13 @@ public class AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPro
     }
 
     /**
-     * Set the privatePathServiceGatewayCrn.
+     * Set the type.
      *
-     * @param privatePathServiceGatewayCrn the privatePathServiceGatewayCrn
+     * @param type the type
      * @return the AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype builder
      */
-    public Builder privatePathServiceGatewayCrn(String privatePathServiceGatewayCrn) {
-      this.privatePathServiceGatewayCrn = privatePathServiceGatewayCrn;
+    public Builder type(String type) {
+      this.type = type;
       return this;
     }
 
@@ -135,21 +124,32 @@ public class AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPro
       this.isolationPolicy = isolationPolicy;
       return this;
     }
+
+    /**
+     * Set the privatePathServiceGatewayCrn.
+     *
+     * @param privatePathServiceGatewayCrn the privatePathServiceGatewayCrn
+     * @return the AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype builder
+     */
+    public Builder privatePathServiceGatewayCrn(String privatePathServiceGatewayCrn) {
+      this.privatePathServiceGatewayCrn = privatePathServiceGatewayCrn;
+      return this;
+    }
   }
 
   protected AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype() { }
 
   protected AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.type,
-      "type cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
       "name cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.type,
+      "type cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.privatePathServiceGatewayCrn,
       "privatePathServiceGatewayCrn cannot be null");
-    type = builder.type;
     name = builder.name;
-    privatePathServiceGatewayCrn = builder.privatePathServiceGatewayCrn;
+    type = builder.type;
     isolationPolicy = builder.isolationPolicy;
+    privatePathServiceGatewayCrn = builder.privatePathServiceGatewayCrn;
   }
 
   /**

@@ -33,12 +33,12 @@ public class CreatePersistentDataStoreOptionsTest {
   @Test
   public void testCreatePersistentDataStoreOptions() throws Throwable {
     StorageDataObjectStorageData storageDataModel = new StorageDataObjectStorageData.Builder()
-      .bucketLocation("au-syd")
+      .bucketLocation("testString")
       .bucketName("testString")
       .secretName("testString")
       .add("foo", "testString")
       .build();
-    assertEquals(storageDataModel.getBucketLocation(), "au-syd");
+    assertEquals(storageDataModel.getBucketLocation(), "testString");
     assertEquals(storageDataModel.getBucketName(), "testString");
     assertEquals(storageDataModel.getSecretName(), "testString");
     assertEquals(storageDataModel.get("foo"), "testString");

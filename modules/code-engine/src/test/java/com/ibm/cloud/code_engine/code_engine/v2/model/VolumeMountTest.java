@@ -33,7 +33,6 @@ public class VolumeMountTest {
   public void testVolumeMount() throws Throwable {
     VolumeMount volumeMountModel = new VolumeMount();
     assertNull(volumeMountModel.getMountPath());
-    assertNull(volumeMountModel.getName());
     assertNull(volumeMountModel.isReadOnly());
     assertNull(volumeMountModel.getReference());
     assertNull(volumeMountModel.getSubPath());

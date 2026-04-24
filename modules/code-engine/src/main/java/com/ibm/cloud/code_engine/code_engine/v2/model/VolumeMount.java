@@ -35,7 +35,6 @@ public class VolumeMount extends GenericModel {
 
   @SerializedName("mount_path")
   protected String mountPath;
-  protected String name;
   @SerializedName("read_only")
   protected Boolean readOnly;
   protected String reference;
@@ -54,17 +53,6 @@ public class VolumeMount extends GenericModel {
    */
   public String getMountPath() {
     return mountPath;
-  }
-
-  /**
-   * Gets the name.
-   *
-   * The name of the mount.
-   *
-   * @return the name
-   */
-  public String getName() {
-    return name;
   }
 
   /**
