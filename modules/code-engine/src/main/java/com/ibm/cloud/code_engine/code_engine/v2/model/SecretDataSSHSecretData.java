@@ -32,8 +32,8 @@ public class SecretDataSSHSecretData extends SecretData {
    * Builder.
    */
   public static class Builder {
-    private String sshKey;
     private String knownHosts;
+    private String sshKey;
     private Map<String, String> dynamicProperties;
 
     /**
@@ -42,8 +42,8 @@ public class SecretDataSSHSecretData extends SecretData {
      * @param secretDataSshSecretData the instance to initialize the Builder with
      */
     public Builder(SecretData secretDataSshSecretData) {
-      this.sshKey = secretDataSshSecretData.sshKey;
       this.knownHosts = secretDataSshSecretData.knownHosts;
+      this.sshKey = secretDataSshSecretData.sshKey;
       this.dynamicProperties = secretDataSshSecretData.getProperties();
     }
 
@@ -72,17 +72,6 @@ public class SecretDataSSHSecretData extends SecretData {
     }
 
     /**
-     * Set the sshKey.
-     *
-     * @param sshKey the sshKey
-     * @return the SecretDataSSHSecretData builder
-     */
-    public Builder sshKey(String sshKey) {
-      this.sshKey = sshKey;
-      return this;
-    }
-
-    /**
      * Set the knownHosts.
      *
      * @param knownHosts the knownHosts
@@ -90,6 +79,17 @@ public class SecretDataSSHSecretData extends SecretData {
      */
     public Builder knownHosts(String knownHosts) {
       this.knownHosts = knownHosts;
+      return this;
+    }
+
+    /**
+     * Set the sshKey.
+     *
+     * @param sshKey the sshKey
+     * @return the SecretDataSSHSecretData builder
+     */
+    public Builder sshKey(String sshKey) {
+      this.sshKey = sshKey;
       return this;
     }
 
@@ -113,8 +113,8 @@ public class SecretDataSSHSecretData extends SecretData {
   protected SecretDataSSHSecretData(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.sshKey,
       "sshKey cannot be null");
-    sshKey = builder.sshKey;
     knownHosts = builder.knownHosts;
+    sshKey = builder.sshKey;
     this.setProperties(builder.dynamicProperties);
   }
 
@@ -128,20 +128,20 @@ public class SecretDataSSHSecretData extends SecretData {
   }
 
   /**
-   * Sets the sshKey.
-   *
-   * @param sshKey the new sshKey
-   */
-  public void setSshKey(final String sshKey) {
-    this.sshKey = sshKey;
-  }
-
-  /**
    * Sets the knownHosts.
    *
    * @param knownHosts the new knownHosts
    */
   public void setKnownHosts(final String knownHosts) {
     this.knownHosts = knownHosts;
+  }
+
+  /**
+   * Sets the sshKey.
+   *
+   * @param sshKey the new sshKey
+   */
+  public void setSshKey(final String sshKey) {
+    this.sshKey = sshKey;
   }
 }

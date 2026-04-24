@@ -49,16 +49,27 @@ public class AllowedOutboundDestinationPrototype extends GenericModel {
     String DEDICATED = "dedicated";
   }
 
-  protected String type;
   protected String name;
+  protected String type;
   @SerializedName("cidr_block")
   protected String cidrBlock;
-  @SerializedName("private_path_service_gateway_crn")
-  protected String privatePathServiceGatewayCrn;
   @SerializedName("isolation_policy")
   protected String isolationPolicy;
+  @SerializedName("private_path_service_gateway_crn")
+  protected String privatePathServiceGatewayCrn;
 
   protected AllowedOutboundDestinationPrototype() { }
+
+  /**
+   * Gets the name.
+   *
+   * The name of the allowed outbound destination.
+   *
+   * @return the name
+   */
+  public String name() {
+    return name;
+  }
 
   /**
    * Gets the type.
@@ -73,17 +84,6 @@ public class AllowedOutboundDestinationPrototype extends GenericModel {
   }
 
   /**
-   * Gets the name.
-   *
-   * The name of the allowed outbound destination.
-   *
-   * @return the name
-   */
-  public String name() {
-    return name;
-  }
-
-  /**
    * Gets the cidrBlock.
    *
    * The IPv4 address range.
@@ -92,18 +92,6 @@ public class AllowedOutboundDestinationPrototype extends GenericModel {
    */
   public String cidrBlock() {
     return cidrBlock;
-  }
-
-  /**
-   * Gets the privatePathServiceGatewayCrn.
-   *
-   * The CRN of the Private Path service. The CRN can be obtained in the resource details of the target Private Path
-   * service. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-pps-ui-communicate).
-   *
-   * @return the privatePathServiceGatewayCrn
-   */
-  public String privatePathServiceGatewayCrn() {
-    return privatePathServiceGatewayCrn;
   }
 
   /**
@@ -118,6 +106,18 @@ public class AllowedOutboundDestinationPrototype extends GenericModel {
    */
   public String isolationPolicy() {
     return isolationPolicy;
+  }
+
+  /**
+   * Gets the privatePathServiceGatewayCrn.
+   *
+   * The CRN of the Private Path service. The CRN can be obtained in the resource details of the target Private Path
+   * service. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-pps-ui-communicate).
+   *
+   * @return the privatePathServiceGatewayCrn
+   */
+  public String privatePathServiceGatewayCrn() {
+    return privatePathServiceGatewayCrn;
   }
 }
 

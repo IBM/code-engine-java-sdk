@@ -35,7 +35,6 @@ public class VolumeMountPrototype extends GenericModel {
 
   @SerializedName("mount_path")
   protected String mountPath;
-  protected String name;
   @SerializedName("read_only")
   protected Boolean readOnly;
   protected String reference;
@@ -48,7 +47,6 @@ public class VolumeMountPrototype extends GenericModel {
    */
   public static class Builder {
     private String mountPath;
-    private String name;
     private Boolean readOnly;
     private String reference;
     private String subPath;
@@ -61,7 +59,6 @@ public class VolumeMountPrototype extends GenericModel {
      */
     private Builder(VolumeMountPrototype volumeMountPrototype) {
       this.mountPath = volumeMountPrototype.mountPath;
-      this.name = volumeMountPrototype.name;
       this.readOnly = volumeMountPrototype.readOnly;
       this.reference = volumeMountPrototype.reference;
       this.subPath = volumeMountPrototype.subPath;
@@ -104,17 +101,6 @@ public class VolumeMountPrototype extends GenericModel {
      */
     public Builder mountPath(String mountPath) {
       this.mountPath = mountPath;
-      return this;
-    }
-
-    /**
-     * Set the name.
-     *
-     * @param name the name
-     * @return the VolumeMountPrototype builder
-     */
-    public Builder name(String name) {
-      this.name = name;
       return this;
     }
 
@@ -173,7 +159,6 @@ public class VolumeMountPrototype extends GenericModel {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.type,
       "type cannot be null");
     mountPath = builder.mountPath;
-    name = builder.name;
     readOnly = builder.readOnly;
     reference = builder.reference;
     subPath = builder.subPath;
@@ -198,18 +183,6 @@ public class VolumeMountPrototype extends GenericModel {
    */
   public String mountPath() {
     return mountPath;
-  }
-
-  /**
-   * Gets the name.
-   *
-   * Optional name of the mount. If not set, it will be generated based on the `reference` and a random ID. In case the
-   * `reference` is longer than 58 characters, it will be cut off.
-   *
-   * @return the name
-   */
-  public String name() {
-    return name;
   }
 
   /**

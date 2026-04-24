@@ -32,24 +32,24 @@ public class AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPro
   @Test
   public void testAllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype() throws Throwable {
     AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototypeModel = new AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype.Builder()
-      .type("cidr_block")
       .name("allow-all")
-      .privatePathServiceGatewayCrn("testString")
+      .type("cidr_block")
       .isolationPolicy("shared")
+      .privatePathServiceGatewayCrn("testString")
       .build();
-    assertEquals(allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototypeModel.type(), "cidr_block");
     assertEquals(allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototypeModel.name(), "allow-all");
-    assertEquals(allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototypeModel.privatePathServiceGatewayCrn(), "testString");
+    assertEquals(allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototypeModel.type(), "cidr_block");
     assertEquals(allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototypeModel.isolationPolicy(), "shared");
+    assertEquals(allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototypeModel.privatePathServiceGatewayCrn(), "testString");
 
     String json = TestUtilities.serialize(allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototypeModel);
 
     AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototypeModelNew = TestUtilities.deserialize(json, AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype.class);
     assertTrue(allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototypeModelNew instanceof AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype);
-    assertEquals(allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototypeModelNew.type(), "cidr_block");
     assertEquals(allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototypeModelNew.name(), "allow-all");
-    assertEquals(allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototypeModelNew.privatePathServiceGatewayCrn(), "testString");
+    assertEquals(allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototypeModelNew.type(), "cidr_block");
     assertEquals(allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototypeModelNew.isolationPolicy(), "shared");
+    assertEquals(allowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototypeModelNew.privatePathServiceGatewayCrn(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

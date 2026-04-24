@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/IBM/code-engine-java-sdk.svg?branch=main)](https://travis-ci.com/IBM/code-engine-java-sdk)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-# IBM Cloud Code Engine Java SDK Version 5.0.0
+# IBM Cloud Code Engine Java SDK Version 6.0.0
 
 Java client library to interact with the [Code Engine API](https://cloud.ibm.com/apidocs/codeengine).
 
@@ -25,6 +25,7 @@ Java client library to interact with the [Code Engine API](https://cloud.ibm.com
   * [Maven](#maven)
   * [Gradle](#gradle)
 - [Using the SDK](#using-the-sdk)
+- [Breaking Changes (April 2026)](#breaking-changes-april-2026)
 - [Breaking Changes (March 2026)](#breaking-changes-march-2026)
 - [Questions](#questions)
 - [Issues](#issues)
@@ -40,7 +41,7 @@ The IBM Cloud Code Engine Java SDK allows developers to programmatically interac
 
 Service Name | Artifact Coordinates
 --- | ---
-[Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v2.0.0) | com.ibm.cloud.code-engine:5.0.0
+[Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v2.0.0) | com.ibm.cloud.code-engine:6.0.0
 
 ## Prerequisites
 
@@ -52,7 +53,7 @@ Service Name | Artifact Coordinates
 
 ## Installation
 
-The current version of this SDK is: 5.0.0
+The current version of this SDK is: 6.0.0
 
 Each service's artifact coordinates are listed in the table above.
 
@@ -71,14 +72,14 @@ Here are examples for maven and gradle:
 <dependency>
     <groupId>com.ibm.cloud</groupId>
     <artifactId>code-engine</artifactId>
-    <version>5.0.0</version>
+    <version>6.0.0</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```gradle
-compile 'com.ibm.cloud:code-engine:5.0.0'
+compile 'com.ibm.cloud:code-engine:6.0.0'
 ```
 
 ## Using the SDK
@@ -86,6 +87,12 @@ compile 'com.ibm.cloud:code-engine:5.0.0'
 Examples and a demo are available in the [module examples](/modules/examples) folder.
 
 For general SDK usage information, please see [this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md)
+
+## Breaking Changes (April 2026)
+
+As part of the introduction of `persistent_data_stores` as a Volume Mount type for **apps** and **jobs**, the optional `name` property of entries in `run_volume_mounts` is no longer supported.
+
+If you used the optional `name` property, remove it from the prototype of the **app** or **job**.
 
 ## Breaking Changes (March 2026)
 

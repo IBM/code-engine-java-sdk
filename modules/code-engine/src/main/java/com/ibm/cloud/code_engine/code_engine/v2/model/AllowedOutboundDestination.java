@@ -64,16 +64,18 @@ public class AllowedOutboundDestination extends GenericModel {
   @SerializedName("entity_tag")
   protected String entityTag;
   protected String name;
+  @SerializedName("project_id")
+  protected String projectId;
   protected String status;
   @SerializedName("status_details")
   protected AllowedOutboundStatusDetails statusDetails;
   protected String type;
   @SerializedName("cidr_block")
   protected String cidrBlock;
-  @SerializedName("private_path_service_gateway_crn")
-  protected String privatePathServiceGatewayCrn;
   @SerializedName("isolation_policy")
   protected String isolationPolicy;
+  @SerializedName("private_path_service_gateway_crn")
+  protected String privatePathServiceGatewayCrn;
 
   protected AllowedOutboundDestination() { }
 
@@ -97,6 +99,17 @@ public class AllowedOutboundDestination extends GenericModel {
    */
   public String getName() {
     return name;
+  }
+
+  /**
+   * Gets the projectId.
+   *
+   * The ID of the project in which the resource is located.
+   *
+   * @return the projectId
+   */
+  public String getProjectId() {
+    return projectId;
   }
 
   /**
@@ -143,17 +156,6 @@ public class AllowedOutboundDestination extends GenericModel {
   }
 
   /**
-   * Gets the privatePathServiceGatewayCrn.
-   *
-   * The CRN of the Private Path service.
-   *
-   * @return the privatePathServiceGatewayCrn
-   */
-  public String getPrivatePathServiceGatewayCrn() {
-    return privatePathServiceGatewayCrn;
-  }
-
-  /**
    * Gets the isolationPolicy.
    *
    * Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other
@@ -165,6 +167,17 @@ public class AllowedOutboundDestination extends GenericModel {
    */
   public String getIsolationPolicy() {
     return isolationPolicy;
+  }
+
+  /**
+   * Gets the privatePathServiceGatewayCrn.
+   *
+   * The CRN of the Private Path service.
+   *
+   * @return the privatePathServiceGatewayCrn
+   */
+  public String getPrivatePathServiceGatewayCrn() {
+    return privatePathServiceGatewayCrn;
   }
 }
 

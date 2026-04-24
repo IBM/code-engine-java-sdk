@@ -22,6 +22,14 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class PersistentDataStore extends GenericModel {
 
   /**
+   * The type of the persistent data store.
+   */
+  public interface ResourceType {
+    /** persistent_data_store_v2. */
+    String PERSISTENT_DATA_STORE_V2 = "persistent_data_store_v2";
+  }
+
+  /**
    * Specify the storage type of the persistent data store.
    */
   public interface StorageType {
@@ -39,6 +47,8 @@ public class PersistentDataStore extends GenericModel {
   @SerializedName("project_id")
   protected String projectId;
   protected String region;
+  @SerializedName("resource_type")
+  protected String resourceType;
   @SerializedName("storage_type")
   protected String storageType;
 
@@ -122,6 +132,17 @@ public class PersistentDataStore extends GenericModel {
    */
   public String getRegion() {
     return region;
+  }
+
+  /**
+   * Gets the resourceType.
+   *
+   * The type of the persistent data store.
+   *
+   * @return the resourceType
+   */
+  public String getResourceType() {
+    return resourceType;
   }
 
   /**

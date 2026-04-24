@@ -32,26 +32,26 @@ public class SecretDataRegistrySecretDataTest {
   @Test
   public void testSecretDataRegistrySecretData() throws Throwable {
     SecretDataRegistrySecretData secretDataRegistrySecretDataModel = new SecretDataRegistrySecretData.Builder()
-      .username("testString")
+      .email("testString")
       .password("testString")
       .server("testString")
-      .email("testString")
+      .username("testString")
       .add("foo", "testString")
       .build();
-    assertEquals(secretDataRegistrySecretDataModel.getUsername(), "testString");
+    assertEquals(secretDataRegistrySecretDataModel.getEmail(), "testString");
     assertEquals(secretDataRegistrySecretDataModel.getPassword(), "testString");
     assertEquals(secretDataRegistrySecretDataModel.getServer(), "testString");
-    assertEquals(secretDataRegistrySecretDataModel.getEmail(), "testString");
+    assertEquals(secretDataRegistrySecretDataModel.getUsername(), "testString");
     assertEquals(secretDataRegistrySecretDataModel.get("foo"), "testString");
 
     String json = TestUtilities.serialize(secretDataRegistrySecretDataModel);
 
     SecretDataRegistrySecretData secretDataRegistrySecretDataModelNew = TestUtilities.deserialize(json, SecretDataRegistrySecretData.class);
     assertTrue(secretDataRegistrySecretDataModelNew instanceof SecretDataRegistrySecretData);
-    assertEquals(secretDataRegistrySecretDataModelNew.getUsername(), "testString");
+    assertEquals(secretDataRegistrySecretDataModelNew.getEmail(), "testString");
     assertEquals(secretDataRegistrySecretDataModelNew.getPassword(), "testString");
     assertEquals(secretDataRegistrySecretDataModelNew.getServer(), "testString");
-    assertEquals(secretDataRegistrySecretDataModelNew.getEmail(), "testString");
+    assertEquals(secretDataRegistrySecretDataModelNew.getUsername(), "testString");
     assertEquals(secretDataRegistrySecretDataModelNew.get("foo"), "testString");
   }
 

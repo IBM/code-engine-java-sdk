@@ -246,8 +246,8 @@ public class CodeEngineExamples {
       System.out.println("createAllowedOutboundDestination() result:");
       // begin-create_allowed_outbound_destination
       AllowedOutboundDestinationPrototypeCidrBlockDataPrototype allowedOutboundDestinationPrototypeModel = new AllowedOutboundDestinationPrototypeCidrBlockDataPrototype.Builder()
-        .type("cidr_block")
         .name("allow-all")
+        .type("cidr_block")
         .cidrBlock("testString")
         .build();
       CreateAllowedOutboundDestinationOptions createAllowedOutboundDestinationOptions = new CreateAllowedOutboundDestinationOptions.Builder()
@@ -382,41 +382,23 @@ public class CodeEngineExamples {
     }
 
     try {
-      System.out.println("getApp() result:");
-      // begin-get_app
-      GetAppOptions getAppOptions = new GetAppOptions.Builder()
+      System.out.println("listAppInstances() result:");
+      // begin-list_app_instances
+      ListAppInstancesOptions listAppInstancesOptions = new ListAppInstancesOptions.Builder()
         .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
-        .name("my-app")
+        .appName("my-app")
+        .limit(Long.valueOf("100"))
         .build();
 
-      Response<App> response = codeEngineService.getApp(getAppOptions).execute();
-      App app = response.getResult();
+      AppInstancesPager pager = new AppInstancesPager(codeEngineService, listAppInstancesOptions);
+      List<AppInstance> allResults = new ArrayList<>();
+      while (pager.hasNext()) {
+        List<AppInstance> nextPage = pager.getNext();
+        allResults.addAll(nextPage);
+      }
 
-      System.out.println(app);
-      // end-get_app
-    } catch (ServiceResponseException e) {
-        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
-    }
-
-    try {
-      System.out.println("updateApp() result:");
-      // begin-update_app
-      AppPatch appPatchModel = new AppPatch.Builder()
-        .build();
-      Map<String, Object> appPatchModelAsPatch = appPatchModel.asPatch();
-      UpdateAppOptions updateAppOptions = new UpdateAppOptions.Builder()
-        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
-        .name("my-app")
-        .ifMatch("testString")
-        .app(appPatchModelAsPatch)
-        .build();
-
-      Response<App> response = codeEngineService.updateApp(updateAppOptions).execute();
-      App app = response.getResult();
-
-      System.out.println(app);
-      // end-update_app
+      System.out.println(GsonSingleton.getGson().toJson(allResults));
+      // end-list_app_instances
     } catch (ServiceResponseException e) {
         logger.error(String.format("Service returned status code %s: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -465,23 +447,99 @@ public class CodeEngineExamples {
     }
 
     try {
-      System.out.println("listAppInstances() result:");
-      // begin-list_app_instances
-      ListAppInstancesOptions listAppInstancesOptions = new ListAppInstancesOptions.Builder()
+      System.out.println("getApp() result:");
+      // begin-get_app
+      GetAppOptions getAppOptions = new GetAppOptions.Builder()
         .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
-        .appName("my-app")
+        .name("my-app")
+        .build();
+
+      Response<App> response = codeEngineService.getApp(getAppOptions).execute();
+      App app = response.getResult();
+
+      System.out.println(app);
+      // end-get_app
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("updateApp() result:");
+      // begin-update_app
+      AppPatch appPatchModel = new AppPatch.Builder()
+        .build();
+      Map<String, Object> appPatchModelAsPatch = appPatchModel.asPatch();
+      UpdateAppOptions updateAppOptions = new UpdateAppOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .name("my-app")
+        .ifMatch("testString")
+        .app(appPatchModelAsPatch)
+        .build();
+
+      Response<App> response = codeEngineService.updateApp(updateAppOptions).execute();
+      App app = response.getResult();
+
+      System.out.println(app);
+      // end-update_app
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("listJobRuns() result:");
+      // begin-list_job_runs
+      ListJobRunsOptions listJobRunsOptions = new ListJobRunsOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .jobName("my-job")
         .limit(Long.valueOf("100"))
         .build();
 
-      AppInstancesPager pager = new AppInstancesPager(codeEngineService, listAppInstancesOptions);
-      List<AppInstance> allResults = new ArrayList<>();
+      JobRunsPager pager = new JobRunsPager(codeEngineService, listJobRunsOptions);
+      List<JobRun> allResults = new ArrayList<>();
       while (pager.hasNext()) {
-        List<AppInstance> nextPage = pager.getNext();
+        List<JobRun> nextPage = pager.getNext();
         allResults.addAll(nextPage);
       }
 
       System.out.println(GsonSingleton.getGson().toJson(allResults));
-      // end-list_app_instances
+      // end-list_job_runs
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("createJobRun() result:");
+      // begin-create_job_run
+      CreateJobRunOptions createJobRunOptions = new CreateJobRunOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .build();
+
+      Response<JobRun> response = codeEngineService.createJobRun(createJobRunOptions).execute();
+      JobRun jobRun = response.getResult();
+
+      System.out.println(jobRun);
+      // end-create_job_run
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("getJobRun() result:");
+      // begin-get_job_run
+      GetJobRunOptions getJobRunOptions = new GetJobRunOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .name("my-job-run")
+        .build();
+
+      Response<JobRun> response = codeEngineService.getJobRun(getJobRunOptions).execute();
+      JobRun jobRun = response.getResult();
+
+      System.out.println(jobRun);
+      // end-get_job_run
     } catch (ServiceResponseException e) {
         logger.error(String.format("Service returned status code %s: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -564,64 +622,6 @@ public class CodeEngineExamples {
 
       System.out.println(job);
       // end-update_job
-    } catch (ServiceResponseException e) {
-        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
-    }
-
-    try {
-      System.out.println("listJobRuns() result:");
-      // begin-list_job_runs
-      ListJobRunsOptions listJobRunsOptions = new ListJobRunsOptions.Builder()
-        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
-        .jobName("my-job")
-        .limit(Long.valueOf("100"))
-        .build();
-
-      JobRunsPager pager = new JobRunsPager(codeEngineService, listJobRunsOptions);
-      List<JobRun> allResults = new ArrayList<>();
-      while (pager.hasNext()) {
-        List<JobRun> nextPage = pager.getNext();
-        allResults.addAll(nextPage);
-      }
-
-      System.out.println(GsonSingleton.getGson().toJson(allResults));
-      // end-list_job_runs
-    } catch (ServiceResponseException e) {
-        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
-    }
-
-    try {
-      System.out.println("createJobRun() result:");
-      // begin-create_job_run
-      CreateJobRunOptions createJobRunOptions = new CreateJobRunOptions.Builder()
-        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
-        .build();
-
-      Response<JobRun> response = codeEngineService.createJobRun(createJobRunOptions).execute();
-      JobRun jobRun = response.getResult();
-
-      System.out.println(jobRun);
-      // end-create_job_run
-    } catch (ServiceResponseException e) {
-        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
-    }
-
-    try {
-      System.out.println("getJobRun() result:");
-      // begin-get_job_run
-      GetJobRunOptions getJobRunOptions = new GetJobRunOptions.Builder()
-        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
-        .name("my-job-run")
-        .build();
-
-      Response<JobRun> response = codeEngineService.getJobRun(getJobRunOptions).execute();
-      JobRun jobRun = response.getResult();
-
-      System.out.println(jobRun);
-      // end-get_job_run
     } catch (ServiceResponseException e) {
         logger.error(String.format("Service returned status code %s: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -790,6 +790,64 @@ public class CodeEngineExamples {
     }
 
     try {
+      System.out.println("listBuildRuns() result:");
+      // begin-list_build_runs
+      ListBuildRunsOptions listBuildRunsOptions = new ListBuildRunsOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .buildName("my-build")
+        .limit(Long.valueOf("100"))
+        .build();
+
+      BuildRunsPager pager = new BuildRunsPager(codeEngineService, listBuildRunsOptions);
+      List<BuildRun> allResults = new ArrayList<>();
+      while (pager.hasNext()) {
+        List<BuildRun> nextPage = pager.getNext();
+        allResults.addAll(nextPage);
+      }
+
+      System.out.println(GsonSingleton.getGson().toJson(allResults));
+      // end-list_build_runs
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("createBuildRun() result:");
+      // begin-create_build_run
+      CreateBuildRunOptions createBuildRunOptions = new CreateBuildRunOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .build();
+
+      Response<BuildRun> response = codeEngineService.createBuildRun(createBuildRunOptions).execute();
+      BuildRun buildRun = response.getResult();
+
+      System.out.println(buildRun);
+      // end-create_build_run
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("getBuildRun() result:");
+      // begin-get_build_run
+      GetBuildRunOptions getBuildRunOptions = new GetBuildRunOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .name("my-build-run")
+        .build();
+
+      Response<BuildRun> response = codeEngineService.getBuildRun(getBuildRunOptions).execute();
+      BuildRun buildRun = response.getResult();
+
+      System.out.println(buildRun);
+      // end-get_build_run
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
       System.out.println("listBuilds() result:");
       // begin-list_builds
       ListBuildsOptions listBuildsOptions = new ListBuildsOptions.Builder()
@@ -868,64 +926,6 @@ public class CodeEngineExamples {
 
       System.out.println(build);
       // end-update_build
-    } catch (ServiceResponseException e) {
-        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
-    }
-
-    try {
-      System.out.println("listBuildRuns() result:");
-      // begin-list_build_runs
-      ListBuildRunsOptions listBuildRunsOptions = new ListBuildRunsOptions.Builder()
-        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
-        .buildName("my-build")
-        .limit(Long.valueOf("100"))
-        .build();
-
-      BuildRunsPager pager = new BuildRunsPager(codeEngineService, listBuildRunsOptions);
-      List<BuildRun> allResults = new ArrayList<>();
-      while (pager.hasNext()) {
-        List<BuildRun> nextPage = pager.getNext();
-        allResults.addAll(nextPage);
-      }
-
-      System.out.println(GsonSingleton.getGson().toJson(allResults));
-      // end-list_build_runs
-    } catch (ServiceResponseException e) {
-        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
-    }
-
-    try {
-      System.out.println("createBuildRun() result:");
-      // begin-create_build_run
-      CreateBuildRunOptions createBuildRunOptions = new CreateBuildRunOptions.Builder()
-        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
-        .build();
-
-      Response<BuildRun> response = codeEngineService.createBuildRun(createBuildRunOptions).execute();
-      BuildRun buildRun = response.getResult();
-
-      System.out.println(buildRun);
-      // end-create_build_run
-    } catch (ServiceResponseException e) {
-        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
-    }
-
-    try {
-      System.out.println("getBuildRun() result:");
-      // begin-get_build_run
-      GetBuildRunOptions getBuildRunOptions = new GetBuildRunOptions.Builder()
-        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
-        .name("my-build-run")
-        .build();
-
-      Response<BuildRun> response = codeEngineService.getBuildRun(getBuildRunOptions).execute();
-      BuildRun buildRun = response.getResult();
-
-      System.out.println(buildRun);
-      // end-get_build_run
     } catch (ServiceResponseException e) {
         logger.error(String.format("Service returned status code %s: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -1264,21 +1264,6 @@ public class CodeEngineExamples {
     }
 
     try {
-      // begin-delete_app
-      DeleteAppOptions deleteAppOptions = new DeleteAppOptions.Builder()
-        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
-        .name("my-app")
-        .build();
-
-      Response<Void> response = codeEngineService.deleteApp(deleteAppOptions).execute();
-      // end-delete_app
-      System.out.printf("deleteApp() response status code: %d%n", response.getStatusCode());
-    } catch (ServiceResponseException e) {
-        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
-    }
-
-    try {
       // begin-delete_app_revision
       DeleteAppRevisionOptions deleteAppRevisionOptions = new DeleteAppRevisionOptions.Builder()
         .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
@@ -1295,15 +1280,15 @@ public class CodeEngineExamples {
     }
 
     try {
-      // begin-delete_job
-      DeleteJobOptions deleteJobOptions = new DeleteJobOptions.Builder()
+      // begin-delete_app
+      DeleteAppOptions deleteAppOptions = new DeleteAppOptions.Builder()
         .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
-        .name("my-job")
+        .name("my-app")
         .build();
 
-      Response<Void> response = codeEngineService.deleteJob(deleteJobOptions).execute();
-      // end-delete_job
-      System.out.printf("deleteJob() response status code: %d%n", response.getStatusCode());
+      Response<Void> response = codeEngineService.deleteApp(deleteAppOptions).execute();
+      // end-delete_app
+      System.out.printf("deleteApp() response status code: %d%n", response.getStatusCode());
     } catch (ServiceResponseException e) {
         logger.error(String.format("Service returned status code %s: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -1319,6 +1304,21 @@ public class CodeEngineExamples {
       Response<Void> response = codeEngineService.deleteJobRun(deleteJobRunOptions).execute();
       // end-delete_job_run
       System.out.printf("deleteJobRun() response status code: %d%n", response.getStatusCode());
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-delete_job
+      DeleteJobOptions deleteJobOptions = new DeleteJobOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .name("my-job")
+        .build();
+
+      Response<Void> response = codeEngineService.deleteJob(deleteJobOptions).execute();
+      // end-delete_job
+      System.out.printf("deleteJob() response status code: %d%n", response.getStatusCode());
     } catch (ServiceResponseException e) {
         logger.error(String.format("Service returned status code %s: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -1355,21 +1355,6 @@ public class CodeEngineExamples {
     }
 
     try {
-      // begin-delete_build
-      DeleteBuildOptions deleteBuildOptions = new DeleteBuildOptions.Builder()
-        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
-        .name("my-build")
-        .build();
-
-      Response<Void> response = codeEngineService.deleteBuild(deleteBuildOptions).execute();
-      // end-delete_build
-      System.out.printf("deleteBuild() response status code: %d%n", response.getStatusCode());
-    } catch (ServiceResponseException e) {
-        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
-    }
-
-    try {
       // begin-delete_build_run
       DeleteBuildRunOptions deleteBuildRunOptions = new DeleteBuildRunOptions.Builder()
         .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
@@ -1379,6 +1364,21 @@ public class CodeEngineExamples {
       Response<Void> response = codeEngineService.deleteBuildRun(deleteBuildRunOptions).execute();
       // end-delete_build_run
       System.out.printf("deleteBuildRun() response status code: %d%n", response.getStatusCode());
+    } catch (ServiceResponseException e) {
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-delete_build
+      DeleteBuildOptions deleteBuildOptions = new DeleteBuildOptions.Builder()
+        .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
+        .name("my-build")
+        .build();
+
+      Response<Void> response = codeEngineService.deleteBuild(deleteBuildOptions).execute();
+      // end-delete_build
+      System.out.printf("deleteBuild() response status code: %d%n", response.getStatusCode());
     } catch (ServiceResponseException e) {
         logger.error(String.format("Service returned status code %s: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);

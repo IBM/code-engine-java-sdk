@@ -32,10 +32,10 @@ public class SecretDataRegistrySecretData extends SecretData {
    * Builder.
    */
   public static class Builder {
-    private String username;
+    private String email;
     private String password;
     private String server;
-    private String email;
+    private String username;
     private Map<String, String> dynamicProperties;
 
     /**
@@ -44,10 +44,10 @@ public class SecretDataRegistrySecretData extends SecretData {
      * @param secretDataRegistrySecretData the instance to initialize the Builder with
      */
     public Builder(SecretData secretDataRegistrySecretData) {
-      this.username = secretDataRegistrySecretData.username;
+      this.email = secretDataRegistrySecretData.email;
       this.password = secretDataRegistrySecretData.password;
       this.server = secretDataRegistrySecretData.server;
-      this.email = secretDataRegistrySecretData.email;
+      this.username = secretDataRegistrySecretData.username;
       this.dynamicProperties = secretDataRegistrySecretData.getProperties();
     }
 
@@ -60,14 +60,14 @@ public class SecretDataRegistrySecretData extends SecretData {
     /**
      * Instantiates a new builder with required properties.
      *
-     * @param username the username
      * @param password the password
      * @param server the server
+     * @param username the username
      */
-    public Builder(String username, String password, String server) {
-      this.username = username;
+    public Builder(String password, String server, String username) {
       this.password = password;
       this.server = server;
+      this.username = username;
     }
 
     /**
@@ -80,13 +80,13 @@ public class SecretDataRegistrySecretData extends SecretData {
     }
 
     /**
-     * Set the username.
+     * Set the email.
      *
-     * @param username the username
+     * @param email the email
      * @return the SecretDataRegistrySecretData builder
      */
-    public Builder username(String username) {
-      this.username = username;
+    public Builder email(String email) {
+      this.email = email;
       return this;
     }
 
@@ -113,13 +113,13 @@ public class SecretDataRegistrySecretData extends SecretData {
     }
 
     /**
-     * Set the email.
+     * Set the username.
      *
-     * @param email the email
+     * @param username the username
      * @return the SecretDataRegistrySecretData builder
      */
-    public Builder email(String email) {
-      this.email = email;
+    public Builder username(String username) {
+      this.username = username;
       return this;
     }
 
@@ -141,16 +141,16 @@ public class SecretDataRegistrySecretData extends SecretData {
   }
 
   protected SecretDataRegistrySecretData(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.username,
-      "username cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.password,
       "password cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.server,
       "server cannot be null");
-    username = builder.username;
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.username,
+      "username cannot be null");
+    email = builder.email;
     password = builder.password;
     server = builder.server;
-    email = builder.email;
+    username = builder.username;
     this.setProperties(builder.dynamicProperties);
   }
 
@@ -164,12 +164,12 @@ public class SecretDataRegistrySecretData extends SecretData {
   }
 
   /**
-   * Sets the username.
+   * Sets the email.
    *
-   * @param username the new username
+   * @param email the new email
    */
-  public void setUsername(final String username) {
-    this.username = username;
+  public void setEmail(final String email) {
+    this.email = email;
   }
 
   /**
@@ -191,11 +191,11 @@ public class SecretDataRegistrySecretData extends SecretData {
   }
 
   /**
-   * Sets the email.
+   * Sets the username.
    *
-   * @param email the new email
+   * @param username the new username
    */
-  public void setEmail(final String email) {
-    this.email = email;
+  public void setUsername(final String username) {
+    this.username = username;
   }
 }

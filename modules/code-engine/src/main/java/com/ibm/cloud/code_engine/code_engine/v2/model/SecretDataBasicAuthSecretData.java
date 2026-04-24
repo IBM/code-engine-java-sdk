@@ -32,8 +32,8 @@ public class SecretDataBasicAuthSecretData extends SecretData {
    * Builder.
    */
   public static class Builder {
-    private String username;
     private String password;
+    private String username;
     private Map<String, String> dynamicProperties;
 
     /**
@@ -42,8 +42,8 @@ public class SecretDataBasicAuthSecretData extends SecretData {
      * @param secretDataBasicAuthSecretData the instance to initialize the Builder with
      */
     public Builder(SecretData secretDataBasicAuthSecretData) {
-      this.username = secretDataBasicAuthSecretData.username;
       this.password = secretDataBasicAuthSecretData.password;
+      this.username = secretDataBasicAuthSecretData.username;
       this.dynamicProperties = secretDataBasicAuthSecretData.getProperties();
     }
 
@@ -56,12 +56,12 @@ public class SecretDataBasicAuthSecretData extends SecretData {
     /**
      * Instantiates a new builder with required properties.
      *
-     * @param username the username
      * @param password the password
+     * @param username the username
      */
-    public Builder(String username, String password) {
-      this.username = username;
+    public Builder(String password, String username) {
       this.password = password;
+      this.username = username;
     }
 
     /**
@@ -74,17 +74,6 @@ public class SecretDataBasicAuthSecretData extends SecretData {
     }
 
     /**
-     * Set the username.
-     *
-     * @param username the username
-     * @return the SecretDataBasicAuthSecretData builder
-     */
-    public Builder username(String username) {
-      this.username = username;
-      return this;
-    }
-
-    /**
      * Set the password.
      *
      * @param password the password
@@ -92,6 +81,17 @@ public class SecretDataBasicAuthSecretData extends SecretData {
      */
     public Builder password(String password) {
       this.password = password;
+      return this;
+    }
+
+    /**
+     * Set the username.
+     *
+     * @param username the username
+     * @return the SecretDataBasicAuthSecretData builder
+     */
+    public Builder username(String username) {
+      this.username = username;
       return this;
     }
 
@@ -113,12 +113,12 @@ public class SecretDataBasicAuthSecretData extends SecretData {
   }
 
   protected SecretDataBasicAuthSecretData(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.username,
-      "username cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.password,
       "password cannot be null");
-    username = builder.username;
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.username,
+      "username cannot be null");
     password = builder.password;
+    username = builder.username;
     this.setProperties(builder.dynamicProperties);
   }
 
@@ -132,20 +132,20 @@ public class SecretDataBasicAuthSecretData extends SecretData {
   }
 
   /**
-   * Sets the username.
-   *
-   * @param username the new username
-   */
-  public void setUsername(final String username) {
-    this.username = username;
-  }
-
-  /**
    * Sets the password.
    *
    * @param password the new password
    */
   public void setPassword(final String password) {
     this.password = password;
+  }
+
+  /**
+   * Sets the username.
+   *
+   * @param username the new username
+   */
+  public void setUsername(final String username) {
+    this.username = username;
   }
 }

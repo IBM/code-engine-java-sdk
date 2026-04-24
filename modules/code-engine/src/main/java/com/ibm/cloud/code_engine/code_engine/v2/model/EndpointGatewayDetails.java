@@ -36,7 +36,7 @@ public class EndpointGatewayDetails extends GenericModel {
   /**
    * Gets the accountId.
    *
-   * The account that created the endpoint gateway.
+   * The ID of the account that created the endpoint gateway, e.g. 4329073d16d2f3663f74bfa955259139.
    *
    * @return the accountId
    */

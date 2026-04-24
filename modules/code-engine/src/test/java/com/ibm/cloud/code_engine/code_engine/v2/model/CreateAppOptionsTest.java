@@ -68,14 +68,12 @@ public class CreateAppOptionsTest {
 
     VolumeMountPrototype volumeMountPrototypeModel = new VolumeMountPrototype.Builder()
       .mountPath("/app")
-      .name("codeengine-mount-b69u90")
       .readOnly(true)
       .reference("my-secret")
       .subPath("some-path")
       .type("secret")
       .build();
     assertEquals(volumeMountPrototypeModel.mountPath(), "/app");
-    assertEquals(volumeMountPrototypeModel.name(), "codeengine-mount-b69u90");
     assertEquals(volumeMountPrototypeModel.readOnly(), Boolean.valueOf(true));
     assertEquals(volumeMountPrototypeModel.reference(), "my-secret");
     assertEquals(volumeMountPrototypeModel.subPath(), "some-path");

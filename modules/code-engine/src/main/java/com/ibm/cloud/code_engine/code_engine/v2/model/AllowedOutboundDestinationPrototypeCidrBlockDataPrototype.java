@@ -34,8 +34,8 @@ public class AllowedOutboundDestinationPrototypeCidrBlockDataPrototype extends A
    * Builder.
    */
   public static class Builder {
-    private String type;
     private String name;
+    private String type;
     private String cidrBlock;
 
     /**
@@ -44,8 +44,8 @@ public class AllowedOutboundDestinationPrototypeCidrBlockDataPrototype extends A
      * @param allowedOutboundDestinationPrototypeCidrBlockDataPrototype the instance to initialize the Builder with
      */
     public Builder(AllowedOutboundDestinationPrototype allowedOutboundDestinationPrototypeCidrBlockDataPrototype) {
-      this.type = allowedOutboundDestinationPrototypeCidrBlockDataPrototype.type;
       this.name = allowedOutboundDestinationPrototypeCidrBlockDataPrototype.name;
+      this.type = allowedOutboundDestinationPrototypeCidrBlockDataPrototype.type;
       this.cidrBlock = allowedOutboundDestinationPrototypeCidrBlockDataPrototype.cidrBlock;
     }
 
@@ -58,13 +58,13 @@ public class AllowedOutboundDestinationPrototypeCidrBlockDataPrototype extends A
     /**
      * Instantiates a new builder with required properties.
      *
-     * @param type the type
      * @param name the name
+     * @param type the type
      * @param cidrBlock the cidrBlock
      */
-    public Builder(String type, String name, String cidrBlock) {
-      this.type = type;
+    public Builder(String name, String type, String cidrBlock) {
       this.name = name;
+      this.type = type;
       this.cidrBlock = cidrBlock;
     }
 
@@ -78,17 +78,6 @@ public class AllowedOutboundDestinationPrototypeCidrBlockDataPrototype extends A
     }
 
     /**
-     * Set the type.
-     *
-     * @param type the type
-     * @return the AllowedOutboundDestinationPrototypeCidrBlockDataPrototype builder
-     */
-    public Builder type(String type) {
-      this.type = type;
-      return this;
-    }
-
-    /**
      * Set the name.
      *
      * @param name the name
@@ -96,6 +85,17 @@ public class AllowedOutboundDestinationPrototypeCidrBlockDataPrototype extends A
      */
     public Builder name(String name) {
       this.name = name;
+      return this;
+    }
+
+    /**
+     * Set the type.
+     *
+     * @param type the type
+     * @return the AllowedOutboundDestinationPrototypeCidrBlockDataPrototype builder
+     */
+    public Builder type(String type) {
+      this.type = type;
       return this;
     }
 
@@ -114,14 +114,14 @@ public class AllowedOutboundDestinationPrototypeCidrBlockDataPrototype extends A
   protected AllowedOutboundDestinationPrototypeCidrBlockDataPrototype() { }
 
   protected AllowedOutboundDestinationPrototypeCidrBlockDataPrototype(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.type,
-      "type cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
       "name cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.type,
+      "type cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.cidrBlock,
       "cidrBlock cannot be null");
-    type = builder.type;
     name = builder.name;
+    type = builder.type;
     cidrBlock = builder.cidrBlock;
   }
 

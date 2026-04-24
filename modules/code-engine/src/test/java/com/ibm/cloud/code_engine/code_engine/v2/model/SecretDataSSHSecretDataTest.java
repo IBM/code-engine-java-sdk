@@ -32,20 +32,20 @@ public class SecretDataSSHSecretDataTest {
   @Test
   public void testSecretDataSSHSecretData() throws Throwable {
     SecretDataSSHSecretData secretDataSshSecretDataModel = new SecretDataSSHSecretData.Builder()
-      .sshKey("testString")
       .knownHosts("testString")
+      .sshKey("testString")
       .add("foo", "testString")
       .build();
-    assertEquals(secretDataSshSecretDataModel.getSshKey(), "testString");
     assertEquals(secretDataSshSecretDataModel.getKnownHosts(), "testString");
+    assertEquals(secretDataSshSecretDataModel.getSshKey(), "testString");
     assertEquals(secretDataSshSecretDataModel.get("foo"), "testString");
 
     String json = TestUtilities.serialize(secretDataSshSecretDataModel);
 
     SecretDataSSHSecretData secretDataSshSecretDataModelNew = TestUtilities.deserialize(json, SecretDataSSHSecretData.class);
     assertTrue(secretDataSshSecretDataModelNew instanceof SecretDataSSHSecretData);
-    assertEquals(secretDataSshSecretDataModelNew.getSshKey(), "testString");
     assertEquals(secretDataSshSecretDataModelNew.getKnownHosts(), "testString");
+    assertEquals(secretDataSshSecretDataModelNew.getSshKey(), "testString");
     assertEquals(secretDataSshSecretDataModelNew.get("foo"), "testString");
   }
 

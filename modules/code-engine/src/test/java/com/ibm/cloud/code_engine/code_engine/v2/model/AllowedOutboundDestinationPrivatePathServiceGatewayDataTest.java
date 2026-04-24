@@ -39,7 +39,7 @@ public class AllowedOutboundDestinationPrivatePathServiceGatewayDataTest {
     assertNull(allowedOutboundDestinationPrivatePathServiceGatewayDataModel.getName());
     assertNull(allowedOutboundDestinationPrivatePathServiceGatewayDataModel.getStatusDetails());
     assertNull(allowedOutboundDestinationPrivatePathServiceGatewayDataModel.getType());
-    assertNull(allowedOutboundDestinationPrivatePathServiceGatewayDataModel.getPrivatePathServiceGatewayCrn());
     assertNull(allowedOutboundDestinationPrivatePathServiceGatewayDataModel.getIsolationPolicy());
+    assertNull(allowedOutboundDestinationPrivatePathServiceGatewayDataModel.getPrivatePathServiceGatewayCrn());
   }
 }
