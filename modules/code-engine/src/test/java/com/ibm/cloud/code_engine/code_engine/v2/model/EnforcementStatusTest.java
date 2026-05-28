@@ -33,6 +33,8 @@ public class EnforcementStatusTest {
   public void testEnforcementStatus() throws Throwable {
     EnforcementStatus enforcementStatusModel = new EnforcementStatus();
     assertNull(enforcementStatusModel.getEnforcement());
+    assertNull(enforcementStatusModel.getInboundPrivate());
+    assertNull(enforcementStatusModel.getInboundPublic());
     assertNull(enforcementStatusModel.getLastSyncedAt());
   }
 }

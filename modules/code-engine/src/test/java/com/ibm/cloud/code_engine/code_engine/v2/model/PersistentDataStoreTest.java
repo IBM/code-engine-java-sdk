@@ -35,6 +35,7 @@ public class PersistentDataStoreTest {
     PersistentDataStore persistentDataStoreModel = new PersistentDataStore();
     assertNull(persistentDataStoreModel.getData());
     assertNull(persistentDataStoreModel.getEntityTag());
+    assertNull(persistentDataStoreModel.getHref());
     assertNull(persistentDataStoreModel.getName());
     assertNull(persistentDataStoreModel.getStorageType());
   }

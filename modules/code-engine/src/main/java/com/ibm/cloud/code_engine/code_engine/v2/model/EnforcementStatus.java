@@ -17,7 +17,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Describes the model of the enforcement status of a CBR status.
+ * Describes the model of the CBR enforcement status.
  */
 public class EnforcementStatus extends GenericModel {
 
@@ -35,7 +35,37 @@ public class EnforcementStatus extends GenericModel {
     String UNKNOWN = "unknown";
   }
 
+  /**
+   * Indicates whether the private dataplane access to the project is blocked, partially_restricted, or allowed.
+   */
+  public interface InboundPrivate {
+    /** blocked. */
+    String BLOCKED = "blocked";
+    /** partially_restricted. */
+    String PARTIALLY_RESTRICTED = "partially_restricted";
+    /** allowed. */
+    String ALLOWED = "allowed";
+    /** unknown. */
+    String UNKNOWN = "unknown";
+  }
+
+  /**
+   * Indicates whether the public dataplane access to the project is blocked or allowed.
+   */
+  public interface InboundPublic {
+    /** blocked. */
+    String BLOCKED = "blocked";
+    /** allowed. */
+    String ALLOWED = "allowed";
+    /** unknown. */
+    String UNKNOWN = "unknown";
+  }
+
   protected String enforcement;
+  @SerializedName("inbound_private")
+  protected String inboundPrivate;
+  @SerializedName("inbound_public")
+  protected String inboundPublic;
   @SerializedName("last_synced_at")
   protected String lastSyncedAt;
 
@@ -50,6 +80,28 @@ public class EnforcementStatus extends GenericModel {
    */
   public String getEnforcement() {
     return enforcement;
+  }
+
+  /**
+   * Gets the inboundPrivate.
+   *
+   * Indicates whether the private dataplane access to the project is blocked, partially_restricted, or allowed.
+   *
+   * @return the inboundPrivate
+   */
+  public String getInboundPrivate() {
+    return inboundPrivate;
+  }
+
+  /**
+   * Gets the inboundPublic.
+   *
+   * Indicates whether the public dataplane access to the project is blocked or allowed.
+   *
+   * @return the inboundPublic
+   */
+  public String getInboundPublic() {
+    return inboundPublic;
   }
 
   /**

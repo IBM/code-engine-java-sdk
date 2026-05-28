@@ -51,7 +51,7 @@ public class CreateFunctionOptionsTest {
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
       .codeReference("data:text/plain;base64,<base64encoded-source-code>")
       .name("my-function")
-      .runtime("nodejs-20")
+      .runtime("nodejs-24")
       .codeBinary(false)
       .codeMain("main")
       .codeSecret("my-secret")
@@ -67,7 +67,7 @@ public class CreateFunctionOptionsTest {
     assertEquals(createFunctionOptionsModel.projectId(), "15314cc3-85b4-4338-903f-c28cdee6d005");
     assertEquals(createFunctionOptionsModel.codeReference(), "data:text/plain;base64,<base64encoded-source-code>");
     assertEquals(createFunctionOptionsModel.name(), "my-function");
-    assertEquals(createFunctionOptionsModel.runtime(), "nodejs-20");
+    assertEquals(createFunctionOptionsModel.runtime(), "nodejs-24");
     assertEquals(createFunctionOptionsModel.codeBinary(), Boolean.valueOf(false));
     assertEquals(createFunctionOptionsModel.codeMain(), "main");
     assertEquals(createFunctionOptionsModel.codeSecret(), "my-secret");

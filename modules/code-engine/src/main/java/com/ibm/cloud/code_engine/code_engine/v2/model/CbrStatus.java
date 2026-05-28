@@ -29,7 +29,7 @@ public class CbrStatus extends GenericModel {
   /**
    * Gets the dataPlane.
    *
-   * Describes the model of the enforcement status of a CBR status.
+   * Describes the model of the CBR enforcement status.
    *
    * @return the dataPlane
    */

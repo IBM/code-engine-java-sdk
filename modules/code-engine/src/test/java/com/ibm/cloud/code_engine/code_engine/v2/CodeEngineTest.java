@@ -233,7 +233,7 @@ public class CodeEngineTest {
   // Test the getter for the version global parameter
   @Test
   public void testGetVersion() throws Throwable {
-    assertEquals(codeEngineService.getVersion(), "2026-03-27");
+    assertEquals(codeEngineService.getVersion(), "2026-05-14");
   }
 
   // Test the listProjects operation with a valid options model parameter
@@ -269,7 +269,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -380,7 +380,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the createProject operation with and without retries enabled
@@ -431,7 +431,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the deleteProject operation with and without retries enabled
@@ -483,7 +483,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the getProject operation with and without retries enabled
@@ -662,7 +662,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the createAllowedOutboundDestination operation with and without retries enabled
@@ -714,7 +714,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the deleteAllowedOutboundDestination operation with and without retries enabled
@@ -767,7 +767,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the getAllowedOutboundDestination operation with and without retries enabled
@@ -830,7 +830,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the updateAllowedOutboundDestination operation with and without retries enabled
@@ -882,7 +882,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the getProjectEgressIps operation with and without retries enabled
@@ -906,7 +906,7 @@ public class CodeEngineTest {
   @Test
   public void testGetProjectStatusDetailsWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"cbr\": {\"data_plane\": {\"enforcement\": \"applied\", \"last_synced_at\": \"lastSyncedAt\"}}, \"domain\": \"unknown\", \"project\": \"enabled\", \"vpe\": \"ready\", \"vpe_not_enabled\": false}";
+    String mockResponseBody = "{\"cbr\": {\"data_plane\": {\"enforcement\": \"applied\", \"inbound_private\": \"blocked\", \"inbound_public\": \"blocked\", \"last_synced_at\": \"lastSyncedAt\"}}, \"domain\": \"unknown\", \"project\": \"enabled\", \"vpe\": \"ready\", \"vpe_not_enabled\": false}";
     String getProjectStatusDetailsPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/status_details";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -934,7 +934,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the getProjectStatusDetails operation with and without retries enabled
@@ -988,7 +988,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -1160,7 +1160,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the createApp operation with and without retries enabled
@@ -1217,7 +1217,7 @@ public class CodeEngineTest {
     assertNotNull(query);
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the listAppInstances operation with and without retries enabled
@@ -1340,7 +1340,7 @@ public class CodeEngineTest {
     assertNotNull(query);
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the listAppRevisions operation with and without retries enabled
@@ -1459,7 +1459,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the deleteAppRevision operation with and without retries enabled
@@ -1513,7 +1513,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the getAppRevision operation with and without retries enabled
@@ -1566,7 +1566,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
     assertEquals(Boolean.valueOf(query.get("keep_service_access")), Boolean.valueOf(false));
   }
 
@@ -1620,7 +1620,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the getApp operation with and without retries enabled
@@ -1735,7 +1735,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the updateApp operation with and without retries enabled
@@ -1790,7 +1790,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
     assertEquals(query.get("job_name"), "my-job");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
@@ -1949,7 +1949,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the createJobRun operation with and without retries enabled
@@ -2001,7 +2001,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the deleteJobRun operation with and without retries enabled
@@ -2054,7 +2054,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the getJobRun operation with and without retries enabled
@@ -2108,7 +2108,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -2262,7 +2262,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the createJob operation with and without retries enabled
@@ -2315,7 +2315,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
     assertEquals(Boolean.valueOf(query.get("keep_service_access")), Boolean.valueOf(false));
   }
 
@@ -2369,7 +2369,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the getJob operation with and without retries enabled
@@ -2466,7 +2466,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the updateJob operation with and without retries enabled
@@ -2490,7 +2490,7 @@ public class CodeEngineTest {
   @Test
   public void testListFunctionRuntimesWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"function_runtimes\": [{\"default\": true, \"deprecated\": false, \"family\": \"nodejs\", \"id\": \"nodejs-20\", \"name\": \"Node.js 20\", \"optimized\": true}]}";
+    String mockResponseBody = "{\"function_runtimes\": [{\"default\": true, \"deprecated\": false, \"family\": \"nodejs\", \"id\": \"nodejs-24\", \"name\": \"Node.js 24\", \"optimized\": true}]}";
     String listFunctionRuntimesPath = "/function_runtimes";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2532,7 +2532,7 @@ public class CodeEngineTest {
   @Test
   public void testListFunctionsWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"first\": {\"href\": \"href\"}, \"functions\": [{\"code_binary\": false, \"code_main\": \"main\", \"code_reference\": \"data:text/plain;base64,<base64encoded-source-code>\", \"code_secret\": \"my-secret\", \"computed_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"created_at\": \"2022-09-13T11:41:35+02:00\", \"endpoint\": \"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud\", \"endpoint_internal\": \"http://my-function.vg67hzldruk.svc.cluster.local\", \"entity_tag\": \"2385407409\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"managed_domain_mappings\": \"local_public\", \"name\": \"my-function\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"function_v2\", \"run_compute_resource_token_enabled\": true, \"run_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"runtime\": \"nodejs-20\", \"scale_concurrency\": 1, \"scale_cpu_limit\": \"1\", \"scale_down_delay\": 300, \"scale_max_execution_time\": 60, \"scale_memory_limit\": \"1G\", \"status\": \"offline\", \"status_details\": {\"reason\": \"offline\"}}], \"limit\": 100, \"next\": {\"href\": \"href\", \"start\": \"start\"}}";
+    String mockResponseBody = "{\"first\": {\"href\": \"href\"}, \"functions\": [{\"code_binary\": false, \"code_main\": \"main\", \"code_reference\": \"data:text/plain;base64,<base64encoded-source-code>\", \"code_secret\": \"my-secret\", \"computed_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"created_at\": \"2022-09-13T11:41:35+02:00\", \"endpoint\": \"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud\", \"endpoint_internal\": \"http://my-function.vg67hzldruk.svc.cluster.local\", \"entity_tag\": \"2385407409\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"managed_domain_mappings\": \"local_public\", \"name\": \"my-function\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"function_v2\", \"run_compute_resource_token_enabled\": true, \"run_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"runtime\": \"nodejs-24\", \"scale_concurrency\": 1, \"scale_cpu_limit\": \"1\", \"scale_down_delay\": 300, \"scale_max_execution_time\": 60, \"scale_memory_limit\": \"1G\", \"status\": \"offline\", \"status_details\": {\"reason\": \"offline\"}}], \"limit\": 100, \"next\": {\"href\": \"href\", \"start\": \"start\"}}";
     String listFunctionsPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2562,7 +2562,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -2588,8 +2588,8 @@ public class CodeEngineTest {
   @Test
   public void testListFunctionsWithPagerGetNext() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"functions\":[{\"code_binary\":false,\"code_main\":\"main\",\"code_reference\":\"data:text/plain;base64,<base64encoded-source-code>\",\"code_secret\":\"my-secret\",\"computed_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"created_at\":\"2022-09-13T11:41:35+02:00\",\"endpoint\":\"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud\",\"endpoint_internal\":\"http://my-function.vg67hzldruk.svc.cluster.local\",\"entity_tag\":\"2385407409\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"managed_domain_mappings\":\"local_public\",\"name\":\"my-function\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"function_v2\",\"run_compute_resource_token_enabled\":true,\"run_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"runtime\":\"nodejs-20\",\"scale_concurrency\":1,\"scale_cpu_limit\":\"1\",\"scale_down_delay\":300,\"scale_max_execution_time\":60,\"scale_memory_limit\":\"1G\",\"status\":\"offline\",\"status_details\":{\"reason\":\"offline\"}}],\"total_count\":2,\"limit\":1}";
-    String mockResponsePage2 = "{\"functions\":[{\"code_binary\":false,\"code_main\":\"main\",\"code_reference\":\"data:text/plain;base64,<base64encoded-source-code>\",\"code_secret\":\"my-secret\",\"computed_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"created_at\":\"2022-09-13T11:41:35+02:00\",\"endpoint\":\"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud\",\"endpoint_internal\":\"http://my-function.vg67hzldruk.svc.cluster.local\",\"entity_tag\":\"2385407409\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"managed_domain_mappings\":\"local_public\",\"name\":\"my-function\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"function_v2\",\"run_compute_resource_token_enabled\":true,\"run_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"runtime\":\"nodejs-20\",\"scale_concurrency\":1,\"scale_cpu_limit\":\"1\",\"scale_down_delay\":300,\"scale_max_execution_time\":60,\"scale_memory_limit\":\"1G\",\"status\":\"offline\",\"status_details\":{\"reason\":\"offline\"}}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"functions\":[{\"code_binary\":false,\"code_main\":\"main\",\"code_reference\":\"data:text/plain;base64,<base64encoded-source-code>\",\"code_secret\":\"my-secret\",\"computed_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"created_at\":\"2022-09-13T11:41:35+02:00\",\"endpoint\":\"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud\",\"endpoint_internal\":\"http://my-function.vg67hzldruk.svc.cluster.local\",\"entity_tag\":\"2385407409\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"managed_domain_mappings\":\"local_public\",\"name\":\"my-function\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"function_v2\",\"run_compute_resource_token_enabled\":true,\"run_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"runtime\":\"nodejs-24\",\"scale_concurrency\":1,\"scale_cpu_limit\":\"1\",\"scale_down_delay\":300,\"scale_max_execution_time\":60,\"scale_memory_limit\":\"1G\",\"status\":\"offline\",\"status_details\":{\"reason\":\"offline\"}}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage2 = "{\"functions\":[{\"code_binary\":false,\"code_main\":\"main\",\"code_reference\":\"data:text/plain;base64,<base64encoded-source-code>\",\"code_secret\":\"my-secret\",\"computed_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"created_at\":\"2022-09-13T11:41:35+02:00\",\"endpoint\":\"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud\",\"endpoint_internal\":\"http://my-function.vg67hzldruk.svc.cluster.local\",\"entity_tag\":\"2385407409\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"managed_domain_mappings\":\"local_public\",\"name\":\"my-function\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"function_v2\",\"run_compute_resource_token_enabled\":true,\"run_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"runtime\":\"nodejs-24\",\"scale_concurrency\":1,\"scale_cpu_limit\":\"1\",\"scale_down_delay\":300,\"scale_max_execution_time\":60,\"scale_memory_limit\":\"1G\",\"status\":\"offline\",\"status_details\":{\"reason\":\"offline\"}}],\"total_count\":2,\"limit\":1}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -2622,8 +2622,8 @@ public class CodeEngineTest {
   @Test
   public void testListFunctionsWithPagerGetAll() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"functions\":[{\"code_binary\":false,\"code_main\":\"main\",\"code_reference\":\"data:text/plain;base64,<base64encoded-source-code>\",\"code_secret\":\"my-secret\",\"computed_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"created_at\":\"2022-09-13T11:41:35+02:00\",\"endpoint\":\"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud\",\"endpoint_internal\":\"http://my-function.vg67hzldruk.svc.cluster.local\",\"entity_tag\":\"2385407409\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"managed_domain_mappings\":\"local_public\",\"name\":\"my-function\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"function_v2\",\"run_compute_resource_token_enabled\":true,\"run_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"runtime\":\"nodejs-20\",\"scale_concurrency\":1,\"scale_cpu_limit\":\"1\",\"scale_down_delay\":300,\"scale_max_execution_time\":60,\"scale_memory_limit\":\"1G\",\"status\":\"offline\",\"status_details\":{\"reason\":\"offline\"}}],\"total_count\":2,\"limit\":1}";
-    String mockResponsePage2 = "{\"functions\":[{\"code_binary\":false,\"code_main\":\"main\",\"code_reference\":\"data:text/plain;base64,<base64encoded-source-code>\",\"code_secret\":\"my-secret\",\"computed_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"created_at\":\"2022-09-13T11:41:35+02:00\",\"endpoint\":\"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud\",\"endpoint_internal\":\"http://my-function.vg67hzldruk.svc.cluster.local\",\"entity_tag\":\"2385407409\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"managed_domain_mappings\":\"local_public\",\"name\":\"my-function\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"function_v2\",\"run_compute_resource_token_enabled\":true,\"run_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"runtime\":\"nodejs-20\",\"scale_concurrency\":1,\"scale_cpu_limit\":\"1\",\"scale_down_delay\":300,\"scale_max_execution_time\":60,\"scale_memory_limit\":\"1G\",\"status\":\"offline\",\"status_details\":{\"reason\":\"offline\"}}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"functions\":[{\"code_binary\":false,\"code_main\":\"main\",\"code_reference\":\"data:text/plain;base64,<base64encoded-source-code>\",\"code_secret\":\"my-secret\",\"computed_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"created_at\":\"2022-09-13T11:41:35+02:00\",\"endpoint\":\"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud\",\"endpoint_internal\":\"http://my-function.vg67hzldruk.svc.cluster.local\",\"entity_tag\":\"2385407409\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"managed_domain_mappings\":\"local_public\",\"name\":\"my-function\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"function_v2\",\"run_compute_resource_token_enabled\":true,\"run_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"runtime\":\"nodejs-24\",\"scale_concurrency\":1,\"scale_cpu_limit\":\"1\",\"scale_down_delay\":300,\"scale_max_execution_time\":60,\"scale_memory_limit\":\"1G\",\"status\":\"offline\",\"status_details\":{\"reason\":\"offline\"}}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage2 = "{\"functions\":[{\"code_binary\":false,\"code_main\":\"main\",\"code_reference\":\"data:text/plain;base64,<base64encoded-source-code>\",\"code_secret\":\"my-secret\",\"computed_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"created_at\":\"2022-09-13T11:41:35+02:00\",\"endpoint\":\"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud\",\"endpoint_internal\":\"http://my-function.vg67hzldruk.svc.cluster.local\",\"entity_tag\":\"2385407409\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"managed_domain_mappings\":\"local_public\",\"name\":\"my-function\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"function_v2\",\"run_compute_resource_token_enabled\":true,\"run_env_variables\":[{\"key\":\"MY_VARIABLE\",\"name\":\"SOME\",\"prefix\":\"PREFIX_\",\"reference\":\"my-secret\",\"type\":\"literal\",\"value\":\"VALUE\"}],\"runtime\":\"nodejs-24\",\"scale_concurrency\":1,\"scale_cpu_limit\":\"1\",\"scale_down_delay\":300,\"scale_max_execution_time\":60,\"scale_memory_limit\":\"1G\",\"status\":\"offline\",\"status_details\":{\"reason\":\"offline\"}}],\"total_count\":2,\"limit\":1}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -2652,7 +2652,7 @@ public class CodeEngineTest {
   @Test
   public void testCreateFunctionWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"code_binary\": false, \"code_main\": \"main\", \"code_reference\": \"data:text/plain;base64,<base64encoded-source-code>\", \"code_secret\": \"my-secret\", \"computed_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"created_at\": \"2022-09-13T11:41:35+02:00\", \"endpoint\": \"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud\", \"endpoint_internal\": \"http://my-function.vg67hzldruk.svc.cluster.local\", \"entity_tag\": \"2385407409\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"managed_domain_mappings\": \"local_public\", \"name\": \"my-function\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"function_v2\", \"run_compute_resource_token_enabled\": true, \"run_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"runtime\": \"nodejs-20\", \"scale_concurrency\": 1, \"scale_cpu_limit\": \"1\", \"scale_down_delay\": 300, \"scale_max_execution_time\": 60, \"scale_memory_limit\": \"1G\", \"status\": \"offline\", \"status_details\": {\"reason\": \"offline\"}}";
+    String mockResponseBody = "{\"code_binary\": false, \"code_main\": \"main\", \"code_reference\": \"data:text/plain;base64,<base64encoded-source-code>\", \"code_secret\": \"my-secret\", \"computed_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"created_at\": \"2022-09-13T11:41:35+02:00\", \"endpoint\": \"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud\", \"endpoint_internal\": \"http://my-function.vg67hzldruk.svc.cluster.local\", \"entity_tag\": \"2385407409\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"managed_domain_mappings\": \"local_public\", \"name\": \"my-function\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"function_v2\", \"run_compute_resource_token_enabled\": true, \"run_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"runtime\": \"nodejs-24\", \"scale_concurrency\": 1, \"scale_cpu_limit\": \"1\", \"scale_down_delay\": 300, \"scale_max_execution_time\": 60, \"scale_memory_limit\": \"1G\", \"status\": \"offline\", \"status_details\": {\"reason\": \"offline\"}}";
     String createFunctionPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2674,7 +2674,7 @@ public class CodeEngineTest {
       .projectId("15314cc3-85b4-4338-903f-c28cdee6d005")
       .codeReference("data:text/plain;base64,<base64encoded-source-code>")
       .name("my-function")
-      .runtime("nodejs-20")
+      .runtime("nodejs-24")
       .codeBinary(false)
       .codeMain("main")
       .codeSecret("my-secret")
@@ -2704,7 +2704,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the createFunction operation with and without retries enabled
@@ -2757,7 +2757,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
     assertEquals(Boolean.valueOf(query.get("keep_service_access")), Boolean.valueOf(false));
   }
 
@@ -2782,7 +2782,7 @@ public class CodeEngineTest {
   @Test
   public void testGetFunctionWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"code_binary\": false, \"code_main\": \"main\", \"code_reference\": \"data:text/plain;base64,<base64encoded-source-code>\", \"code_secret\": \"my-secret\", \"computed_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"created_at\": \"2022-09-13T11:41:35+02:00\", \"endpoint\": \"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud\", \"endpoint_internal\": \"http://my-function.vg67hzldruk.svc.cluster.local\", \"entity_tag\": \"2385407409\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"managed_domain_mappings\": \"local_public\", \"name\": \"my-function\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"function_v2\", \"run_compute_resource_token_enabled\": true, \"run_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"runtime\": \"nodejs-20\", \"scale_concurrency\": 1, \"scale_cpu_limit\": \"1\", \"scale_down_delay\": 300, \"scale_max_execution_time\": 60, \"scale_memory_limit\": \"1G\", \"status\": \"offline\", \"status_details\": {\"reason\": \"offline\"}}";
+    String mockResponseBody = "{\"code_binary\": false, \"code_main\": \"main\", \"code_reference\": \"data:text/plain;base64,<base64encoded-source-code>\", \"code_secret\": \"my-secret\", \"computed_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"created_at\": \"2022-09-13T11:41:35+02:00\", \"endpoint\": \"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud\", \"endpoint_internal\": \"http://my-function.vg67hzldruk.svc.cluster.local\", \"entity_tag\": \"2385407409\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"managed_domain_mappings\": \"local_public\", \"name\": \"my-function\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"function_v2\", \"run_compute_resource_token_enabled\": true, \"run_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"runtime\": \"nodejs-24\", \"scale_concurrency\": 1, \"scale_cpu_limit\": \"1\", \"scale_down_delay\": 300, \"scale_max_execution_time\": 60, \"scale_memory_limit\": \"1G\", \"status\": \"offline\", \"status_details\": {\"reason\": \"offline\"}}";
     String getFunctionPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions/my-function";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2811,7 +2811,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the getFunction operation with and without retries enabled
@@ -2835,7 +2835,7 @@ public class CodeEngineTest {
   @Test
   public void testUpdateFunctionWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"code_binary\": false, \"code_main\": \"main\", \"code_reference\": \"data:text/plain;base64,<base64encoded-source-code>\", \"code_secret\": \"my-secret\", \"computed_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"created_at\": \"2022-09-13T11:41:35+02:00\", \"endpoint\": \"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud\", \"endpoint_internal\": \"http://my-function.vg67hzldruk.svc.cluster.local\", \"entity_tag\": \"2385407409\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"managed_domain_mappings\": \"local_public\", \"name\": \"my-function\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"function_v2\", \"run_compute_resource_token_enabled\": true, \"run_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"runtime\": \"nodejs-20\", \"scale_concurrency\": 1, \"scale_cpu_limit\": \"1\", \"scale_down_delay\": 300, \"scale_max_execution_time\": 60, \"scale_memory_limit\": \"1G\", \"status\": \"offline\", \"status_details\": {\"reason\": \"offline\"}}";
+    String mockResponseBody = "{\"code_binary\": false, \"code_main\": \"main\", \"code_reference\": \"data:text/plain;base64,<base64encoded-source-code>\", \"code_secret\": \"my-secret\", \"computed_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"created_at\": \"2022-09-13T11:41:35+02:00\", \"endpoint\": \"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud\", \"endpoint_internal\": \"http://my-function.vg67hzldruk.svc.cluster.local\", \"entity_tag\": \"2385407409\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"managed_domain_mappings\": \"local_public\", \"name\": \"my-function\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"function_v2\", \"run_compute_resource_token_enabled\": true, \"run_env_variables\": [{\"key\": \"MY_VARIABLE\", \"name\": \"SOME\", \"prefix\": \"PREFIX_\", \"reference\": \"my-secret\", \"type\": \"literal\", \"value\": \"VALUE\"}], \"runtime\": \"nodejs-24\", \"scale_concurrency\": 1, \"scale_cpu_limit\": \"1\", \"scale_down_delay\": 300, \"scale_max_execution_time\": 60, \"scale_memory_limit\": \"1G\", \"status\": \"offline\", \"status_details\": {\"reason\": \"offline\"}}";
     String updateFunctionPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions/my-function";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2861,7 +2861,7 @@ public class CodeEngineTest {
       .managedDomainMappings("local_public")
       .runComputeResourceTokenEnabled(true)
       .runEnvVariables(java.util.Arrays.asList(envVarPrototypeModel))
-      .runtime("nodejs-20")
+      .runtime("nodejs-24")
       .scaleConcurrency(Long.valueOf("1"))
       .scaleCpuLimit("1")
       .scaleDownDelay(Long.valueOf("300"))
@@ -2896,7 +2896,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the updateFunction operation with and without retries enabled
@@ -2950,7 +2950,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -3077,7 +3077,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the createBinding operation with and without retries enabled
@@ -3129,7 +3129,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the deleteBinding operation with and without retries enabled
@@ -3182,7 +3182,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the getBinding operation with and without retries enabled
@@ -3237,7 +3237,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
     assertEquals(query.get("build_name"), "my-build");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
@@ -3382,7 +3382,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the createBuildRun operation with and without retries enabled
@@ -3434,7 +3434,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the deleteBuildRun operation with and without retries enabled
@@ -3487,7 +3487,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the getBuildRun operation with and without retries enabled
@@ -3541,7 +3541,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -3681,7 +3681,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the createBuild operation with and without retries enabled
@@ -3733,7 +3733,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the deleteBuild operation with and without retries enabled
@@ -3786,7 +3786,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the getBuild operation with and without retries enabled
@@ -3869,7 +3869,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the updateBuild operation with and without retries enabled
@@ -3923,7 +3923,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -4050,7 +4050,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the createDomainMapping operation with and without retries enabled
@@ -4102,7 +4102,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the deleteDomainMapping operation with and without retries enabled
@@ -4155,7 +4155,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the getDomainMapping operation with and without retries enabled
@@ -4225,7 +4225,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the updateDomainMapping operation with and without retries enabled
@@ -4279,7 +4279,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -4399,7 +4399,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the createConfigMap operation with and without retries enabled
@@ -4451,7 +4451,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the deleteConfigMap operation with and without retries enabled
@@ -4504,7 +4504,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the getConfigMap operation with and without retries enabled
@@ -4561,7 +4561,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the replaceConfigMap operation with and without retries enabled
@@ -4616,7 +4616,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
     assertEquals(query.get("format"), "ssh_auth");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
@@ -4787,7 +4787,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the createSecret operation with and without retries enabled
@@ -4839,7 +4839,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the deleteSecret operation with and without retries enabled
@@ -4892,7 +4892,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the getSecret operation with and without retries enabled
@@ -4955,7 +4955,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the replaceSecret operation with and without retries enabled
@@ -4979,7 +4979,7 @@ public class CodeEngineTest {
   @Test
   public void testListPersistentDataStoresWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"first\": {\"href\": \"href\"}, \"limit\": 100, \"next\": {\"href\": \"href\", \"start\": \"start\"}, \"persistent_data_stores\": [{\"created_at\": \"2022-09-13T11:41:35+02:00\", \"data\": {\"bucket_location\": \"bucketLocation\", \"bucket_name\": \"bucketName\", \"secret_name\": \"secretName\"}, \"entity_tag\": \"2385407409\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-persistent-data-store\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"persistent_data_store_v2\", \"storage_type\": \"object_storage\"}]}";
+    String mockResponseBody = "{\"first\": {\"href\": \"href\"}, \"limit\": 100, \"next\": {\"href\": \"href\", \"start\": \"start\"}, \"persistent_data_stores\": [{\"created_at\": \"2022-09-13T11:41:35+02:00\", \"data\": {\"bucket_location\": \"bucketLocation\", \"bucket_name\": \"bucketName\", \"secret_name\": \"secretName\"}, \"entity_tag\": \"2385407409\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/persistent_data_stores/my-persistent-data-store\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-persistent-data-store\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"persistent_data_store_v2\", \"storage_type\": \"object_storage\"}]}";
     String listPersistentDataStoresPath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/persistent_data_stores";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -5009,7 +5009,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("100"));
     assertEquals(query.get("start"), "testString");
   }
@@ -5035,8 +5035,8 @@ public class CodeEngineTest {
   @Test
   public void testListPersistentDataStoresWithPagerGetNext() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"persistent_data_stores\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"bucket_location\":\"bucketLocation\",\"bucket_name\":\"bucketName\",\"secret_name\":\"secretName\"},\"entity_tag\":\"2385407409\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-persistent-data-store\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"persistent_data_store_v2\",\"storage_type\":\"object_storage\"}],\"total_count\":2,\"limit\":1}";
-    String mockResponsePage2 = "{\"persistent_data_stores\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"bucket_location\":\"bucketLocation\",\"bucket_name\":\"bucketName\",\"secret_name\":\"secretName\"},\"entity_tag\":\"2385407409\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-persistent-data-store\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"persistent_data_store_v2\",\"storage_type\":\"object_storage\"}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"persistent_data_stores\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"bucket_location\":\"bucketLocation\",\"bucket_name\":\"bucketName\",\"secret_name\":\"secretName\"},\"entity_tag\":\"2385407409\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/persistent_data_stores/my-persistent-data-store\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-persistent-data-store\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"persistent_data_store_v2\",\"storage_type\":\"object_storage\"}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage2 = "{\"persistent_data_stores\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"bucket_location\":\"bucketLocation\",\"bucket_name\":\"bucketName\",\"secret_name\":\"secretName\"},\"entity_tag\":\"2385407409\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/persistent_data_stores/my-persistent-data-store\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-persistent-data-store\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"persistent_data_store_v2\",\"storage_type\":\"object_storage\"}],\"total_count\":2,\"limit\":1}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -5069,8 +5069,8 @@ public class CodeEngineTest {
   @Test
   public void testListPersistentDataStoresWithPagerGetAll() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"persistent_data_stores\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"bucket_location\":\"bucketLocation\",\"bucket_name\":\"bucketName\",\"secret_name\":\"secretName\"},\"entity_tag\":\"2385407409\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-persistent-data-store\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"persistent_data_store_v2\",\"storage_type\":\"object_storage\"}],\"total_count\":2,\"limit\":1}";
-    String mockResponsePage2 = "{\"persistent_data_stores\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"bucket_location\":\"bucketLocation\",\"bucket_name\":\"bucketName\",\"secret_name\":\"secretName\"},\"entity_tag\":\"2385407409\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-persistent-data-store\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"persistent_data_store_v2\",\"storage_type\":\"object_storage\"}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage1 = "{\"next\":{\"start\":\"1\"},\"persistent_data_stores\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"bucket_location\":\"bucketLocation\",\"bucket_name\":\"bucketName\",\"secret_name\":\"secretName\"},\"entity_tag\":\"2385407409\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/persistent_data_stores/my-persistent-data-store\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-persistent-data-store\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"persistent_data_store_v2\",\"storage_type\":\"object_storage\"}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage2 = "{\"persistent_data_stores\":[{\"created_at\":\"2022-09-13T11:41:35+02:00\",\"data\":{\"bucket_location\":\"bucketLocation\",\"bucket_name\":\"bucketName\",\"secret_name\":\"secretName\"},\"entity_tag\":\"2385407409\",\"href\":\"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/persistent_data_stores/my-persistent-data-store\",\"id\":\"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\",\"name\":\"my-persistent-data-store\",\"project_id\":\"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\",\"region\":\"us-east\",\"resource_type\":\"persistent_data_store_v2\",\"storage_type\":\"object_storage\"}],\"total_count\":2,\"limit\":1}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -5099,7 +5099,7 @@ public class CodeEngineTest {
   @Test
   public void testCreatePersistentDataStoreWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"created_at\": \"2022-09-13T11:41:35+02:00\", \"data\": {\"bucket_location\": \"bucketLocation\", \"bucket_name\": \"bucketName\", \"secret_name\": \"secretName\"}, \"entity_tag\": \"2385407409\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-persistent-data-store\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"persistent_data_store_v2\", \"storage_type\": \"object_storage\"}";
+    String mockResponseBody = "{\"created_at\": \"2022-09-13T11:41:35+02:00\", \"data\": {\"bucket_location\": \"bucketLocation\", \"bucket_name\": \"bucketName\", \"secret_name\": \"secretName\"}, \"entity_tag\": \"2385407409\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/persistent_data_stores/my-persistent-data-store\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-persistent-data-store\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"persistent_data_store_v2\", \"storage_type\": \"object_storage\"}";
     String createPersistentDataStorePath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/persistent_data_stores";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -5138,7 +5138,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the createPersistentDataStore operation with and without retries enabled
@@ -5190,7 +5190,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the deletePersistentDataStore operation with and without retries enabled
@@ -5214,7 +5214,7 @@ public class CodeEngineTest {
   @Test
   public void testGetPersistentDataStoreWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"created_at\": \"2022-09-13T11:41:35+02:00\", \"data\": {\"bucket_location\": \"bucketLocation\", \"bucket_name\": \"bucketName\", \"secret_name\": \"secretName\"}, \"entity_tag\": \"2385407409\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-persistent-data-store\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"persistent_data_store_v2\", \"storage_type\": \"object_storage\"}";
+    String mockResponseBody = "{\"created_at\": \"2022-09-13T11:41:35+02:00\", \"data\": {\"bucket_location\": \"bucketLocation\", \"bucket_name\": \"bucketName\", \"secret_name\": \"secretName\"}, \"entity_tag\": \"2385407409\", \"href\": \"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/persistent_data_stores/my-persistent-data-store\", \"id\": \"e33b1cv7-7390-4437-a5c2-130d5ccdddc3\", \"name\": \"my-persistent-data-store\", \"project_id\": \"4e49b3e0-27a8-48d2-a784-c7ee48bb863b\", \"region\": \"us-east\", \"resource_type\": \"persistent_data_store_v2\", \"storage_type\": \"object_storage\"}";
     String getPersistentDataStorePath = "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/persistent_data_stores/my-persistent-data-store";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -5243,7 +5243,7 @@ public class CodeEngineTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("version"), "2026-03-27");
+    assertEquals(query.get("version"), "2026-05-14");
   }
 
   // Test the getPersistentDataStore operation with and without retries enabled
@@ -5290,7 +5290,7 @@ public class CodeEngineTest {
     System.setProperty("TESTSERVICE_AUTH_TYPE", "noAuth");
     final String serviceName = "testService";
     // set mock values for global params
-    String version = "2026-03-27";
+    String version = "2026-05-14";
 
     codeEngineService = CodeEngine.newInstance(serviceName);
     String url = server.url("/").toString();

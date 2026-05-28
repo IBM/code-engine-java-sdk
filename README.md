@@ -1,7 +1,6 @@
-[![Build Status](https://travis-ci.com/IBM/code-engine-java-sdk.svg?branch=main)](https://travis-ci.com/IBM/code-engine-java-sdk)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-# IBM Cloud Code Engine Java SDK Version 6.0.0
+# IBM Cloud Code Engine Java SDK Version 6.0.2
 
 Java client library to interact with the [Code Engine API](https://cloud.ibm.com/apidocs/codeengine).
 
@@ -41,7 +40,7 @@ The IBM Cloud Code Engine Java SDK allows developers to programmatically interac
 
 Service Name | Artifact Coordinates
 --- | ---
-[Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v2.0.0) | com.ibm.cloud.code-engine:6.0.0
+[Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v2.0.0) | com.ibm.cloud.code-engine:6.0.2
 
 ## Prerequisites
 
@@ -53,7 +52,7 @@ Service Name | Artifact Coordinates
 
 ## Installation
 
-The current version of this SDK is: 6.0.0
+The current version of this SDK is: 6.0.2
 
 Each service's artifact coordinates are listed in the table above.
 
@@ -72,14 +71,14 @@ Here are examples for maven and gradle:
 <dependency>
     <groupId>com.ibm.cloud</groupId>
     <artifactId>code-engine</artifactId>
-    <version>6.0.0</version>
+    <version>6.0.2</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```gradle
-compile 'com.ibm.cloud:code-engine:6.0.0'
+compile 'com.ibm.cloud:code-engine:6.0.2'
 ```
 
 ## Using the SDK

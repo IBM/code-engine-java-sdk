@@ -42,6 +42,7 @@ public class PersistentDataStore extends GenericModel {
   protected StorageData data;
   @SerializedName("entity_tag")
   protected String entityTag;
+  protected String href;
   protected String id;
   protected String name;
   @SerializedName("project_id")
@@ -87,6 +88,17 @@ public class PersistentDataStore extends GenericModel {
    */
   public String getEntityTag() {
     return entityTag;
+  }
+
+  /**
+   * Gets the href.
+   *
+   * When you provision a new persistent data store, a URL is created identifying the location of the instance.
+   *
+   * @return the href
+   */
+  public String getHref() {
+    return href;
   }
 
   /**
