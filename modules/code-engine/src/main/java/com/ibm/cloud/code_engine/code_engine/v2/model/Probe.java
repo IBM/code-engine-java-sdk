@@ -90,7 +90,7 @@ public class Probe extends GenericModel {
   /**
    * Gets the port.
    *
-   * The port on which to probe the resource.
+   * The port on which to probe the resource, or 0 to probe the default app port 8080.
    *
    * @return the port
    */
