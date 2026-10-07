@@ -31,33 +31,9 @@ hs_err_pid*
 *-apiref.json
 
 .idea
-.openapi-generator/
-.openapi-generator-ignore
-openapi-sdkgen
-swagger.json
-
-# credentials files
-*.env
-
-package-lock.json
 
 # Examples depedency file
 /**/dependency-reduced-pom.xml
 
 # IDE Files
 .vscode
-
-# files produced by "npm install" commands during build
-package-lock.json
-node_modules/
-
-# ignore the generated integration test files, as they cannot be used without manual editing
-modules/ibm-cloud-code-engine
-/modules/code-engine/src/test/resources/domainmapping.crt
-/modules/code-engine/src/test/resources/domainmapping.key
-
-build/signing.key
-
-# API repo (pulled from Github)
-api
-
